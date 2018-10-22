@@ -9,9 +9,11 @@ define('IMG_UPLOADS', ROOT . '/content/uploads/img');
 
 /* FRONT */
 define('FRONT_ROOT', 'http://localhost/TpChicos');
-define('ADMIN_FRONT_ROOT', FRONT_ROOT . '/admin');
+define('ADMIN_FRONT_ROOT', FRONT_ROOT . '/views/admin');
+define('IMG_FRONT_ROOT', FRONT_ROOT . '/img');
 define('CSS_PATH', FRONT_ROOT . '/content/css');
 define('IMG_PATH', FRONT_ROOT . '/content/img');
+
 
 define('IMG_UPLOADS_PATH', FRONT_ROOT . '/content/uploads/img');
 define('MOV_UPLOADS_PATH', FRONT_ROOT . '/content/uploads/movies');

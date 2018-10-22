@@ -1,0 +1,67 @@
+#container {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  background-color: #e4e3e4;
+   position:relative;
+  height: relative;
+}
+#cssmenu {
+  background: #333;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 12em;
+  height: 50em;
+  float:left;
+   position:relative;
+}
+#cssmenu li {
+  font: 100% "Lucida Sans Unicode", Verdana, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+#cssmenu a {
+  background: #333;
+  border-bottom: 1px solid #393939;
+  color: #ccc;
+  display: block;
+  margin: 0;
+  padding: 8px 12px;
+  text-decoration: none;
+  font-weight: normal;
+}
+#cssmenu a:hover {
+  background: #2580a2 ;
+  color: #fff;
+  padding-bottom: 8px;
+}
+
+
+
+
+#divform{
+  
+    top: 50px;
+    height:124px;
+    width:600px;
+    margin: auto;
+    float:right;
+
+}
+
+#table{
+  
+  
+    height:200px;
+    width:1000px;
+    float: left;
+}
+
+
+#boton1 {
+width:70px; 
+height:25px;
+
+}

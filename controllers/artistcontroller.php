@@ -25,8 +25,17 @@ class ArtistController {
 
 	public function getAll(){
 		$artistArray = $this->dao->retrieve(); 
-		include ROOT . '/views/home.php';
+		include ADMIN_VIEWS . '/adminartist.php';
 	}
+
+
+	public function deleteArtist($id){
+
+		$this->dao->delete($id);
+		$this->getAll();
+	}
+
+
 
 
 }

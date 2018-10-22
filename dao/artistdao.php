@@ -13,9 +13,11 @@ class ArtistDAO implements IDAO
 		}
 		if (isset($_SESSION["artists"])) {
 			$this->list = $_SESSION["artists"];
+			
 		} 
 		else {
 			$this->list = array();
+			$_SESSION["idartist"] = 0;
 		}
 
 	}
@@ -23,8 +25,9 @@ class ArtistDAO implements IDAO
 	public function create($newVal) {
 		if (isset($_SESSION["artists"])) {
 			$this->list = $_SESSION["artists"];
-		} 
 
+		} 
+		$newVal->setId(++$_SESSION["idartist"]);
 		array_push($this->list, $newVal);
 
 		$_SESSION["artists"] = $this->list;
@@ -62,12 +65,29 @@ public function update($newVal) {
 
 }
 
-public function delete($newVal) {
+public function delete($id){
+
+	
+		if(isset($_SESSION['artists']))
+		{
+
+			$list= $_SESSION['artists'];
+			foreach ($list as $key => $value) {
+				if($id == $value->getId()){
+					unset($list[$key]);
+				
+					
+				}
+
+			$_SESSION['artists']= $list;
+		}
+			
+			
+		
+		
+	}
 
 }
-
-
-
 
 }
 ?>
