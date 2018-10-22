@@ -29,7 +29,7 @@ class HomeController
 
           $artistController= new ArtistController();
           
-          $artistArray = $artistController->getAll();
+         // $artistArray = $artistController->getAll();
 
           include_once VIEWS . '/home.php';
 
