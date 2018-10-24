@@ -24,8 +24,15 @@ class CategoryController {
 
 	public function getAll(){
 		$categoryArray = $this->dao->retrieve(); 
-		include ROOT . '/views/home.php';
+		include ADMIN_VIEWS . '/admincategory.php';
 	}
+
+	public function deleteCategory($id){
+
+		$this->dao->delete($id);
+		$this->getAll();
+	}
+
 
 
 }

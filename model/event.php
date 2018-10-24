@@ -12,15 +12,13 @@ class Event
 
 	private $id;
 	private $name;
-	private $date;
     public $category;
 
 
-	function __construct($name, $date)
+	function __construct($name)
 	{
 		$this->id =	null;
 		$this->name = $name;
-		$this->date = $date;
         $this->category= null;
 	}
 
@@ -48,16 +46,6 @@ class Event
         return $this;
     }
 
-    public function getDate()
-    {
-        return $this->date;
-    }
 
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
 }
 ?>

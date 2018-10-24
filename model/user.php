@@ -1,6 +1,6 @@
 <?php
 namespace model;
-require_once ('Compra.php');
+
 
 
 
@@ -11,19 +11,22 @@ require_once ('Compra.php');
  */
 class User
 {
-
+	private $id;
 	private $email;
 	private $password;
 	private $firstname;
 	private $lastname;
+	private $admin;
 	public $m_purchasegetFirstnameemail;
 
 	function __construct($email, $password, $firstname, $lastname)
 	{
+		$this->id=null;
 		$this->email = $email;
 		$this->password = $password;
 		$this->firstname = $firstname;
 		$this->lastname = $lastname;
+		$this->admin= null;
 	}
 
 
@@ -47,6 +50,15 @@ class User
 		return $this->lastname;
 	}
 
+	public function getId()
+	{
+		return $this->id;
+	}
+	
+	public function setId($id)
+	{
+		$this->id=$id;
+	}
 
 
 	public function setEmail($email)
@@ -67,6 +79,19 @@ class User
 	public function setLastname($lastname)
 	{
 		$this->lastname=$lastname;
+	}
+
+
+	public function getAdmin()
+	{
+		return $this->admin;
+	}
+
+
+
+	public function setAdmin($admin)
+	{
+		$this->admin=$admin;
 	}
 
 }

@@ -59,29 +59,22 @@
 
     <div id="divform">
 
-  
-
-
-    <div id=edit>
-      <?php if(isset($artist)){ ?>
-
-        <form name='formulario' action="<?=FRONT_ROOT?>/artist/updateArtist"  method="POST">
-             <div class="form-row">
-                  <div class="col-12 col-md-9 mb-2 mb-md-0">
-                    <input type="text" name="artist" class="form-control form-control-lg" value="<?= $artist->getName(); ?>">
+    <form name='formulario' action="<?=FRONT_ROOT?>/user/addUser"  method="POST">
+             <div class="form">
+                  <div class="col-12 col-md-9 mb-2 mb-md-3">
+                    <input type="email" name="email" class="form-control form-control-lg" placeholder="Email...">
                   </div>
-                  <div class="col-12 col-md-3">
-                    <button type="submit" class="btn btn-block btn-lg btn-primary">Aceptar</button>
+                  <div class="col-12 col-md-9 mb-2 mb-md-3">
+                    <input type="password" name="password" class="form-control form-control-lg" placeholder="Contraseña...">
                   </div>
-                </div>
-    </form>
-
-    <?php   }else{   ?>
-
-        <form name='formulario' action="<?=FRONT_ROOT?>/artist/addArtist"  method="POST">
-             <div class="form-row">
-                  <div class="col-12 col-md-9 mb-2 mb-md-0">
-                    <input type="text" name="artist" class="form-control form-control-lg" placeholder="Ingrese nombre del artista...">
+                  <div class="col-12 col-md-9 mb-2 mb-md-3">
+                    <input type="text" name="name" class="form-control form-control-lg" placeholder="Nombre...">
+                  </div>
+                  <div class="col-12 col-md-9 mb-2 mb-md-3">
+                    <input type="text" name="lastname" class="form-control form-control-lg" placeholder="Apellido...">
+                  </div>
+                  <div class="col-12 col-md-9 mb-2 mb-md-3">
+                   <label><input type="checkbox" name="admin" class="form-control form-control-lg" value="true">Admin</label>
                   </div>
                   <div class="col-12 col-md-3">
                     <button type="submit" class="btn btn-block btn-lg btn-primary">Agregar</button>
@@ -89,37 +82,35 @@
                 </div>
     </form>
 
-  <?php } ?>
-
-
-
-       
-
-
-
-    </div>
 
   <div id="table">
     <table class="table bg-light-alpha">
 
-          <?php if(!empty($artistArray)) { ?>
+          <?php if(!empty($userArray)) { ?>
               <thead>     
                  <th>Id</th>  
-                 <th>Nombre</th>            
+                 <th>Email</th> 
+                 <th>Password</th> 
+                 <th>Nombre</th>   
+                 <th>Apellido</th>
+                 <th>Admin</th>           
              </thead>
              <tbody>
-              <?php foreach ($artistArray as $value) { ?>
+              <?php foreach ($userArray as $value) { ?>
                   <tr>
                      <td><?= $value->getId(); ?></td>
-                      <td><?= $value->getName(); ?></td>
+                     <td><?= $value->getEmail(); ?></td>
+                     <td><?= $value->getPassword(); ?></td>
+                     <td><?= $value->getFirstname(); ?></td>
+                     <td><?= $value->getLastname(); ?></td>
+                     <td><?= $value->getAdmin(); ?></td>
+
                       <td>
-                        <form action="<?=FRONT_ROOT?>/artist/deleteArtist" method="POST">
-                        <button name="iddelete" value="<?= $value->getId();  ?>" id="boton1" type="submit"class="btn btn-block btn-lg btn-primary btn-sm">Eliminar</button>
+                        <form action="<?=FRONT_ROOT?>/user/deleteUser" method="POST">
+                        <button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit"class="btn btn-block btn-lg btn-primary btn-sm">Eliminar</button>
                         </form>
-                      <td>
-                        <form action="<?=FRONT_ROOT?>/artist/getArtist" method="POST">
-                        <button name="update" value="<?= $value->getId(); ?>" type="submit" class="btn btn-block btn-lg btn-primary btn-sm">Editar</button></td>
-                        </form>
+                      <td><button id="boton1" type="submit"class="btn btn-block btn-lg btn-primary btn-sm">Editar</button></td>
+        
                   </tr>
               <?php } ?>
 

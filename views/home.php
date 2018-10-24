@@ -47,15 +47,16 @@
     <div id="cssmenu">
  <ul>
   <li><a href="<?=FRONT_ROOT?>/artist/getAll" >Artistas</a></li>
+ <li><a href="<?=FRONT_ROOT?>/category/getAll"  title="...">Categorias</a></li>
   <li><a href="..." title="...">Eventos</a></li>
   <li><a href="..." title="...">Calendario</a></li>
-  <li><a href="..." title="..."></a></li>
+  <li><a href="<?=FRONT_ROOT?>/user/getAll" title="...">Usuarios</a></li>
  </ul>
 </div>
 
 
   <div id="divform">
-    <img src="<?= IMG_FRONT_ROOT ?>/monito.jpg" border="1" width="332" height="152">
+    <img src="<?= IMG_FRONT_ROOT ?>/config.jpg" width=auto height=auto>
     
   </div>
 
