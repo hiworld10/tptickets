@@ -3,8 +3,10 @@
   display: flex;
   justify-content: center;
   background-color: #e4e3e4;
-   position:relative;
-  height: relative;
+  position:relative;
+
+  height: auto;
+  
 }
 #cssmenu {
   background: #333;
@@ -12,7 +14,7 @@
   margin: 0;
   padding: 0;
   width: 12em;
-  height: 50em;
+  height: auto;
   float:left;
    position:relative;
 }
@@ -40,27 +42,27 @@
 
 
 
-
 #divform{
-  
-    top: 50px;
-    height:124px;
-    width:600px;
+    top: 30px;
+    height:auto;
+    width:auto;
     margin: auto;
     float:right;
+    position: relative;
 
 }
 
 #table{
+    
   
-  
-    height:200px;
+    height:auto;
     width:1000px;
     float: left;
 }
 
 
 #boton1 {
+
 width:70px; 
 height:25px;
 

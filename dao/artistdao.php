@@ -61,7 +61,20 @@ class ArtistDAO implements IDAO
 	
 
 
-public function update($newVal) {
+public function updateArtist($newName) {
+	if(isset($_SESSION['artists'])) {
+			$this->list = $_SESSION['artists'];
+
+			foreach ($this->list as $key => $value) {
+				if ($id == $value->getId()) {
+					$value->setName($newName);
+				}
+			}
+	}
+
+
+}
+public function update($val){
 
 }
 

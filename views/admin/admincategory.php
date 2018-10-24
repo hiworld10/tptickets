@@ -59,29 +59,10 @@
 
     <div id="divform">
 
-  
-
-
-    <div id=edit>
-      <?php if(isset($artist)){ ?>
-
-        <form name='formulario' action="<?=FRONT_ROOT?>/artist/updateArtist"  method="POST">
+    <form name='formulario' action="<?=FRONT_ROOT?>/category/addCategory"  method="POST">
              <div class="form-row">
                   <div class="col-12 col-md-9 mb-2 mb-md-0">
-                    <input type="text" name="artist" class="form-control form-control-lg" value="<?= $artist->getName(); ?>">
-                  </div>
-                  <div class="col-12 col-md-3">
-                    <button type="submit" class="btn btn-block btn-lg btn-primary">Aceptar</button>
-                  </div>
-                </div>
-    </form>
-
-    <?php   }else{   ?>
-
-        <form name='formulario' action="<?=FRONT_ROOT?>/artist/addArtist"  method="POST">
-             <div class="form-row">
-                  <div class="col-12 col-md-9 mb-2 mb-md-0">
-                    <input type="text" name="artist" class="form-control form-control-lg" placeholder="Ingrese nombre del artista...">
+                    <input type="text" name="artist" class="form-control form-control-lg" placeholder="Ingrese nombre de la categoria...">
                   </div>
                   <div class="col-12 col-md-3">
                     <button type="submit" class="btn btn-block btn-lg btn-primary">Agregar</button>
@@ -89,37 +70,25 @@
                 </div>
     </form>
 
-  <?php } ?>
-
-
-
-       
-
-
-
-    </div>
-
   <div id="table">
     <table class="table bg-light-alpha">
 
-          <?php if(!empty($artistArray)) { ?>
+          <?php if(!empty($categoryArray)) { ?>
               <thead>     
                  <th>Id</th>  
                  <th>Nombre</th>            
              </thead>
              <tbody>
-              <?php foreach ($artistArray as $value) { ?>
+              <?php foreach ($categoryArray as $value) { ?>
                   <tr>
                      <td><?= $value->getId(); ?></td>
-                      <td><?= $value->getName(); ?></td>
+                      <td><?= $value->getType(); ?></td>
                       <td>
-                        <form action="<?=FRONT_ROOT?>/artist/deleteArtist" method="POST">
-                        <button name="iddelete" value="<?= $value->getId();  ?>" id="boton1" type="submit"class="btn btn-block btn-lg btn-primary btn-sm">Eliminar</button>
+                        <form action="<?=FRONT_ROOT?>/category/deleteCategory" method="POST">
+                        <button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit"class="btn btn-block btn-lg btn-primary btn-sm">Eliminar</button>
                         </form>
-                      <td>
-                        <form action="<?=FRONT_ROOT?>/artist/getArtist" method="POST">
-                        <button name="update" value="<?= $value->getId(); ?>" type="submit" class="btn btn-block btn-lg btn-primary btn-sm">Editar</button></td>
-                        </form>
+                      <td><button id="boton1" type="submit"class="btn btn-block btn-lg btn-primary btn-sm">Editar</button></td>
+        
                   </tr>
               <?php } ?>
 
