@@ -23,7 +23,7 @@ class CategoryController {
 	}
 
 	public function getAll(){
-		$categoryArray = $this->dao->retrieve(); 
+		$categoryArray = $this->dao->retrieveAll(); 
 		include ADMIN_VIEWS . '/admincategory.php';
 	}
 
@@ -34,6 +34,18 @@ class CategoryController {
 	}
 
 
+	public function getCategory($id){
+		$category=$this->dao->retrieveById($id);		
+		if(isset($category)){
+			include ADMIN_VIEWS . '/admincategory.php';
+		}
+	}
+
+
+	public function updateCategory($id, $newName){
+		$this->dao->update($id, $newName);
+		$this->getAll();
+	}
 
 }
 

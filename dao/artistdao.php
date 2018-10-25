@@ -34,7 +34,7 @@ class ArtistDAO implements IDAO
 
 	}
 
-	public function getById($id) {
+	public function retrieveById($id) {
 		if (isset($_SESSION["artists"])) {
 			$this->list = $_SESSION["artists"];
 
@@ -48,8 +48,7 @@ class ArtistDAO implements IDAO
 		return false;
 	}
 
-	//PARAMETROS ???
-	public function retrieve() {
+	public function retrieveAll() {
 		if(isset($_SESSION['artists'])) {
 			$this->list = $_SESSION['artists'];
 
@@ -58,49 +57,36 @@ class ArtistDAO implements IDAO
 		}
 		return false;
 	}
-	
 
-
-public function updateArtist($newName) {
-	if(isset($_SESSION['artists'])) {
+	public function update($id, $newVal){
+		if(isset($_SESSION['artists'])) {
 			$this->list = $_SESSION['artists'];
 
 			foreach ($this->list as $key => $value) {
 				if ($id == $value->getId()) {
-					$value->setName($newName);
+					$value->setName($newVal);
 				}
 			}
+		}
+		$_SESSION['artists'] = $this->list;
 	}
 
+	public function delete($id) {
 
-}
-public function update($val){
 
-}
-
-public function delete($id){
-
-	
 		if(isset($_SESSION['artists']))
 		{
 
 			$list= $_SESSION['artists'];
 			foreach ($list as $key => $value) {
 				if($id == $value->getId()){
-					unset($list[$key]);
-				
-					
+					unset($list[$key]);	
 				}
 
-			$_SESSION['artists']= $list;
+				$_SESSION['artists']= $list;
+			}
 		}
-			
-			
-		
-		
 	}
-
-}
 
 }
 ?>
