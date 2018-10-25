@@ -46,6 +46,13 @@ class UserController {
 		
 	}
 
+	public function getUser($id) {
+		$user = $this->dao->retrieveById($id);
+		if(isset($user)){
+			include ADMIN_VIEWS . '/adminuser.php';
+		}
+	}
+
 
 	public function deleteUser($id){
 
