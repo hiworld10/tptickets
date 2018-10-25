@@ -60,7 +60,7 @@
 
     <div id=edit>
       <!-- Este div aparecerá si un artista debe ser modificado -->
-      <?php if(isset($artist)){ ?>
+      <?php if(isset($artist)) { ?>
 
         <form name='formulario' action="<?=FRONT_ROOT?>/artist/updateArtist"  method="POST">
              <div class="form-row">
@@ -76,7 +76,7 @@
                 </div>
     </form>
 
-    <?php   }else{   ?>
+    <?php   } else {   ?>
 
         <!-- De no ser así, se habilitará el formulario para agregar artistas  -->
         <form name='formulario' action="<?=FRONT_ROOT?>/artist/addArtist"  method="POST">
