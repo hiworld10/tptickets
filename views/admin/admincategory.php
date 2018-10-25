@@ -59,16 +59,38 @@
 
     <div id="divform">
 
+      <?php if(isset($category)){ ?>
+
+        <?php echo $category->getType(); ?>
+
+        <form name='formulario' action="<?=FRONT_ROOT?>/category/updateCategory"  method="POST">
+             <div class="form-row">
+                  <div class="col-12 col-md-9 mb-2 mb-md-0">
+                    <input type="text" name="id" class="form-control form-control-lg" value="<?= $category->getId(); ?>" readonly>
+                  </div>
+                  <div class="col-12 col-md-9 mb-2 mb-md-0">
+                    <input type="text" name="category" class="form-control form-control-lg" value="<?= $category->getType(); ?>">
+                  </div>
+                  <div class="col-12 col-md-3">
+                    <button type="submit" class="btn btn-block btn-lg btn-primary">Aceptar</button>
+                  </div>
+                </div>
+    </form>
+
+    <?php   }else{   ?>
+
     <form name='formulario' action="<?=FRONT_ROOT?>/category/addCategory"  method="POST">
              <div class="form-row">
                   <div class="col-12 col-md-9 mb-2 mb-md-0">
-                    <input type="text" name="artist" class="form-control form-control-lg" placeholder="Ingrese nombre de la categoria...">
+                    <input type="text" name="category" class="form-control form-control-lg" placeholder="Ingrese nombre de la categoria...">
                   </div>
                   <div class="col-12 col-md-3">
                     <button type="submit" class="btn btn-block btn-lg btn-primary">Agregar</button>
                   </div>
                 </div>
     </form>
+
+  <?php } ?>
 
   <div id="table">
     <table class="table bg-light-alpha">
@@ -87,8 +109,9 @@
                         <form action="<?=FRONT_ROOT?>/category/deleteCategory" method="POST">
                         <button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit"class="btn btn-block btn-lg btn-primary btn-sm">Eliminar</button>
                         </form>
-                      <td><button id="boton1" type="submit"class="btn btn-block btn-lg btn-primary btn-sm">Editar</button></td>
-        
+                        <form action="<?=FRONT_ROOT?>/category/getCategory" method="POST">
+                        <button name="update" value="<?= $value->getId(); ?>" type="submit" class="btn btn-block btn-lg btn-primary btn-sm">Editar</button></td>
+                        </form>
                   </tr>
               <?php } ?>
 

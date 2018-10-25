@@ -8,7 +8,7 @@ define('IMG_UPLOADS', ROOT . '/content/uploads/img');
 
 
 /* FRONT */
-define('FRONT_ROOT', 'http://localhost/TpChicos');
+define('FRONT_ROOT', 'http://localhost/tptickets');
 define('ADMIN_FRONT_ROOT', FRONT_ROOT . '/views/admin');
 define('IMG_FRONT_ROOT', FRONT_ROOT . '/img');
 define('CSS_PATH', FRONT_ROOT . '/content/css');

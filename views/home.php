@@ -15,6 +15,7 @@
     <!-- Bootstrap core CSS -->
 
     <link href="<?= FRONT_ROOT ?>/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="<?= FRONT_ROOT ?>/css/admin.css" >
 
     <!-- Custom fonts for this template -->
     <link href="<?= FRONT_ROOT ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
@@ -40,7 +41,6 @@
     </nav>
 
 
-<link rel="stylesheet" type="text/css" href="<?= FRONT_ROOT ?>/css/admin.css" >
 
 
 <div id="container">
@@ -62,12 +62,6 @@
 
 </div>
 
-
-
-    
-
-   
-  
 
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>

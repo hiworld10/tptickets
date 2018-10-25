@@ -24,7 +24,7 @@ class ArtistController {
 	}
 
 	public function getAll(){
-		$artistArray = $this->dao->retrieve(); 
+		$artistArray = $this->dao->retrieveAll(); 
 		include ADMIN_VIEWS . '/adminartist.php';
 
 	}
@@ -37,7 +37,7 @@ class ArtistController {
 	}
 
 	public function getArtist($id){
-		$artist=$this->dao->getById($id);		
+		$artist=$this->dao->retrieveById($id);		
 		if(isset($artist)){
 			include ADMIN_VIEWS . '/adminartist.php';
 		}
@@ -46,10 +46,9 @@ class ArtistController {
 	}
 
 
-	public function updateArtist($newName){
-		$artist->setName($newName);
-		
-
+	public function updateArtist($id, $newName){
+		$this->dao->update($id, $newName);
+		$this->getAll();
 	}
 
 

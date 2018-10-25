@@ -11,8 +11,8 @@ class CategoryDAO implements IDAO
 			
 			session_start();
 		}
-		if (isset($_SESSION["categorys"])) {
-			$this->list = $_SESSION["categorys"];
+		if (isset($_SESSION["categories"])) {
+			$this->list = $_SESSION["categories"];
 		} 
 		else {
 			$this->list = array();
@@ -22,19 +22,19 @@ class CategoryDAO implements IDAO
 	}
 
 	public function create($newVal) {
-		if (isset($_SESSION["categorys"])) {
-			$this->list = $_SESSION["categorys"];
+		if (isset($_SESSION["categories"])) {
+			$this->list = $_SESSION["categories"];
 		} 
 		$newVal->setId(++$_SESSION["idcategory"]);
 		array_push($this->list, $newVal);
 
-		$_SESSION["categorys"] = $this->list;
+		$_SESSION["categories"] = $this->list;
 
 	}
 
-	public function getById($id) {
-		if (isset($_SESSION["categorys"])) {
-			$this->list = $_SESSION["categorys"];
+	public function retrieveById($id) {
+		if (isset($_SESSION["categories"])) {
+			$this->list = $_SESSION["categories"];
 
 			foreach ($this->list as $key => $value) {
 				if ($id == $value->getId()) {
@@ -47,9 +47,9 @@ class CategoryDAO implements IDAO
 	}
 
 
-	public function retrieve() {
-		if(isset($_SESSION['categorys'])) {
-			$this->list = $_SESSION['categorys'];
+	public function retrieveAll() {
+		if(isset($_SESSION['categories'])) {
+			$this->list = $_SESSION['categories'];
 			return $this->list;
 
 		}
@@ -58,31 +58,34 @@ class CategoryDAO implements IDAO
 	
 
 
-public function update($newVal) {
+	public function update($id, $newVal) {
+		if(isset($_SESSION['categories'])) {
+			$this->list = $_SESSION['categories'];
 
-}
+			foreach ($this->list as $key => $value) {
+				if ($id == $value->getId()) {
+					$value->setType($newVal);
+				}
+			}
+		}
+		$_SESSION['categories'] = $this->list;
+	}
 
-public function delete($id) {
+	public function delete($id) {
 
-if(isset($_SESSION['categorys']))
+		if(isset($_SESSION['categories']))
 		{
 
-			$list= $_SESSION['categorys'];
+			$list= $_SESSION['categories'];
 			foreach ($list as $key => $value) {
 				if($id == $value->getId()){
-					unset($list[$key]);
-				
-					
+					unset($list[$key]);	
 				}
 
-			$_SESSION['categorys']= $list;
+				$_SESSION['categories']= $list;
+			}
 		}
-			
-			
-}
-
-}
-
+	}
 
 }
 ?>

@@ -45,7 +45,11 @@ class CalendarDAO implements IDAO
 		return false;
 	}
 
-	public function retrieve() {
+	public function retrieveById($id) {
+		
+	}
+
+	public function retrieveAll() {
 		if(isset($_SESSION['calendar'])) {
 			$this->list = $_SESSION['calendar'];
 			return $this->list;

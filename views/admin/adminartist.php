@@ -21,7 +21,7 @@
       <link href="<?=FRONT_ROOT?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
       <link href="<?=FRONT_ROOT?>/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
       <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-
+      <link rel="stylesheet" type="text/css" href="<?=FRONT_ROOT?>/css/admin.css" >
       <!-- Custom styles for this template -->
       <link href="<?=FRONT_ROOT?>/css/landing-page.min.css" rel="stylesheet">
 
@@ -40,8 +40,8 @@
         </div>
       </nav>
 
-
-  <link rel="stylesheet" type="text/css" href="<?=FRONT_ROOT?>/css/admin.css" >
+  <!-- Columna izquierda -->
+  
 
   <div id="container">
 
@@ -56,17 +56,17 @@
     </div>
 
 
-
     <div id="divform">
 
-  
-
-
     <div id=edit>
+      <!-- Este div aparecerá si un artista debe ser modificado -->
       <?php if(isset($artist)){ ?>
 
         <form name='formulario' action="<?=FRONT_ROOT?>/artist/updateArtist"  method="POST">
              <div class="form-row">
+                  <div class="col-12 col-md-9 mb-2 mb-md-0">
+                    <input type="text" name="id" class="form-control form-control-lg" value="<?= $artist->getId(); ?>" readonly>
+                  </div>
                   <div class="col-12 col-md-9 mb-2 mb-md-0">
                     <input type="text" name="artist" class="form-control form-control-lg" value="<?= $artist->getName(); ?>">
                   </div>
@@ -78,6 +78,7 @@
 
     <?php   }else{   ?>
 
+        <!-- De no ser así, se habilitará el formulario para agregar artistas  -->
         <form name='formulario' action="<?=FRONT_ROOT?>/artist/addArtist"  method="POST">
              <div class="form-row">
                   <div class="col-12 col-md-9 mb-2 mb-md-0">
@@ -91,14 +92,9 @@
 
   <?php } ?>
 
-
-
-       
-
-
-
     </div>
 
+<!-- Lista de artistas -->
   <div id="table">
     <table class="table bg-light-alpha">
 

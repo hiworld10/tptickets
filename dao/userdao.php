@@ -34,7 +34,7 @@ class UserDAO implements IDAO
 
 	}
 
-	public function getById($id) {
+	public function retrieveById($id) {
 		if (isset($_SESSION["users"])) {
 			$this->list = $_SESSION["users"];
 
@@ -48,8 +48,7 @@ class UserDAO implements IDAO
 		return false;
 	}
 
-	//PARAMETROS ???
-	public function retrieve() {
+	public function retrieveAll() {
 		if(isset($_SESSION['users'])) {
 			$this->list = $_SESSION['users'];
 
@@ -60,14 +59,38 @@ class UserDAO implements IDAO
 	}
 	
 
+	public function update($id, $newVal) {
+		if(isset($_SESSION['users'])) {
+			$this->list = $_SESSION['users'];
 
-public function update($newVal) {
+			foreach ($this->list as $key => $value) {
+				if ($id == $value->getId()) {
+					$value = $newVal;
+				}
+			}
+		}
+		$_SESSION['users'] = $this->list;
+	}
+	
 
-}
+	public function delete($id){
 
-public function checkEmail($email) {
-	$check=true;
-	if (isset($_SESSION["users"])) {
+		if(isset($_SESSION['users'])) {
+
+			$list= $_SESSION['users'];
+			foreach ($list as $key => $value) {
+				if($id == $value->getId()){
+					unset($list[$key]);
+				}
+
+				$_SESSION['users'] = $list;
+			}	
+		}
+	}
+
+		public function checkEmail($email) {
+		$check=true;
+		if (isset($_SESSION["users"])) {
 			$this->list = $_SESSION["users"];
 
 			foreach ($this->list as $key => $value) {
@@ -78,42 +101,17 @@ public function checkEmail($email) {
 		}
 		return $check;
 		
-}
+	}
 
-public function checkPassword($pass){
-	
+	public function checkPassword($pass){
+
 	//strlen cuenta la cantidad de caracteres String
 	//en este caso vamos a restringir la pass a mas de 6 caracteres 
-	if(strlen ($pass) < 6){
-		return false;
-	}
-
-	return true;
-}
-
-public function delete($id){
-
-	
-		if(isset($_SESSION['users']))
-		{
-
-			$list= $_SESSION['users'];
-			foreach ($list as $key => $value) {
-				if($id == $value->getId()){
-					unset($list[$key]);
-				
-					
-				}
-
-			$_SESSION['users']= $list;
+		if(strlen ($pass) < 6){
+			return false;
 		}
-			
-			
-		
-		
+
+		return true;
 	}
-
-}
-
 }
 ?>
