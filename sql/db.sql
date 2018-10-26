@@ -8,6 +8,7 @@ name varchar(40)
 
 INSERT INTO artists(name) 
 VALUES
+("Luis Miguel"),
 ("Metallica"),
 ("Red Hot Chili Peppers"),
 ("Bob Dylan"),
