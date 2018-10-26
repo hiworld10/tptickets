@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" class="__full-height-perc">
 
   <head>
 
@@ -9,6 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+
+
 
     <title>IziTicket - Página principal</title>
 
@@ -27,13 +29,13 @@
 
   </head>
 
-  <body>
+  <body class="__full-height-perc">
 
 
     <!-- Navigation -->
     <nav class="navbar navbar-light bg-light static-top">
       <div class="container">
-        <a class="navbar-brand" href="#">IziTicket</a>
+        <a class="navbar-brand" href="<?= FRONT_ROOT ?>/home/index">IziTicket</a>
         <div class="right">
           <a class="btn btn-primary" href="vistas/login2.php">Log out</a>
         </div>
@@ -43,14 +45,16 @@
 
 
 
-<div id="container">
-    <div id="cssmenu">
+<div id="container" class="__full-height-perc">
+    <div id="cssmenu" class="__full-height-perc">
  <ul>
   <li><a href="<?=FRONT_ROOT?>/artist/getAll" >Artistas</a></li>
  <li><a href="<?=FRONT_ROOT?>/category/getAll"  title="...">Categorias</a></li>
   <li><a href="..." title="...">Eventos</a></li>
   <li><a href="..." title="...">Calendario</a></li>
   <li><a href="<?=FRONT_ROOT?>/user/getAll" title="...">Usuarios</a></li>
+  <li><a href="..." title="...">Plazas</a></li>
+   <li><a href="..." title="...">Tipo Plazas</a></li>
  </ul>
 </div>
 
