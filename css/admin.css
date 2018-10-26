@@ -1,11 +1,16 @@
+
+.__full-height-perc {
+  height: 100% !important;
+}
+
 #container {
   margin: auto;
   display: flex;
   justify-content: center;
   background-color: #e4e3e4;
   position:relative;
-
   height: auto;
+
   
 }
 #cssmenu {
@@ -43,12 +48,14 @@
 
 
 #divform{
-    top: 30px;
+    top: 50px;
     height:auto;
     width:auto;
     margin: auto;
+    margin-top: 70px;
     float:right;
-    position: relative;
+   
+   
 
 }
 
@@ -56,14 +63,16 @@
     
   
     height:auto;
-    width:1000px;
+    width:800px;
     float: left;
+
+  
 }
 
 
 #boton1 {
 
 width:70px; 
-height:25px;
+height:30px;
 
 }
