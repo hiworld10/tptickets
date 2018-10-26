@@ -2,7 +2,7 @@
 namespace controllers;
 
 use model\User as M_User;
-use dao\UserDAO as UserDAO;
+use dao\lists\UserDAO as UserDAO;
 
 
 class UserController {

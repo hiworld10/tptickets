@@ -2,7 +2,7 @@
 namespace controllers;
 
 use model\Event as M_Event;
-use dao\EventDAO as EventDAO;
+use dao\lists\EventDAO as EventDAO;
 
 
 class EventController {

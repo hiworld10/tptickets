@@ -2,7 +2,7 @@
 namespace controllers;
 
 use model\Calendar as M_Calendar;
-use dao\CalendarDAO as CalendarDAO;
+use dao\lists\CalendarDAO as CalendarDAO;
 
 
 class ArtistController {
