@@ -1,6 +1,12 @@
 <?php
 namespace model;
 
+
+/**
+ * @author alumno
+ * @version 1.0
+ * @created 26-sep.-2018 13:28:07
+ */
 class Event
 {
 
@@ -13,7 +19,7 @@ class Event
 	{
 		$this->id =	null;
 		$this->name = $name;
-        $this->category = $category;
+        $this->category= $category;
 	}
 
     public function getId()
@@ -24,6 +30,8 @@ class Event
     public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
     }
 
     public function getName()
@@ -34,12 +42,13 @@ class Event
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
     }
 
-
-    public function getCategory()
+     public function getCategory()
     {
-        return $this->category;
+        return $this->category->getType();
     }
 
     public function setCategory($category)
@@ -48,5 +57,7 @@ class Event
 
         return $this;
     }
+
+
 }
 ?>
