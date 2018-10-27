@@ -15,3 +15,13 @@ VALUES
 ("Iron Maiden"),
 ("ZZ Top"),
 ("Rata Blanca");
+
+CREATE TABLE categories(
+id_category int AUTO_INCREMENT PRIMARY KEY,
+type varchar(30)
+);
+
+INSERT INTO categories(type) 
+VALUES
+("Concierto"),
+("Obra teatral");
