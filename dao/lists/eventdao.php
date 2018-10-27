@@ -1,6 +1,7 @@
 <?php 
 namespace dao\lists;
 
+use dao\IDAO as IDAO;
 
 class EventDAO implements IDAO
 {
@@ -45,28 +46,42 @@ class EventDAO implements IDAO
 		return false;
 	}
 
-	//PARAMETROS ???
-	public function retrieve() {
+	public function retrieveAll() {
 		if(isset($_SESSION['events'])) {
 			$this->list = $_SESSION['events'];
-			/*echo "<pre>";
-			var_dump($this->list);
-			echo "</pre>";*/
+
 			return $this->list;
 
 		}
 		return false;
 	}
 	
+	public function update($newVal) {
+		if(isset($_SESSION['events'])) {
+			$this->list = $_SESSION['events'];
 
+			foreach ($this->list as $key => $value) {
+				if ($newVal->getId() == $value->getId()) {
+					$value->setName($newVal->getName());
+					$value->setCategory($newVal->getCategory());
+				}
+			}
+		}
+		$_SESSION['events'] = $this->list
+	}
 
-public function update($newVal) {
-
-}
-
-public function delete($newVal) {
-
-}
+	public function delete($newVal) {
+		if(isset($_SESSION['events'])) {
+			
+			$list= $_SESSION['events'];
+			foreach ($list as $key => $value) {
+				if($id == $value->getId()) {
+					unset($list[$key]);	
+				}
+				$_SESSION['events']= $list;
+			}
+		}
+	}
 
 
 
