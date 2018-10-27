@@ -1,22 +1,11 @@
 
   <!DOCTYPE html>
-
-
   <html lang="en" class="__full-height-perc">
-
      <?php include_once(VIEWS_ROOT.HEADER); ?>
-
     <body class="__full-height-perc">
-
         <?php include_once(VIEWS_ROOT.NAVBAR); ?>
-
- 
-  
-
   <div id="container" class="__full-height-perc">
-
        <?php include_once(VIEWS_ROOT.MENUADMIN); ?>
-
 
     <div id="divform"  class="__full-height-perc">
 
