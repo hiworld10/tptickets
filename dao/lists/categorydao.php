@@ -65,7 +65,6 @@ class CategoryDAO implements IDAO
 			$this->list = $_SESSION['categories'];
 
 			foreach ($this->list as $key => $value) {
-				print_r($value);
 				if ($newVal->getId() == $value->getId()) {
 					$value->setType($newVal->getType());
 				}

@@ -2,7 +2,8 @@
 namespace controllers;
 
 use model\Category as M_Category;
-use dao\lists\CategoryDAO as CategoryDAO;
+use dao\lists\CategoryDAO as List_CategoryDAO;
+use dao\db\CategoryDAO as DB_CategoryDAO;
 
 
 class CategoryController {
@@ -10,7 +11,7 @@ class CategoryController {
 	private $dao;
 
 	public function __construct() {
-		$this->dao = new CategoryDAO();
+		$this->dao = new DB_CategoryDAO();
 	}
 
 	public function addCategory($type) {
@@ -44,7 +45,6 @@ class CategoryController {
 
 	public function updateCategory($id, $newType) {
 		$updatedCategory = new M_Category($id, $newType);
-		print_r($updatedCategory);
 		$this->dao->update($updatedCategory);
 		$this->getAll();
 	}

@@ -60,12 +60,12 @@ class UserDAO implements IDAO
 	}
 	
 
-	public function update($id, $newVal) {
+	public function update($newVal) {
 		if(isset($_SESSION['users'])) {
 			$this->list = $_SESSION['users'];
 
 			foreach ($this->list as $key => $value) {
-				if ($id == $value->getId()) {
+				if ($newVal->getId() == $value->getId()) {
 					$value = $newVal;
 				}
 			}

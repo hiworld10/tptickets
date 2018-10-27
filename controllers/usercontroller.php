@@ -63,7 +63,7 @@ class UserController {
 
 	public function updateUser($id, $email, $pass, $firstname, $lastname) {
 		$updatedUser = new M_User($id, $email, $pass, $firstname, $lstname);
-		$this->dao->update($id, $updatedUser);
+		$this->dao->update($updatedUser);
 		$this->getAll();
 	}
 
