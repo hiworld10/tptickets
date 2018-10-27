@@ -1,5 +1,5 @@
-
-  <!DOCTYPE html>
+<!DOCTYPE html>
+<!-- NO TERMINADO SOLO COPIADO Y PEGADO OJO -->
 
 
   <html lang="en" class="__full-height-perc">
@@ -20,17 +20,16 @@
 
     <div id="divform" class="__full-height-perc">
 
-      <?php if(isset($category)){ ?>
+      <?php if(isset($event)){ ?>
 
-        <?php echo $category->getType(); ?>
 
-        <form name='formulario' action="<?=FRONT_ROOT?>/category/updateCategory"  method="POST">
+        <form name='formulario' action="<?=FRONT_ROOT?>/event/updateEvent"  method="POST">
              <div class="form-row">
                   <div class="col-12 col-md-9 mb-2 mb-md-0">
                     <input type="text" name="id" class="form-control form-control-lg" value="<?= $category->getId(); ?>" readonly>
                   </div>
                   <div class="col-12 col-md-9 mb-2 mb-md-0">
-                    <input type="text" name="category" class="form-control form-control-lg" value="<?= $category->getType(); ?>">
+                    <input type="text" name="event" class="form-control form-control-lg" value="<?= $category->getName(); ?>">
                   </div>
                   <div class="col-12 col-md-3">
                     <button type="submit" class="btn btn-block btn-lg btn-primary">Aceptar</button>
@@ -40,11 +39,26 @@
 
     <?php   }else{   ?>
 
-    <form name='formulario' action="<?=FRONT_ROOT?>/category/addCategory"  method="POST">
+    <form name='formulario' action="<?=FRONT_ROOT?>/event/addEvent"  method="POST">
              <div class="form-row">
                   <div class="col-12 col-md-9 mb-2 mb-md-0">
-                    <input type="text" name="category" class="form-control form-control-lg" placeholder="Ingrese nombre de la categoria...">
+                    <input type="text" name="category" class="form-control form-control-lg" placeholder="Ingrese nombre del evento...">
                   </div>
+                  <div class="col-lg-4">
+                              <div class="form-group">
+                                   <label for="">Evento</label>
+                                   <select class="form-control" name="category" required>
+                                        <?php if($roles){ 
+                                             foreach ($roles as $key => $value) { 
+                                         ?>
+                                        <option ><?php echo $value->getName(); ?></option> 
+                                        <?php }
+                                         }else{ ?>
+                                        <option >NO HAY ROLES</option>
+                                   <?php } ?>
+                                   </select>
+                              </div>
+                         </div>
                   <div class="col-12 col-md-3">
                     <button type="submit" class="btn btn-block btn-lg btn-primary">Agregar</button>
                   </div>
@@ -56,13 +70,14 @@
   <div id="table">
     <table class="table bg-light-alpha">
 
-          <?php if(!empty($categoryArray)) { ?>
+          <?php if(!empty($eventArray)) { ?>
               <thead>     
                  <th>Id</th>  
-                 <th>Nombre</th>            
+                 <th>Nombre</th>     
+                 <th>Categoria</th>          
              </thead>
              <tbody>
-              <?php foreach ($categoryArray as $value) { ?>
+              <?php foreach ($eventArray as $value) { ?>
                   <tr>
                      <td><?= $value->getId(); ?></td>
                       <td><?= $value->getType(); ?></td>
