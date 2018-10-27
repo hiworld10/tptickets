@@ -13,6 +13,7 @@ class EventController {
 
 	public function __construct() {
 		$this->dao = new List_EventDAO();
+		$this->categoryController = new CategoryController();
 	}
 
 	public function addEvent($name, $categoryId) {
