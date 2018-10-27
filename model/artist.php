@@ -13,20 +13,14 @@ class Artist
 
 	private $id;
 	private $name;
-	public $m_band;
-
 
 //Codigo comentado para realizar una prueba
-/*	function __construct($id, $name)
+	function __construct($id, $name)
 	{
 		$this->id=$id;
 		$this->name=$name;
-		//$this->m_band=$m_band;
-	}*/
-
-	function __construct() {
-		
 	}
+
 
 	public function getId()
 	{
@@ -38,13 +32,6 @@ class Artist
 		return $this->name;
 	}
 
-	public function getM_Band()
-	{
-		return $this->m_band;
-	}
-
-
-
 	public function setId($val)
 	{
 		$this->id=$val;
@@ -54,12 +41,6 @@ class Artist
 	{
 		$this->name=$val;
 	}
-
-	public function setM_Band($val)
-	{
-		$this->m_band=$val;
-	}
-
 
 }
 ?>

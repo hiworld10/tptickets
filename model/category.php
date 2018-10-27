@@ -1,10 +1,6 @@
 <?php
 namespace model;
 
-
-
-
-
 /**
  * @author alumno
  * @version 1.0
@@ -17,9 +13,9 @@ class Category
 	private $type;
 
 
-	function __construct($type)
+	function __construct($id, $type)
 	{
-		$this->id=null;
+		$this->id=$id;
 		$this->type=$type;
 		
 	}
