@@ -1,12 +1,9 @@
 <?php 
 namespace dao\lists;
-
 use dao\IDAO as IDAO;
-
 class EventDAO implements IDAO
 {
 	private $list;
-
 	function __construct() {
 		if (!isset($_SESSION)) {
 			
@@ -17,41 +14,32 @@ class EventDAO implements IDAO
 		} 
 		else {
 			$this->list = array();
+			$_SESSION["idevent"] = 0;
 		}
-
 	}
-
 	public function create($newVal) {
 		if (isset($_SESSION["events"])) {
 			$this->list = $_SESSION["events"];
 		} 
-
+		$newVal->setId(++$_SESSION["idcategory"]);
 		array_push($this->list, $newVal);
-
 		$_SESSION["events"] = $this->list;
-
 	}
-
-	public function getById($id) {
+	public function retrieveById($id) {
 		if (isset($_SESSION["events"])) {
 			$this->list = $_SESSION["events"];
-
 			foreach ($this->list as $key => $value) {
 				if ($id == $value->getId()) {
 					return $value;
 				}
 			}
 		}
-
 		return false;
 	}
-
 	public function retrieveAll() {
 		if(isset($_SESSION['events'])) {
 			$this->list = $_SESSION['events'];
-
 			return $this->list;
-
 		}
 		return false;
 	}
@@ -59,7 +47,6 @@ class EventDAO implements IDAO
 	public function update($newVal) {
 		if(isset($_SESSION['events'])) {
 			$this->list = $_SESSION['events'];
-
 			foreach ($this->list as $key => $value) {
 				if ($newVal->getId() == $value->getId()) {
 					$value->setName($newVal->getName());
@@ -67,24 +54,19 @@ class EventDAO implements IDAO
 				}
 			}
 		}
-		$_SESSION['events'] = $this->list
+		$_SESSION['events'] = $this->list;
 	}
-
 	public function delete($newVal) {
 		if(isset($_SESSION['events'])) {
 			
 			$list= $_SESSION['events'];
 			foreach ($list as $key => $value) {
-				if($id == $value->getId()) {
+				if($newVal == $value->getId()) {
 					unset($list[$key]);	
 				}
 				$_SESSION['events']= $list;
 			}
 		}
 	}
-
-
-
-
 }
 ?>

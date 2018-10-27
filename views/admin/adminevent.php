@@ -26,10 +26,22 @@
         <form name='formulario' action="<?=FRONT_ROOT?>/event/updateEvent"  method="POST">
              <div class="form-row">
                   <div class="col-12 col-md-9 mb-2 mb-md-0">
-                    <input type="text" name="id" class="form-control form-control-lg" value="<?= $category->getId(); ?>" readonly>
+                    <input type="text" name="id" class="form-control form-control-lg" value="<?= $event->getId(); ?>" readonly>
                   </div>
                   <div class="col-12 col-md-9 mb-2 mb-md-0">
-                    <input type="text" name="event" class="form-control form-control-lg" value="<?= $category->getName(); ?>">
+                    <input type="text" name="event" class="form-control form-control-lg" value="<?= $event->getName(); ?>">
+                  </div>
+                  <div class="col-12 col-md-9 mb-2 mb-md-0">
+                         <select class="form-control" name="category"  required>
+                                        <?php if($categoryArray){ 
+                                             foreach ($categoryArray as $key => $value) { 
+                                         ?>
+                                        <option value="<?= $value->getId(); ?>"><?= $value->getType(); ?></option> 
+                                        <?php }
+                                         }else{ ?>
+                                        <option >NO HAY CATEGORIAS</option>
+                                   <?php } ?>
+                          </select>
                   </div>
                   <div class="col-12 col-md-3">
                     <button type="submit" class="btn btn-block btn-lg btn-primary">Aceptar</button>
@@ -40,30 +52,30 @@
     <?php   }else{   ?>
 
     <form name='formulario' action="<?=FRONT_ROOT?>/event/addEvent"  method="POST">
-             <div class="form-row">
-                  <div class="col-12 col-md-9 mb-2 mb-md-0">
-                    <input type="text" name="category" class="form-control form-control-lg" placeholder="Ingrese nombre del evento...">
+             <div class="form-row p-2">
+                  <div class="form-group col-12 col-md-9 mb-2 mb-md-0">
+                    <input type="text"  class="form-control form-control-lg" name="name" placeholder="Ingrese nombre del evento...">
                   </div>
-                  <div class="col-lg-4">
-                              <div class="form-group">
-                                   <label for="">Evento</label>
+                  <div class="col-lg-4 form-group">
+                        
+                                   <label for="">Categoria</label>
                                    <select class="form-control" name="category" required>
-                                        <?php if($roles){ 
-                                             foreach ($roles as $key => $value) { 
+                                        <?php if($categoryArray){ 
+                                             foreach ($categoryArray as $key => $value) { 
                                          ?>
-                                        <option ><?php echo $value->getName(); ?></option> 
+                                        <option value="<?= $value->getId(); ?>"><?= $value->getType(); ?></option> 
                                         <?php }
                                          }else{ ?>
-                                        <option >NO HAY ROLES</option>
+                                        <option >NO HAY CATEGORIAS</option>
                                    <?php } ?>
                                    </select>
-                              </div>
-                         </div>
+                        
+                      </div>
                   <div class="col-12 col-md-3">
                     <button type="submit" class="btn btn-block btn-lg btn-primary">Agregar</button>
                   </div>
-                </div>
-    </form>
+           </div>
+   </form>
 
   <?php } ?>
 
@@ -80,14 +92,16 @@
               <?php foreach ($eventArray as $value) { ?>
                   <tr>
                      <td><?= $value->getId(); ?></td>
-                      <td><?= $value->getType(); ?></td>
+                      <td><?= $value->getName(); ?></td>
+                       <td><?= $value->getCategory(); ?></td>
+
                       <td>
-                        <form action="<?=FRONT_ROOT?>/category/deleteCategory" method="POST">
+                        <form action="<?=FRONT_ROOT?>/event/deleteEvent" method="POST">
                         <button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit"class="btn btn-block btn-lg btn-primary btn-sm">Eliminar</button>
                         </form>
                       </td>
                       <td>
-                        <form action="<?=FRONT_ROOT?>/category/getCategory" method="POST">
+                        <form action="<?=FRONT_ROOT?>/event/getEvent" method="POST">
                         <button name="update" value="<?= $value->getId(); ?>" id="boton1" type="submit" class="btn btn-block btn-lg btn-primary btn-sm">Editar</button></td>
                         </form>
                       </td>

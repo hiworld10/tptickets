@@ -11,7 +11,7 @@ class CategoryController {
 	private $dao;
 
 	public function __construct() {
-		$this->dao = new DB_CategoryDAO();
+		$this->dao = new List_CategoryDAO();
 	}
 
 	public function addCategory($type) {
@@ -27,6 +27,10 @@ class CategoryController {
 		$categoryArray = $this->dao->retrieveAll(); 
 		include ADMIN_VIEWS . '/admincategory.php';
 	}
+	public function getAllSelect(){
+		$categoryArray = $this->dao->retrieveAll();
+	}
+	
 
 	public function deleteCategory($id){
 
@@ -47,6 +51,10 @@ class CategoryController {
 		$updatedCategory = new M_Category($id, $newType);
 		$this->dao->update($updatedCategory);
 		$this->getAll();
+	}
+
+	public function getDao(){
+		return $this->dao;
 	}
 
 }
