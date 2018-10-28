@@ -1,11 +1,6 @@
 <?php
 namespace model;
 
-/**
- * @author alumno
- * @version 1.0
- * @created 26-sep.-2018 13:28:07
- */
 class Category
 {
 

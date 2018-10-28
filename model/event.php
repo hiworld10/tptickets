@@ -1,25 +1,19 @@
 <?php
 namespace model;
 
-
-/**
- * @author alumno
- * @version 1.0
- * @created 26-sep.-2018 13:28:07
- */
 class Event
 {
 
 	private $id;
 	private $name;
-    private $category;
+    private $categoryId;
 
 
-	function __construct($name, $category)
+	function __construct($id, $name, $categoryId)
 	{
-		$this->id =	null;
+		$this->id =	$id;
 		$this->name = $name;
-        $this->category= $category;
+        $this->categoryId = $categoryId;
 	}
 
     public function getId()
@@ -30,8 +24,6 @@ class Event
     public function setId($id)
     {
         $this->id = $id;
-
-        return $this;
     }
 
     public function getName()
@@ -42,20 +34,16 @@ class Event
     public function setName($name)
     {
         $this->name = $name;
-
-        return $this;
     }
 
-     public function getCategory()
+     public function getCategoryId()
     {
-        return $this->category->getType();
+        return $this->categoryId;
     }
 
-    public function setCategory($category)
+    public function setCategoryId($categoryId)
     {
-        $this->category = $category;
-
-        return $this;
+        $this->categoryId = $categoryId;
     }
 
 

@@ -17,16 +17,16 @@ class User
 	private $firstname;
 	private $lastname;
 	private $admin;
-	public $m_purchasegetFirstnameemail;
+	public $m_purchase;
 
-	function __construct($email, $password, $firstname, $lastname)
+	function __construct($id, $email, $password, $firstname, $lastname, $admin)
 	{
-		$this->id=null;
+		$this->id = $id;
 		$this->email = $email;
 		$this->password = $password;
 		$this->firstname = $firstname;
 		$this->lastname = $lastname;
-		$this->admin= null;
+		$this->admin = $admin;
 	}
 
 
@@ -82,11 +82,10 @@ class User
 	}
 
 
-	public function getAdmin()
+	public function isAdmin()
 	{
 		return $this->admin;
 	}
-
 
 
 	public function setAdmin($admin)

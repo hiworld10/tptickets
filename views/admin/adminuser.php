@@ -23,16 +23,19 @@
         <input type="text" name="id" class="form-control form-control-lg" value="<?= $user->getId(); ?>" readonly>
       </div>
       <div class="col-12 col-md-9 mb-2 mb-md-0">
-        <input type="text" name="email" class="form-control form-control-lg" value="<?= $user->getEmail(); ?>">
+        <input type="email" name="email" class="form-control form-control-lg" value="<?= $user->getEmail(); ?>" required>
         <div class="col-12 col-md-9 mb-2 mb-md-0">
-          <input type="password" name="password" class="form-control form-control-lg" value="<?= $user->getPassword(); ?>">
+          <input type="password" name="password" class="form-control form-control-lg" value="<?= $user->getPassword(); ?>" required>
         </div>
         <div class="col-12 col-md-9 mb-2 mb-md-0">
-          <input type="text" name="firstname" class="form-control form-control-lg" value="<?= $user->getFirstName(); ?>">
+          <input type="text" name="firstname" class="form-control form-control-lg" value="<?= $user->getFirstName(); ?>" required>
         </div>
         <div class="col-12 col-md-9 mb-2 mb-md-0">
-          <input type="text" name="lastname" class="form-control form-control-lg" value="<?= $user->getLastName(); ?>">
+          <input type="text" name="lastname" class="form-control form-control-lg" value="<?= $user->getLastName(); ?>" required>
         </div>
+        <div class="col-12 col-md-9 mb-2 mb-md-3">
+         <label><input type="checkbox" name="admin" class="form-control form-control-lg" value="<?= $user->isAdmin(); ?>">Admin</label>
+       </div>
         <div class="col-12 col-md-3">
           <button type="submit" class="btn btn-block btn-lg btn-primary">Aceptar</button>
         </div>
@@ -46,16 +49,16 @@
       <form name='formulario' action="<?=FRONT_ROOT?>/user/addUser"  method="POST">
        <div class="form">
         <div class="col-12 col-md-9 mb-2 mb-md-3">
-          <input type="email" name="email" class="form-control form-control-lg" placeholder="Email...">
+          <input type="email" name="email" class="form-control form-control-lg" placeholder="Email..." required>
         </div>
         <div class="col-12 col-md-9 mb-2 mb-md-3">
-          <input type="password" name="password" class="form-control form-control-lg" placeholder="Contraseña...">
+          <input type="password" name="password" class="form-control form-control-lg" placeholder="Contraseña..." required>
         </div>
         <div class="col-12 col-md-9 mb-2 mb-md-3">
-          <input type="text" name="name" class="form-control form-control-lg" placeholder="Nombre...">
+          <input type="text" name="name" class="form-control form-control-lg" placeholder="Nombre..." required>
         </div>
         <div class="col-12 col-md-9 mb-2 mb-md-3">
-          <input type="text" name="lastname" class="form-control form-control-lg" placeholder="Apellido...">
+          <input type="text" name="lastname" class="form-control form-control-lg" placeholder="Apellido..." required="">
         </div>
         <div class="col-12 col-md-9 mb-2 mb-md-3">
          <label><input type="checkbox" name="admin" class="form-control form-control-lg" value="true">Admin</label>
@@ -87,7 +90,7 @@
          <td><?= $value->getPassword(); ?></td>
          <td><?= $value->getFirstname(); ?></td>
          <td><?= $value->getLastname(); ?></td>
-         <td><?= $value->getAdmin(); ?></td>
+         <td><?= $value->isAdmin(); ?></td>
 
          <td>
           <form action="<?=FRONT_ROOT?>/user/deleteUser" method="POST">

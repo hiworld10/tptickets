@@ -89,30 +89,6 @@ class UserDAO implements IDAO
 		}
 	}
 
-		public function checkEmail($email) {
-		$check=true;
-		if (isset($_SESSION["users"])) {
-			$this->list = $_SESSION["users"];
 
-			foreach ($this->list as $key => $value) {
-				if ($email == $value->getEmail()) {
-					return false;
-				}
-			}
-		}
-		return $check;
-		
-	}
-
-	public function checkPassword($pass){
-
-	//strlen cuenta la cantidad de caracteres String
-	//en este caso vamos a restringir la pass a mas de 6 caracteres 
-		if(strlen ($pass) < 6){
-			return false;
-		}
-
-		return true;
-	}
 }
 ?>

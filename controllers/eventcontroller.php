@@ -2,41 +2,47 @@
 namespace controllers;
 use model\Event as M_Event;
 use dao\lists\EventDAO as List_EventDAO;
-use dao\lists\CategoryDAO as List_CategoryDAO;
+use dao\db\EventDAO as DB_EventDAO;
 use controllers\CategoryController as CategoryController;
+
 class EventController {
+
 	private $dao;
-	private $categorydao;
+	private $categoryController;
+
 	public function __construct() {
-		$this->dao = new List_EventDAO();
-		$this->categorydao = new List_CategoryDAO();
+		$this->dao = new DB_EventDAO();
+		$this->categoryController = new CategoryController();
 	}
+
 	public function addEvent($name, $categoryId) {
-		$m_category = $this->categorydao->retrieveById($categoryId);
-		$m_event = new M_event($name, $m_category);
+		$m_event = new M_event(null, $name, $categoryId);
 		$this->dao->create($m_event);
 		$this->getAll();
 	}
-	public function getEvent($id) {
-		$categoryArray = $this->categorydao->retrieveAll(); 
-		$category=$this->dao->retrieveById($id);		
-		if(isset($category)){
+
+	public function getEvent($id) { 
+		$event=$this->dao->retrieveById($id);
+		$categoryArray = $this->categoryController->getAllSelect();	
+		if(isset($event) && isset($categoryArray)) {
 			include ADMIN_VIEWS . '/adminevent.php';
 		}
 	}
+
 	public function getAll() {
-		$eventArray = $this->dao->retrieveAll(); 
-		$categoryArray = $this->categorydao->retrieveAll(); 
+		$eventArray = $this->dao->retrieveAll();
+		$categoryArray = $this->categoryController->getAllSelect();
 		include ADMIN_VIEWS. '/adminevent.php';
 	}
-	public function deleteEvent($id){
 
+	public function deleteEvent($id){
 		$this->dao->delete($id);
 		$this->getAll();
 	}
-	public function updateEvent($id, $newName, $newType) {
-		$updatedEvent = new M_Category($id,$newName, $newType);
-		$this->dao->update($updatedCategory);
+
+	public function updateEvent($id, $newName, $newCategoryId) {
+		$updatedEvent = new M_Event($id, $newName, $newCategoryId);
+		$this->dao->update($updatedEvent);
 		$this->getAll();
 	}
 
