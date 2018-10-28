@@ -30,7 +30,7 @@
                     <input type="text" name="id" class="form-control form-control-lg" value="<?= $category->getId(); ?>" readonly>
                   </div>
                   <div class="col-12 col-md-9 mb-2 mb-md-0">
-                    <input type="text" name="category" class="form-control form-control-lg" value="<?= $category->getType(); ?>">
+                    <input type="text" name="category" class="form-control form-control-lg" value="<?= $category->getType(); ?>" required>
                   </div>
                   <div class="col-12 col-md-3">
                     <button type="submit" class="btn btn-block btn-lg btn-primary">Aceptar</button>
@@ -43,7 +43,7 @@
     <form name='formulario' action="<?=FRONT_ROOT?>/category/addCategory"  method="POST">
              <div class="form-row">
                   <div class="col-12 col-md-9 mb-2 mb-md-0">
-                    <input type="text" name="category" class="form-control form-control-lg" placeholder="Ingrese nombre de la categoria...">
+                    <input type="text" name="category" class="form-control form-control-lg" placeholder="Ingrese nombre de la categoria..." required>
                   </div>
                   <div class="col-12 col-md-3">
                     <button type="submit" class="btn btn-block btn-lg btn-primary">Agregar</button>

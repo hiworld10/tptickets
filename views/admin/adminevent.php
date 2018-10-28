@@ -29,10 +29,10 @@
                     <input type="text" name="id" class="form-control form-control-lg" value="<?= $event->getId(); ?>" readonly>
                   </div>
                   <div class="col-12 col-md-9 mb-2 mb-md-0">
-                    <input type="text" name="event" class="form-control form-control-lg" value="<?= $event->getName(); ?>">
+                    <input type="text" name="event" class="form-control form-control-lg" value="<?= $event->getName(); ?>" required>
                   </div>
                   <div class="col-12 col-md-9 mb-2 mb-md-0">
-                         <select class="form-control" name="category"  required>
+                         <select class="form-control" name="category" required>
                                         <?php if($categoryArray){ 
                                              foreach ($categoryArray as $key => $value) { 
                                          ?>
@@ -49,12 +49,12 @@
                 </div>
     </form>
 
-    <?php   }else{   ?>
+    <?php   }else{  ?>
 
     <form name='formulario' action="<?=FRONT_ROOT?>/event/addEvent"  method="POST">
              <div class="form-row p-2">
                   <div class="form-group col-12 col-md-9 mb-2 mb-md-0">
-                    <input type="text"  class="form-control form-control-lg" name="name" placeholder="Ingrese nombre del evento...">
+                    <input type="text"  class="form-control form-control-lg" name="name" placeholder="Ingrese nombre del evento..." required>
                   </div>
                   <div class="col-lg-4 form-group">
                         
@@ -93,7 +93,7 @@
                   <tr>
                      <td><?= $value->getId(); ?></td>
                       <td><?= $value->getName(); ?></td>
-                       <td><?= $value->getCategory(); ?></td>
+                       <td><?= $value->getCategoryId(); ?></td>
 
                       <td>
                         <form action="<?=FRONT_ROOT?>/event/deleteEvent" method="POST">

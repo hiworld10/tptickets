@@ -2,8 +2,8 @@
 namespace controllers;
 
 use model\Artist as M_Artist;
-use dao\db\ArtistDAO as ArtistDAO;
-use dao\lists\ArtistDAO as ArtistDAOSs;
+use dao\db\ArtistDAO as DB_ArtistDAO;
+use dao\lists\ArtistDAO as List_ArtistDAO;
 
 
 class ArtistController {
@@ -11,7 +11,7 @@ class ArtistController {
 	private $dao;
 
 	public function __construct() {
-		$this->dao = new ArtistDAO();
+		$this->dao = new DB_ArtistDAO();
 	}
 
 	public function addArtist($artistName) {
@@ -19,8 +19,6 @@ class ArtistController {
 		$m_artist = new M_Artist(null, $artistName);
 		$this->dao->create($m_artist);
 		$this->getAll();
-
-
 	}
 
 	public function getAll(){
@@ -29,9 +27,7 @@ class ArtistController {
 
 	}
 
-
 	public function deleteArtist($id){
-
 		$this->dao->delete($id);
 		$this->getAll();
 	}
@@ -43,16 +39,11 @@ class ArtistController {
 		}
 	}
 
-
 	public function updateArtist($id, $newName){
 		$updatedArtist = new M_Artist($id, $newName);
 		$this->dao->update($updatedArtist);
 		$this->getAll();
 	}
-
-
-
-
 }
 
 ?>

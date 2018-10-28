@@ -21,7 +21,7 @@ class EventDAO implements IDAO
 		if (isset($_SESSION["events"])) {
 			$this->list = $_SESSION["events"];
 		} 
-		$newVal->setId(++$_SESSION["idcategory"]);
+		$newVal->setId(++$_SESSION["idevent"]);
 		array_push($this->list, $newVal);
 		$_SESSION["events"] = $this->list;
 	}
@@ -50,7 +50,7 @@ class EventDAO implements IDAO
 			foreach ($this->list as $key => $value) {
 				if ($newVal->getId() == $value->getId()) {
 					$value->setName($newVal->getName());
-					$value->setCategory($newVal->getCategory());
+					$value->setCategoryId($newVal->getCategoryId());
 				}
 			}
 		}
