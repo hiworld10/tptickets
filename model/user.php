@@ -82,7 +82,7 @@ class User
 	}
 
 
-	public function isAdmin()
+	public function getAdmin()
 	{
 		return $this->admin;
 	}
