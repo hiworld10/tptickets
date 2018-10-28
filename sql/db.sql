@@ -45,10 +45,10 @@ email varchar(255),
 password varchar(50),
 first_name varchar(30),
 last_name varchar(40),
-is_admin boolean)
+is_admin boolean
 );
 
 INSERT INTO users(email, password, first_name, last_name, is_admin)
 VALUES
-("admin@tptickets.com", lapassword, "El", "Admin", 1),
-("usuario@email.com", thecontra, "Sr", "Usuario", 0);
+("admin@tptickets.com", "lapassword", "El", "Admin", 1),
+("user@email.com", "thecontra", "Sr", "Usuario", 0);

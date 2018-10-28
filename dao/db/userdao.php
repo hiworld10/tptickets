@@ -20,8 +20,9 @@
                 $parameters["password"] = $user->getPassword();
                 $parameters["first_name"] = $user->getFirstname();
                 $parameters["last_name"] = $user->getLastname();
-                //casteo para la tabla (admite solo 0 y 1 (tinyint))
-                $parameters["is_admin"] = (bool) $user->isAdmin();
+                //conversion de valores para la tabla (admite solo 0 y 1 (tinyint))
+                $parameters["is_admin"] = $this->stringBooleanToTinyInt($user->getAdmin());
+
 
                 $this->connection = Connection::getInstance();
 
@@ -44,15 +45,17 @@
                 
                 foreach ($resultSet as $row) {                
                     $user = new User($row["id_user"], $row["email"], $row["password"], $row["first_name"], $row["last_name"], $row["is_admin"]);
+                    //conversion de tinyint a string para muestreo
+                    $user->setAdmin($this->tinyIntBooleanToString($user->getAdmin()));
                     array_push($userList, $user);
                 }
 
-                return $userList;
-            }
-            catch(Exception $ex) {
-                throw $ex;
-            }
+               return $userList;
+           }
+           catch(Exception $ex) {
+            throw $ex;
         }
+    }
 
         public function retrieveById($id) {
             try {
@@ -68,6 +71,8 @@
                 
                 foreach ($resultSet as $row) {
                     $user = new User($row["id_user"], $row["email"], $row["password"], $row["first_name"], $row["last_name"], $row["is_admin"]);
+                    //conversion de tinyint a string para muestreo
+                    $user->setAdmin($this->tinyIntBooleanToString($user->getAdmin()));
                 }
                             
                 return $user;
@@ -97,7 +102,8 @@
                 $parameters["password"] = $user->getPassword();
                 $parameters["first_name"] = $user->getFirstname();
                 $parameters["last_name"] = $user->getLastname();
-                $parameters["is_admin"] = $user->isAdmin();
+                //conversion de valores para la tabla (admite solo 0 y 1 (tinyint))
+                $parameters["is_admin"] = $this->stringBooleanToTinyInt($user->getAdmin());
 
                 $this->connection = Connection::getInstance();
                 $this->connection->executeNonQuery($query, $parameters);   
@@ -105,6 +111,14 @@
             catch(Exception $ex) {
                 throw $ex;
             }
+        }
+
+        public function stringBooleanToTinyInt($val) {
+            return (($val == "true") ? 1 : 0);
+        }
+
+        public function tinyIntBooleanToString($val) {
+            return (($val == 1) ? "true" : "false");
         }
     }
 ?>

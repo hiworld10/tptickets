@@ -43,18 +43,12 @@ class UserController {
 	}
 	public function getAll(){
 		$userArray = $this->dao->retrieveAll();
-		echo "<pre>";
-		print_r($userArray); 
-		echo "</pre>";
 		include ADMIN_VIEWS . '/adminuser.php';
 		
 	}
 
 	public function getUser($id) {
 		$user = $this->dao->retrieveById($id);
-		echo "<pre>";
-		print_r($user);
-		echo "</pre>";
 		if(isset($user)){
 			include ADMIN_VIEWS . '/adminuser.php';
 		}
@@ -68,7 +62,7 @@ class UserController {
 	}
 
 
-	public function updateUser($id, $email, $pass, $firstname, $lastname, $admin) {
+	public function updateUser($id, $email, $pass, $firstname, $lastname, $admin='false') {
 		$updatedUser = new M_User($id, $email, $pass, $firstname, $lastname, $admin);
 		$this->dao->update($updatedUser);
 		$this->getAll();

@@ -34,7 +34,13 @@
           <input type="text" name="lastname" class="form-control form-control-lg" value="<?= $user->getLastName(); ?>" required>
         </div>
         <div class="col-12 col-md-9 mb-2 mb-md-3">
-         <label><input type="checkbox" name="admin" class="form-control form-control-lg" value="<?= $user->isAdmin(); ?>">Admin</label>
+         <label><input type="checkbox" name="admin" class="form-control form-control-lg" value="true"
+          <?php 
+          /*si el valor devuelve "true", el checkbox queda marcado con el 
+          atributo html "checked". Caso contrario, aparece sin marcar*/
+          if($user->getAdmin() == "true") 
+            echo "checked" ?>
+          >Admin</label>
        </div>
         <div class="col-12 col-md-3">
           <button type="submit" class="btn btn-block btn-lg btn-primary">Aceptar</button>
@@ -90,7 +96,7 @@
          <td><?= $value->getPassword(); ?></td>
          <td><?= $value->getFirstname(); ?></td>
          <td><?= $value->getLastname(); ?></td>
-         <td><?= $value->isAdmin(); ?></td>
+         <td><?= $value->getAdmin(); ?></td>
 
          <td>
           <form action="<?=FRONT_ROOT?>/user/deleteUser" method="POST">
