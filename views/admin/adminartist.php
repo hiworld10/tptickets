@@ -26,17 +26,19 @@
 
         <form name='formulario' action="<?=FRONT_ROOT?>/artist/updateArtist" method="POST">
              <div class="form-row">
-                  <div class="col-12 col-md-1 mb-2 mb-md-0">
+                  <div class="col-md-1 mb-2 mb-md-0 form-row">
+                    <label> Id</label>
                     <input type="text" name="id" class="form-control form-control-lg" value="<?= $artist->getId(); ?>" readonly>
                   </div>
-                  <div class="col-12 col-md-7 mb-2 mb-md-0">
+                  <div class="col-md-7 mb-2 mb-md-0 form-row">
+                    <label> Nombre</label>
                     <input type="text" name="artist" class="form-control form-control-lg" value="<?= $artist->getName(); ?>" required>
                   </div>
-                  <div class="col-12 col-md-1 " >
-                    <button type="submit" class="btn btn-lg btn-primary">Aceptar</button>
+                  <div class="col-12 col-md-2 mt-4">
+                    <button type="submit"  class="btn btn-lg btn-primary">Aceptar</button>
                   </div>
-                </div>
-    </form>
+           </div>
+        </form>
 
     <?php   } else {   ?>
 

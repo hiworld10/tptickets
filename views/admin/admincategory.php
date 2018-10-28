@@ -22,17 +22,18 @@
 
       <?php if(isset($category)){ ?>
 
-        <?php echo $category->getType(); ?>
 
         <form name='formulario' action="<?=FRONT_ROOT?>/category/updateCategory"  method="POST">
              <div class="form-row">
-                  <div class="col-12 col-md-9 mb-2 mb-md-0">
+                  <div class="col-md-1 mb-2 mb-md-0 form-row">
+                    <label>Id</label>
                     <input type="text" name="id" class="form-control form-control-lg" value="<?= $category->getId(); ?>" readonly>
                   </div>
-                  <div class="col-12 col-md-9 mb-2 mb-md-0">
+                  <div class="col-md-7 mb-2 mb-md-0 form-row">
+                    <label>Nombre</label>
                     <input type="text" name="category" class="form-control form-control-lg" value="<?= $category->getType(); ?>" required>
                   </div>
-                  <div class="col-12 col-md-3">
+                  <div class="col-12 col-md-2 mt-4">
                     <button type="submit" class="btn btn-block btn-lg btn-primary">Aceptar</button>
                   </div>
                 </div>

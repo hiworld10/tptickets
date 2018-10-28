@@ -25,13 +25,16 @@
 
         <form name='formulario' action="<?=FRONT_ROOT?>/event/updateEvent"  method="POST">
              <div class="form-row">
-                  <div class="col-12 col-md-9 mb-2 mb-md-0">
+                  <div class="col-md-1 mb-2 mb-md-0 form-row">
+                    <label>Id</label>
                     <input type="text" name="id" class="form-control form-control-lg" value="<?= $event->getId(); ?>" readonly>
                   </div>
-                  <div class="col-12 col-md-9 mb-2 mb-md-0">
+                  <div class="col-md-5 mb-2 mb-md-0 form-row">
+                    <label>Nombre</label>
                     <input type="text" name="event" class="form-control form-control-lg" value="<?= $event->getName(); ?>" required>
                   </div>
-                  <div class="col-12 col-md-9 mb-2 mb-md-0">
+                  <div class="col-md-5 mb-2 mb-md-0 form-row">
+                    <label>Categoria</label>
                          <select class="form-control" name="category" required>
                                         <?php if($categoryArray){ 
                                              foreach ($categoryArray as $key => $value) { 
@@ -43,7 +46,7 @@
                                    <?php } ?>
                           </select>
                   </div>
-                  <div class="col-12 col-md-3">
+                  <div class="col-12 col-md-2 form-row">
                     <button type="submit" class="btn btn-block btn-lg btn-primary">Aceptar</button>
                   </div>
                 </div>
@@ -71,7 +74,7 @@
                                    </select>
                         
                       </div>
-                  <div class="col-12 col-md-3">
+                  <div class="col-11 col-md-3 mt-4">
                     <button type="submit" class="btn btn-block btn-lg btn-primary">Agregar</button>
                   </div>
            </div>

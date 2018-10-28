@@ -1,36 +1,48 @@
-
-<!DOCTYPE html>
-
-
-<html lang="en" class="__full-height-perc">
-
-  <?php include_once(VIEWS_ROOT.HEADER); ?>
-
-<body class="__full-height-perc">
+ <!DOCTYPE html>
 
 
-  <?php include_once(VIEWS_ROOT.NAVBAR); ?>
+  <html lang="en" class="__full-height-perc">
+
+     <?php include_once(VIEWS_ROOT.HEADER); ?>
+
+    <body class="__full-height-perc">
+
+        <?php include_once(VIEWS_ROOT.NAVBAR); ?>
+
+ 
+  
 
   <div id="container" class="__full-height-perc">
 
-   <?php include_once(VIEWS_ROOT.MENUADMIN); ?>
+       <?php include_once(VIEWS_ROOT.MENUADMIN); ?>
 
-  <?php if(isset($user)) { ?>
 
-    <form name='formulario' action="<?=FRONT_ROOT?>/user/updateUser"  method="POST">
-     <div class="form-row">
-      <div class="col-12 col-md-9 mb-2 mb-md-0">
+    <div id="divform"  class="__full-height-perc">
+
+    <div id=edit class="__full-height-perc">
+      <!-- Este div aparecerá si un artista debe ser modificado -->
+      <?php if(isset($user)) { ?>
+
+        <form name='formulario' action="<?=FRONT_ROOT?>/user/updateUser"  method="POST">
+     <div class="form">
+      <div class="col-9 col-md-2 mb-2 mb-md-0 ">
+        <label>Id</label>
         <input type="text" name="id" class="form-control form-control-lg" value="<?= $user->getId(); ?>" readonly>
       </div>
       <div class="col-12 col-md-9 mb-2 mb-md-0">
-        <input type="email" name="email" class="form-control form-control-lg" value="<?= $user->getEmail(); ?>" required>
+        <label>Email</label>
+        <input type="email" name="email" class="form-control form-control-lg" value="<?= $user->getEmail(); ?>" readonly>
+      </div>
         <div class="col-12 col-md-9 mb-2 mb-md-0">
+           <label>Password</label>
           <input type="password" name="password" class="form-control form-control-lg" value="<?= $user->getPassword(); ?>" required>
         </div>
         <div class="col-12 col-md-9 mb-2 mb-md-0">
+           <label>Nombre</label>
           <input type="text" name="firstname" class="form-control form-control-lg" value="<?= $user->getFirstName(); ?>" required>
         </div>
         <div class="col-12 col-md-9 mb-2 mb-md-0">
+           <label>Apellido</label>
           <input type="text" name="lastname" class="form-control form-control-lg" value="<?= $user->getLastName(); ?>" required>
         </div>
         <div class="col-12 col-md-9 mb-2 mb-md-3">
@@ -47,12 +59,10 @@
         </div>
       </div>
     </form>
+    <?php   } else {   ?>
 
-    <div id="divform" class="__full-height-perc">
-
-    <?php } else { ?>
-
-      <form name='formulario' action="<?=FRONT_ROOT?>/user/addUser"  method="POST">
+        <!-- De no ser así, se habilitará el formulario para agregar usuarios  -->
+        <form name='formulario' action="<?=FRONT_ROOT?>/user/addUser"  method="POST">
        <div class="form">
         <div class="col-12 col-md-9 mb-2 mb-md-3">
           <input type="email" name="email" class="form-control form-control-lg" placeholder="Email..." required>
@@ -74,12 +84,15 @@
       </div>
     </div>
   </form>
-<?php } ?>
 
-<div id="table">
-  <table class="table bg-light-alpha">
+  <?php } ?>
 
-    <?php if(!empty($userArray)) { ?>
+    
+<!-- Lista de usuarios -->
+  <div id="table" class="__full-height-perc">
+    <table class="table bg-light-alpha">
+
+          <?php if(!empty($userArray)) { ?>
       <thead>     
        <th>Id</th>  
        <th>Email</th> 
@@ -102,8 +115,11 @@
           <form action="<?=FRONT_ROOT?>/user/deleteUser" method="POST">
             <button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit"class="btn btn-block btn-lg btn-primary btn-sm">Eliminar</button>
           </form>
+        </td>
+        <td>
           <form action="<?=FRONT_ROOT?>/user/getUser" method="POST">
-            <button name="update" value="<?= $value->getId(); ?>" type="submit" class="btn btn-block btn-lg btn-primary btn-sm">Editar</button></td>
+            <button name="update" value="<?= $value->getId(); ?>" type="submit" id="boton1" class="btn btn-block btn-lg btn-primary btn-sm">Editar</button>
+        </td>
           </form>
         </tr>
       <?php } ?>
@@ -121,19 +137,14 @@
 </div>
 
 
+      
 
+     
+    
 
+      <!-- Bootstrap core JavaScript -->
+      <script src="vendor/jquery/jquery.min.js"></script>
+      <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    </body>
 
-
-
-
-
-
-
-<!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-</body>
-
-</html>
+  </html>
