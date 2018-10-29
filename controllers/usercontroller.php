@@ -17,32 +17,24 @@ class UserController {
 
 	public function addUser($email, $password, $firstname, $lastname, $admin='false')//si no se setea admin->false
 	{
-		 
+
 		//checkeo que no exista un usuario con ese email
-
-		if($this->checkEmail($email)){
-
+		if($this->checkEmail($email)) {
 			//checkeo que password sea mayor a 6 caracteres
 			if($this->checkPassword($password)) {
+				echo "me dio true";
 				$m_user = new M_User(null, $email, $password, $firstname, $lastname, $admin);
 
 				if(isset($admin)){
 					$m_user->setAdmin($admin);
-
 					$this->dao->create($m_user);
 				}
 
-			}else{
-					echo "LA PASSWORD ES MUY CORTA, tiene que tener al menos 6 caracteres";
-				}
-
-
-		}else{
-				echo "YA EXISTE UN USUARIO CON ESE EMAIL";
-			}
-		$this->getAll();
-
+			} else echo "LA PASSWORD ES MUY CORTA, tiene que tener al menos 6 caracteres";
+			
+		} else echo "YA EXISTE UN USUARIO CON ESE EMAIL";
 		
+		$this->getAll();
 	}
 
 
@@ -69,62 +61,47 @@ class UserController {
 
 	public function updateUser($id, $email, $pass, $firstname, $lastname, $admin='false') {
 
-		//Aca no se va a chequear el email porque en caso de q ese campo no sea el q se quiera 
-		//modificar haria q se genere conflictos ya que ya va a existir un usuario con ese email
-		//por lo tanto determine que el email no se pueda editar (readOnly)
+		/*Aca no se va a chequear el email porque en caso de que ese campo no sea el que se quiera modificar haria que se generen conflictos ya que ya va a existir un usuario con ese email, por lo tanto determine que el email no se pueda editar (readonly)*/
 		
+		//checkeo que password sea mayor a 6 caracteres
+		if($this->checkPassword($pass)) {
+			$updatedUser = new M_User($id, $email, $pass, $firstname, $lastname, $admin);
 
-			//checkeo que password sea mayor a 6 caracteres
-			if($this->checkPassword($pass)) {
-				$updatedUser = new M_User($id, $email, $pass, $firstname, $lastname, $admin);
+			if(isset($admin)){
+				$updatedUser->setAdmin($admin);
+				$this->dao->update($updatedUser);
+			}
 
-				if(isset($admin)){
-					$updatedUser->setAdmin($admin);
 
-					$this->dao->update($updatedUser);
-				}
 
-				
-
-			}else{
-					echo "LA PASSWORD ES MUY CORTA, tiene que tener al menos 6 caracteres";
-				}
-
+		} else echo "LA PASSWORD ES MUY CORTA, tiene que tener al menos 6 caracteres";
 
 		$this->getAll();
-
 	}
 
 	//corregido 28/10 bd
 	public function checkEmail($email) {
 		$check=true;
-
 		$arrayUsers=$this->dao->retrieveAll();
-
 
 		if (isset($arrayUsers)) {
 
 			foreach ($arrayUsers as $key => $value) {
 				if ($email == $value->getEmail()) {
 					$check=false;
-
 				}
 			}
 		}
 		return $check;
-		
 	}
-
-	public function checkPassword($pass){
 
 	//strlen cuenta la cantidad de caracteres String
-	//en este caso vamos a restringir la pass a mas de 6 caracteres 
-		if(strlen ($pass) < $this->passwordLength){
-			return false;
-		}
-
-		return true;
+	//en este caso vamos a restringir la pass a mas de 6 caracteres
+	public function checkPassword($pass){
+		//el operador ternario es mas kool
+		return ((strlen ($pass) < $this->passwordLength) ? false : true);
 	}
+
 
 }
 
