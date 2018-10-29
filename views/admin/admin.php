@@ -1,9 +1,3 @@
-<?php 
-echo "<pre>";
-var_dump($_SESSION);
-echo "</pre>";
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
