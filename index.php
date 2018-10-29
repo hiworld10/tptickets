@@ -28,4 +28,4 @@
 
   $request = new Request();
 
-  Router::direccionar($request);
+  Router::direct($request);

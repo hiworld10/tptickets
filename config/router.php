@@ -14,7 +14,7 @@ namespace config;
             # code...
         }
 
-        public static function direccionar(Request $request) {
+        public static function direct(Request $request) {
 
             /**
              *
