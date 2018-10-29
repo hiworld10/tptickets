@@ -5,15 +5,16 @@ namespace model;
 
 class Calendar
 {
-
+    private $id
 	private $date;
-	public $m_event;
-	public $m_eventSeat;
-    public $m_artist;
-    public $m_eventVenue;
+	private $m_event;
+	private $m_eventSeat;
+    private $m_artist;
+    private $m_eventVenue;
 
 	function __construct($date)
 	{
+        $this->id= null;
         $this->date= $date;
         $this->m_event= null;
         $this->m_eventSeat= null;
@@ -22,6 +23,16 @@ class Calendar
 
 
 	}
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
     public function getDate()
     {

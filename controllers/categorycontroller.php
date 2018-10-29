@@ -52,7 +52,9 @@ class CategoryController {
 		$this->getAll();
 	}
 
-	
+	public function getDao(){
+		return $this->dao;
+	}
 
 }
 
