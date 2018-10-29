@@ -25,12 +25,6 @@ class Category
 		return $this->type;
 	}
 
-	public function getM_Event()
-	{
-		return $this->m_event;
-	}
-
-
 	public function setId($id)
 	{
 		$this->id=$id;
@@ -40,13 +34,5 @@ class Category
 	{
 		$this->type=$type;
 	}
-
-	public function setM_Event($m_event)
-	{
-		$this->m_event=$m_event;
-	}
-
-
-
 }
 ?>
