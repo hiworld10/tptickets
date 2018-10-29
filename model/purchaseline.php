@@ -1,14 +1,7 @@
 <?php
 namespace model;
-require_once ('Entrada.php');
-require_once ('Compra.php');
 
-
-/**
- * @author alumno
- * @version 1.0
- * @created 26-sep.-2018 13:28:07
- */
+//Necesita ser implementada
 class PurchaseLine
 {
 

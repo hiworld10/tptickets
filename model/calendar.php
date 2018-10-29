@@ -2,7 +2,6 @@
 namespace model;
 
 
-
 class Calendar
 {
     private $id
@@ -12,16 +11,14 @@ class Calendar
     private $m_artist;
     private $m_eventVenue;
 
-	function __construct($date)
+	function __construct($id, $date, $m_event, $m_eventSeat, $m_artist, $m_eventVenue)
 	{
-        $this->id= null;
+        $this->id= $id;
         $this->date= $date;
-        $this->m_event= null;
-        $this->m_eventSeat= null;
-        $this->m_artist= null;
-        $this->m_eventVenue= null;
-
-
+        $this->m_event= $m_event;
+        $this->m_eventSeat= $m_eventSeat;
+        $this->m_artist= $m_artist;
+        $this->m_eventVenue= $m_eventVenue;
 	}
 
     public function getId()
@@ -42,8 +39,6 @@ class Calendar
     public function setDate($date)
     {
         $this->date = $date;
-
-        return $this;
     }
 
     public function getMEvent()
@@ -54,20 +49,36 @@ class Calendar
     public function setMEvent($m_event)
     {
         $this->m_event = $m_event;
-
-        return $this;
     }
 
-    public function getMEventPlace()
+    public function getMEventSeat()
     {
-        return $this->m_eventPlace;
+        return $this->m_eventSeat;
     }
 
-    public function setMEventPlace($m_eventPlace)
+    public function setMEventSeat($m_eventSeat)
     {
-        $this->m_eventPlace = $m_eventPlace;
+        $this->m_eventSeat = $m_eventSeat;
+    }
 
-        return $this;
+    public function getMArtist()
+    {
+        return $this->m_artist;
+    }
+
+    public function setMArtist($m_artist)
+    {
+        $this->m_artist = $m_artist;
+    }
+
+    public function getMEventVenue()
+    {
+        return $this->m_eventVenue;
+    }
+
+    public function setMEventVenue($m_eventVenue)
+    {
+        $this->m_eventVenue = $m_eventVenue;
     }
 }
 ?>

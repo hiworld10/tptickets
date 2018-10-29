@@ -1,15 +1,7 @@
 <?php
 namespace model;
-require_once ('Calendario.php');
 
-
-
-
-/**
- * @author alumno
- * @version 1.0
- * @created 26-sep.-2018 13:28:08
- */
+//Banda????
 class Band
 {
 

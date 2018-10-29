@@ -1,16 +1,7 @@
 <?php
 namespace model;
-require_once ('Tipo_Plaza.php');
 
-
-
-
-use ;
-/**
- * @author alumno
- * @version 1.0
- * @created 26-sep.-2018 13:28:07
- */
+//Necesita ser implementada
 class VenueEvent
 {
 

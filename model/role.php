@@ -1,16 +1,7 @@
 <?php
 namespace model;
-require_once ('Usuario.php');
 
-
-
-
-use ;
-/**
- * @author alumno
- * @version 1.0
- * @created 26-sep.-2018 13:28:08
- */
+//Rol? Necesario?
 class Role
 {
 
