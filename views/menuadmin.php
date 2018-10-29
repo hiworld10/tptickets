@@ -6,6 +6,6 @@
   <li><a href="..." title="...">Calendario</a></li>
   <li><a href="<?=FRONT_ROOT?>/user/getAll" title="...">Usuarios</a></li>
   <li><a href="..." title="...">Plazas</a></li>
-   <li><a href="..." title="...">Tipo Plazas</a></li>
+   <li><a href="<?=FRONT_ROOT?>/seattype/getAll" >Tipo Plazas</a></li>
  </ul>
 </div>
