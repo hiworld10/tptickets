@@ -21,26 +21,26 @@ class CategoryController {
 		$this->getAll();
 	}
 
-	public function getAll(){
+	public function getAll() {
 		$categoryArray = $this->dao->retrieveAll(); 
 		include ADMIN_VIEWS . '/admincategory.php';
 	}
 
-	public function getAllSelect(){
+	public function getAllSelect() {
 		return $this->dao->retrieveAll();
 	}
 	
 
-	public function deleteCategory($id){
+	public function deleteCategory($id) {
 
 		$this->dao->delete($id);
 		$this->getAll();
 	}
 
 
-	public function getCategory($id){
+	public function getCategory($id) {
 		$category=$this->dao->retrieveById($id);		
-		if(isset($category)){
+		if(isset($category)) {
 			include ADMIN_VIEWS . '/admincategory.php';
 		}
 	}
@@ -51,11 +51,5 @@ class CategoryController {
 		$this->dao->update($updatedCategory);
 		$this->getAll();
 	}
-
-	public function getDao(){
-		return $this->dao;
-	}
-
 }
-
 ?>
