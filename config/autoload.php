@@ -4,14 +4,12 @@ namespace config;
 class Autoload {
 	
 	public static function start(){
-		spl_autoload_register(function($nombreclase){
+		spl_autoload_register(function($className){
 
-			$ruta=  str_replace("\\", '/', ROOT.$nombreclase) . ".php";
-			$ruta = strtolower($ruta);
-			include_once($ruta);
+			$path = str_replace("\\", '/', ROOT.$className) . ".php";
+			$path = strtolower($path);
+			include_once($path);
 		});
 	}
 }
-
-
 ?>
