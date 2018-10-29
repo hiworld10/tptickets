@@ -22,7 +22,6 @@ class UserController {
 		if($this->checkEmail($email)) {
 			//checkeo que password sea mayor a 6 caracteres
 			if($this->checkPassword($password)) {
-				echo "me dio true";
 				$m_user = new M_User(null, $email, $password, $firstname, $lastname, $admin);
 
 				if(isset($admin)){
