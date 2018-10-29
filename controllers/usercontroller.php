@@ -9,7 +9,7 @@ use dao\db\UserDAO as DB_UserDAO;
 class UserController {
 
 	private $dao;
-	private $passwordlenght=6;
+	private $passwordlength = 6;
 
 	public function __construct() {
 		$this->dao = new DB_UserDAO();
@@ -119,7 +119,7 @@ class UserController {
 
 	//strlen cuenta la cantidad de caracteres String
 	//en este caso vamos a restringir la pass a mas de 6 caracteres 
-		if(strlen ($pass) < $this->passwordlenght){
+		if(strlen ($pass) < $this->passwordlength){
 			return false;
 		}
 
