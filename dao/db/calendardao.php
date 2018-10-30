@@ -52,7 +52,7 @@ class CalendarDAO implements IDAO
 
     public function retrieveById($id) {
         try {
-            $event = null;
+            $calendar = null;
 
             $query = "SELECT * FROM ".$this->tableName." WHERE id_calendar = :id_calendar";
 
@@ -89,8 +89,8 @@ class CalendarDAO implements IDAO
         try {
             $query = "UPDATE ".$this->tableName." SET date = :date, id_event = :id_event WHERE id_calendar = :id_calendar";
             $parameters["id_calendar"] = $calendar->getId();
-            $parameters["date"] = $event->getDate();
-            $parameters["id_event"] = $event->getEventId();
+            $parameters["date"] = $calendar->getDate();
+            $parameters["id_event"] = $calendar->getEventId();
 
             $this->connection = Connection::getInstance();
             $this->connection->executeNonQuery($query, $parameters);   
