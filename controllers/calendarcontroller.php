@@ -11,14 +11,20 @@ class CalendarController {
 	private $eventController;
 
 	public function __construct() {
-		$this->dao = new List_CalendarDAO();
+		$this->dao = new DB_CalendarDAO();
 		$this->eventController = new EventController();
 	}
 
 	public function addCalendar($date, $eventId) {
-		$m_calendar = new M_Calendar(null, $date, $eventId);
-		$this->dao->create($m_calendar);
-		$this->getAll();
+		
+		if ($this->isBeforeNow($date)) {
+			echo "ERROR: la fecha ya es pasada.";
+			$this->getAll();
+		} else {
+			$m_calendar = new M_Calendar(null, $date, $eventId);
+			$this->dao->create($m_calendar);
+			$this->getAll();
+		}
 	}
 
 	public function getCalendar($id) { 
@@ -41,13 +47,24 @@ class CalendarController {
 	}
 
 	public function updateCalendar($id, $date, $newEventId) {
-		$updatedCalendar = new M_Calendar($id, $date, $newEventId);
-		$this->dao->update($updatedCalendar);
-		$this->getAll();
+
+		if ($this->isBeforeNow($date)) {
+			echo "ERROR: la fecha ya es pasada.";
+			$this->getAll();
+		} else {
+			$updatedCalendar = new M_Calendar($id, $date, $newEventId);
+			$this->dao->update($updatedCalendar);
+			$this->getAll();
+		}
 	}
 
 	public function getAllSelect(){
 		return $this->dao->retrieveAll();
+	}
+
+	/*Comprueba que la fecha introducida no sea pasada a la actual*/
+	public function isBeforeNow($date) {
+		return (strtotime($date) < strtotime('now'));
 	}
 	
 }
