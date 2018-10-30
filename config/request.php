@@ -22,34 +22,34 @@ namespace config;
                /**
                 * Elimino espacios vacios en el caso que los haya
                 */
-               $ArregloUrl = array_filter($urlToArray);
+               $urlArray = array_filter($urlToArray);
 
                 /**
                  * Si el array tiene elementos, el primero lo guardamos en controller, si no, guardamos Home como controller por defecto
                  */
-                if(empty($ArregloUrl)) {
+                if(empty($urlArray)) {
                      $this->controller = 'Home';
                 } else {
-                     $this->controller = ucwords(array_shift($ArregloUrl));
+                     $this->controller = ucwords(array_shift($urlArray));
                 }
 
                /**
                * Si el array tiene elementos, el primero lo guardamos en method, si no, guardamos index como method por defecto
                */
-               if(empty($ArregloUrl)) {
+               if(empty($urlArray)) {
                     $this->method = 'index';
                } else {
-                    $this->method = array_shift($ArregloUrl);
+                    $this->method = array_shift($urlArray);
                }
 
                /**
                * Si la petición es GET y el array aún tiene datos, se guardan en parameters, si no, se guardan lo que viene como $_POST
                */
-               $requestMethod = $this->getMetodoRequest();
+               $requestMethod = $this->getRequestMethod();
 
                if($requestMethod == 'GET') {
-                    if(!empty($ArregloUrl)) {
-                         $this->parameters = $ArregloUrl;
+                    if(!empty($urlArray)) {
+                         $this->parameters = $urlArray;
                     }
                } else {
                     $this->parameters = $_POST;
@@ -63,7 +63,7 @@ namespace config;
           *
           * @return String
           */
-          public static function getMetodoRequest()
+          public static function getRequestMethod()
           {
                return $_SERVER['REQUEST_METHOD'];
           }
