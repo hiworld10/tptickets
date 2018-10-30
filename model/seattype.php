@@ -7,7 +7,7 @@ class SeatType
 	private $id;
 	private $type;
 
-	function __construct($id, $name)
+	function __construct($id, $type)
 	{
         $this->id = $id;
         $this->type = $type;
@@ -23,12 +23,12 @@ class SeatType
         $this->id = $id;
     }
 
-    public function getName()
+    public function getType()
     {
         return $this->type;
     }
 
-    public function setName($type)
+    public function setType($type)
     {
         $this->type = $type;
     }
