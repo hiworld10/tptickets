@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS tptickets;
 CREATE DATABASE tptickets;
 use tptickets;
 

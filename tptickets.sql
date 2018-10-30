@@ -17,8 +17,12 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de datos: `tptickets`
+-- Base de datos: `tptickets` . Sos muy crack por no haber incluido lo MAS FUNDAMENTAL de la DB.
 --
+
+DROP DATABASE IF EXISTS tptickets;
+CREATE DATABASE tptickets;
+use tptickets;
 
 -- --------------------------------------------------------
 
