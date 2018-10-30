@@ -11,7 +11,7 @@ class SeatTypeController {
 	private $dao;
 
 	public function __construct() {
-		$this->dao = new List_SeatTypeDAO();
+		$this->dao = new DB_SeatTypeDAO();
 	}
 
 	public function addSeatType($type) {

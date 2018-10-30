@@ -13,10 +13,10 @@
 
         public function create($seatType) {
             try {
-                $query = "INSERT INTO ".$this->tableName." (id_seat_type, type) VALUES (:id_seat_type, :type);";
+                $query = "INSERT INTO ".$this->tableName." (id_seat_type, description) VALUES (:id_seat_type, :description);";
                 
                 $parameters["id_seat_type"] = $seatType->getId();
-                $parameters["type"] = $seatType->getType();
+                $parameters["description"] = $seatType->getType();
 
                 $this->connection = Connection::getInstance();
 
@@ -38,8 +38,8 @@
                 $resultSet = $this->connection->execute($query);
                 
                 foreach ($resultSet as $row) {                
-                    $seatType = new Category($row["id_seat_type"], $row["type"]);
-                    array_push($seattypeList, $seatType);
+                    $seatType = new SeatType($row["id_seat_type"], $row["description"]);
+                    array_push($seatTypeList, $seatType);
                 }
 
                 return $seatTypeList;
@@ -62,7 +62,7 @@
                 $resultSet = $this->connection->execute($query, $parameters);
                 
                 foreach ($resultSet as $row) {
-                    $seatType = new SeatType($row["id_seat_type"], $row["type"]);
+                    $seatType = new SeatType($row["id_seat_type"], $row["description"]);
                 }
                             
                 return $seatType;
@@ -86,9 +86,9 @@
 
         public function update($seatType) {
          try {
-            $query = "UPDATE ".$this->tableName." SET type = :type WHERE id_seat_type = :id_seat_type";
+            $query = "UPDATE ".$this->tableName." SET description = :description WHERE id_seat_type = :id_seat_type";
             $parameters["id_seat_type"] = $seatType->getId();
-            $parameters["type"] = $seatType->getType();
+            $parameters["description"] = $seatType->getType();
             $this->connection = Connection::getInstance();
             $this->connection->executeNonQuery($query, $parameters);   
         }
