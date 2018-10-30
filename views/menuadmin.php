@@ -5,7 +5,7 @@
   <li><a href="<?=FRONT_ROOT?>/event/getAll" title="...">Eventos</a></li>
   <li><a href="..." title="...">Calendario</a></li>
   <li><a href="<?=FRONT_ROOT?>/user/getAll" title="...">Usuarios</a></li>
-  <li><a href="..." title="...">Plazas</a></li>
+  <li><a href="..." title="<?=FRONT_ROOT?>/seattype/getAll">Plazas</a></li>
    <li><a href="..." title="...">Tipo Plazas</a></li>
  </ul>
 </div>

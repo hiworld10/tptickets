@@ -1,28 +1,16 @@
 <?php
 namespace model;
 
-
-
-
-
-
-/**
- * @author alumno
- * @version 1.0
- * @created 26-sep.-2018 13:28:07
- */
 class SeatType
 {
 
 	private $id;
-	private $name;
-	public $m_eventSeat;
+	private $type;
 
-	function __construct($name)
+	function __construct($id, $name)
 	{
-        $this->id= null;
-        $this->name= $name;
-        $this->m_eventSeat= null;
+        $this->id = $id;
+        $this->type = $type;
 	}
 
     public function getId()
@@ -33,32 +21,16 @@ class SeatType
     public function setId($id)
     {
         $this->id = $id;
-
-        return $this;
     }
 
     public function getName()
     {
-        return $this->name;
+        return $this->type;
     }
 
-    public function setName($name)
+    public function setName($type)
     {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getMEventSeat()
-    {
-        return $this->m_eventSeat;
-    }
-
-    public function setMEventSeat($m_eventSeat)
-    {
-        $this->m_eventSeat = $m_eventSeat;
-
-        return $this;
+        $this->type = $type;
     }
 }
 ?>
