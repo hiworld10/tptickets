@@ -35,6 +35,10 @@ class EventController {
 		include ADMIN_VIEWS. '/adminevent.php';
 	}
 
+	public function getAllSelect() {
+		return $this->dao->retrieveAll();
+	}
+
 	public function deleteEvent($id){
 		$this->dao->delete($id);
 		$this->getAll();
