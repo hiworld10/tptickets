@@ -24,7 +24,7 @@
                     <h2>Login!</h2>
                    
                </header>
-               <form class="login-form bg-dark-alpha p-5 text-white" action="<?=FRONT_ROOT?>/user/login ?>" method="POST">
+               <form class="login-form bg-dark-alpha p-5 text-white" action="<?=FRONT_ROOT?>/home/login ?>" method="POST">
                     <div class="form-group">
                          <label for="">Usuario</label>
                          <input type="text" name="email" class="form-control form-control-lg" placeholder="Ingresar usuario">
