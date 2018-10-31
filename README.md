@@ -25,7 +25,12 @@ data modificado
 login.php vista ->ligado a controladora user/index por defecto
 user/login  detallado peque;o error
 
-
+31/10
+modificacion importante user/login le di mas responsabilidades a la controladora home/login
+setSession
+daouser db
+homecontroler
+vista login.php
 
 
 
