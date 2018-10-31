@@ -4,28 +4,29 @@ namespace model;
 
 class EventSeat
 {
-
+    private $id;
 	private $availableSeats;
 	private $price;
-	public $m_purchaseLine;
+	private $calendarId;
+    private $seatTypeId;
 
-	function __construct($availableSeats, $price)
+	function __construct($id, $availableSeats, $price, $calendarId, $seatTypeId)
 	{
+        $this->id= $id;
         $this->availableSeats= $availableSeats;
         $this->price= $price;
-        $this->m_purchaseLine=null;
+        $this->calendarId= $calendarId;
+        $this->seatTypeId= $seatTypeId;
 	}
 
-    public function getAvailableSeats()
+    public function getId()
     {
-        return $this->availableSeats;
+        return $this->id;
     }
 
-    public function setAvailableSeats($availableSeats)
+    public function setId($id)
     {
-        $this->availableSeats = $availableSeats;
-
-        return $this;
+        $this->id = $id;
     }
 
     public function getPrice()
@@ -40,16 +41,33 @@ class EventSeat
         return $this;
     }
 
-    public function getMPurchaseLine()
+    public function getAvailableSeats()
     {
-        return $this->m_purchaseLine;
+        return $this->$availableSeats;
     }
 
-    public function setMPurchaseLine($m_purchaseLine)
+    public function setAvailableSeats($availableSeats)
     {
-        $this->m_purchaseLine = $m_purchaseLine;
+        $this->availableSeats = $availableSeats;
 
-        return $this;
+    }
+    public function getCalendarId()
+    {
+        return $this->$calendarId;
+    }
+
+    public function setCalendarId($calendarId)
+    {
+        $this->calendarId = $calendarId;
+    }
+     public function getSeatTypeId()
+    {
+        return $this->$seatTypeId;
+    }
+
+    public function setSeatTypeId($seatTypeId)
+    {
+        $this->seatTypeId = $seatTypeId;
     }
 }
 ?>
