@@ -43,12 +43,15 @@ class UserController {
 		
 	}
 
+
+
 	public function getUser($id) {
 		$user = $this->dao->retrieveById($id);
 		if(isset($user)){
 			include ADMIN_VIEWS . '/adminuser.php';
 		}
 	}
+
 
 
 	public function deleteUser($id){
@@ -99,6 +102,45 @@ class UserController {
 	public function checkPassword($pass){
 		//el operador ternario es mas kool
 		return ((strlen ($pass) < $this->passwordLength) ? false : true);
+	}
+
+
+	public function login($email, $password){
+		$arrayUsers=$this->dao->retrieveAll();
+		if(!$this->checkEmail($email)){
+		//me fijo si el email esta en la bd
+			foreach ($arrayUsers as $key => $value) {
+				if ($email == $value->getEmail()) {
+					if($password == $value->getPassword())
+					{
+						//si es admin va a home sino a admin
+						//TENDRIA Q SER AL REVES
+						if($value->getAdmin())
+						{
+							echo "admin";
+							include VIEWS.'/home.php';
+
+						}else{									//error nunca tira a la vista user (????)
+							echo "user";
+							include VIEWS.'/admin.php';
+							
+						}
+					}else{
+						print_r("Contraseña erronea. Intente de nuevo");
+						include VIEWS. '/login.php';
+					}
+				}
+			}
+		}else{
+			print_r("No existe un usuario con ese email. Intente de nuevo");
+			include VIEWS. '/login.php';
+		}
+		
+	}
+
+
+	public function index(){
+		include VIEWS_ROOT. '/login.php';
 	}
 
 
