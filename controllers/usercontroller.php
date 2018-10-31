@@ -115,14 +115,13 @@ class UserController {
 					{
 						//si es admin va a home sino a admin
 						//TENDRIA Q SER AL REVES
-						if($value->getAdmin())
+						if($value->getAdmin()== "true")
 						{
-							echo "admin";
 							include VIEWS.'/home.php';
 
 						}else{									//error nunca tira a la vista user (????)
-							echo "user";
-							include VIEWS.'/admin.php';
+							
+							include ADMIN_VIEWS.'/admin.php';
 							
 						}
 					}else{
