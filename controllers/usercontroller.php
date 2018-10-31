@@ -4,12 +4,14 @@ namespace controllers;
 use model\User as M_User;
 use dao\lists\UserDAO as List_UserDAO;
 use dao\db\UserDAO as DB_UserDAO;
+use controllers\HomeController as HomeController;
 
 
 class UserController {
 
 	private $dao;
 	private $passwordLength = 6;
+
 
 	public function __construct() {
 		$this->dao = new DB_UserDAO();
@@ -105,35 +107,21 @@ class UserController {
 	}
 
 
-	public function login($email, $password){
-		$arrayUsers=$this->dao->retrieveAll();
-		if(!$this->checkEmail($email)){
-		//me fijo si el email esta en la bd
-			foreach ($arrayUsers as $key => $value) {
-				if ($email == $value->getEmail()) {
-					if($password == $value->getPassword())
-					{
-						//si es admin va a home sino a admin
-						//TENDRIA Q SER AL REVES
-						if($value->getAdmin()== "true")
-						{
-							include VIEWS.'/home.php';
 
-						}else{							
-							
-							include ADMIN_VIEWS.'/admin.php';
-							
-						}
-					}else{
-						print_r("Contraseña erronea. Intente de nuevo");
-						include VIEWS. '/login.php';
-					}
-				}
-			}
-		}else{
-			print_r("No existe un usuario con ese email. Intente de nuevo");
-			include VIEWS. '/login.php';
-		}
+
+	public function login($email, $password){
+
+
+          $user =  $this->dao->retrieveByEmail($email);
+
+          if($user) {
+               if($user->getPassword() == $password) {
+                    $this->setSession($user);
+                    return $user;
+               }
+          }
+
+          return false;
 		
 	}
 
@@ -142,6 +130,53 @@ class UserController {
 		include VIEWS_ROOT. '/login.php';
 	}
 
+
+
+
+
+
+
+
+  /* Este método verifica si existe un usuario en sesion y en caso
+      * afirmativo lo toma de la base de datos y compara contraseñas.
+      * Esto lo hace con el fin de asegurar que si cambio algun dato
+      * obtiene la información actualizada.
+      */
+
+     public function checkSession() {
+          if (session_status() == PHP_SESSION_NONE)
+               session_start();
+
+          if(isset($_SESSION['userLogedIn'])) {
+
+               $user = $this->dao->retrieveByEmail($_SESSION['userLogedIn']->getEmail());
+
+               if($user->getPassword() == $_SESSION['userLogedIn']->getPassword())
+                    return $user;
+
+          } else {
+               return false;
+          }
+     }
+
+
+	public function setSession($user) {
+          $_SESSION['userLogedIn'] = $user;
+     }
+
+
+
+        public function logout() {
+
+          if (session_status() == PHP_SESSION_NONE)
+               session_start();
+
+          unset($_SESSION['userLogedIn']);
+
+          $this->HomeController = new HomeController();
+
+          $this->HomeController->index();
+     }
 
 }
 
