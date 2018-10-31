@@ -119,7 +119,7 @@ class UserController {
 						{
 							include VIEWS.'/home.php';
 
-						}else{									//error nunca tira a la vista user (????)
+						}else{							
 							
 							include ADMIN_VIEWS.'/admin.php';
 							
