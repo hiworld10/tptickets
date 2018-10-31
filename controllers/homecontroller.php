@@ -15,7 +15,7 @@ class HomeController
      private $user;
 
      function __construct() {
-          
+          $this->userController = new UserController();
      }
 
      /**
@@ -25,13 +25,50 @@ class HomeController
       * @param $_user, $_pass
       *
       */
-     public function index() {
 
-          $artistController= new ArtistController();
+    public function index(){
+      include_once VIEWS_ROOT. '/home.php';
+    }
+
+
+     public function login($email= null, $password= null) {
+
+        $showHome = false; // Esto se vuelve true solo si hay un usuario logueado.
+
+          // Verifico si existe un usuario logueado. Le paso la responsabilidad a UserController de verificarlo
+          if($user = $this->userController->checkSession()) {
+               $showHome = true;
+          } else {
+
+               // Si no hay usuario logueado pero viene un usuario como parametro, es un intento de logueo.
+               if(isset($email)) {
+
+                    // Intento loguear. Le paso la responsabilidad a UserController. Si es true, muetro home. Caso contrario sigo...
+                    if($user = $this->userController->login($email, $password)) {
+                         $showHome = true;
+
+                    } else {
+                         $alert = "Datos incorrectos, vuelva a intentar.";
+                    }
+               }
+          }
           
-         // $artistArray = $artistController->getAll();
 
-          include_once VIEWS . '/home.php';
+          if($showHome){
+                if($user->getAdmin() == "true"){
+                  include_once VIEWS_ROOT. '/home.php';
+                }else{
+                  include_once ADMIN_VIEWS. '/admin.php';
+                }
+          }else{
+            //vista login
+               include_once VIEWS_ROOT . '/user';
+          }
+
+
+
+          //por el momento rompo la sesion deberia asignarse a un boton
+          $this->userController->logout();
 
      }
 
