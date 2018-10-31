@@ -39,7 +39,7 @@
                                         <?php if($categoryArray){ 
                                              foreach ($categoryArray as $key => $value) { 
                                          ?>
-                                        <option value="<?= $value->getId(); ?>"><?= $value->getType(); ?></option> 
+                                        <option value="<?= $value; ?>"><?= $value->getType(); ?></option> 
                                         <?php }
                                          }else{ ?>
                                         <option >NO HAY CATEGORIAS</option>
@@ -96,7 +96,7 @@
                   <tr>
                      <td><?= $value->getId(); ?></td>
                       <td><?= $value->getName(); ?></td>
-                       <td><?= $value->getCategoryId(); ?></td>
+                       <td><?= $value->getCategory->getId(); ?></td>
 
                       <td>
                         <form action="<?=FRONT_ROOT?>/event/deleteEvent" method="POST">

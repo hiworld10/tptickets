@@ -15,8 +15,8 @@ class EventController {
 		$this->categoryController = new CategoryController();
 	}
 
-	public function addEvent($name, $categoryId) {
-		$m_event = new M_event(null, $name, $categoryId);
+	public function addEvent($name, $category) {
+		$m_event = new M_event(null, $name, $category);
 		$this->dao->create($m_event);
 		$this->getAll();
 	}
@@ -44,8 +44,8 @@ class EventController {
 		$this->getAll();
 	}
 
-	public function updateEvent($id, $newName, $newCategoryId) {
-		$updatedEvent = new M_Event($id, $newName, $newCategoryId);
+	public function updateEvent($id, $newName, $newCategory) {
+		$updatedEvent = new M_Event($id, $newName, $newCategory);
 		$this->dao->update($updatedEvent);
 		$this->getAll();
 	}

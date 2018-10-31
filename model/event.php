@@ -1,19 +1,21 @@
 <?php
 namespace model;
 
+use model\Category as Category;
+
 class Event
 {
 
 	private $id;
 	private $name;
-    private $categoryId;
+    private Category $category;
 
 
-	function __construct($id, $name, $categoryId)
+	function __construct($id, $name, Category $category)
 	{
 		$this->id =	$id;
 		$this->name = $name;
-        $this->categoryId = $categoryId;
+        $this->category = $category;
 	}
 
     public function getId()
@@ -36,14 +38,14 @@ class Event
         $this->name = $name;
     }
 
-     public function getCategoryId()
+     public function getCategory()
     {
-        return $this->categoryId;
+        return $this->category;
     }
 
-    public function setCategoryId($categoryId)
+    public function setCategory(Category $category)
     {
-        $this->categoryId = $categoryId;
+        $this->category = $category;
     }
 
 
