@@ -17,3 +17,15 @@ controladora dao y vista
 model calendar
 controladora daos y vista
 
+model seatevent
+controladora daos y vista(con error->revisar)
+
+footer.php
+data modificado
+login.php vista ->ligado a controladora user/index por defecto
+user/login  detallado peque;o error
+
+
+
+
+
