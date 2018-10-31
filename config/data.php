@@ -13,10 +13,11 @@ define('FRONT_ROOT', 'http://localhost/tptickets');
 define('ADMIN_FRONT_ROOT', FRONT_ROOT . '/views/admin');
 define('IMG_FRONT_ROOT', FRONT_ROOT . '/img');
 define('CSS_PATH', FRONT_ROOT . '/content/css');
-define('IMG_PATH', FRONT_ROOT . '/content/img');
 define('HEADER','header.php');
 define('NAVBAR','navbar.php');
 define('MENUADMIN', 'menuadmin.php');
+define('FOOTER', 'footer.php');
+
 
 
 define('IMG_UPLOADS_PATH', FRONT_ROOT . '/content/uploads/img');
