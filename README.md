@@ -41,3 +41,5 @@ singin vista
 adminuser vista metodo add
 le di la responsabilidad de addUser a la controladora home 
 
+
+Agregada clase Ticket y su dao (no testeados)
