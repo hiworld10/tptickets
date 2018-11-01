@@ -148,4 +148,5 @@
             return (($val == 1) ? "true" : "false");
         }
     }
+
 ?>

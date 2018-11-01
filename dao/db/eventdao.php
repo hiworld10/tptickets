@@ -5,6 +5,7 @@ use \Exception as Exception;
 use dao\IDAO as IDAO;
 use model\Event as Event;    
 use dao\db\Connection as Connection;
+use dao\db\CategoryDAO as CategoryDAO;
 
 class EventDAO implements IDAO
 {
@@ -17,7 +18,7 @@ class EventDAO implements IDAO
 
             $parameters["id_event"] = $event->getId();
             $parameters["name"] = $event->getName();
-            $parameters["id_category"] = $event->getCategoryId();
+            $parameters["id_category"] = $event->getCategory()->getId();
 
             $this->connection = Connection::getInstance();
 
@@ -31,6 +32,7 @@ class EventDAO implements IDAO
     public function retrieveAll() {
         try {
             $eventList = array();
+            $categoryDAO = new CategoryDAO();
 
             $query = "SELECT * FROM ".$this->tableName;
 
@@ -38,8 +40,9 @@ class EventDAO implements IDAO
 
             $resultSet = $this->connection->execute($query);
 
-            foreach ($resultSet as $row) {                
-                $event = new Event($row["id_event"], $row["name"], $row["id_category"]);
+            foreach ($resultSet as $row) {
+                $category = $categoryDAO->retrieveById($row["id_category"]);             
+                $event = new Event($row["id_event"], $row["name"], $category);
                 array_push($eventList, $event);
             }
 
@@ -53,6 +56,7 @@ class EventDAO implements IDAO
     public function retrieveById($id) {
         try {
             $event = null;
+            $categoryDAO = new CategoryDAO();
 
             $query = "SELECT * FROM ".$this->tableName." WHERE id_event = :id_event";
 
@@ -63,7 +67,8 @@ class EventDAO implements IDAO
             $resultSet = $this->connection->execute($query, $parameters);
 
             foreach ($resultSet as $row) {
-                $event = new Event($row["id_event"], $row["name"], $row["id_category"]);
+                $category = $categoryDAO->retrieveById($row["id_category"]);
+                $event = new Event($row["id_event"], $row["name"], $category);
             }
 
             return $event;
@@ -90,7 +95,7 @@ class EventDAO implements IDAO
             $query = "UPDATE ".$this->tableName." SET name = :name, id_category = :id_category WHERE id_event = :id_event";
             $parameters["id_event"] = $event->getId();
             $parameters["name"] = $event->getName();
-            $parameters["id_category"] = $event->getCategoryId();
+            $parameters["id_category"] = $event->getCategory()->getId();
 
             $this->connection = Connection::getInstance();
             $this->connection->executeNonQuery($query, $parameters);   
