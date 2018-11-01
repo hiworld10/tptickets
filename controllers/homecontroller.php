@@ -62,36 +62,47 @@ class HomeController
                 }
           }else{
             //vista login
-               include_once VIEWS_ROOT . '/user';
+            print_r($alert);
+               include_once VIEWS_ROOT. '/login.php';
           }
 
 
 
-          //por el momento rompo la sesion deberia asignarse a un boton
-          $this->userController->logout();
+          
 
      }
 
-     public function addUser($name, $surname, $nationality = '', $state = '', $city = '', $birthdate = '', $email, $pass, $file) {
+     public function addUser($email, $password, $firstname, $lastname, $admin='false') {
 
           // Codifiacacion de contraseña
           //$pass = md5($pass);
 
-          $user = new M_User('', $name, $surname, $nationality, $state, $city, $birthdate, $email, $pass, $file);
 
+          //checkeo que no exista un usuario con ese email
+    if($this->userController->checkEmail($email)) {
+      //checkeo que password sea mayor a 6 caracteres
+      if($this->userController->checkPassword($password)) {
+           $m_user = new M_User(null, $email, $password, $firstname, $lastname, $admin);
+
+           if(isset($admin)){
+            $m_user->setAdmin($admin);
+            }
+      
           try {
-               if($this->userController->add($user))
+               if($this->userController->addUser($m_user)){
                     $success = "Gracias por registrarte. Ya podes iniciar sesión.";
-               else
+               }else{
                     $alert = "Ocurrió un error al crear la cuenta. Vuelva a intentar.";
+                  }
           } catch(\PDOException $ex) {
                $alert =  $ex->errorInfo['2'];
           }
 
-          include_once VIEWS . '/header.php';
+       } else echo "LA PASSWORD ES MUY CORTA, tiene que tener al menos 6 caracteres";
+       //REVISAR SOLO TIRA EL ERROR SIN VISTAS YA QUE DEPENDE DONDE SE ESTE USANDO
+       // PUEDE ESTAR EN ADMINUSER O EN SINGIN.php
 
-          include_once VIEWS . '/login.php';
+    }else echo "YA EXISTE UN USUARIO CON ESE EMAIL";
 
-          include_once VIEWS . '/footer.php';
-     }
+  }
 }
