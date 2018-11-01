@@ -17,26 +17,20 @@ class UserController {
 		$this->dao = new DB_UserDAO();
 	}
 
-	public function addUser($email, $password, $firstname, $lastname, $admin='false')//si no se setea admin->false
-	{
 
-		//checkeo que no exista un usuario con ese email
-		if($this->checkEmail($email)) {
-			//checkeo que password sea mayor a 6 caracteres
-			if($this->checkPassword($password)) {
-				$m_user = new M_User(null, $email, $password, $firstname, $lastname, $admin);
 
-				if(isset($admin)){
-					$m_user->setAdmin($admin);
-					$this->dao->create($m_user);
-				}
+	 public function addUser($_user) {
 
-			} else echo "LA PASSWORD ES MUY CORTA, tiene que tener al menos 6 caracteres";
-			
-		} else echo "YA EXISTE UN USUARIO CON ESE EMAIL";
-		
-		$this->getAll();
-	}
+               try {
+                    $this->dao->create($_user);
+                    $this->getAll();
+                    return true;
+               } catch(\PDOException $ex) {
+                    throw $ex;
+               }
+
+
+     }
 
 
 	public function getAll(){
@@ -128,6 +122,10 @@ class UserController {
 
 	public function index(){
 		include VIEWS_ROOT. '/login.php';
+	}
+
+	public function singin(){
+		include VIEWS_ROOT. '/singin.php';
 	}
 
 
