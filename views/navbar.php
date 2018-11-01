@@ -18,11 +18,11 @@ use controllers\UserController as UserController;
         <a class="navbar-brand" href="<?= FRONT_ROOT ?>/home/">IziTicket</a>
         <div class="right">
         	<?php if(isset($user)){ ?>
-        	<a class="navbar-brand" href="..."><?= $user->getFirstname(); ?></a>
+        	<a class="navbar-brand" href="<?= $user->getFirstname(); ?>"></a>
           	<a class="btn btn-primary" href="<?= FRONT_ROOT ?>/user/logout">Log out</a>
           <?php }else{ ?>
           	<a class="btn btn-primary" href="<?= FRONT_ROOT ?>/user">Ingresar</a>
-          	<a class="btn btn-primary" href="<?= FRONT_ROOT ?>/user/singin">Registrarse</a>
+          	<a class="btn btn-primary" href="<?= FRONT_ROOT ?>/user/signup">Registrarse</a>
           <?php } ?>
         </div>
       </div>

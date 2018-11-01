@@ -124,8 +124,8 @@ class UserController {
 		include VIEWS_ROOT. '/login.php';
 	}
 
-	public function singin(){
-		include VIEWS_ROOT. '/singin.php';
+	public function signup(){
+		include VIEWS_ROOT. '/signup.php';
 	}
 
 
