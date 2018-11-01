@@ -99,9 +99,7 @@ class HomeController
           }
 
        } else echo "LA PASSWORD ES MUY CORTA, tiene que tener al menos 6 caracteres";
-       //REVISAR SOLO TIRA EL ERROR SIN VISTAS YA QUE DEPENDE DONDE SE ESTE USANDO
-       // PUEDE ESTAR EN ADMINUSER O EN SINGIN.php
-
+  
     }else echo "YA EXISTE UN USUARIO CON ESE EMAIL";
 
   }
