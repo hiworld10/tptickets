@@ -15,7 +15,8 @@ class EventController {
 		$this->categoryController = new CategoryController();
 	}
 
-	public function addEvent($name, $category) {
+	public function addEvent($name, $categoryId) {
+		$category = $this->categoryController->getCategory($categoryId);
 		$m_event = new M_event(null, $name, $category);
 		$this->dao->create($m_event);
 		$this->getAll();

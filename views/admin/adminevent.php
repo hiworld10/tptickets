@@ -39,7 +39,7 @@
                                         <?php if($categoryArray){ 
                                              foreach ($categoryArray as $key => $value) { 
                                          ?>
-                                        <option value="<?= $value; ?>"><?= $value->getType(); ?></option> 
+                                        <option value="<?= $value->getId(); ?>"><?= $value->getType(); ?></option> 
                                         <?php }
                                          }else{ ?>
                                         <option >NO HAY CATEGORIAS</option>
