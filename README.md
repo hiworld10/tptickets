@@ -29,8 +29,15 @@ user/login  detallado peque;o error
 modificacion importante user/login le di mas responsabilidades a la controladora home/login
 setSession
 daouser db
-homecontroler
+homecontroler/login
 vista login.php
 
 
+
+usercontroller
+homecontroller.adduser
+navbar con session 
+singin vista
+adminuser vista metodo add
+le di la responsabilidad de addUser a la controladora home 
 
