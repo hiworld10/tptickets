@@ -62,7 +62,7 @@
     <?php   } else {   ?>
 
         <!-- De no ser así, se habilitará el formulario para agregar usuarios  -->
-        <form name='formulario' action="<?=FRONT_ROOT?>/user/addUser"  method="POST">
+        <form name='formulario' action="<?=FRONT_ROOT?>/home/addUser"  method="POST">
        <div class="form">
         <div class="col-12 col-md-9 mb-2 mb-md-3">
           <input type="email" name="email" class="form-control form-control-lg" placeholder="Email..." required>
@@ -135,12 +135,6 @@
 </div>
 
 </div>
-
-
-      
-
-     
-    
 
       <!-- Bootstrap core JavaScript -->
       <script src="vendor/jquery/jquery.min.js"></script>
