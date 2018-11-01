@@ -31,7 +31,7 @@
                     </div>
                     <div class="form-group">
                          <label for="">Contraseña</label>
-                         <input type="password" name="password" class="form-control form-control-lg" placeholder="Ingresar constraseña">
+                         <input type="password" name="password" class="form-control form-control-lg" placeholder="Ingresar contraseña">
                     </div>
                     <button class="btn btn-dark btn-block btn-lg mt-5" type="submit">
                          Iniciar Sesión
