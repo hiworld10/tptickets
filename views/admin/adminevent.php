@@ -96,7 +96,7 @@
                   <tr>
                      <td><?= $value->getId(); ?></td>
                       <td><?= $value->getName(); ?></td>
-                       <td><?= $value->getCategory->getId(); ?></td>
+                       <td><?= $value->getCategory()->getId(); ?></td>
 
                       <td>
                         <form action="<?=FRONT_ROOT?>/event/deleteEvent" method="POST">
