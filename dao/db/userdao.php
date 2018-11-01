@@ -82,6 +82,33 @@
             }
         }
 
+         public function retrieveByEmail($email) {
+            try {
+                $user = null;
+
+                $query = "SELECT * FROM ".$this->tableName." WHERE email = :email";
+                
+                $parameters["email"] = $email;
+                
+                $this->connection = Connection::getInstance();
+
+                $resultSet = $this->connection->execute($query, $parameters);
+                
+                foreach ($resultSet as $row) {
+                    $user = new User($row["id_user"], $row["email"], $row["password"], $row["first_name"], $row["last_name"], $row["is_admin"]);
+                    //conversion de tinyint a string para muestreo
+                    $user->setAdmin($this->tinyIntBooleanToString($user->getAdmin()));
+                }
+                            
+                return $user;
+            }
+            catch(Exception $ex) {
+                throw $ex;
+            }
+        }
+
+
+
         public function delete($id) {
             try {
                 $query = "DELETE FROM ".$this->tableName." WHERE id_user = :id_user";
@@ -121,4 +148,5 @@
             return (($val == 1) ? "true" : "false");
         }
     }
+
 ?>
