@@ -9,15 +9,15 @@ class Event
 	private $id;
 	private $name;
 	//No se debe explicitar el tipo de clase dentro del atributo propio
-    	private $category;
+    private $category;
 
-	
+
 	function __construct($id, $name, Category $category) //Si en los parametros
 	{
 		$this->id =	$id;
 		$this->name = $name;
         $this->category = $category;
-	}
+    }
 
     public function getId()
     {
@@ -39,7 +39,7 @@ class Event
         $this->name = $name;
     }
 
-     public function getCategory()
+    public function getCategory()
     {
         return $this->category;
     }
@@ -48,7 +48,5 @@ class Event
     {
         $this->category = $category;
     }
-
-
 }
 ?>
