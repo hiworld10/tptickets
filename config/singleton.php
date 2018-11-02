@@ -1,5 +1,5 @@
 <?php  
-namespace Config;
+namespace config;
 
 //Que se supone que hay que hacer con esto?
 class SingleTon{
