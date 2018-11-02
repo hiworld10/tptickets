@@ -1,40 +1,31 @@
 <?php
 namespace model;
 
-
-
-
-/**
- * @author alumno
- * @version 1.0
- * @created 26-sep.-2018 13:28:08
- */
 class Ticket
 {
-	private $id_ticket;
-	private $id_purchase_line;
+	private $id;
+	private $purchaseLineId;
 	private $number;
 	private $qr;
 	
 
-	function __construct($id_ticket, $id_purchase_line, $number, $qr)
+	function __construct($id, $purchaseLineId, $number, $qr)
 	{
-		$this->id_ticket = $id_ticket;
-		$this->id_purchase_line = $id_purchase_line;
+		$this->id = $id;
+		$this->purchaseLineId = $purchaseLineId;
 		$this->number = $number;
 		$this->qr = $qr;
-		
 	}
 
 
-	public function getIdTicket()
+	public function getId()
 	{
-		return $this->id_ticket;
+		return $this->id;
 	}
 
-	public function getIdPurchaseLine()
+	public function getPurchaseLineId()
 	{
-		return $this->id_purchase_line;
+		return $this->purchaseLineId;
 	}
 
 	public function getNumber()
@@ -47,29 +38,24 @@ class Ticket
 		return $this->qr;
 	}
 
-
-	
-	public function setIdTicket($id_ticket)
+	public function setId($id)
 	{
-		$this->id_ticket=$id_ticket;
+		$this->id = $id;
 	}
 
-
-	public function setIdPurchaseLine($id_purchase_line)
+	public function setPurchaseLineId($purchaseLineId)
 	{
-		$this->id_purchase_line=$id_purchase_line;
+		$this->purchaseLineId = $purchaseLineId;
 	}
 
 	public function setNumber($number)
 	{
-		$this->number=$number;
+		$this->number = $number;
 	}
 
 	public function setQr($qr)
 	{
-		$this->qr=$qr;
+		$this->qr = $qr;
 	}
-
-
 }
 ?>
