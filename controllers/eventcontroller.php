@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 namespace controllers;
 use model\Event as M_Event;
 use dao\lists\EventDAO as List_EventDAO;
@@ -16,7 +17,7 @@ class EventController {
 	}
 
 	public function addEvent($name, $categoryId) {
-		$category = $this->categoryController->getCategory($categoryId);
+		$category = $this->categoryController->getCategorySelect($categoryId);
 		$m_event = new M_event(null, $name, $category);
 		$this->dao->create($m_event);
 		$this->getAll();
@@ -45,7 +46,8 @@ class EventController {
 		$this->getAll();
 	}
 
-	public function updateEvent($id, $newName, $newCategory) {
+	public function updateEvent($id, $newName, $categoryId) {
+		$newCategory = $this->categoryController->getCategorySelect($categoryId);
 		$updatedEvent = new M_Event($id, $newName, $newCategory);
 		$this->dao->update($updatedEvent);
 		$this->getAll();
