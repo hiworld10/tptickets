@@ -45,6 +45,10 @@ class CategoryController {
 		}
 	}
 
+		public function getCategorySelect($id) {
+		return $this->dao->retrieveById($id);
+	}
+
 
 	public function updateCategory($id, $newType) {
 		$updatedCategory = new M_Category($id, $newType);

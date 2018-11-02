@@ -18,28 +18,22 @@ class UserController {
 	}
 
 
+	public function addUser($_user) {
 
-	 public function addUser($_user) {
-
-               try {
-                    $this->dao->create($_user);
-                    $this->getAll();
-                    return true;
-               } catch(\PDOException $ex) {
-                    throw $ex;
-               }
-
-
-     }
-
+		try {
+			$this->dao->create($_user);
+			$this->getAll();
+			return true;
+		} catch(\PDOException $ex) {
+			throw $ex;
+		}
+	}
 
 	public function getAll(){
 		$userArray = $this->dao->retrieveAll();
 		include ADMIN_VIEWS . '/adminuser.php';
 		
 	}
-
-
 
 	public function getUser($id) {
 		$user = $this->dao->retrieveById($id);
@@ -48,14 +42,11 @@ class UserController {
 		}
 	}
 
-
-
 	public function deleteUser($id){
 
 		$this->dao->delete($id);
 		$this->getAll();
 	}
-
 
 	public function updateUser($id, $email, $pass, $firstname, $lastname, $admin='false') {
 
@@ -69,8 +60,6 @@ class UserController {
 				$updatedUser->setAdmin($admin);
 				$this->dao->update($updatedUser);
 			}
-
-
 
 		} else echo "LA PASSWORD ES MUY CORTA, tiene que tener al menos 6 caracteres";
 
@@ -101,30 +90,25 @@ class UserController {
 	}
 
 
+	public function login($email, $password) {
 
+		$user =  $this->dao->retrieveByEmail($email);
 
-	public function login($email, $password){
-
-
-          $user =  $this->dao->retrieveByEmail($email);
-
-          if($user) {
-               if($user->getPassword() == $password) {
-                    $this->setSession($user);
-                    return $user;
-               }
-          }
-
-          return false;
-		
+		if($user) {
+			if($user->getPassword() == $password) {
+				$this->setSession($user);
+				return $user;
+			}
+		}
+		return false;
 	}
 
 
-	public function index(){
+	public function index() {
 		include VIEWS_ROOT. '/login.php';
 	}
 
-	public function signup(){
+	public function signup() {
 		include VIEWS_ROOT. '/signup.php';
 	}
 
@@ -141,40 +125,40 @@ class UserController {
       * obtiene la información actualizada.
       */
 
-     public function checkSession() {
-          if (session_status() == PHP_SESSION_NONE)
-               session_start();
+  public function checkSession() {
+  	if (session_status() == PHP_SESSION_NONE)
+  		session_start();
 
-          if(isset($_SESSION['userLogedIn'])) {
+  	if(isset($_SESSION['userLogedIn'])) {
 
-               $user = $this->dao->retrieveByEmail($_SESSION['userLogedIn']->getEmail());
+  		$user = $this->dao->retrieveByEmail($_SESSION['userLogedIn']->getEmail());
 
-               if($user->getPassword() == $_SESSION['userLogedIn']->getPassword())
-                    return $user;
+  		if($user->getPassword() == $_SESSION['userLogedIn']->getPassword())
+  			return $user;
 
-          } else {
-               return false;
-          }
-     }
-
-
-	public function setSession($user) {
-          $_SESSION['userLogedIn'] = $user;
-     }
+  	} else {
+  		return false;
+  	}
+  }
 
 
+  public function setSession($user) {
+  	$_SESSION['userLogedIn'] = $user;
+  }
 
-        public function logout() {
 
-          if (session_status() == PHP_SESSION_NONE)
-               session_start();
 
-          unset($_SESSION['userLogedIn']);
+  public function logout() {
 
-          $this->HomeController = new HomeController();
+  	if (session_status() == PHP_SESSION_NONE)
+  		session_start();
 
-          $this->HomeController->index();
-     }
+  	unset($_SESSION['userLogedIn']);
+
+  	$this->HomeController = new HomeController();
+
+  	$this->HomeController->index();
+  }
 
 }
 
