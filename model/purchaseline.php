@@ -1,16 +1,21 @@
 <?php
 namespace model;
 
-//Necesita ser implementada
+use model\Ticket as Ticket;
+use model\Purchase as Purchase;
+
 class PurchaseLine
 {
 
 	private $amount;
-	public $m_ticket;
-	public $m_purchase;
+	public $ticket;
+	public $purchase;
 
-	function __construct()
+	function __construct($amount, Ticket $ticket, Purchase $purchase)
 	{
+        $this->amount = $amount;
+        $this->ticket = $ticket;
+        $this->purchase = $purchase;
 	}
 
 
@@ -22,32 +27,26 @@ class PurchaseLine
     public function setAmount($amount)
     {
         $this->amount = $amount;
-
-        return $this;
     }
 
-    public function getMTicket()
+    public function getTicket()
     {
-        return $this->m_ticket;
+        return $this->ticket;
     }
 
-    public function setMTicket($m_ticket)
+    public function setTicket(Ticket $ticket)
     {
-        $this->m_ticket = $m_ticket;
-
-        return $this;
+        $this->ticket = $ticket;
     }
 
-    public function getMPurchase()
+    public function getPurchase()
     {
-        return $this->m_purchase;
+        return $this->purchase;
     }
 
-    public function setMPurchase($m_purchase)
+    public function setPurchase($purchase)
     {
-        $this->m_purchase = $m_purchase;
-
-        return $this;
+        $this->purchase = $purchase;
     }
 }
 ?>
