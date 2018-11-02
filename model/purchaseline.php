@@ -2,22 +2,34 @@
 namespace model;
 
 use model\Ticket as Ticket;
-use model\Purchase as Purchase;
 
 class PurchaseLine
 {
 
+    private $id;
 	private $amount;
-	public $ticket;
-	public $purchase;
+    private $ticket;
+	private $purchaseId;
+	
 
-	function __construct($amount, Ticket $ticket, Purchase $purchase)
+	function __construct($id, $amount, Ticket $ticket, $purchaseId)
 	{
+        $this->id = $id;
         $this->amount = $amount;
         $this->ticket = $ticket;
-        $this->purchase = $purchase;
+        $this->purchaseId = $purchaseId;
 	}
 
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
     public function getAmount()
     {
@@ -39,14 +51,14 @@ class PurchaseLine
         $this->ticket = $ticket;
     }
 
-    public function getPurchase()
+    public function getPurchaseId()
     {
-        return $this->purchase;
+        return $this->purchaseId;
     }
 
-    public function setPurchase($purchase)
+    public function setPurchaseId($purchaseId)
     {
-        $this->purchase = $purchase;
+        $this->purchaseId = $purchaseId;
     }
 }
 ?>

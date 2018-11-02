@@ -8,12 +8,13 @@ class Purchase
 
 	private $id;
     private $date;
-    private $purchaseLine; //array???
+    private $purchaseLine; //posible array???
 
-	function __construct($id, $date)
+	function __construct($id, $date, $purchaseLine)
 	{
         $this->id = $id;
         $this->date = $date;
+        $this->purchaseLine = $purchaseLine;
 	}
 
     public function getId()
@@ -34,6 +35,16 @@ class Purchase
     public function setDate($date)
     {
         $this->date = $date;
+    }
+
+    public function getPurchaseLine()
+    {
+        return $this->purchaseLine;
+    }
+
+    public function setPurchaseLine($purchaseLine)
+    {
+        $this->purchaseLine = $purchaseLine;
     }
 }
 ?>
