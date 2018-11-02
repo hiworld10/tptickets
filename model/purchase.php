@@ -1,14 +1,19 @@
 <?php
 namespace model;
 
-//Necesita ser implementada
+use model\PurchaseLine as PurchaseLine;
+
 class Purchase
 {
 
 	private $id;
+    private $date;
+    private $purchaseLine; //array???
 
-	function __construct()
+	function __construct($id, $date)
 	{
+        $this->id = $id;
+        $this->date = $date;
 	}
 
     public function getId()
@@ -19,8 +24,16 @@ class Purchase
     public function setId($id)
     {
         $this->id = $id;
+    }
 
-        return $this;
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    public function setDate($date)
+    {
+        $this->date = $date;
     }
 }
 ?>
