@@ -1,22 +1,20 @@
 <?php  
-	namespace Config;
+namespace Config;
 
-	/**
-	* 
-	*/
-	class SingleTon{
-		
-		private static $instance= array();
+//Que se supone que hay que hacer con esto?
+class SingleTon{
 
-		public static function getInstance(){
+	private static $instance= array();
 
-			$class= get_called_class();
+	public static function getInstance(){
 
-			if (!isset(self::$instance[$class])) {
-				self::$instance[$class]= new $class;
-			}	
+		$class= get_called_class();
 
-			return self::$instance[$class];
-		}
+		if (!isset(self::$instance[$class])) {
+			self::$instance[$class]= new $class;
+		}	
+
+		return self::$instance[$class];
 	}
+}
 ?>
