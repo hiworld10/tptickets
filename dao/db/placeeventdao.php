@@ -6,7 +6,7 @@ use dao\IDAO as IDAO;
 use model\PlaceEvent as PlaceEvent;    
 use dao\db\Connection as Connection;
 
-class CalendarDAO implements IDAO
+class PlaceEventDAO implements IDAO
 {
     private $connection;
     private $tableName = "places_events";
