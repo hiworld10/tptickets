@@ -7,5 +7,8 @@
   <li><a href="<?=FRONT_ROOT?>/user/getAll" title="...">Usuarios</a></li>
   <li><a href="..." title="...">Plazas</a></li>
    <li><a href="<?=FRONT_ROOT?>/seattype/getAll" title="...">Tipo Plazas</a></li>
+   <li><a href="<?=FRONT_ROOT?>/placeevent/getAll" title="...">Lugar</a></li>
+   <li><a href="<?=FRONT_ROOT?>/purchase/getAll" title="...">Compra</a></li>
+   <li><a href="<?=FRONT_ROOT?>/purchaseline/getAll" title="...">Linea Compra</a></li>
  </ul>
 </div>
