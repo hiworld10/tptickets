@@ -20,7 +20,7 @@
 
     <div id="divform" class="__full-height-perc">
 
-      <?php if(isset($placeevent)){ ?>
+      <?php if(isset($placeEvent)){ ?>
 
 
         <form name='formulario' action="<?=FRONT_ROOT?>/placeevent/updatePlaceEvent"  method="POST">
