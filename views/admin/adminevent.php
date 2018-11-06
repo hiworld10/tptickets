@@ -46,6 +46,10 @@
           <?php } ?>
         </select>
       </div>
+      <div class="col-md-5 mb-2 mb-md-0 form-row">
+          <label>Imagen</label>
+          <input type="file" name="file" class="form-control form-control-lg" value="<?= $event->getImage(); ?>" required>
+        </div>
       <div class="col-12 col-md-2 form-row">
         <button type="submit" class="btn btn-block btn-lg btn-primary">Aceptar</button>
       </div>
@@ -75,6 +79,9 @@
   </select>
 
 </div>
+<div class="col-lg-4 form-group mt-4">
+      <input type="file"  class="form-control form-control-lg" name="file" required>
+  </div>
 <div class="col-11 col-md-3 mt-4">
   <button type="submit" class="btn btn-block btn-lg btn-primary">Agregar</button>
 </div>
@@ -90,7 +97,8 @@
       <thead>     
        <th>Id</th>  
        <th>Nombre</th>     
-       <th>Categoria</th>          
+       <th>Categoria</th>
+        <th>Imagen</th>            
      </thead>
      <tbody>
       <?php foreach ($eventArray as $value) { ?>
@@ -98,6 +106,7 @@
          <td><?= $value->getId(); ?></td>
          <td><?= $value->getName(); ?></td>
          <td><?= $value->getCategory()->getId(); ?></td>
+         <td><?= $value->getImage(); ?></td>
 
          <td>
           <form action="<?=FRONT_ROOT?>/event/deleteEvent" method="POST">
