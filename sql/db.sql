@@ -31,14 +31,15 @@ CREATE TABLE events(
 id_event int AUTO_INCREMENT PRIMARY KEY,
 name varchar(60),
 id_category int,
+image varchar(60),
 FOREIGN KEY(id_category) REFERENCES categories(id_category)
 );
 
-INSERT INTO events(name, id_category)
+INSERT INTO events(name, id_category, image)
 VALUES
-("Luis Miguel en Argentina", 1),
-("Woodstock 2018", 1),
-("Una Obra Teatral Cualquiera", 2);
+("Luis Miguel en Argentina", 1, "imagen1.jpg"),
+("Woodstock 2018", 1, "imagen2.jpg"),
+("Una Obra Teatral Cualquiera", 2, "imagen3.jpg");
 
 CREATE TABLE users(
 id_user int AUTO_INCREMENT PRIMARY KEY,
