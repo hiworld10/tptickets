@@ -14,11 +14,12 @@ class EventController {
 	public function __construct() {
 		$this->dao = new DB_EventDAO();
 		$this->categoryController = new CategoryController();
+		
 	}
 
-	public function addEvent($name, $categoryId) {
+	public function addEvent($name, $categoryId, $image) {
 		$category = $this->categoryController->getCategorySelect($categoryId);
-		$m_event = new M_event(null, $name, $category);
+		$m_event = new M_event(null, $name, $category, $image);
 		$this->dao->create($m_event);
 		$this->getAll();
 	}
@@ -46,9 +47,9 @@ class EventController {
 		$this->getAll();
 	}
 
-	public function updateEvent($id, $newName, $categoryId) {
+	public function updateEvent($id, $newName, $categoryId, $image) {
 		$newCategory = $this->categoryController->getCategorySelect($categoryId);
-		$updatedEvent = new M_Event($id, $newName, $newCategory);
+		$updatedEvent = new M_Event($id, $newName, $newCategory, $image);
 		$this->dao->update($updatedEvent);
 		$this->getAll();
 	}
