@@ -43,3 +43,9 @@ le di la responsabilidad de addUser a la controladora home
 
 
 Agregada clase Ticket y su dao (no testeados)
+
+
+6/11 
+agregue $image al model de evento
+modifique daos, vista, sql con una columna de mas y controladora
+falta implementar filecontroller dentro de esta controladora (preguntar)
