@@ -51,6 +51,7 @@ class EventDAO implements IDAO
 				if ($newVal->getId() == $value->getId()) {
 					$value->setName($newVal->getName());
 					$value->setCategoryId($newVal->getCategoryId());
+					$value->setImage($newVal->getImage());
 				}
 			}
 		}
