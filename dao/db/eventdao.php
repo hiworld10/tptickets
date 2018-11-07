@@ -14,11 +14,12 @@ class EventDAO implements IDAO
 
     public function create($event) {
         try {
-            $query = "INSERT INTO ".$this->tableName." (id_event, name, id_category) VALUES (:id_event, :name, :id_category);";
+            $query = "INSERT INTO ".$this->tableName." (id_event, name, id_category, image) VALUES (:id_event, :name, :id_category, :image);";
 
             $parameters["id_event"] = $event->getId();
             $parameters["name"] = $event->getName();
             $parameters["id_category"] = $event->getCategory()->getId();
+            $parameters["image"] = $event->getImage();
 
             $this->connection = Connection::getInstance();
 
@@ -42,7 +43,7 @@ class EventDAO implements IDAO
 
             foreach ($resultSet as $row) {
                 $category = $categoryDAO->retrieveById($row["id_category"]);             
-                $event = new Event($row["id_event"], $row["name"], $category);
+                $event = new Event($row["id_event"], $row["name"], $category, $row["image"]);
                 array_push($eventList, $event);
             }
 
@@ -68,7 +69,7 @@ class EventDAO implements IDAO
 
             foreach ($resultSet as $row) {
                 $category = $categoryDAO->retrieveById($row["id_category"]);
-                $event = new Event($row["id_event"], $row["name"], $category);
+                $event = new Event($row["id_event"], $row["name"], $category, $row["image"]);
             }
 
             return $event;
@@ -92,10 +93,11 @@ class EventDAO implements IDAO
 
     public function update($event) {
         try {
-            $query = "UPDATE ".$this->tableName." SET name = :name, id_category = :id_category WHERE id_event = :id_event";
+            $query = "UPDATE ".$this->tableName." SET name = :name, id_category = :id_category, image = :image WHERE id_event = :id_event";
             $parameters["id_event"] = $event->getId();
             $parameters["name"] = $event->getName();
             $parameters["id_category"] = $event->getCategory()->getId();
+            $parameters["image"]= $event->getImage();
 
             $this->connection = Connection::getInstance();
             $this->connection->executeNonQuery($query, $parameters);   

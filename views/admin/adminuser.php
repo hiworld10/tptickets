@@ -21,7 +21,7 @@
 
     <div id=edit class="__full-height-perc">
       <!-- Este div aparecerá si un artista debe ser modificado -->
-      <?php if(isset($user)) { ?>
+      <?php if(isset($updateUser)) { ?>
 
         <form name='formulario' action="<?=FRONT_ROOT?>/user/updateUser"  method="POST">
      <div class="form">
