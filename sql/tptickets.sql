@@ -118,9 +118,9 @@ CREATE TABLE IF NOT EXISTS `events` (
 --
 
 INSERT INTO `events` (`id_event`, `name`, `id_category`) VALUES
-(1, 'Luis Miguel en Argentina', 1),
-(2, 'Woodstock 2018', 1),
-(3, 'Una Obra Teatral Cualquiera', 2);
+(1, 'Luis Miguel en Argentina', 1, `imagen1.jpg`),
+(2, 'Woodstock 2018', 1, `imagen2.jpg`),
+(3, 'Una Obra Teatral Cualquiera', 2, `imagen3.jpg`);
 
 -- --------------------------------------------------------
 
