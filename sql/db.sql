@@ -109,6 +109,7 @@ CREATE TABLE IF NOT EXISTS `events` (
   `id_event` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(60) NOT NULL,
   `id_category` int(11) NOT NULL,
+  `image` varchar(60) NOT NULL,
   PRIMARY KEY (`id_event`),
   KEY `id_category` (`id_category`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
@@ -117,10 +118,10 @@ CREATE TABLE IF NOT EXISTS `events` (
 -- Volcado de datos para la tabla `events`
 --
 
-INSERT INTO `events` (`id_event`, `name`, `id_category`) VALUES
-(1, 'Luis Miguel en Argentina', 1, `imagen1.jpg`),
-(2, 'Woodstock 2018', 1, `imagen2.jpg`),
-(3, 'Una Obra Teatral Cualquiera', 2, `imagen3.jpg`);
+INSERT INTO `events` (`id_event`, `name`, `id_category`, `image`) VALUES
+(1, 'Luis Miguel en Argentina', 1, 'http://localhost/tptickets/img/events/imagen1.png'),
+(2, 'Woodstock 2018', 1, 'http://localhost/tptickets/img/events/imagen2.png'),
+(3, 'Una Obra Teatral Cualquiera', 2, 'http://localhost/tptickets/img/events/imagen3.png');
 
 -- --------------------------------------------------------
 

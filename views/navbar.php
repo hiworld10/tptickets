@@ -1,13 +1,4 @@
-<?php 
-use controllers\UserController as UserController;
 
-	$userController= new UserController();
-	
-	$user=$userController->checkSession();
-	
-
-// DUDA ESTA MAL INSTANCIAR UNA CONTROLADORA ACA? DE QUE OTRA FORMA SE PUEDE HACER PREGUNTAR
- ?>
 
 <!-- Navigation -->
 
@@ -17,7 +8,10 @@ use controllers\UserController as UserController;
       <div class="container">
         <a class="navbar-brand" href="<?= FRONT_ROOT ?>/home/">IziTicket</a>
         <div class="right">
-        	<?php if($userController->checkSession()){ ?>
+        	<?php if(isset($_SESSION['userLogedIn'])){ ?>
+            <?php $_SESSION['userLogedIn']=$user; ?>
+
+
         	<a class="navbar-brand" href="..."><?= $user->getFirstname(); ?></a>
           	<a class="btn btn-primary" href="<?= FRONT_ROOT ?>/user/logout">Log out</a>
           <?php }else{ ?>

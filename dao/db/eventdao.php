@@ -4,6 +4,7 @@ namespace dao\db;
 use \Exception as Exception;
 use dao\IDAO as IDAO;
 use model\Event as Event;    
+use model\Photo as Photo;
 use dao\db\Connection as Connection;
 use dao\db\CategoryDAO as CategoryDAO;
 
@@ -19,7 +20,7 @@ class EventDAO implements IDAO
             $parameters["id_event"] = $event->getId();
             $parameters["name"] = $event->getName();
             $parameters["id_category"] = $event->getCategory()->getId();
-            $parameters["image"] = $event->getImage();
+            $parameters["image"] = $event->getImage()->getPath();
 
             $this->connection = Connection::getInstance();
 
@@ -40,10 +41,13 @@ class EventDAO implements IDAO
             $this->connection = Connection::getInstance();
 
             $resultSet = $this->connection->execute($query);
-
+            
             foreach ($resultSet as $row) {
-                $category = $categoryDAO->retrieveById($row["id_category"]);             
-                $event = new Event($row["id_event"], $row["name"], $category, $row["image"]);
+                $category = $categoryDAO->retrieveById($row["id_category"]);
+                $photo= new Photo();
+                 $photo->setPath($row['image']);
+            
+                $event = new Event($row["id_event"], $row["name"], $category, $photo);
                 array_push($eventList, $event);
             }
 
@@ -69,7 +73,9 @@ class EventDAO implements IDAO
 
             foreach ($resultSet as $row) {
                 $category = $categoryDAO->retrieveById($row["id_category"]);
-                $event = new Event($row["id_event"], $row["name"], $category, $row["image"]);
+                 $photo= new Photo();
+                 $photo->setPath($row['image']);
+                $event = new Event($row["id_event"], $row["name"], $category, $photo);
             }
 
             return $event;
@@ -97,7 +103,7 @@ class EventDAO implements IDAO
             $parameters["id_event"] = $event->getId();
             $parameters["name"] = $event->getName();
             $parameters["id_category"] = $event->getCategory()->getId();
-            $parameters["image"]= $event->getImage();
+            $parameters["image"]= $event->getImage()->getPath();
 
             $this->connection = Connection::getInstance();
             $this->connection->executeNonQuery($query, $parameters);   

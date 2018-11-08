@@ -2,6 +2,7 @@
 
 namespace controllers;
 use model\Event as M_Event;
+use model\Photo as Photo;
 use dao\lists\EventDAO as List_EventDAO;
 use dao\db\EventDAO as DB_EventDAO;
 use controllers\CategoryController as CategoryController;
@@ -17,9 +18,19 @@ class EventController {
 		
 	}
 
-	public function addEvent($name, $categoryId, $image) {
+	public function addEvent($name, $categoryId) {
+			if (!empty($_FILES['photo']['name'])) {
+				$photo= $_FILES['photo'];
+
+			}	else{
+				$photo= null;
+			}
+
+		$rootPhoto= new Photo();
+		$rootPhoto->uploadPhoto($photo, "events");
+
 		$category = $this->categoryController->getCategorySelect($categoryId);
-		$m_event = new M_event(null, $name, $category, $image);
+		$m_event = new M_event(null, $name, $category, $rootPhoto);
 		$this->dao->create($m_event);
 		$this->getAll();
 	}
@@ -47,9 +58,19 @@ class EventController {
 		$this->getAll();
 	}
 
-	public function updateEvent($id, $newName, $categoryId, $image) {
+	public function updateEvent($id, $newName, $categoryId) {
+		if (!empty($_FILES['photo']['name'])) {
+				$photo= $_FILES['photo'];
+
+			}	else{
+				$photo= null;
+			}
+
+		$rootPhoto= new Photo();
+		$rootPhoto->uploadPhoto($photo, "events");
+
 		$newCategory = $this->categoryController->getCategorySelect($categoryId);
-		$updatedEvent = new M_Event($id, $newName, $newCategory, $image);
+		$updatedEvent = new M_Event($id, $newName, $newCategory, $rootPhoto);
 		$this->dao->update($updatedEvent);
 		$this->getAll();
 	}
