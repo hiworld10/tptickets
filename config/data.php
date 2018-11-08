@@ -4,7 +4,7 @@
 define('ROOT', dirname(__DIR__).'/');
 define('VIEWS', ROOT . '/views');
 define('ADMIN_VIEWS', ROOT . '/views/admin');
-define('IMG_UPLOADS', ROOT . '/content/uploads/img');
+define('IMG_UPLOADS', dirname(__DIR__). '\img');
 define('VIEWS_ROOT', ROOT . '/views/');
 
 
