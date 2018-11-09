@@ -19,12 +19,12 @@ class EventController {
 	}
 
 	public function addEvent($name, $categoryId) {
-			if (!empty($_FILES['photo']['name'])) {
-				$photo= $_FILES['photo'];
+		if (!empty($_FILES['photo']['name'])) {
+			$photo= $_FILES['photo'];
 
-			}	else{
-				$photo= null;
-			}
+		}	else{
+			$photo= null;
+		}
 
 		$rootPhoto= new Photo();
 		$rootPhoto->uploadPhoto($photo, "events");
@@ -60,11 +60,11 @@ class EventController {
 
 	public function updateEvent($id, $newName, $categoryId) {
 		if (!empty($_FILES['photo']['name'])) {
-				$photo= $_FILES['photo'];
+			$photo= $_FILES['photo'];
 
-			}	else{
-				$photo= null;
-			}
+		}	else{
+			$photo= null;
+		}
 
 		$rootPhoto= new Photo();
 		$rootPhoto->uploadPhoto($photo, "events");
@@ -74,7 +74,5 @@ class EventController {
 		$this->dao->update($updatedEvent);
 		$this->getAll();
 	}
-
-	
 }
 ?>
