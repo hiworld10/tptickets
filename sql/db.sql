@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `calendars` (
 -- Volcado de datos para la tabla `calendars`
 --
 
-INSERT INTO calendars (id_calendar, date, id_event) VALUES (1, "2018/11/20", 1)
+INSERT INTO calendars (id_calendar, date, id_event) VALUES (1, "2018/11/20", 1);
 
 -- --------------------------------------------------------
 
