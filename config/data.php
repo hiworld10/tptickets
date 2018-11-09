@@ -19,7 +19,7 @@ define('MENUADMIN', 'menuadmin.php');
 define('FOOTER', 'footer.php');
 
 
-
+/* MEDIA */
 define('IMG_UPLOADS_PATH', FRONT_ROOT . '/content/uploads/img');
 define('MOV_UPLOADS_PATH', FRONT_ROOT . '/content/uploads/movies');
 
