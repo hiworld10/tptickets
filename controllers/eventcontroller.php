@@ -20,10 +20,10 @@ class EventController {
 
 	public function addEvent($name, $categoryId) {
 		if (!empty($_FILES['photo']['name'])) {
-			$photo= $_FILES['photo'];
+			$photo = $_FILES['photo'];
 
-		}	else{
-			$photo= null;
+		} else {
+			$photo = null;
 		}
 
 		$rootPhoto= new Photo();
@@ -36,7 +36,7 @@ class EventController {
 	}
 
 	public function getEvent($id) { 
-		$event=$this->dao->retrieveById($id);
+		$event = $this->dao->retrieveById($id);
 		$categoryArray = $this->categoryController->getAllSelect();	
 		if(isset($event) && isset($categoryArray)) {
 			include ADMIN_VIEWS . '/adminevent.php';
@@ -60,13 +60,13 @@ class EventController {
 
 	public function updateEvent($id, $newName, $categoryId) {
 		if (!empty($_FILES['photo']['name'])) {
-			$photo= $_FILES['photo'];
+			$photo = $_FILES['photo'];
 
-		}	else{
-			$photo= null;
+		} else {
+			$photo = null;
 		}
 
-		$rootPhoto= new Photo();
+		$rootPhoto = new Photo();
 		$rootPhoto->uploadPhoto($photo, "events");
 
 		$newCategory = $this->categoryController->getCategorySelect($categoryId);
