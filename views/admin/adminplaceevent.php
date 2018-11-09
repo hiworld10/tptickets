@@ -31,7 +31,7 @@
                   </div>
                   <div class="col-md-2 mb-2 mb-md-0 form-row">
                     <label>Capacidad</label>
-                    <input type="number" name="capacity" class="form-control form-control-lg" value="<?= $placeEvent->getCapacity(); ?>" required>
+                    <input type="text" name="capacity" class="form-control form-control-lg" value="<?= $placeEvent->getCapacity(); ?>" required>
                   </div>
                   <div class="col-md-5 mb-2 mb-md-0 form-row">
                     <label>Descripcion</label>
@@ -41,6 +41,7 @@
                     <button type="submit" class="btn btn-block btn-lg btn-primary">Aceptar</button>
                   </div>
                 </div>
+
     </form>
 
     <?php   }else{   ?>
@@ -48,7 +49,7 @@
     <form name='formulario' action="<?=FRONT_ROOT?>/placeevent/addPlaceEvent"  method="POST">
              <div class="form-row">
                   <div class="col-12 col-md-9 mb-2 mb-md-0">
-                    <input type="number" name="capacity" class="form-control form-control-lg" placeholder="Ingrese la capacidad del evento..." required>
+                    <input type="text" name="capacity" class="form-control form-control-lg" placeholder="Ingrese la capacidad del evento..." required>
                   </div>
                   <div class="col-12 col-md-9 mb-2 mb-md-0">
                     <input type="text" name="description" class="form-control form-control-lg" placeholder="Ingrese descripcion del evento..." required>
