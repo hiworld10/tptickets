@@ -78,6 +78,12 @@ CREATE TABLE IF NOT EXISTS `calendars` (
   KEY `id_event` (`id_event`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+--
+-- Volcado de datos para la tabla `calendars`
+--
+
+INSERT INTO calendars (id_calendar, date, id_event) VALUES (1, "2018/11/20", 1)
+
 -- --------------------------------------------------------
 
 --
