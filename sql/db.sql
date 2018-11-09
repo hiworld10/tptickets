@@ -205,6 +205,16 @@ CREATE TABLE IF NOT EXISTS `seat_type` (
   PRIMARY KEY (`id_seat_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+--
+-- Volcado de datos para la tabla `seat_type`
+--
+
+INSERT INTO `seat_type` (`id_seat_type`, `description`) VALUES
+(1, 'Campo'),
+(2, 'Campo VIP'),
+(3, 'Platea'),
+(4, 'Platea Preferencial');
+
 -- --------------------------------------------------------
 
 --
