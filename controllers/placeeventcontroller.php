@@ -51,7 +51,7 @@ class PlaceEventController {
 
 
 	public function updatePlaceEvent($id, $capacity, $description) {
-		$updatedPlaceEvent = new M_PlaceEvent($id, null, $capacity, $description);
+		$updatedPlaceEvent = new M_PlaceEvent($id, 1, $capacity, $description);
 		$this->dao->update($updatedPlaceEvent);
 		$this->getAll();
 	}

@@ -166,29 +166,29 @@ CREATE TABLE IF NOT EXISTS `purchases` (
 
 CREATE TABLE IF NOT EXISTS `purchases_lines` (
   `id_purchase_line` int(11) NOT NULL AUTO_INCREMENT,
-  `id_seat_event` int(11) NOT NULL,
+  `id_event_seat` int(11) NOT NULL,
   `id_purchase` int(11) NOT NULL,
   `quantity` double NOT NULL,
   `price` int(11) NOT NULL,
   PRIMARY KEY (`id_purchase_line`),
-  KEY `id_seat_event` (`id_seat_event`),
+  KEY `id_event_seat` (`id_event_seat`),
   KEY `id_purchase` (`id_purchase`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `seat_event`
+-- Estructura de tabla para la tabla `event_seats`
 --
 
-CREATE TABLE IF NOT EXISTS `seat_event` (
-  `id_seat_event` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `event_seats` (
+  `id_event_seat` int(11) NOT NULL AUTO_INCREMENT,
   `id_calendar` int(11) NOT NULL,
   `id_seat_type` int(11) NOT NULL,
-  `quantity_available` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
   `price` double NOT NULL,
   `remainder` int(11) NOT NULL,
-  PRIMARY KEY (`id_seat_event`),
+  PRIMARY KEY (`id_event_seat`),
   KEY `id_calendar` (`id_calendar`),
   KEY `id_seat_type` (`id_seat_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -294,14 +294,14 @@ ALTER TABLE `purchases`
 --
 ALTER TABLE `purchases_lines`
   ADD CONSTRAINT `purchases_lines_ibfk_2` FOREIGN KEY (`id_purchase`) REFERENCES `purchases` (`id_purchase`),
-  ADD CONSTRAINT `purchases_lines_ibfk_1` FOREIGN KEY (`id_seat_event`) REFERENCES `seat_event` (`id_seat_event`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `purchases_lines_ibfk_1` FOREIGN KEY (`id_event_seat`) REFERENCES `event_seats` (`id_event_seat`) ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `seat_event`
+-- Filtros para la tabla `event_seats`
 --
-ALTER TABLE `seat_event`
-  ADD CONSTRAINT `seat_event_ibfk_2` FOREIGN KEY (`id_seat_type`) REFERENCES `seat_type` (`id_seat_type`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `seat_event_ibfk_1` FOREIGN KEY (`id_calendar`) REFERENCES `calendars` (`id_calendar`) ON UPDATE CASCADE;
+ALTER TABLE `event_seats`
+  ADD CONSTRAINT `event_seat_ibfk_2` FOREIGN KEY (`id_seat_type`) REFERENCES `seat_type` (`id_seat_type`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `event_seat_ibfk_1` FOREIGN KEY (`id_calendar`) REFERENCES `calendars` (`id_calendar`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `tickets`

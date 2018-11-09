@@ -31,11 +31,11 @@
                   </div>
                   <div class="col-md-5 mb-2 mb-md-0 form-row">
                     <label>Asientos</label>
-                    <input type="text" name="seats" class="form-control form-control-lg" value="<?= $eventSeat->getAvailableSeats(); ?>" required>
+                    <input type="number" name="seats" class="form-control form-control-lg" value="<?= $eventSeat->getAvailableSeats(); ?>" required>
                   </div>
                   <div class="col-md-5 mb-2 mb-md-0 form-row">
                     <label>Precio</label>
-                    <input type="text" name="price" class="form-control form-control-lg" value="<?= $eventSeat->getPrice(); ?>" required>
+                    <input type="number" name="price" class="form-control form-control-lg" value="<?= $eventSeat->getPrice(); ?>" required>
                   </div>
                   <div class="col-md-5 mb-2 mb-md-0 form-row">
                     <label>Calendario</label>
@@ -74,7 +74,7 @@
     <form name='formulario' action="<?=FRONT_ROOT?>/eventseat/addEventSeat"  method="POST">
              <div class="form-row p-2">
                   <div class="form-group col-12 col-md-9 mb-2 mb-md-0">
-                    <input type="text"  class="form-control form-control-lg" name="availableseat" placeholder="Ingrese cantidad de asientos..." required>
+                    <input type="number"  class="form-control form-control-lg" name="availableseat" placeholder="Ingrese cantidad de asientos..." required>
                   </div>
                   <div class="form-group col-12 col-md-9 mb-2 mb-md-0">
                     <input type="number"  class="form-control form-control-lg" name="price" placeholder="Ingrese precio..." required>

@@ -5,18 +5,20 @@ namespace model;
 class EventSeat
 {
     private $id;
-	private $availableSeats;
-	private $price;
 	private $calendarId;
     private $seatTypeId;
+    private $quantity;
+    private $price;
+    private $remainder;
 
-	function __construct($id, $availableSeats, $price, $calendarId, $seatTypeId)
+	function __construct($id, $quantity, $price, $calendarId, $seatTypeId)
 	{
-        $this->id= $id;
-        $this->availableSeats= $availableSeats;
-        $this->price= $price;
-        $this->calendarId= $calendarId;
-        $this->seatTypeId= $seatTypeId;
+        $this->id = $id;
+        $this->quantity = $quantity;
+        $this->price = $price;
+        $this->calendarId = $calendarId;
+        $this->seatTypeId = $seatTypeId;
+        $this->remainder = $quantity;
 	}
 
     public function getId()
@@ -37,20 +39,19 @@ class EventSeat
     public function setPrice($price)
     {
         $this->price = $price;
-
-        return $this;
     }
 
     public function getAvailableSeats()
     {
-        return $this->$availableSeats;
+        return $this->$quantity;
     }
 
-    public function setAvailableSeats($availableSeats)
+    public function setAvailableSeats($newQuantity)
     {
-        $this->availableSeats = $availableSeats;
-
+        $this->remainder = $newQuantity - $this->quantity + $remainder;
+        $this->quantity = $newQuantity;
     }
+
     public function getCalendarId()
     {
         return $this->$calendarId;

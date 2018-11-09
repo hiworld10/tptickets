@@ -9,14 +9,14 @@ use dao\db\Connection as Connection;
 class EventSeatDAO implements IDAO
 {
     private $connection;
-    private $tableName = "events_seat";
+    private $tableName = "event_seats";
 
     public function create($eventSeat) {
         try {
-            $query = "INSERT INTO ".$this->tableName." (id_event_seat, available_seats, price, id_calendar, id_seat_type) VALUES (:id_event_seat, :available_seats, :price, :id_calendar, :id_seat_type );";
+            $query = "INSERT INTO ".$this->tableName." (id_event_seat, quantity, price, id_calendar, id_seat_type) VALUES (:id_event_seat, :quantity, :price, :id_calendar, :id_seat_type );";
 
             $parameters["id_event_seat"] = $eventSeat->getId();
-            $parameters["available_seats"] = $eventSeat->getAvailableSeats();
+            $parameters["quantity"] = $eventSeat->getAvailableSeats();
             $parameters["price"] = $eventSeat->getPrice();
             $parameters["id_calendar"] = $eventSeat->getCalendarId();
             $parameters["id_seat_type"] = $eventSeat->getSeatTypeId();
@@ -41,8 +41,10 @@ class EventSeatDAO implements IDAO
             $resultSet = $this->connection->execute($query);
 
             foreach ($resultSet as $row) {                
-                $event = new EventSeat($row["id_event_seat"], $row["available_seats"], $row["price"], $row["id_calendar"], $row["id_seat_type"]);
+                $event = new EventSeat($row["id_event_seat"], $row["quantity"], $row["price"], $row["id_calendar"], $row["id_seat_type"]);
                 array_push($eventList, $eventSeat);
+
+                print_r($event);
             }
 
             return $eventSeatList;
@@ -65,7 +67,7 @@ class EventSeatDAO implements IDAO
             $resultSet = $this->connection->execute($query, $parameters);
 
             foreach ($resultSet as $row) {
-                $event = new EventSeat($row["id_event_seat"], $row["available_seats"], $row["price"], $row["id_calendar"], $row["id_seat_type"]);
+                $event = new EventSeat($row["id_event_seat"], $row["quantity"], $row["price"], $row["id_calendar"], $row["id_seat_type"]);
             }
 
             return $eventSeat;
@@ -89,9 +91,9 @@ class EventSeatDAO implements IDAO
 
     public function update($eventSeat) {
         try {
-            $query = "UPDATE ".$this->tableName." SET available_seats = :available_seats, price = :price, id_calendar = :id_calendar, id_seat_type = :id_seat_type WHERE id_event_seat = :id_event_seat";
+            $query = "UPDATE ".$this->tableName." SET quantity = :quantity, price = :price, id_calendar = :id_calendar, id_seat_type = :id_seat_type WHERE id_event_seat = :id_event_seat";
             $parameters["id_event_seat"] = $eventSeat->getId();
-            $parameters["available_seats"] = $eventSeat->getAvailableSeats();
+            $parameters["quantity"] = $eventSeat->getAvailableSeats();
             $parameters["price"] = $eventSeat->getPrice();
             $parameters["id_calendar"] = $eventSeat->getCalendarId();
             $parameters["id_seat_type"] = $eventSeat->getSeatTypeId();
