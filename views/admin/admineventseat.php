@@ -77,7 +77,7 @@
                     <input type="text"  class="form-control form-control-lg" name="availableseat" placeholder="Ingrese cantidad de asientos..." required>
                   </div>
                   <div class="form-group col-12 col-md-9 mb-2 mb-md-0">
-                    <input type="text"  class="form-control form-control-lg" name="price" placeholder="Ingrese precio..." required>
+                    <input type="number"  class="form-control form-control-lg" name="price" placeholder="Ingrese precio..." required>
                   </div>
                   <div class="col-lg-4 form-group">
                         
