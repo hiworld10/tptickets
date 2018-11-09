@@ -1,6 +1,7 @@
 
 .__full-height-perc {
-  height: 100% !important;
+  min-height: 531px;
+  height:auto;
 }
 
 #container {
