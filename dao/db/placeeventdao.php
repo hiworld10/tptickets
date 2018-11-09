@@ -15,10 +15,10 @@ class PlaceEventDAO implements IDAO
         try {
             $query = "INSERT INTO ".$this->tableName." (id_place_event, id_calendar, capacity, description) VALUES (:id_place_event, :id_calendar, :capacity, :description);";
 
-            $parameters["id_place_event"] = $place_event->getIdPlaceEvent();
+            $parameters["id_place_event"] = $place_event->getId();
             $parameters["id_calendar"] = $place_event->getCalendarId();
             $parameters["capacity"] = $place_event->getCapacity();
-            $parameters["description"] = $description->getDescription();
+            $parameters["description"] = $place_event->getDescription();
 
             $this->connection = Connection::getInstance();
 

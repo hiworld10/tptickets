@@ -16,7 +16,7 @@ class PlaceEventController {
 
 	public function addPlaceEvent($capacity, $description) {
 
-		$m_placeEvent = new M_PlaceEvent(null, null, $capacity, $description);
+		$m_placeEvent = new M_PlaceEvent(null, 1, $capacity, $description);
 		$this->dao->create($m_placeEvent);
 		$this->getAll();
 	}
