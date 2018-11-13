@@ -44,6 +44,10 @@ class PlaceEventController {
 			include ADMIN_VIEWS . '/adminplaceevent.php';
 		}
 	}
+	public function getPlaceEventById($id) {
+		return $this->dao->retrieveById($id);		
+		
+	}
 
 	public function getPlaceEventSelect($id) {
 		return $this->dao->retrieveById($id);

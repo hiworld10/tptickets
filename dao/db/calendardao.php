@@ -5,6 +5,8 @@ use \Exception as Exception;
 use dao\IDAO as IDAO;
 use model\Calendar as Calendar;    
 use dao\db\Connection as Connection;
+use dao\db\EventDao as EventDao;
+use dao\db\PlaceEventDao as PlaceEventDao;
 
 class CalendarDAO implements IDAO
 {
@@ -13,11 +15,13 @@ class CalendarDAO implements IDAO
 
     public function create($calendar) {
         try {
-            $query = "INSERT INTO ".$this->tableName." (id_calendar, date, id_event) VALUES (:id_calendar, :date, :id_event);";
+            $query = "INSERT INTO ".$this->tableName." (id_calendar, date, id_event, artists, id_place_event) VALUES (:id_calendar, :date, :id_event, :artists, :id_place_event);";
 
             $parameters["id_calendar"] = $calendar->getId();
             $parameters["date"] = $calendar->getDate();
-            $parameters["id_event"] = $calendar->getEventId();
+            $parameters["id_event"] = $calendar->getEvent()->getId();
+            $parameters["artists"] = $calendar->getArtistArray();
+            $parameters["id_place_event"] = $calendar->getPlaceEvent()->getId();
 
             $this->connection = Connection::getInstance();
 
@@ -38,8 +42,14 @@ class CalendarDAO implements IDAO
 
             $resultSet = $this->connection->execute($query);
 
-            foreach ($resultSet as $row) {                
-                $calendar = new Calendar($row["id_calendar"], $row["date"], $row["id_event"]);
+            $eventDao= new EventDao();
+            $placeEventDao= new PlaceEventDao();
+
+
+            foreach ($resultSet as $row) {       
+                $event=$eventDao->retrieveById($row["id_event"]);     
+                $placeEvent=$placeEventDao->retrieveById($row["id_place_event"]);        
+                $calendar = new Calendar($row["id_calendar"], $row["date"],$event, $row["artists"], $placeEvent);
                 array_push($calendarList, $calendar);
             }
 
@@ -63,7 +73,7 @@ class CalendarDAO implements IDAO
             $resultSet = $this->connection->execute($query, $parameters);
 
             foreach ($resultSet as $row) {
-                $calendar = new Calendar($row["id_calendar"], $row["date"], $row["id_event"]);
+                $calendar = new Calendar($row["id_calendar"], $row["date"], $row["id_event"], $row["artists"], $row["id_place_event"]);
             }
 
             return $calendar;
@@ -87,10 +97,12 @@ class CalendarDAO implements IDAO
 
     public function update($calendar) {
         try {
-            $query = "UPDATE ".$this->tableName." SET date = :date, id_event = :id_event WHERE id_calendar = :id_calendar";
+            $query = "UPDATE ".$this->tableName." SET date = :date, id_event = :id_event, artists = :artists, id_place_event = :id_place_event WHERE id_calendar = :id_calendar";
             $parameters["id_calendar"] = $calendar->getId();
             $parameters["date"] = $calendar->getDate();
-            $parameters["id_event"] = $calendar->getEventId();
+            $parameters["id_event"] = $calendar->getEvent()->getId();
+            $parameters["artists"] = $calendar->getArtistArray();
+            $parameters["id_place_event"] = $calendar->getPlaceEvent()->getId();
 
             $this->connection = Connection::getInstance();
             $this->connection->executeNonQuery($query, $parameters);   

@@ -1,19 +1,25 @@
 <?php
 namespace model;
 
+use model\Event as Event;
+use model\PlaceEvent as PlaceEvent;
 
 
 class Calendar
 {
     private $id;
 	private $date;
-    private $eventId;
+    private $event;
+    private $artistArray;
+    private $placeEvent;
 
-	function __construct($id, $date, $eventId)
+	function __construct($id, $date, Event $event, $artistArray, PlaceEvent $placeEvent)
 	{
         $this->id= $id;
         $this->date= $date;
-        $this->eventId= $eventId;
+        $this->event= $event;
+        $this->artistArray= $artistArray;
+        $this->placeEvent= $placeEvent;
 	}
 
     public function getDate()
@@ -38,14 +44,34 @@ class Calendar
         $this->id = $id;
     }
 
-    public function getEventId()
+    public function getEvent()
     {
-        return $this->eventId;
+        return $this->event;
     }
 
-    public function setEventId($eventId)
+    public function setEvent($event)
     {
-        $this->eventId = $eventId;
+        $this->event = $event;
+    }
+
+    public function getArtistArray()
+    {
+        return $this->artistArray;
+    }
+
+    public function setArtistArray($artistArray)
+    {
+        $this->artistArray = $artistArray;
+    }
+
+    public function getPlaceEvent()
+    {
+        return $this->placeEvent;
+    }
+
+    public function setPlaceEvent($placeEvent)
+    {
+        $this->placeEvent = $placeEvent;
     }
 }
 ?>

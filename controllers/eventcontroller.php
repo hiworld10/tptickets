@@ -43,6 +43,10 @@ class EventController {
 		}
 	}
 
+	public function getEventById($id) { 
+		return $this->dao->retrieveById($id);
+	}
+
 	public function getAll() {
 		$eventArray = $this->dao->retrieveAll();
 		$categoryArray = $this->categoryController->getAllSelect();
@@ -74,5 +78,8 @@ class EventController {
 		$this->dao->update($updatedEvent);
 		$this->getAll();
 	}
+
+
+	
 }
 ?>

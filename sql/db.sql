@@ -74,15 +74,18 @@ CREATE TABLE IF NOT EXISTS `calendars` (
   `id_calendar` int(11) NOT NULL AUTO_INCREMENT,
   `date` date NOT NULL,
   `id_event` int(11) NOT NULL,
+  `artists` varchar(60) NOT NULL,  
+  `id_place_event` int(11) NOT NULL,
   PRIMARY KEY (`id_calendar`),
-  KEY `id_event` (`id_event`)
+  KEY `id_event` (`id_event`),
+  KEY `id_place_event` (`id_place_event`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Volcado de datos para la tabla `calendars`
 --
 
-INSERT INTO calendars (id_calendar, date, id_event) VALUES (1, "2018/11/20", 1);
+INSERT INTO calendars (id_calendar, date, id_event, artists, id_place_event ) VALUES (1, "2018/11/20", 1, "Metallica", 1);
 
 -- --------------------------------------------------------
 
@@ -143,6 +146,9 @@ CREATE TABLE IF NOT EXISTS `places_events` (
   PRIMARY KEY (`id_place_event`),
   KEY `id_calendar` (`id_calendar`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
+INSERT INTO places_events (id_place_event, id_calendar, capacity, description) VALUES (1, 1, 30000, "Estadio unico La Plata");
 
 -- --------------------------------------------------------
 

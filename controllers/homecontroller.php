@@ -7,15 +7,19 @@ use controllers\UserController as UserController;
 
 use controllers\ArtistController as ArtistController;
 
+use controllers\CalendarController as CalendarController;
+
 /**
  *
  */
 class HomeController
 {
      private $user;
+     private $calendar;
 
      function __construct() {
           $this->userController = new UserController();
+          $this->calendarController = new CalendarController();
      }
 
      /**
@@ -103,4 +107,39 @@ class HomeController
     }else echo "YA EXISTE UN USUARIO CON ESE EMAIL";
 
   }
+
+
+
+
+
+  public function search($string)//busca por nombre artista, nombre evento, lugar
+  {
+
+    // no funca falta hacer las funciones en controladora y antes en los daos
+    $calendar = $this->calendarController->getCalendarByArtist($string);
+    if(!isset($calendar)){
+    $calendar = $this->calendarController->getCalendarByPlaceEvent($string);
+    }else{
+    $calendar = $this->calendarController->getCalendarByEvent($string);
+    }
+ 
+
+
+    if(isset($calendar))
+    {
+      //lo encontro lo muestro
+     include_once VIEWS_ROOT. '/search.php';
+     
+    }else{
+      print_r("NO SE ENCONTRO NINGUNA FECHA");
+      include_once VIEWS_ROOT. '/admin.php';
+    }
+      
+    
+     
+
+
+  }
+
+
 }
