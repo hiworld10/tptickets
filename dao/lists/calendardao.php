@@ -50,7 +50,9 @@ class CalendarDAO implements IDAO
 			foreach ($this->list as $key => $value) {
 				if ($newVal->getId() == $value->getId()) {
 					$value->setDate($newVal->getDate());
-					$value->setEventId($newVal->getEventId());
+					$value->setEvent($newVal->getEvent());
+					$value->setArtistArray($newVal->getArtistArray());
+					$value->setPlaceEvent($newVal->getPlaceEvent());
 				}
 			}
 		}

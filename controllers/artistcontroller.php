@@ -26,6 +26,11 @@ class ArtistController {
 		include ADMIN_VIEWS . '/adminartist.php';
 
 	}
+	public function getAllSelect(){
+		return $this->dao->retrieveAll(); 
+
+
+	}
 
 	public function deleteArtist($id){
 		$this->dao->delete($id);
@@ -39,11 +44,14 @@ class ArtistController {
 		}
 	}
 
+	
 	public function updateArtist($id, $newName){
 		$updatedArtist = new M_Artist($id, $newName);
 		$this->dao->update($updatedArtist);
 		$this->getAll();
 	}
+
+	
 }
 
 ?>

@@ -49,3 +49,11 @@ Agregada clase Ticket y su dao (no testeados)
 agregue $image al model de evento
 modifique daos, vista, sql con una columna de mas y controladora
 falta implementar filecontroller dentro de esta controladora (preguntar)
+
+13/11
+
+agregue array de artista al calendario y placeevent. cambie los parametros del modelo(calendario) para q trabajemos
+con objetos y no con ids. cambios en daos y db. Quedo con un error al intentar cargar una calendario
+Viene por el lado de la coneccion con la bd. Si alguien le echa un ojo genial.
+Habria que reveer el modelo de Calendario para utilizar el artistaxCalendario o nose ya toy quemado
+homecontroller search y vista search no terminadas sin funcionar
