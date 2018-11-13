@@ -51,9 +51,10 @@ modifique daos, vista, sql con una columna de mas y controladora
 falta implementar filecontroller dentro de esta controladora (preguntar)
 
 13/11
-
+franco
 agregue array de artista al calendario y placeevent. cambie los parametros del modelo(calendario) para q trabajemos
-con objetos y no con ids. cambios en daos y db. Quedo con un error al intentar cargar una calendario
-Viene por el lado de la coneccion con la bd. Si alguien le echa un ojo genial.
+con objetos y no con ids. cambios en daos y db. Quedo con un error en admincalendario tiene q ver con el manejo de un
+array en la base de datos En realidad estoy guardando un string por eso no puedo mostrarlo calendardao/retriveall.Los datos por post a la hora de agregar son correctos. Si alguien le echa un ojo genial.
 Habria que reveer el modelo de Calendario para utilizar el artistaxCalendario o nose ya toy quemado
-homecontroller search y vista search no terminadas sin funcionar
+boton editar sin funcionar
+homecontroller/search y vista search no terminadas sin funcionar

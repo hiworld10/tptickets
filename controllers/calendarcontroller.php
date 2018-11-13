@@ -33,8 +33,10 @@ class CalendarController {
 			$this->dao->create($m_calendar);
 			$this->getAll();
 
-			print_r($artistArray);
+			
 		}
+
+
 	}
 
 	public function getCalendar($id) { 

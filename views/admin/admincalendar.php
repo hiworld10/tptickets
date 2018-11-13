@@ -123,7 +123,7 @@
 
         foreach ($artistArray as $key => $value) {  ?>
            <label >
-               <input  type="checkbox" name="artistArray[]" value="<?php $value->getName(); ?>" >
+               <input  type="checkbox" name="artistArray[]" value="<?= $value->getName(); ?>" >
                   <span><?= $value->getName()?></span>
             </label>
         <?php } }else{ ?>
@@ -173,9 +173,9 @@
       <thead>     
        <th>Id</th>  
        <th>Fecha</th>     
-       <th>Evento</th>
+       <th>EventoId</th>
        <th>Artistas</th>   
-       <th>Lugar</th>         
+       <th>LugarId</th>         
      </thead>
      <tbody>
       <?php foreach ($calendarArray as $value) { ?>
@@ -185,6 +185,7 @@
          <td><?= $value->getEvent()->getId(); ?></td>
          <td><?= $value->getArtistArray(); ?></td>
          <td><?= $value->getPlaceEvent()->getId(); ?></td>
+
 
          <td>
           <form action="<?=FRONT_ROOT?>/calendar/deleteCalendar" method="POST">

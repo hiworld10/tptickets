@@ -15,7 +15,7 @@ class CalendarDAO implements IDAO
 
     public function create($calendar) {
         try {
-            $query = "INSERT INTO ".$this->tableName." (id_calendar, date, id_event, artists, place_event) VALUES (:id_calendar, :date, :id_event, :artists, :place_event);";
+            $query = "INSERT INTO ".$this->tableName." (id_calendar, date, id_event, artists, id_place_event) VALUES (:id_calendar, :date, :id_event, :artists, :id_place_event);";
 
             $parameters["id_calendar"] = $calendar->getId();
             $parameters["date"] = $calendar->getDate();
