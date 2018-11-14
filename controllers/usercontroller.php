@@ -108,8 +108,11 @@ class UserController {
 		include VIEWS_ROOT. '/login.php';
 	}
 
-	public function signup() {
+	public function singup() {
 		include VIEWS_ROOT. '/signup.php';
+	}
+	public function adminview() {
+		include ADMIN_VIEWS. '/admin.php';
 	}
 
 

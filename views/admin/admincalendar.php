@@ -84,6 +84,23 @@
   </select>
 
 </div>
+ <div class="col-lg-4 form-group">
+
+     <label for="">Tipo Plaza</label>
+     <select class="form-control" name="seatType" required>
+      <?php if(isset($seatTypeArray)){ 
+       foreach ($seatTypeArray as $key => $value) { 
+         ?>
+         <!--No es posible pasar un objeto mediante HTML (ej. '$value')-->
+         <option value="<?= $value->getId(); ?>"><?= $value->getType(); ?></option> 
+       <?php }
+     }else{ ?>
+      <option >NO HAY TIPOS</option>
+    <?php } ?>
+  </select>
+
+</div>
+
       <div class="col-12 col-md-2 form-row">
         <button type="submit" class="btn btn-block btn-lg btn-primary">Aceptar</button>
       </div>
@@ -123,7 +140,7 @@
 
         foreach ($artistArray as $key => $value) {  ?>
            <label >
-               <input  type="checkbox" name="artistArray[]" value="<?= $value->getName(); ?>" >
+               <input  type="checkbox" name="artistArray[]" value="<?= $value->getId(); ?>" >
                   <span><?= $value->getName()?></span>
             </label>
         <?php } }else{ ?>
@@ -150,7 +167,24 @@
   </select>
 
 </div>
-<?php if($eventArray && $artistArray && $placeEventArray) { ?>
+
+ <div class="col-lg-4 form-group">
+
+     <label for="">Tipo Plaza</label>
+     <select class="form-control" name="seatType" required>
+      <?php if(isset($seatTypeArray)){ 
+       foreach ($seatTypeArray as $key => $value) { 
+         ?>
+         <!--No es posible pasar un objeto mediante HTML (ej. '$value')-->
+         <option value="<?= $value->getId(); ?>"><?= $value->getType(); ?></option> 
+       <?php }
+     }else{ ?>
+      <option >NO HAY TIPOS</option>
+    <?php } ?>
+  </select>
+
+</div>
+<?php if($eventArray && $artistArray && $placeEventArray && $seatTypeArray) { ?>
   <div class="col-11 col-md-3 mt-4">
     <button type="submit" class="btn btn-block btn-lg btn-primary">Agregar</button>
   </div>
@@ -175,7 +209,8 @@
        <th>Fecha</th>     
        <th>EventoId</th>
        <th>Artistas</th>   
-       <th>LugarId</th>         
+       <th>LugarId</th>
+       <th>TipoPlazaId</th>         
      </thead>
      <tbody>
       <?php foreach ($calendarArray as $value) { ?>
@@ -185,6 +220,7 @@
          <td><?= $value->getEvent()->getId(); ?></td>
          <td><?= $value->getArtistArray(); ?></td>
          <td><?= $value->getPlaceEvent()->getId(); ?></td>
+         <td><?= $value->getSeatType()->getId(); ?></td>
 
 
          <td>

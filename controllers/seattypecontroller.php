@@ -38,11 +38,18 @@ class SeatTypeController {
 	}
 
 
+	public function getSeatTypeById($id){
+		 return $seattype=$this->dao->retrieveById($id);	
+		
+	
+	}
 	public function getSeatType($id){
-		$seattype=$this->dao->retrieveById($id);		
+		$seattype=$this->dao->retrieveById($id);
+
 		if(isset($seattype)){
 			include ADMIN_VIEWS . '/adminseattype.php';
 		}
+
 	}
 
 

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include_once(VIEWS_ROOT.HEADER); ?>
+<?php include_once(HEADER); ?>
 
   <body>
 
- <?php include_once(VIEWS_ROOT.NAVBAR); ?>
+ <?php include_once(NAVBAR); ?>
 
 <style type="text/css">
   main{
@@ -40,7 +40,7 @@
           </div>
      </main>
 
-    <?php include_once(VIEWS_ROOT.FOOTER); ?>
+    <?php include_once(FOOTER); ?>
 
    
     
