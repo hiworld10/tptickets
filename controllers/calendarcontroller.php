@@ -6,30 +6,44 @@ use dao\db\CalendarDAO as DB_CalendarDAO;
 use controllers\EventController as EventController;
 use controllers\ArtistController as ArtistController;
 use controllers\PlaceEventController as PlaceEventController;
+use controllers\SeatTypeController as SeatTypeController;
+
 
 class CalendarController {
 
 	private $dao;
 	private $eventController;
 	private $placeEventController;
-	private $ArtistController;
+	private $artistController;
+	private $seatTypeController;
 
 	public function __construct() {
 		$this->dao = new DB_CalendarDAO();
 		$this->eventController = new EventController();
 		$this->placeEventController = new PlaceEventController();
 		$this->artistController = new ArtistController();
+		$this->seatTypeController = new SeatTypeController();
 	}
 
-	public function addCalendar($date, $id_event, $artistArray, $id_placeEvent) {
+	public function addCalendar($date, $id_event, $artistIdArray, $id_placeEvent, $id_seatType) {
 		
 		if ($this->isBeforeNow($date)) {
 			echo "ERROR: la fecha ya es pasada.";
 			$this->getAll();
 		} else {
 			$event=$this->eventController->getEventById($id_event);
+			$seatType=$this->seatTypeController->getSeatTypeById($id_seatType);
+			
+
+
 			$placeEvent=$this->placeEventController->getPlaceEventById($id_placeEvent);
-			$m_calendar = new M_Calendar(null, $date, $event, $artistArray, $placeEvent);
+
+			$artists=array();
+			foreach ($artistIdArray as $key => $value) {
+				$artist=$this->artistController->getArtistById($value);
+				array_push($artists, $artist);
+			}
+			$m_calendar = new M_Calendar(null, $date, $event, $artists, $placeEvent, $seatType);
 			$this->dao->create($m_calendar);
 			$this->getAll();
 
@@ -41,10 +55,8 @@ class CalendarController {
 
 	public function getCalendar($id) { 
 		$calendar=$this->dao->retrieveById($id);
-		$eventArray = $this->eventController->getAllSelect();	
-		$placeEventArray = $this->placeEventController->getAllSelect();
-		$artistArray = $this->artistController->getAllSelect();
-		if(isset($calendar) && isset($eventArray) && isset($placeEventArray) && isset($artistArray)) {
+		
+		if(isset($calendar)) {
 			include ADMIN_VIEWS . '/admincalendar.php';
 		}
 	}
@@ -54,6 +66,7 @@ class CalendarController {
 		$eventArray = $this->eventController->getAllSelect();
 		$placeEventArray = $this->placeEventController->getAllSelect();
 		$artistArray = $this->artistController->getAllSelect();
+		$seatTypeArray = $this->seatTypeController->getAllSelect();
 
 
 
@@ -66,7 +79,7 @@ class CalendarController {
 		$this->getAll();
 	}
 
-	public function updateCalendar($id, $date, $id_event, $artistArray, $id_placeEvent) {
+	public function updateCalendar($id, $date, $id_event, $artistIdArray, $id_placeEvent, $id_seatType) {
 
 		if ($this->isBeforeNow($date)) {
 			echo "ERROR: la fecha ya es pasada.";
@@ -74,7 +87,13 @@ class CalendarController {
 		} else {
 			$event=$this->eventController->getEventById($id_event);
 			$placeEvent=$this->placeEventController->getPlaceEventById($id_placeEvent);
-			$updatedCalendar = new M_Calendar($id, $date, $event, $artistArray, $placeEvent);
+			$seatType=$this->seatTypeController->getSeatTypeById($id_seatType);
+			$artists=array();
+			foreach ($artistIdArray as $key => $value) {
+				$artist=$artistController->getArtistById($value);
+				array_push($artists, $artist);
+			}
+			$updatedCalendar = new M_Calendar($id, $date, $event, $artistArray, $placeEvent, $seatType);
 			$this->dao->update($updatedCalendar);
 			$this->getAll();
 		}

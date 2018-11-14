@@ -44,6 +44,13 @@ class ArtistController {
 		}
 	}
 
+	public function getArtistById($id){
+		$artist=$this->dao->retrieveById($id);		
+	
+	}
+
+
+
 	
 	public function updateArtist($id, $newName){
 		$updatedArtist = new M_Artist($id, $newName);

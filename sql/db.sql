@@ -76,16 +76,18 @@ CREATE TABLE IF NOT EXISTS `calendars` (
   `id_event` int(11) NOT NULL,
   `artists` varchar(60) NOT NULL,  
   `id_place_event` int(11) NOT NULL,
+  `id_seat_type` int(11) NOT NULL,
   PRIMARY KEY (`id_calendar`),
   KEY `id_event` (`id_event`),
-  KEY `id_place_event` (`id_place_event`)
+  KEY `id_place_event` (`id_place_event`),
+  KEY `id_seat_type` (`id_seat_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Volcado de datos para la tabla `calendars`
 --
 
-INSERT INTO calendars (id_calendar, date, id_event, artists, id_place_event ) VALUES (1, "2018/11/20", 1, "Metallica", 1);
+INSERT INTO calendars (id_calendar, date, id_event, artists, id_place_event, id_seat_type ) VALUES (1, "2018/11/20", 1, "Metallica", 1, 1);
 
 -- --------------------------------------------------------
 

@@ -60,9 +60,9 @@ class HomeController
 
           if($showHome){
                 if($user->getAdmin() == "true"){
-                  include_once VIEWS_ROOT. '/home.php';
-                }else{
                   include_once ADMIN_VIEWS. '/admin.php';
+                }else{
+                  include_once VIEWS_ROOT. '/home.php';
                 }
           }else{
             //vista login

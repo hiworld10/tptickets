@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include_once(VIEWS_ROOT.HEADER); ?>
+<?php include_once(HEADER); ?>
 
   <body>
 
- <?php include_once(VIEWS_ROOT.NAVBAR); ?>
+ <?php include_once(NAVBAR); ?>
 
 <style type="text/css">
   main{
@@ -21,7 +21,7 @@
   <main class="d-flex align-items-center justify-content-center height-100">
           <div class="content">
                <header class="text-center mt-5">
-                    <h2>Registrarse!</h2>
+                    <h2>Registrate!</h2>
                    
                </header>
                <form class="login-form bg-dark-alpha p-5 text-white" action="<?=FRONT_ROOT?>/home/addUser ?>" method="POST">
@@ -48,7 +48,7 @@
           </div>
      </main>
 
-    <?php include_once(VIEWS_ROOT.FOOTER); ?>
+    <?php include_once(FOOTER); ?>
 
    
     

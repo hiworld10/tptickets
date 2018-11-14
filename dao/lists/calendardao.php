@@ -53,6 +53,7 @@ class CalendarDAO implements IDAO
 					$value->setEvent($newVal->getEvent());
 					$value->setArtistArray($newVal->getArtistArray());
 					$value->setPlaceEvent($newVal->getPlaceEvent());
+					$value->setSeatType($newVal->getSeatType());
 				}
 			}
 		}
