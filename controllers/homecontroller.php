@@ -19,7 +19,7 @@ class HomeController {
   function __construct() {
     $this->userController = new UserController();
     $this->calendarController = new CalendarController();
-
+  }
 
     public function index() {
       include_once VIEWS_ROOT. '/home.php';
