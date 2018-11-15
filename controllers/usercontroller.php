@@ -29,7 +29,7 @@ class UserController {
 		}
 	}
 
-	public function getAll(){
+	public function getAll() {
 		$userArray = $this->dao->retrieveAll();
 		include ADMIN_VIEWS . '/adminuser.php';
 		
@@ -42,7 +42,7 @@ class UserController {
 		}
 	}
 
-	public function deleteUser($id){
+	public function deleteUser($id) {
 
 		$this->dao->delete($id);
 		$this->getAll();
@@ -67,7 +67,7 @@ class UserController {
 	}
 
 	//corregido 28/10 bd
-	public function checkEmail($email) {
+	public function checkEmail($email){
 		$check=true;
 		$arrayUsers=$this->dao->retrieveAll();
 
@@ -84,7 +84,7 @@ class UserController {
 
 	//strlen cuenta la cantidad de caracteres String
 	//en este caso vamos a restringir la pass a mas de 6 caracteres
-	public function checkPassword($pass){
+	public function checkPassword($pass) {
 		//el operador ternario es mas kool
 		return ((strlen ($pass) < $this->passwordLength) ? false : true);
 	}
@@ -116,52 +116,43 @@ class UserController {
 	}
 
 
-
-
-
-
-
-
-  /* Este método verifica si existe un usuario en sesion y en caso
+  	/* Este método verifica si existe un usuario en sesion y en caso
       * afirmativo lo toma de la base de datos y compara contraseñas.
       * Esto lo hace con el fin de asegurar que si cambio algun dato
       * obtiene la información actualizada.
       */
 
-  public function checkSession() {
-  	if (session_status() == PHP_SESSION_NONE)
-  		session_start();
+  	public function checkSession() {
+  		if (session_status() == PHP_SESSION_NONE)
+  			session_start();
 
-  	if(isset($_SESSION['userLogedIn'])) {
+  		if(isset($_SESSION['userLogedIn'])) {
 
-  		$user = $this->dao->retrieveByEmail($_SESSION['userLogedIn']->getEmail());
+  			$user = $this->dao->retrieveByEmail($_SESSION['userLogedIn']->getEmail());
 
-  		if($user->getPassword() == $_SESSION['userLogedIn']->getPassword())
-  			return $user;
+  			if($user->getPassword() == $_SESSION['userLogedIn']->getPassword())
+  				return $user;
 
-  	} else {
-  		return false;
+  		} else {
+  			return false;
+  		}
   	}
-  }
 
+  	public function setSession($user) {
+  		$_SESSION['userLogedIn'] = $user;
+  	}
 
-  public function setSession($user) {
-  	$_SESSION['userLogedIn'] = $user;
-  }
+  	public function logout() {
 
+  		if (session_status() == PHP_SESSION_NONE)
+  			session_start();
 
+  		unset($_SESSION['userLogedIn']);
 
-  public function logout() {
+  		$homeController = new HomeController();
 
-  	if (session_status() == PHP_SESSION_NONE)
-  		session_start();
-
-  	unset($_SESSION['userLogedIn']);
-
-  	$homeController = new HomeController();
-
-  	$homeController->index();
-  }
+  		$homeController->index();
+  	}
 
 }
 
