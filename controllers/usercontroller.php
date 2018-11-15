@@ -158,9 +158,9 @@ class UserController {
 
   	unset($_SESSION['userLogedIn']);
 
-  	$this->HomeController = new HomeController();
+  	$homeController = new HomeController();
 
-  	$this->HomeController->index();
+  	$homeController->index();
   }
 
 }
