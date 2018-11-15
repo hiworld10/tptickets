@@ -138,6 +138,15 @@ class UserController {
   		}
   	}
 
+
+    public function isUserAdmin() {
+        /*Si $user es verdadero, verifico que el atributo admin sea "true"*/
+        $user = $this->checkSession();
+        if($user) {
+            return (($user->getAdmin() == "true") ? true : false); 
+        }
+    }
+
   	public function setSession($user) {
   		$_SESSION['userLogedIn'] = $user;
   	}

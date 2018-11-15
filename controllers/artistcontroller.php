@@ -4,14 +4,16 @@ namespace controllers;
 use model\Artist as M_Artist;
 use dao\db\ArtistDAO as DB_ArtistDAO;
 use dao\lists\ArtistDAO as List_ArtistDAO;
-
+use controllers\UserController as UserController;
 
 class ArtistController {
 
 	private $dao;
+	private $userController;
 
 	public function __construct() {
 		$this->dao = new DB_ArtistDAO();
+		$this->userController = new UserController();
 	}
 
 	public function addArtist($artistName) {
@@ -21,15 +23,20 @@ class ArtistController {
 		$this->getAll();
 	}
 
-	public function getAll(){
-		$artistArray = $this->dao->retrieveAll(); 
-		include ADMIN_VIEWS . '/adminartist.php';
-
+	public function getAll() {
+		/*Si el usuario no es admin, la controladora no permitira acceder a los datos.
+		  Ver si es posible imprimir un mensaje de alerta advirtiendo que el usuario no
+		  tiene permiso para acceder a la pagina. Aplicar esta comprobacion en los otros metodos*/
+		if (!$this->userController->isUserAdmin()) {
+			$this->userController->index();
+		} else {
+			$artistArray = $this->dao->retrieveAll();
+			include ADMIN_VIEWS . '/adminartist.php';
+		}
 	}
+
 	public function getAllSelect(){
-		return $this->dao->retrieveAll(); 
-
-
+		return $this->dao->retrieveAll();
 	}
 
 	public function deleteArtist($id){
@@ -46,7 +53,7 @@ class ArtistController {
 
 	public function getArtistById($id){
 		$artist=$this->dao->retrieveById($id);		
-	
+
 	}
 
 
