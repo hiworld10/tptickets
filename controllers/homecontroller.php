@@ -5,6 +5,7 @@ use model\User as M_User;
 use controllers\UserController as UserController;
 use controllers\ArtistController as ArtistController;
 use controllers\CalendarController as CalendarController;
+use controllers\EventController as EventController;
 
 /**
  *
@@ -19,9 +20,11 @@ class HomeController {
   function __construct() {
     $this->userController = new UserController();
     $this->calendarController = new CalendarController();
+    $this->eventController = new EventController();
   }
 
     public function index() {
+      $eventArray=$this->eventController->getAllSelect();
       include_once VIEWS_ROOT. '/home.php';
     }
 
