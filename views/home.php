@@ -48,18 +48,40 @@
         
       </div>
 
-    <!-- Masthead -->
-    
+</header>
+<div  >
+  <table class="table bg-light-alpha text-center mt-5">
 
+    <?php if(!empty($eventArray)) { ?>
+   
+     <tbody>
+      <?php foreach ($eventArray as $value) { ?>
+        <tr>
+        
+         <td><img src="<?= $value->getImage()->getPath() ?>" height="200" width="350"/></td>
+        <td>
+          <div class="mt-5">
+             <big><big><?= $value->getName(); ?></big></big>
+          </div>
+        </td>
+      </tr>
+    <?php } ?>
 
+  </tbody>
+<?php  } ?>
+</table>
+
+</div>
 
  </body>
-<footer>
+
+
+
 <?php include_once(FOOTER); ?>
-</footer>
+
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/tptickets/vendor/jquery/jquery.min.js"></script>
+    <script src="/tptickets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
  
 
