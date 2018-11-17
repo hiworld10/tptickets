@@ -111,15 +111,15 @@
 
 
   <form name='formulario' action="<?=FRONT_ROOT?>/calendar/addCalendar"  method="POST">
-   <div class="form-row p-2">
-    <div class="form-group col-12 col-md-9 mb-2 mb-md-0">
+   <div class="form">
+    <div class="col-12 col-md-9 mb-2 mb-md-3">
       <label for="">Fecha</label>
       <input type="date"   class="form-control form-control-lg" name="date" placeholder="Ingrese fecha..." required>
     </div>
-     <div class="col-lg-4 form-group">
+     <div class="col-12 col-md-9 mb-2 mb-md-3">
 
      <label for="">Evento</label>
-     <select class="form-control" name="category" required>
+     <select class="form-control" name="event" required>
       <?php if(isset($eventArray)){ 
        foreach ($eventArray as $key => $value) { 
          ?>
@@ -133,7 +133,7 @@
 
 </div>
 
-   <div class="form-group">
+   <div class="col-12 col-md-9 mb-2 mb-md-3">
 
 
         <?php if(isset($artistArray)){
@@ -151,7 +151,7 @@
 
       
 
- <div class="col-lg-4 form-group">
+ <div class="col-12 col-md-9 mb-2 mb-md-3">
 
      <label for="">Lugar</label>
      <select class="form-control" name="placeEvent" required>
@@ -168,7 +168,7 @@
 
 </div>
 
- <div class="col-lg-4 form-group">
+ <div class="col-12 col-md-9 mb-2 mb-md-3">
 
      <label for="">Tipo Plaza</label>
      <select class="form-control" name="seatType" required>
