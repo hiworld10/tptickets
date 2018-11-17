@@ -58,3 +58,14 @@ array en la base de datos En realidad estoy guardando un string por eso no puedo
 Habria que reveer el modelo de Calendario para utilizar el artistaxCalendario o nose ya toy quemado
 boton editar sin funcionar
 homecontroller/search y vista search no terminadas sin funcionar
+
+
+
+
+17/11
+franco
+agregue imagen
+homecontroller index->getAll  events
+view home
+css admin y landing page
+view admincalendar
