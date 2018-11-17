@@ -51,7 +51,7 @@
 #divform{
     top: 50px;
     height:auto;
-    width:auto;
+
     margin: auto;
     margin-top: 70px;
     float:right;
@@ -79,3 +79,12 @@ height:30px;
 }
 
 
+#footer {
+     height: 150px;
+    position: absolute; left: 0; bottom: 0; width: 100%;
+
+  }
+
+
+ 
+}
