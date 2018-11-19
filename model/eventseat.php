@@ -21,14 +21,9 @@ class EventSeat
         $this->remainder = $quantity;
 	}
 
-    public function getQuantity()
-    {
-        return $this->$quantity;
-    }
-
     public function setQuantity($newQuantity)
     {
-        $this->remainder = $newQuantity - $this->quantity + $remainder;
+        $this->remainder = $newQuantity - $this->quantity + $this->$remainder;
         $this->quantity = $newQuantity;
     }
 
@@ -75,6 +70,11 @@ class EventSeat
     public function getRemainder()
     {
         return $this->remainder;
+    }
+
+    public function getQuantity()
+    {
+        return $this->quantity;
     }
 }
 ?>
