@@ -11,15 +11,26 @@ class EventSeat
     private $price;
     private $remainder;
 
-	function __construct($id, $quantity, $price, $calendarId, $seatTypeId)
+	function __construct($id, $calendarId, $seatTypeId, $quantity, $price)
 	{
         $this->id = $id;
-        $this->quantity = $quantity;
-        $this->price = $price;
         $this->calendarId = $calendarId;
         $this->seatTypeId = $seatTypeId;
+        $this->quantity = $quantity;
+        $this->price = $price;
         $this->remainder = $quantity;
 	}
+
+    public function getQuantity()
+    {
+        return $this->$quantity;
+    }
+
+    public function setQuantity($newQuantity)
+    {
+        $this->remainder = $newQuantity - $this->quantity + $remainder;
+        $this->quantity = $newQuantity;
+    }
 
     public function getId()
     {
@@ -29,6 +40,26 @@ class EventSeat
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    public function getCalendarId()
+    {
+        return $this->calendarId;
+    }
+
+    public function setCalendarId($calendarId)
+    {
+        $this->calendarId = $calendarId;
+    }
+
+    public function getSeatTypeId()
+    {
+        return $this->seatTypeId;
+    }
+
+    public function setSeatTypeId($seatTypeId)
+    {
+        $this->seatTypeId = $seatTypeId;
     }
 
     public function getPrice()
@@ -41,34 +72,9 @@ class EventSeat
         $this->price = $price;
     }
 
-    public function getAvailableSeats()
+    public function getRemainder()
     {
-        return $this->$quantity;
-    }
-
-    public function setAvailableSeats($newQuantity)
-    {
-        $this->remainder = $newQuantity - $this->quantity + $remainder;
-        $this->quantity = $newQuantity;
-    }
-
-    public function getCalendarId()
-    {
-        return $this->$calendarId;
-    }
-
-    public function setCalendarId($calendarId)
-    {
-        $this->calendarId = $calendarId;
-    }
-     public function getSeatTypeId()
-    {
-        return $this->$seatTypeId;
-    }
-
-    public function setSeatTypeId($seatTypeId)
-    {
-        $this->seatTypeId = $seatTypeId;
+        return $this->remainder;
     }
 }
 ?>

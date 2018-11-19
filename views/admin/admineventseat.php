@@ -134,7 +134,7 @@
                
                   <tr>
                      <td><?= $value->getId(); ?></td>
-                      <td><?= $value->getAvailableSeats(); ?></td>
+                      <td><?= $value->getQuantity(); ?></td>
                        <td><?= $value->getPrice(); ?></td>
                        <td><?= $value->getCalendarId(); ?></td>
                        <td><?= $value->getSeatTypeId(); ?></td>

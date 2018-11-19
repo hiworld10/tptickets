@@ -41,10 +41,12 @@ class EventSeatDAO implements IDAO
             $resultSet = $this->connection->execute($query);
 
             foreach ($resultSet as $row) {                
-                $event = new EventSeat($row["id_event_seat"], $row["quantity"], $row["price"], $row["id_calendar"], $row["id_seat_type"]);
-                array_push($eventList, $eventSeat);
+                $eventSeat = new EventSeat($row["id_event_seat"], $row["id_calendar"], $row["id_seat_type"], $row["quantity"], $row["price"]);
+                array_push($eventSeatList, $eventSeat);
 
-                print_r($event);
+                echo "<pre>";
+                print_r($eventSeat);
+                echo "</pre>";
             }
 
             return $eventSeatList;
@@ -67,7 +69,7 @@ class EventSeatDAO implements IDAO
             $resultSet = $this->connection->execute($query, $parameters);
 
             foreach ($resultSet as $row) {
-                $event = new EventSeat($row["id_event_seat"], $row["quantity"], $row["price"], $row["id_calendar"], $row["id_seat_type"]);
+                $event = new EventSeat($row["id_event_seat"], $row["id_calendar"], $row["id_seat_type"], $row["quantity"], $row["price"]);
             }
 
             return $eventSeat;
@@ -90,7 +92,7 @@ class EventSeatDAO implements IDAO
             $resultSet = $this->connection->execute($query, $parameters);
 
             foreach ($resultSet as $row) {
-                $eventSeat = new EventSeat($row["id_event_seat"], $row["quantity"], $row["price"], $row["id_calendar"], $row["id_seat_type"]);
+                $eventSeat = new EventSeat($row["id_event_seat"], $row["id_calendar"], $row["id_seat_type"], $row["quantity"], $row["price"]);
             }
 
             return $eventSeat;

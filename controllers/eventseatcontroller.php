@@ -19,7 +19,7 @@ class EventSeatController {
 	}
 
 	public function addEventSeat($availableSeats, $price, $calendarId, $seatTypeId) {
-		$m_eventSeat = new M_EventSeat(null, $availableSeats, $price, $calendarId, $seatTypeId);
+		$m_eventSeat = new M_EventSeat(null, $calendarId, $seatTypeId, $availableSeats, $price);
 		$this->dao->create($m_eventSeat);
 		print_r($m_eventSeat);
 		$this->getAll();
