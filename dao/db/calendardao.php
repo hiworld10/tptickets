@@ -7,7 +7,7 @@ use model\Calendar as Calendar;
 use dao\db\Connection as Connection;
 use dao\db\EventDao as EventDao;
 use dao\db\PlaceEventDao as PlaceEventDao;
-use dao\db\SeatTypeDao as SeatTypeDao;
+use dao\db\EventSeatDao as EventSeatDao;
 use dao\db\ArtistDAO as ArtistDAO;
 use model\Artist as Artist;
 
@@ -47,14 +47,14 @@ class CalendarDAO implements IDAO
 
             $eventDao = new EventDao();
             $placeEventDao = new PlaceEventDao();
-            $seatTypeDao = new SeatTypeDao();
+            $eventSeatDao = new EventSeatDAO();
             $artistDao = new ArtistDAO();
 
             foreach ($resultSet as $row) {       
                 $event = $eventDao->retrieveById($row["id_calendar"]);     
                 $placeEvent = $placeEventDao->retrieveByCalendarId($row["id_calendar"]); 
-                $seatType = $seatTypeDao->retrieveByCalendarId($row["id_calendar"]);
-                $calendar = new Calendar($row["id_calendar"], $row["date"],$event, new Artist(10, "Un Artista"), $placeEvent, $seatType);
+                $eventSeat = $eventSeatDao->retrieveByCalendarId($row["id_calendar"]);
+                $calendar = new Calendar($row["id_calendar"], $row["date"],$event, new Artist(10, "Un Artista"), $placeEvent, $eventSeat);
                 array_push($calendarList, $calendar);
             }
 

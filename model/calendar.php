@@ -3,7 +3,7 @@ namespace model;
 
 use model\Event as Event;
 use model\PlaceEvent as PlaceEvent;
-use model\SeatType as SeatType;
+use model\EventSeat as EventSeat;
 
 
 class Calendar
@@ -13,16 +13,16 @@ class Calendar
     private $event;
     private $artistArray;
     private $placeEvent;
-    private $seatType;
+    private $eventSeat;
 
-	function __construct($id, $date, Event $event, $artistArray, PlaceEvent $placeEvent, SeatType $seatType)
+	function __construct($id, $date, Event $event, $artistArray, PlaceEvent $placeEvent, EventSeat $eventSeat)
 	{
-        $this->id= $id;
-        $this->date= $date;
-        $this->event= $event;
-        $this->artistArray= $artistArray;
-        $this->placeEvent= $placeEvent;
-        $this->seatType= $seatType;
+        $this->id = $id;
+        $this->date = $date;
+        $this->event = $event;
+        $this->artistArray = $artistArray;
+        $this->placeEvent = $placeEvent;
+        $this->eventSeat = $eventSeat;
 	}
 
     public function getDate()
@@ -77,14 +77,14 @@ class Calendar
         $this->placeEvent = $placeEvent;
     }
 
-    public function getSeatType()
+    public function getEventSeat()
     {
-        return $this->seatType;
+        return $this->eventSeat;
     }
 
-    public function setSeatType($seatType)
+    public function setEventSeat($eventSeat)
     {
-        $this->seatType = $seatType;
+        $this->eventSeat = $eventSeat;
     }
 }
 ?>

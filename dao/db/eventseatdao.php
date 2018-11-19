@@ -77,6 +77,29 @@ class EventSeatDAO implements IDAO
         }
     }
 
+        public function retrieveByCalendarId($calendarId) {
+        try {
+            $eventSeat = null;
+
+            $query = "SELECT * FROM ".$this->tableName." WHERE id_calendar = :id_calendar";
+
+            $parameters["id_calendar"] = $calendarId;
+
+            $this->connection = Connection::getInstance();
+
+            $resultSet = $this->connection->execute($query, $parameters);
+
+            foreach ($resultSet as $row) {
+                $eventSeat = new EventSeat($row["id_event_seat"], $row["quantity"], $row["price"], $row["id_calendar"], $row["id_seat_type"]);
+            }
+
+            return $eventSeat;
+        }
+        catch(Exception $ex) {
+            throw $ex;
+        }
+    }
+
     public function delete($id) {
         try {
             $query = "DELETE FROM ".$this->tableName." WHERE id_event = :id_event";

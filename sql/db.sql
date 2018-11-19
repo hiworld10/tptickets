@@ -1,23 +1,23 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.1
--- http://www.phpmyadmin.net
+-- version 4.6.6deb5
+-- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 29-10-2018 a las 22:29:39
--- Versión del servidor: 5.5.24-log
--- Versión de PHP: 5.4.3
+-- Host: localhost:3306
+-- Generation Time: Nov 19, 2018 at 12:52 PM
+-- Server version: 5.7.24-0ubuntu0.18.04.1
+-- PHP Version: 7.2.10-0ubuntu0.18.04.1
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `tptickets` . Sos muy crack por no haber incluido lo MAS FUNDAMENTAL de la DB.
+-- Database: `tptickets`
 --
 
 DROP DATABASE IF EXISTS tptickets;
@@ -27,17 +27,16 @@ use tptickets;
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `artists`
+-- Table structure for table `artists`
 --
 
-CREATE TABLE IF NOT EXISTS `artists` (
-  `id_artist` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(40) NOT NULL,
-  PRIMARY KEY (`id_artist`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+CREATE TABLE `artists` (
+  `id_artist` int(11) NOT NULL,
+  `name` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `artists`
+-- Dumping data for table `artists`
 --
 
 INSERT INTO `artists` (`id_artist`, `name`) VALUES
@@ -52,58 +51,50 @@ INSERT INTO `artists` (`id_artist`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `artists_calendars`
+-- Table structure for table `artists_calendars`
 --
 
-CREATE TABLE IF NOT EXISTS `artists_calendars` (
-  `id_artist_calendar` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `artists_calendars` (
+  `id_artist_calendar` int(11) NOT NULL,
   `id_calendar` int(11) NOT NULL,
-  `id_artist` int(11) NOT NULL,
-  PRIMARY KEY (`id_artist_calendar`),
-  KEY `id_calendar` (`id_calendar`),
-  KEY `id_artist` (`id_artist`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `id_artist` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `calendars`
+-- Table structure for table `calendars`
 --
 
-CREATE TABLE IF NOT EXISTS `calendars` (
-  `id_calendar` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `calendars` (
+  `id_calendar` int(11) NOT NULL,
   `date` date NOT NULL,
-  `id_event` int(11) NOT NULL,
-  `artists` varchar(60) NOT NULL,  
-  `id_place_event` int(11) NOT NULL,
-  `id_seat_type` int(11) NOT NULL,
-  PRIMARY KEY (`id_calendar`),
-  KEY `id_event` (`id_event`),
-  KEY `id_place_event` (`id_place_event`),
-  KEY `id_seat_type` (`id_seat_type`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `id_event` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `calendars`
+-- Dumping data for table `calendars`
 --
 
-INSERT INTO calendars (id_calendar, date, id_event, artists, id_place_event, id_seat_type ) VALUES (1, "2018/11/20", 1, "Metallica", 1, 1);
+INSERT INTO `calendars` (`id_calendar`, `date`, `id_event`) VALUES
+(1, '2018-11-20', 1),
+(2, '2018-11-30', 2),
+(3, '2018-11-29', 3),
+(4, '2018-11-29', 1);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `categories`
+-- Table structure for table `categories`
 --
 
-CREATE TABLE IF NOT EXISTS `categories` (
-  `id_category` int(11) NOT NULL AUTO_INCREMENT,
-  `type` varchar(30) NOT NULL,
-  PRIMARY KEY (`id_category`),
-  KEY `id_category` (`id_category`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+CREATE TABLE `categories` (
+  `id_category` int(11) NOT NULL,
+  `type` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `categories`
+-- Dumping data for table `categories`
 --
 
 INSERT INTO `categories` (`id_category`, `type`) VALUES
@@ -113,108 +104,113 @@ INSERT INTO `categories` (`id_category`, `type`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `events`
+-- Table structure for table `events`
 --
 
-CREATE TABLE IF NOT EXISTS `events` (
-  `id_event` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `events` (
+  `id_event` int(11) NOT NULL,
   `name` varchar(60) NOT NULL,
   `id_category` int(11) NOT NULL,
-  `image` varchar(60) NOT NULL,
-  PRIMARY KEY (`id_event`),
-  KEY `id_category` (`id_category`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+  `image` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `events`
+-- Dumping data for table `events`
 --
 
 INSERT INTO `events` (`id_event`, `name`, `id_category`, `image`) VALUES
 (1, 'Luis Miguel en Argentina', 1, 'http://localhost/tptickets/img/events/imagen1.png'),
 (2, 'Woodstock 2018', 1, 'http://localhost/tptickets/img/events/imagen2.png'),
-(3, 'Una Obra Teatral Cualquiera', 2, 'http://localhost/tptickets/img/events/imagen3.png');
+(3, 'Una Obra Teatral Cualquiera', 2, 'http://localhost/tptickets/img/events/imagen3.png'),
+(4, 'WTF Festival', 1, 'http://localhost/tptickets/img/events/monito.jpg');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `places_events`
+-- Table structure for table `event_seats`
 --
 
-CREATE TABLE IF NOT EXISTS `places_events` (
-  `id_place_event` int(11) NOT NULL AUTO_INCREMENT,
-  `id_calendar` int(11) NOT NULL,
-  `capacity` int(11) NOT NULL,
-  `description` text NOT NULL,
-  PRIMARY KEY (`id_place_event`),
-  KEY `id_calendar` (`id_calendar`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
-
-INSERT INTO places_events (id_place_event, id_calendar, capacity, description) VALUES (1, 1, 30000, "Estadio unico La Plata");
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `purchases`
---
-
-CREATE TABLE IF NOT EXISTS `purchases` (
-  `id_purchase` int(11) NOT NULL AUTO_INCREMENT,
-  `id_client` int(11) NOT NULL,
-  `date` date NOT NULL,
-  PRIMARY KEY (`id_purchase`),
-  KEY `id_client` (`id_client`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `purchases_lines`
---
-
-CREATE TABLE IF NOT EXISTS `purchases_lines` (
-  `id_purchase_line` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `event_seats` (
   `id_event_seat` int(11) NOT NULL,
-  `id_purchase` int(11) NOT NULL,
-  `quantity` double NOT NULL,
-  `price` int(11) NOT NULL,
-  PRIMARY KEY (`id_purchase_line`),
-  KEY `id_event_seat` (`id_event_seat`),
-  KEY `id_purchase` (`id_purchase`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `event_seats`
---
-
-CREATE TABLE IF NOT EXISTS `event_seats` (
-  `id_event_seat` int(11) NOT NULL AUTO_INCREMENT,
   `id_calendar` int(11) NOT NULL,
   `id_seat_type` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `price` double NOT NULL,
-  `remainder` int(11) NOT NULL,
-  PRIMARY KEY (`id_event_seat`),
-  KEY `id_calendar` (`id_calendar`),
-  KEY `id_seat_type` (`id_seat_type`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `remainder` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `event_seats`
+--
+
+INSERT INTO `event_seats` (`id_event_seat`, `id_calendar`, `id_seat_type`, `quantity`, `price`, `remainder`) VALUES
+(1, 2, 2, 3000, 300, 3000),
+(2, 1, 3, 4000, 400, 4000),
+(3, 3, 4, 5000, 500, 5000),
+(4, 4, 1, 1000, 800, 1000);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `seat_type`
+-- Table structure for table `places_events`
 --
 
-CREATE TABLE IF NOT EXISTS `seat_type` (
-  `id_seat_type` int(11) NOT NULL AUTO_INCREMENT,
-  `description` text NOT NULL,
-  PRIMARY KEY (`id_seat_type`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+CREATE TABLE `places_events` (
+  `id_place_event` int(11) NOT NULL,
+  `id_calendar` int(11) NOT NULL,
+  `capacity` int(11) NOT NULL,
+  `description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `seat_type`
+-- Dumping data for table `places_events`
+--
+
+INSERT INTO `places_events` (`id_place_event`, `id_calendar`, `capacity`, `description`) VALUES
+(1, 1, 30000, 'Estadio unico La Plata'),
+(2, 2, 20000, 'Estadio River Plate'),
+(3, 3, 20000, 'Estadio Malvinas Argentinas'),
+(4, 4, 5000, 'Teatro Colon');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `purchases`
+--
+
+CREATE TABLE `purchases` (
+  `id_purchase` int(11) NOT NULL,
+  `id_client` int(11) NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `purchases_lines`
+--
+
+CREATE TABLE `purchases_lines` (
+  `id_purchase_line` int(11) NOT NULL,
+  `id_event_seat` int(11) NOT NULL,
+  `id_purchase` int(11) NOT NULL,
+  `quantity` double NOT NULL,
+  `price` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `seat_type`
+--
+
+CREATE TABLE `seat_type` (
+  `id_seat_type` int(11) NOT NULL,
+  `description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `seat_type`
 --
 
 INSERT INTO `seat_type` (`id_seat_type`, `description`) VALUES
@@ -226,93 +222,243 @@ INSERT INTO `seat_type` (`id_seat_type`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tickets`
+-- Table structure for table `tickets`
 --
 
-CREATE TABLE IF NOT EXISTS `tickets` (
-  `id_ticket` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tickets` (
+  `id_ticket` int(11) NOT NULL,
   `id_purchase_line` int(11) NOT NULL,
   `number` int(11) NOT NULL,
-  `qr` text NOT NULL,
-  PRIMARY KEY (`id_ticket`),
-  KEY `id_purchase_line` (`id_purchase_line`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `qr` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `users`
+-- Table structure for table `users`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
-  `id_user` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `users` (
+  `id_user` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(50) NOT NULL,
   `first_name` varchar(30) NOT NULL,
   `last_name` varchar(40) NOT NULL,
-  `is_admin` int(11) NOT NULL,
-  PRIMARY KEY (`id_user`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `is_admin` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id_user`, `email`, `password`, `first_name`, `last_name`, `is_admin`) VALUES
 (1, 'admin@tptickets.com', 'lapassword', 'El', 'Admin', 1),
-(2, 'user@email.com', 'thecontra', 'Sr', 'Usuario', 0);
+(2, 'user@email.com', 'thecontra', 'Sr', 'Usuario', 0),
+(3, 'a@test.com', 'password', 'A', 'Test', 0);
 
 --
--- Restricciones para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Filtros para la tabla `artists_calendars`
+-- Indexes for table `artists`
+--
+ALTER TABLE `artists`
+  ADD PRIMARY KEY (`id_artist`);
+
+--
+-- Indexes for table `artists_calendars`
 --
 ALTER TABLE `artists_calendars`
-  ADD CONSTRAINT `artists_calendars_ibfk_2` FOREIGN KEY (`id_artist`) REFERENCES `artists` (`id_artist`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `artists_calendars_ibfk_1` FOREIGN KEY (`id_calendar`) REFERENCES `calendars` (`id_calendar`) ON UPDATE CASCADE;
+  ADD PRIMARY KEY (`id_artist_calendar`),
+  ADD KEY `id_calendar` (`id_calendar`),
+  ADD KEY `id_artist` (`id_artist`);
 
 --
--- Filtros para la tabla `calendars`
+-- Indexes for table `calendars`
+--
+ALTER TABLE `calendars`
+  ADD PRIMARY KEY (`id_calendar`),
+  ADD KEY `id_event` (`id_event`);
+
+--
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id_category`),
+  ADD KEY `id_category` (`id_category`);
+
+--
+-- Indexes for table `events`
+--
+ALTER TABLE `events`
+  ADD PRIMARY KEY (`id_event`),
+  ADD KEY `id_category` (`id_category`);
+
+--
+-- Indexes for table `event_seats`
+--
+ALTER TABLE `event_seats`
+  ADD PRIMARY KEY (`id_event_seat`),
+  ADD KEY `id_calendar` (`id_calendar`),
+  ADD KEY `id_seat_type` (`id_seat_type`);
+
+--
+-- Indexes for table `places_events`
+--
+ALTER TABLE `places_events`
+  ADD PRIMARY KEY (`id_place_event`),
+  ADD KEY `id_calendar` (`id_calendar`);
+
+--
+-- Indexes for table `purchases`
+--
+ALTER TABLE `purchases`
+  ADD PRIMARY KEY (`id_purchase`),
+  ADD KEY `id_client` (`id_client`);
+
+--
+-- Indexes for table `purchases_lines`
+--
+ALTER TABLE `purchases_lines`
+  ADD PRIMARY KEY (`id_purchase_line`),
+  ADD KEY `id_event_seat` (`id_event_seat`),
+  ADD KEY `id_purchase` (`id_purchase`);
+
+--
+-- Indexes for table `seat_type`
+--
+ALTER TABLE `seat_type`
+  ADD PRIMARY KEY (`id_seat_type`);
+
+--
+-- Indexes for table `tickets`
+--
+ALTER TABLE `tickets`
+  ADD PRIMARY KEY (`id_ticket`),
+  ADD KEY `id_purchase_line` (`id_purchase_line`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id_user`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `artists`
+--
+ALTER TABLE `artists`
+  MODIFY `id_artist` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT for table `artists_calendars`
+--
+ALTER TABLE `artists_calendars`
+  MODIFY `id_artist_calendar` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `calendars`
+--
+ALTER TABLE `calendars`
+  MODIFY `id_calendar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `id_category` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `events`
+--
+ALTER TABLE `events`
+  MODIFY `id_event` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `event_seats`
+--
+ALTER TABLE `event_seats`
+  MODIFY `id_event_seat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `places_events`
+--
+ALTER TABLE `places_events`
+  MODIFY `id_place_event` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `purchases`
+--
+ALTER TABLE `purchases`
+  MODIFY `id_purchase` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `purchases_lines`
+--
+ALTER TABLE `purchases_lines`
+  MODIFY `id_purchase_line` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `seat_type`
+--
+ALTER TABLE `seat_type`
+  MODIFY `id_seat_type` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `tickets`
+--
+ALTER TABLE `tickets`
+  MODIFY `id_ticket` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `artists_calendars`
+--
+ALTER TABLE `artists_calendars`
+  ADD CONSTRAINT `artists_calendars_ibfk_1` FOREIGN KEY (`id_calendar`) REFERENCES `calendars` (`id_calendar`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `artists_calendars_ibfk_2` FOREIGN KEY (`id_artist`) REFERENCES `artists` (`id_artist`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `calendars`
 --
 ALTER TABLE `calendars`
   ADD CONSTRAINT `calendars_ibfk_1` FOREIGN KEY (`id_event`) REFERENCES `events` (`id_event`) ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `events`
+-- Constraints for table `events`
 --
 ALTER TABLE `events`
   ADD CONSTRAINT `events_ibfk_1` FOREIGN KEY (`id_category`) REFERENCES `categories` (`id_category`) ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `places_events`
+-- Constraints for table `event_seats`
+--
+ALTER TABLE `event_seats`
+  ADD CONSTRAINT `event_seat_ibfk_1` FOREIGN KEY (`id_calendar`) REFERENCES `calendars` (`id_calendar`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `event_seat_ibfk_2` FOREIGN KEY (`id_seat_type`) REFERENCES `seat_type` (`id_seat_type`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `places_events`
 --
 ALTER TABLE `places_events`
   ADD CONSTRAINT `places_events_ibfk_1` FOREIGN KEY (`id_calendar`) REFERENCES `calendars` (`id_calendar`) ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `purchases`
+-- Constraints for table `purchases`
 --
 ALTER TABLE `purchases`
   ADD CONSTRAINT `purchases_ibfk_2` FOREIGN KEY (`id_client`) REFERENCES `users` (`id_user`) ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `purchases_lines`
+-- Constraints for table `purchases_lines`
 --
 ALTER TABLE `purchases_lines`
-  ADD CONSTRAINT `purchases_lines_ibfk_2` FOREIGN KEY (`id_purchase`) REFERENCES `purchases` (`id_purchase`),
-  ADD CONSTRAINT `purchases_lines_ibfk_1` FOREIGN KEY (`id_event_seat`) REFERENCES `event_seats` (`id_event_seat`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `purchases_lines_ibfk_1` FOREIGN KEY (`id_event_seat`) REFERENCES `event_seats` (`id_event_seat`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `purchases_lines_ibfk_2` FOREIGN KEY (`id_purchase`) REFERENCES `purchases` (`id_purchase`);
 
 --
--- Filtros para la tabla `event_seats`
---
-ALTER TABLE `event_seats`
-  ADD CONSTRAINT `event_seat_ibfk_2` FOREIGN KEY (`id_seat_type`) REFERENCES `seat_type` (`id_seat_type`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `event_seat_ibfk_1` FOREIGN KEY (`id_calendar`) REFERENCES `calendars` (`id_calendar`) ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `tickets`
+-- Constraints for table `tickets`
 --
 ALTER TABLE `tickets`
   ADD CONSTRAINT `tickets_ibfk_1` FOREIGN KEY (`id_purchase_line`) REFERENCES `purchases_lines` (`id_purchase_line`) ON UPDATE CASCADE;
