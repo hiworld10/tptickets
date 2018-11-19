@@ -45,12 +45,8 @@ class CalendarController {
 			}
 			$m_calendar = new M_Calendar(null, $date, $event, $artists, $placeEvent, $seatType);
 			$this->dao->create($m_calendar);
-			$this->getAll();
-
-			
+			$this->getAll();	
 		}
-
-
 	}
 
 	public function getCalendar($id) { 
@@ -67,9 +63,6 @@ class CalendarController {
 		$placeEventArray = $this->placeEventController->getAllSelect();
 		$artistArray = $this->artistController->getAllSelect();
 		$seatTypeArray = $this->seatTypeController->getAllSelect();
-
-
-
 
 		include ADMIN_VIEWS. '/admincalendar.php';
 	}
@@ -107,6 +100,10 @@ class CalendarController {
 	public function isBeforeNow($date) {
 		return (strtotime($date) < strtotime('now'));
 	}
+
+    public function getCalendarByEvent($string) {
+        $calendarArray = $this->dao->retrieveEventsByString($string);
+    }
 	
 }
 ?>

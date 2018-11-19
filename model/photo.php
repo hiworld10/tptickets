@@ -5,72 +5,72 @@ use Exception as Exception;
 	/**
 	* 
 	*/
-	class Photo{
-		
-		private $path;
+class Photo {
 
-		public function uploadPhoto($photo, $folder){
-			
-			$folders= array("events");
+      private $path;
 
-			if (!empty($photo)) {
+      public function uploadPhoto($photo, $folder){
 
-				if (in_array($folder, $folders)) {
-					$imageDirectory = IMG_UPLOADS. '\\'. $folder . '\\';
-					
+         $folders= array("events");
 
-					if(!file_exists($imageDirectory)){
-						mkdir($imageDirectory);
+         if (!empty($photo)) {
 
-					}
+            if (in_array($folder, $folders)) {
+               $imageDirectory = IMG_UPLOADS. '\\'. $folder . '\\';
 
-					if($photo['name'] != ''){
-						
-						$extensionsAllow= array('png', 'jpg');
-						$maxSiza= 5000000;
-						$name= basename($photo['name']);
 
-						$file = $imageDirectory . $name;	
+               if(!file_exists($imageDirectory)){
+                  mkdir($imageDirectory);
 
-						$fileExtension = pathinfo($file, PATHINFO_EXTENSION);
+              }
 
-						if(in_array($fileExtension, $extensionsAllow)){
+              if($photo['name'] != ''){
 
-							if($photo['size'] < $maxSiza){ 
-								
-								if(move_uploaded_file($photo["tmp_name"], $file)){	
+                  $extensionsAllow= array('png', 'jpg');
+                  $maxSiza= 5000000;
+                  $name= basename($photo['name']);
 
-									$ruta= IMG_FRONT_ROOT.'/'. $folder . '/' . $name;
-									$this->path= $ruta;
-									
-								}	else
-								throw new Exception("Error al mover la Foto.");	
-								
-							}	else
-							throw new Exception("Error, Se excedio el tamaño permitido.");	
-							
-						}	else
-						throw new Exception("Error, formato de foto no permitida.");	
-						
-					}	else
-					throw new Exception("Error, pongale un nombre a la foto.");	
+                  $file = $imageDirectory . $name;	
 
-				}	else
-				throw new Exception("Error, selecciono la carpeta de destino incorrecta.");
+                  $fileExtension = pathinfo($file, PATHINFO_EXTENSION);
 
-			}	else
-			$this->path= null;	
+                  if(in_array($fileExtension, $extensionsAllow)){
 
-		}
+                     if($photo['size'] < $maxSiza){ 
 
-		
-		public function getPath(){
-			return $this->path;
-		}
+                        if(move_uploaded_file($photo["tmp_name"], $file)){	
 
-		public function setPath($newVal){
-			return $this->path= $newVal;
-		}
-	}
+                           $ruta= IMG_FRONT_ROOT.'/'. $folder . '/' . $name;
+                           $this->path= $ruta;
 
-	?>
+                       }	else
+                       throw new Exception("Error al mover la Foto.");	
+
+                   }	else
+                   throw new Exception("Error, Se excedio el tamaño permitido.");	
+
+               }	else
+               throw new Exception("Error, formato de foto no permitida.");	
+
+           }	else
+           throw new Exception("Error, pongale un nombre a la foto.");	
+
+       }	else
+       throw new Exception("Error, selecciono la carpeta de destino incorrecta.");
+
+   }	else
+   $this->path= null;	
+
+}
+
+
+public function getPath(){
+ return $this->path;
+}
+
+public function setPath($newVal){
+ return $this->path= $newVal;
+}
+}
+
+?>

@@ -74,6 +74,29 @@ class PlaceEventDAO implements IDAO
         }
     }
 
+    public function retrieveByCalendarId($calendarId) {
+        try {
+            $place_event = null;
+
+            $query = "SELECT * FROM ".$this->tableName." WHERE id_calendar = :id_calendar";
+
+            $parameters["id_calendar"] = $calendarId;
+
+            $this->connection = Connection::getInstance();
+
+            $resultSet = $this->connection->execute($query, $parameters);
+
+            foreach ($resultSet as $row) {
+                $place_event = new PlaceEvent($row["id_place_event"], $row["id_calendar"], $row["capacity"], $row["description"]);
+            }
+
+            return $place_event;
+        }
+        catch(Exception $ex) {
+            throw $ex;
+        }
+    }
+
     public function delete($id) {
         try {
             $query = "DELETE FROM ".$this->tableName." WHERE id_place_event = :id_place_event";

@@ -8,6 +8,8 @@ use dao\db\Connection as Connection;
 use dao\db\EventDao as EventDao;
 use dao\db\PlaceEventDao as PlaceEventDao;
 use dao\db\SeatTypeDao as SeatTypeDao;
+use dao\db\ArtistDAO as ArtistDAO;
+use model\Artist as Artist;
 
 class CalendarDAO implements IDAO
 {
@@ -43,16 +45,16 @@ class CalendarDAO implements IDAO
 
             $resultSet = $this->connection->execute($query);
 
-            $eventDao= new EventDao();
-            $placeEventDao= new PlaceEventDao();
-            $seatTypeDao= new SeatTypeDao();
-
+            $eventDao = new EventDao();
+            $placeEventDao = new PlaceEventDao();
+            $seatTypeDao = new SeatTypeDao();
+            $artistDao = new ArtistDAO();
 
             foreach ($resultSet as $row) {       
-                $event=$eventDao->retrieveById($row["id_event"]);     
-                $placeEvent=$placeEventDao->retrieveById($row["id_place_event"]); 
-                $seatType=$seatTypeDao->retrieveById($row["id_seat_type"]);  
-                $calendar = new Calendar($row["id_calendar"], $row["date"],$event, $row["artists"], $placeEvent, $seatType);
+                $event = $eventDao->retrieveById($row["id_calendar"]);     
+                $placeEvent = $placeEventDao->retrieveByCalendarId($row["id_calendar"]); 
+                $seatType = $seatTypeDao->retrieveByCalendarId($row["id_calendar"]);
+                $calendar = new Calendar($row["id_calendar"], $row["date"],$event, new Artist(10, "Un Artista"), $placeEvent, $seatType);
                 array_push($calendarList, $calendar);
             }
 
@@ -115,6 +117,33 @@ class CalendarDAO implements IDAO
             throw $ex;
         }
 
+    }
+
+    public function retrieveEventsByString($string) {
+        try {
+            $calendar = null;
+            $resultSet = array();
+            $eventDao = new EventDAO();
+            $eventList = $eventDao->retrieveByString($string);
+
+            $query = "SELECT * FROM ".$this->tableName." WHERE id_event = :id_event";
+            $this->connection = Connection::getInstance();
+
+            foreach ($eventList as $value) {
+                $parameters["id_event"] = $value->getId();
+                array_push($this->connection->execute($query, $parameters), $resultSet);
+            }
+
+
+            foreach ($resultSet as $row) {
+                $calendar = new Calendar($row["id_calendar"], $row["date"], $row["id_event"], $row["artists"], $row["id_place_event"],  $row["id_seat_type"]);
+            }
+
+            return $calendar;
+
+        } catch(Exception $ex) {
+
+        }  
     }
 }
 ?>
