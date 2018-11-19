@@ -101,23 +101,27 @@ class HomeController {
     public function search($string) {
 
     // no funca falta hacer las funciones en controladora y antes en los daos
-        $calendarArray = $this->calendarController->getCalendarByArtist($string);
-        if(!isset($calendarArray)) {
-            $calendarArray = $this->calendarController->getCalendarByPlaceEvent($string);
-        } else {
-            $calendarArray = $this->calendarController->getCalendarByEvent($string);
-        }     
+        //No se que hace esta instruccion, dejo solo la sentencia que sirve
+        //$eventArray = $this->calendarController->getCalendarByArtist($string);
+        /*if(!isset($eventArray)) {
+            $eventArray = $this->calendarController->getCalendarByPlaceEvent($string);
+        } else {*/
+            $eventArray = $this->eventController->getEventsByString($string);
+            echo "<pre>";
+            print_r($eventArray);
+            echo "</pre>";
+        //}     
 
 
 
-        if(isset($calendarArray)) {
+        if(isset($eventArray)) {
                                 
             //lo encontro lo muestro
             include_once VIEWS_ROOT. '/search.php';
 
         } else {
             print_r("NO SE ENCONTRO NINGUNA FECHA");
-            include_once VIEWS_ROOT. '/admin.php';
+            include_once VIEWS_ROOT. '/home.php';
         }
     }
 

@@ -79,7 +79,9 @@ class EventController {
 		$this->getAll();
 	}
 
-
+    public function getEventsByString($string) {
+        return $this->dao->retrieveByString($string);
+    }
 	
 }
 ?>

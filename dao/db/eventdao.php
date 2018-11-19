@@ -118,7 +118,7 @@ class EventDAO implements IDAO
         try {
             $eventList = array();
             $categoryDAO = new CategoryDAO();
-            $query = "SELECT * FROM ".$this->tableName." WHERE name LIKE %".$string."%;";
+            $query = "SELECT * FROM ".$this->tableName." WHERE name LIKE '%".$string."%';";
 
             $this->connection = Connection::getInstance();
 
@@ -127,7 +127,7 @@ class EventDAO implements IDAO
             foreach ($resultSet as $row) {
                 $category = $categoryDAO->retrieveById($row["id_category"]);
                 $photo= new Photo();
-                 $photo->setPath($row['image']);
+                $photo->setPath($row['image']);
             
                 $event = new Event($row["id_event"], $row["name"], $category, $photo);
                 array_push($eventList, $event);

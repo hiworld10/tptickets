@@ -23,7 +23,7 @@
           <div class="col-xl-9 mx-auto">
             <?php if(isset($calendars)){?>
               <table class="table bg-light-alpha">
-                <?php if(!empty($calendarArray)) { ?>
+                <?php if(!empty($eventArray)) { ?>
                   <thead>     
                      <th>Nombre</th>  
                      <th>Fecha</th> 
