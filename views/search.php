@@ -12,8 +12,6 @@
 <?php include_once(VIEWS_ROOT.NAVBAR); ?>
 
 
-<?php ///SIN TERMINAR    ?>
-
     <!-- Masthead -->
     <header class="masthead text-white text-center">
 
@@ -21,7 +19,7 @@
       <div class="container">
         <div class="row">
           <div class="col-xl-9 mx-auto">
-            <?php if(isset($calendars)){?>
+
               <table class="table bg-light-alpha">
                 <?php if(!empty($eventArray)) { ?>
                   <thead>     
@@ -33,14 +31,15 @@
             <?php foreach ($eventArray as $value) { ?>
                 <tr>
                     <td><?php echo $value->getName(); ?></td>
-                    <td><?php echo $value->getDate(); ?></td>
+                    <td><?php echo $value->getCategory()->getType(); ?></td>
+                    <td><img src="<?= $value->getImage()->getPath() ?>" height="200" width="350"/></td>
                     <td>BOTON DE COMPRA</td>
       
                 </tr>
             <?php } ?>
 
         </tbody>
-    <?php  } ?>
+    <?php } ?>
 </table>
 
 
