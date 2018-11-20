@@ -7,11 +7,6 @@ use controllers\ArtistController as ArtistController;
 use controllers\CalendarController as CalendarController;
 use controllers\EventController as EventController;
 
-/**
- *
- */
-
-//ESTA INDENTACION ES REPULSIVA, CORREGIR
 class HomeController {
 
     private $user;
@@ -107,9 +102,6 @@ class HomeController {
             $eventArray = $this->calendarController->getCalendarByPlaceEvent($string);
         } else {*/
             $eventArray = $this->eventController->getEventsByString($string);
-            echo "<pre>";
-            print_r($eventArray);
-            echo "</pre>";
         //}     
 
 
