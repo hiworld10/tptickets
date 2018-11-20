@@ -12,7 +12,7 @@ class ArtistController {
 	private $userController;
 
 	public function __construct() {
-		$this->dao = new DB_ArtistDAO();
+		$this->dao = DB_ArtistDAO::getInstance();
 		$this->userController = new UserController();
 	}
 

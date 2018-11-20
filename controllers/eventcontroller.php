@@ -13,7 +13,7 @@ class EventController {
 	private $categoryController;
 
 	public function __construct() {
-		$this->dao = new DB_EventDAO();
+		$this->dao = DB_EventDAO::getInstance();
 		$this->categoryController = new CategoryController();
 		
 	}

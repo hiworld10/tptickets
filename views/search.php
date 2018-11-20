@@ -1,56 +1,59 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 
- <?php include_once(VIEWS_ROOT.HEADER); ?>
+ <?php include_once(HEADER); ?>
 
   <body>
 
 
+<?php include_once(NAVBAR); ?>
 
-<?php include_once(VIEWS_ROOT.NAVBAR); ?>
 
 
-    <!-- Masthead -->
-    <header class="masthead text-white text-center">
 
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row">
-          <div class="col-xl-9 mx-auto">
+<div class="__full-height-perc" >
+  <table class="table bg-light-alpha text-center mt-5">
 
-              <table class="table bg-light-alpha">
-                <?php if(!empty($eventArray)) { ?>
-                  <thead>     
-                     <th>Nombre</th>  
-                     <th>Fecha</th> 
-                     <th>etc</th>            
-                  </thead>
-                 <tbody>
-            <?php foreach ($eventArray as $value) { ?>
-                <tr>
-                    <td><?php echo $value->getName(); ?></td>
-                    <td><?php echo $value->getCategory()->getType(); ?></td>
-                    <td><img src="<?= $value->getImage()->getPath() ?>" height="200" width="350"/></td>
-                    <td>BOTON DE COMPRA</td>
+    <?php if(!empty($eventArray)) { ?>
+   
+     <tbody>
+      <?php foreach ($eventArray as $value) { ?>
+        <tr>
+        
+         <td><img src="<?= $value->getImage()->getPath() ?>" height="200" width="350"/></td>
+        <td>
+          <div class="mt-5">
+             <big><big><?= $value->getName(); ?></big></big>
+          </div>
+        </td>
       
-                </tr>
-            <?php } ?>
-
-        </tbody>
+        <td>
+          <div class="mt-5">
+          <form action="<?=FRONT_ROOT?>/purchaseline/addPurchaseLine" method="POST">
+            <button name="buy" value="<?= $value->getId();  ?>" id="boton1" type="submit"class="btn btn-block btn-lg btn-primary btn-sm">Comprar</button>
+          </form>
+        </div>
+        </td>
+      </tr>
     <?php } ?>
+
+  </tbody>
+<?php  } ?>
 </table>
 
+</div>
+
+ </body>
 
 
 
-<?php include_once(VIEWS_ROOT.FOOTER); ?>
+<?php include_once(FOOTER); ?>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/tptickets/vendor/jquery/jquery.min.js"></script>
+    <script src="/tptickets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  </body>
+ 
 
 </html>

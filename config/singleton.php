@@ -1,8 +1,8 @@
 <?php  
 namespace config;
 
-//Que se supone que hay que hacer con esto?
-class SingleTon{
+
+class Singleton{
 
 	private static $instance= array();
 

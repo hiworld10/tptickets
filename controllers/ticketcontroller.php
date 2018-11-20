@@ -7,7 +7,7 @@ use controllers\HomeController as HomeController;
  class TicketController {
  	private $dao;
  	public function __construct() {
-		$this->dao = new DB_TicketDAO();
+		$this->dao = DB_TicketDAO::getInstance();
 	}
  	public function addTicket($ticket) {
  		try {

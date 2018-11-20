@@ -1,21 +1,22 @@
 <?php
     namespace dao\db;
 
+    use config\Singleton as Singleton;
     use \Exception as Exception;
     use dao\IDAO as IDAO;
     use model\Artist as Artist;    
     use dao\db\Connection as Connection;
 
-    class ArtistDAO implements IDAO
+    class ArtistDAO extends Singleton implements IDAO
     {
         private $connection;
         private $tableName = "artists";
 
         public function create($artist) {
             try {
-                $query = "INSERT INTO ".$this->tableName." (id_artist, name) VALUES (:id_artist, :name);";
+                $query = "INSERT INTO ".$this->tableName." (name) VALUES (:name);";
                 
-                $parameters["id_artist"] = $artist->getId();
+              
                 $parameters["name"] = $artist->getName();
 
                 $this->connection = Connection::getInstance();

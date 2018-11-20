@@ -1,21 +1,22 @@
 <?php
 namespace dao\db;
 
+use config\Singleton as Singleton;
 use \Exception as Exception;
 use dao\IDAO as IDAO;
 use model\EventSeat as EventSeat;    
 use dao\db\Connection as Connection;
 
-class EventSeatDAO implements IDAO
+class EventSeatDAO extends Singleton implements IDAO
 {
     private $connection;
     private $tableName = "event_seats";
 
     public function create($eventSeat) {
         try {
-            $query = "INSERT INTO ".$this->tableName." (id_event_seat, quantity, price, id_calendar, id_seat_type) VALUES (:id_event_seat, :quantity, :price, :id_calendar, :id_seat_type );";
+            $query = "INSERT INTO ".$this->tableName." (quantity, price, id_calendar, id_seat_type) VALUES ( :quantity, :price, :id_calendar, :id_seat_type );";
 
-            $parameters["id_event_seat"] = $eventSeat->getId();
+            
             $parameters["quantity"] = $eventSeat->getAvailableSeats();
             $parameters["price"] = $eventSeat->getPrice();
             $parameters["id_calendar"] = $eventSeat->getCalendarId();

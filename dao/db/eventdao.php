@@ -1,6 +1,7 @@
 <?php
 namespace dao\db;
 
+use config\Singleton as Singleton;
 use \Exception as Exception;
 use dao\IDAO as IDAO;
 use model\Event as Event;    
@@ -8,7 +9,7 @@ use model\Photo as Photo;
 use dao\db\Connection as Connection;
 use dao\db\CategoryDAO as CategoryDAO;
 
-class EventDAO implements IDAO
+class EventDAO extends Singleton implements IDAO
 {
     private $connection;
     private $tableName = "events";
@@ -34,7 +35,7 @@ class EventDAO implements IDAO
     public function retrieveAll() {
         try {
             $eventList = array();
-            $categoryDAO = new CategoryDAO();
+            $categoryDAO = CategoryDAO::getInstance();
 
             $query = "SELECT * FROM ".$this->tableName;
 
@@ -61,7 +62,7 @@ class EventDAO implements IDAO
     public function retrieveById($id) {
         try {
             $event = null;
-            $categoryDAO = new CategoryDAO();
+            $categoryDAO = CategoryDAO::getInstance();
 
             $query = "SELECT * FROM ".$this->tableName." WHERE id_event = :id_event";
 
@@ -117,7 +118,7 @@ class EventDAO implements IDAO
     public function retrieveByString($string) {
         try {
             $eventList = array();
-            $categoryDAO = new CategoryDAO();
+            $categoryDAO = CategoryDAO::getInstance();
             $query = "SELECT * FROM ".$this->tableName." WHERE name LIKE '%".$string."%';";
 
             $this->connection = Connection::getInstance();

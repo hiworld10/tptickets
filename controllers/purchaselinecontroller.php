@@ -10,7 +10,7 @@ use controllers\HomeController as HomeController;
  	private $ticketController;
 	private $purchaseController;
  	public function __construct() {
-		$this->dao = new DB_PurchaseLineDAO();
+		$this->dao = DB_PurchaseLineDAO::getInstance();
 	}
  	public function addPurchaseLine($purchaseLine) {
  		try {

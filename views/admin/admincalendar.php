@@ -159,7 +159,7 @@
        foreach ($placeEventArray as $key => $value) { 
          ?>
          <!--No es posible pasar un objeto mediante HTML (ej. '$value')-->
-         <option value="<?= $value->getId(); ?>"><?= $value->getDescription(); ?></option> 
+         <option value="<?= $value->getId(); ?>"><?= $value->getDescription()." - Capacidad: ". $value->getCapacity(); ?></option> 
        <?php }
      }else{ ?>
       <option >NO HAY LUGARES</option>
@@ -171,17 +171,24 @@
  <div class="col-12 col-md-9 mb-2 mb-md-3">
 
      <label for="">Tipo Plaza</label>
-     <select class="form-control" name="seatType" required>
+   
       <?php if(isset($seatTypeArray)){ 
        foreach ($seatTypeArray as $key => $value) { 
          ?>
-         <!--No es posible pasar un objeto mediante HTML (ej. '$value')-->
-         <option value="<?= $value->getId(); ?>"><?= $value->getType(); ?></option> 
+          <label><?= $value->getType(); ?></label>
+       <div>
+        <label>Capacidad</label>
+         <input type="number"   class="form-control " name="eventSeat[<?=$value->getType();?>][capacity]" value=0 >
+        </div>
+           <label>Precio</label>
+        <div>
+           <input type="number"   class="form-control " name="eventSeat[<?=$value->getType();?>][price]" value=0 >
+        </div>
        <?php }
      }else{ ?>
       <option >NO HAY TIPOS</option>
     <?php } ?>
-  </select>
+
 
 </div>
 <?php if($eventArray && $artistArray && $placeEventArray && $seatTypeArray) { ?>
