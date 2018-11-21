@@ -10,6 +10,33 @@
 <?php include_once(NAVBAR); ?>
 
 
+<header class="text-white text-center">
+      
+
+    
+      <div class="container">
+        <div class="row">
+         
+          <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+
+            <form action="<?=  FRONT_ROOT ."/home/search"?>"  method="POST">
+              <div class="form-row">
+                <div class="col-12 col-md-9 mb-2 mb-md-0 mt-5">
+                  <input type="text" name="artist" class="form-control form-control-lg" placeholder="Encontraste los que buscabas? ">
+                </div>
+                <div class="col-12 col-md-3 mt-5">
+                  <button type="submit" class="btn btn-block btn-lg btn-primary">Buscar</button>
+                </div>
+              </div>
+            </form>
+
+          </div>
+        
+      </div>
+
+</header>
+
+
 
 
 <div class="__full-height-perc" >
