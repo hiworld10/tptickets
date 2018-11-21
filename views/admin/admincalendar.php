@@ -113,12 +113,12 @@
   <form name='formulario' action="<?=FRONT_ROOT?>/calendar/addCalendar"  method="POST">
    <div class="form">
     <div class="col-12 col-md-9 mb-2 mb-md-3">
-      <label for="">Fecha</label>
+      <label for=""><big><big>Fecha</big></big></label>
       <input type="date"   class="form-control form-control-lg" name="date" placeholder="Ingrese fecha..." required>
     </div>
      <div class="col-12 col-md-9 mb-2 mb-md-3">
 
-     <label for="">Evento</label>
+     <label for=""><big><big>Evento</big></big></label>
      <select class="form-control" name="event" required>
       <?php if(isset($eventArray)){ 
        foreach ($eventArray as $key => $value) { 
@@ -153,37 +153,35 @@
 
  <div class="col-12 col-md-9 mb-2 mb-md-3">
 
-     <label for="">Lugar</label>
-     <select class="form-control" name="placeEvent" required>
-      <?php if(isset($placeEventArray)){ 
-       foreach ($placeEventArray as $key => $value) { 
-         ?>
-         <!--No es posible pasar un objeto mediante HTML (ej. '$value')-->
-         <option value="<?= $value->getId(); ?>"><?= $value->getDescription()." - Capacidad: ". $value->getCapacity(); ?></option> 
-       <?php }
-     }else{ ?>
-      <option >NO HAY LUGARES</option>
-    <?php } ?>
-  </select>
-
+     <label for=""><big><big>Lugar</big></big></label>
+     
+      <input type="text"   class="form-control form-control-lg" name="description" placeholder="Ingrese descripcion del lugar..." >
+   
+ 
+       <input type="number"   class="form-control form-control-lg" name="capacity" placeholder="Ingrese capacidad del lugar..." >
+    
 </div>
 
  <div class="col-12 col-md-9 mb-2 mb-md-3">
 
-     <label for="">Tipo Plaza</label>
+     <label><big><big>Tipo Plaza</big></big></label>
    
       <?php if(isset($seatTypeArray)){ 
        foreach ($seatTypeArray as $key => $value) { 
          ?>
+          <br>
           <label><?= $value->getType(); ?></label>
-       <div>
+      <div class="form-row col-12 col-md-9 mb-2 mb-md-3">
+       
         <label>Capacidad</label>
-         <input type="number"   class="form-control " name="eventSeat[<?=$value->getType();?>][capacity]" value=0 >
-        </div>
+         <input type="number"   class="form-control col-md-2 ml-3" name="eventSeat[<?=$value->getType();?>][capacity]" value=0 >
+            
+
            <label>Precio</label>
-        <div>
-           <input type="number"   class="form-control " name="eventSeat[<?=$value->getType();?>][price]" value=0 >
-        </div>
+        
+           <input type="number"   class="form-control col-md-2 ml-3" name="eventSeat[<?=$value->getType();?>][price]" value=0 >
+        
+      </div>
        <?php }
      }else{ ?>
       <option >NO HAY TIPOS</option>
