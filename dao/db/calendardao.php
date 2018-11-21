@@ -67,7 +67,7 @@ class CalendarDAO implements IDAO
 
             $resultSet = $this->connection->execute($query);
 
-            $eventDao = new EventDa();
+            $eventDao = new EventDao();
             $placeEventDao = new PlaceEventDao();
             $eventSeatDao = new EventSeatDAO();
             $artistDao = new ArtistDAO();
