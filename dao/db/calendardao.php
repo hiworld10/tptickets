@@ -1,6 +1,5 @@
 <?php
 namespace dao\db;
-
 use \Exception as Exception;
 use dao\IDAO as IDAO;
 use model\Calendar as Calendar;    
@@ -16,25 +15,48 @@ class CalendarDAO implements IDAO
     private $connection;
     private $tableName = "calendars";
 
-    public function create($calendar) {
+    public function create($calendarAttributes) {
         try {
-            $query = "INSERT INTO ".$this->tableName." (id_calendar, date, id_event, artists, id_place_event, id_seat_type) VALUES (:id_calendar, :date, :id_event, :artists, :id_place_event, :id_seat_type);";
+            $query = "INSERT INTO ".$this->tableName." (date, id_event) VALUES (:date, :id_event);";
 
-            $parameters["id_calendar"] = $calendar->getId();
-            $parameters["date"] = $calendar->getDate();
-            $parameters["id_event"] = $calendar->getEvent()->getId();
-            $parameters["artists"] = $calendar->getArtistArray();
-            $parameters["id_place_event"] = $calendar->getPlaceEvent()->getId();
-            $parameters["id_seat_type"] = $calendar->getSeatType()->getId();
+            $parameters["date"] = $calendarAttributes["date"];
+            $parameters["id_event"] = $calendarAttributes["eventId"];
+        
             $this->connection = Connection::getInstance();
 
             $this->connection->executeNonQuery($query, $parameters);
+
+            $this->createArtistXCalendarRow($this->retrieveLastId(), $calendarAttributes["artistIdArray"]);
+
+
         }
         catch(Exception $ex) {
             throw $ex;
         }
     }
 
+    public function retrieveLastId()
+    {
+        try{
+            $calendarId= null;
+            $query= "SELECT id_calendar FROM ". $this->tableName. " ORDER BY id_calendar DESC LIMIT 1;";
+            $this->connection = Connection::getInstance();
+            $resultSet= $this->connection->execute($query);  
+
+            foreach ($resultSet as $row) {
+                $calendarId= $row["id_calendar"];
+            }
+
+            
+            return $calendarId;
+        }
+        catch(Exception $ex){
+             throw $ex;
+        }
+
+    }
+
+    //CORREGIR
     public function retrieveAll() {
         try {
             $calendarList = array();
@@ -65,6 +87,7 @@ class CalendarDAO implements IDAO
         }
     }
 
+    //CORREGIR
     public function retrieveById($id) {
         try {
             $calendar = null;
@@ -100,6 +123,7 @@ class CalendarDAO implements IDAO
         }            
     }
 
+    //CORREGIR
     public function update($calendar) {
         try {
             $query = "UPDATE ".$this->tableName." SET date = :date, id_event = :id_event, artists = :artists, id_place_event = :id_place_event, id_seat_type = :id_seat_type WHERE id_calendar = :id_calendar";
@@ -119,6 +143,7 @@ class CalendarDAO implements IDAO
 
     }
 
+    //CORREGIR
     public function retrieveEventsByString($string) {
         try {
             $calendar = null;
@@ -145,5 +170,31 @@ class CalendarDAO implements IDAO
 
         }  
     }
+
+    public function createArtistXCalendarRow($calendarId, $artistIdArray) {
+        try {
+
+
+            $query = "INSERT INTO artists_calendars (id_calendar, id_artist) VALUES (:id_calendar, :id_artist);";
+
+            $parameters["date"] = $calendarAttributes["date"];
+            $parameters["id_event"] = $calendarAttributes["eventId"];
+        
+            $this->connection = Connection::getInstance();
+
+            foreach ($artistIdArray["artistIdArray"] as $value) {
+                $parameters["id_calendar"] = $calendarId;
+                $parameters["id_artist"] = $value;
+                $this->connection->executeNonQuery($query, $parameters);
+            }
+
+            
+        }
+        catch(Exception $ex) {
+            throw $ex;
+        }
+
+    }
+
 }
 ?>

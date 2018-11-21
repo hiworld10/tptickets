@@ -1,6 +1,7 @@
 <?php
 namespace dao\db;
 
+
 use \Exception as Exception;
 use dao\IDAO as IDAO;
 use model\EventSeat as EventSeat;    
@@ -13,9 +14,9 @@ class EventSeatDAO implements IDAO
 
     public function create($eventSeat) {
         try {
-            $query = "INSERT INTO ".$this->tableName." (id_event_seat, quantity, price, id_calendar, id_seat_type) VALUES (:id_event_seat, :quantity, :price, :id_calendar, :id_seat_type );";
+            $query = "INSERT INTO ".$this->tableName." (quantity, price, id_calendar, id_seat_type) VALUES ( :quantity, :price, :id_calendar, :id_seat_type );";
 
-            $parameters["id_event_seat"] = $eventSeat->getId();
+            
             $parameters["quantity"] = $eventSeat->getAvailableSeats();
             $parameters["price"] = $eventSeat->getPrice();
             $parameters["id_calendar"] = $eventSeat->getCalendarId();

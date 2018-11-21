@@ -1,21 +1,22 @@
 <?php
 namespace dao\db;
 
+
 use \Exception as Exception;
 use dao\IDAO as IDAO;
 use model\PlaceEvent as PlaceEvent;    
 use dao\db\Connection as Connection;
 
-class PlaceEventDAO implements IDAO
+class PlaceEventDAO  implements IDAO
 {
     private $connection;
     private $tableName = "places_events";
 
     public function create($place_event) {
         try {
-            $query = "INSERT INTO ".$this->tableName." (id_place_event, id_calendar, capacity, description) VALUES (:id_place_event, :id_calendar, :capacity, :description);";
+            $query = "INSERT INTO ".$this->tableName." (id_calendar, capacity, description) VALUES ( :id_calendar, :capacity, :description);";
 
-            $parameters["id_place_event"] = $place_event->getId();
+           
             $parameters["id_calendar"] = $place_event->getCalendarId();
             $parameters["capacity"] = $place_event->getCapacity();
             $parameters["description"] = $place_event->getDescription();

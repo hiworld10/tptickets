@@ -7,6 +7,11 @@ use controllers\ArtistController as ArtistController;
 use controllers\CalendarController as CalendarController;
 use controllers\EventController as EventController;
 
+/**
+ *
+ */
+
+//ESTA INDENTACION ES REPULSIVA, CORREGIR
 class HomeController {
 
     private $user;
@@ -101,18 +106,20 @@ class HomeController {
         /*if(!isset($eventArray)) {
             $eventArray = $this->calendarController->getCalendarByPlaceEvent($string);
         } else {*/
-            $eventArray = $this->eventController->getEventsByString($string);
+         $eventArray = $this->eventController->getEventsByString($string);
+           // $calendarArray= $this->calendarController->getCalendarByEvent($string);
+          //var_dump($calendarArray);
         //}     
 
 
 
-        if(isset($eventArray)) {
+        if($eventArray != null) {
                                 
             //lo encontro lo muestro
             include_once VIEWS_ROOT. '/search.php';
 
         } else {
-            print_r("NO SE ENCONTRO NINGUNA FECHA");
+            print_r("NO SE ENCONTRARON RESULTADOS");
             include_once VIEWS_ROOT. '/home.php';
         }
     }

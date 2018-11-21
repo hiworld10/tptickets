@@ -13,9 +13,9 @@
 
         public function create($artist) {
             try {
-                $query = "INSERT INTO ".$this->tableName." (id_artist, name) VALUES (:id_artist, :name);";
+                $query = "INSERT INTO ".$this->tableName." (name) VALUES (:name);";
                 
-                $parameters["id_artist"] = $artist->getId();
+              
                 $parameters["name"] = $artist->getName();
 
                 $this->connection = Connection::getInstance();

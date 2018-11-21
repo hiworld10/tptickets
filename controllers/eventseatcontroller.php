@@ -14,7 +14,7 @@ class EventSeatController {
 
 	public function __construct() {
 		$this->dao = new DB_EventSeatDAO();
-		$this->calendarController = new CalendarController();
+	
 		$this->seatTypeController = new SeatTypeController();
 	}
 

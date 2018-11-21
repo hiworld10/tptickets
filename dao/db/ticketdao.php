@@ -1,12 +1,13 @@
 <?php
 namespace dao\db;
 
+
 use \Exception as Exception;
 use dao\IDAO as IDAO;
 use model\Ticket as Ticket;    
 use dao\db\Connection as Connection;
 
-class TicketDAO implements IDAO
+class TicketDAO  implements IDAO
 {
     private $connection;
     private $tableName = "tickets";

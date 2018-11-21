@@ -1,6 +1,7 @@
 <?php
     namespace dao\db;
 
+    
     use \PDO as PDO;
     use \Exception as Exception;
 

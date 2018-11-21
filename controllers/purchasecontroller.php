@@ -13,7 +13,7 @@ class PurchaseController {
 
 
 	public function __construct() {
-		$this->dao = new DB_PurchaseDAO();
+		$this->dao = new  DB_PurchaseDAO();
 	}
 
 
