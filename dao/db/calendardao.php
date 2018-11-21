@@ -1,6 +1,5 @@
 <?php
 namespace dao\db;
-use config\Singleton as Singleton;
 use \Exception as Exception;
 use dao\IDAO as IDAO;
 use model\Calendar as Calendar;    
@@ -11,7 +10,7 @@ use dao\db\EventSeatDao as EventSeatDao;
 use dao\db\ArtistDAO as ArtistDAO;
 use model\Artist as Artist;
 
-class CalendarDAO extends Singleton implements IDAO
+class CalendarDAO implements IDAO
 {
     private $connection;
     private $tableName = "calendars";
@@ -68,10 +67,10 @@ class CalendarDAO extends Singleton implements IDAO
 
             $resultSet = $this->connection->execute($query);
 
-            $eventDao = EventDao::getInstance();
-            $placeEventDao = PlaceEventDao::getInstance();
-            $eventSeatDao = EventSeatDAO::getInstance();
-            $artistDao = ArtistDAO::getInstance();
+            $eventDao = new EventDa();
+            $placeEventDao = new PlaceEventDao();
+            $eventSeatDao = new EventSeatDAO();
+            $artistDao = new ArtistDAO();
 
             foreach ($resultSet as $row) {       
                 $event = $eventDao->retrieveById($row["id_calendar"]);     

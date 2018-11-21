@@ -11,7 +11,7 @@ class PlaceEventController {
 	private $dao;
 
 	public function __construct() {
-		$this->dao = DB_PlaceEventDAO::getInstance();
+		$this->dao = new DB_PlaceEventDAO();
 	}
 
 	public function addPlaceEvent($capacity, $description, $calendarId) {

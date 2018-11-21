@@ -13,7 +13,7 @@ class PurchaseController {
 
 
 	public function __construct() {
-		$this->dao = DB_PurchaseDAO::getInstance();
+		$this->dao = new  DB_PurchaseDAO();
 	}
 
 

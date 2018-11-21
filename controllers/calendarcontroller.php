@@ -1,5 +1,6 @@
 <?php 
 namespace controllers;
+use config\Singleton as Singleton;
 use model\Calendar as M_Calendar;
 use model\EventSeat as M_EventSeat;
 use dao\lists\CalendarDAO as List_CalendarDAO;
@@ -21,7 +22,7 @@ class CalendarController {
 	private $eventSeatController;
 
 	public function __construct() {
-		$this->dao = DB_CalendarDAO::getInstance();
+		$this->dao = new DB_CalendarDAO();
 		$this->eventController = new EventController();
 		$this->placeEventController = new PlaceEventController();
 		$this->artistController = new ArtistController();

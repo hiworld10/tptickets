@@ -1,13 +1,12 @@
 <?php
     namespace dao\db;
 
-    use config\Singleton as Singleton;
     use \Exception as Exception;
     use dao\IDAO as IDAO;
     use model\Artist as Artist;    
     use dao\db\Connection as Connection;
 
-    class ArtistDAO extends Singleton implements IDAO
+    class ArtistDAO implements IDAO
     {
         private $connection;
         private $tableName = "artists";

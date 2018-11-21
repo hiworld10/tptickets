@@ -13,8 +13,8 @@ class EventSeatController {
 	private $seatTypeController;
 
 	public function __construct() {
-		$this->dao = DB_EventSeatDAO::getInstance();
-		$this->calendarController = new CalendarController();
+		$this->dao = new DB_EventSeatDAO();
+	
 		$this->seatTypeController = new SeatTypeController();
 	}
 

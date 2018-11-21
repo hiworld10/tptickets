@@ -14,7 +14,7 @@ class UserController {
 
 
 	public function __construct() {
-		$this->dao = DB_UserDAO::getInstance();
+		$this->dao = new DB_UserDAO();
 	}
 
 

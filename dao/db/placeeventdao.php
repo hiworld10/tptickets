@@ -1,13 +1,13 @@
 <?php
 namespace dao\db;
 
-use config\Singleton as Singleton;
+
 use \Exception as Exception;
 use dao\IDAO as IDAO;
 use model\PlaceEvent as PlaceEvent;    
 use dao\db\Connection as Connection;
 
-class PlaceEventDAO extends Singleton implements IDAO
+class PlaceEventDAO  implements IDAO
 {
     private $connection;
     private $tableName = "places_events";

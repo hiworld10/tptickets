@@ -11,7 +11,7 @@ class CategoryController {
 	private $dao;
 
 	public function __construct() {
-		$this->dao = DB_CategoryDAO::getInstance();
+		$this->dao = new DB_CategoryDAO();
 	}
 
 	public function addCategory($type) {

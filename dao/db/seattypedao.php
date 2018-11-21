@@ -1,13 +1,13 @@
 <?php
 namespace dao\db;
 
-use config\Singleton as Singleton;
+
 use \Exception as Exception;
 use dao\IDAO as IDAO;
 use model\Seattype as SeatType;    
 use dao\db\Connection as Connection;
 
-class SeatTypeDAO extends Singleton implements IDAO
+class SeatTypeDAO implements IDAO
 {
     private $connection;
     private $tableName = "seat_type";
