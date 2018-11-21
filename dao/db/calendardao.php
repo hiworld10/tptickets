@@ -26,6 +26,10 @@ class CalendarDAO extends Singleton implements IDAO
             $this->connection = Connection::getInstance();
 
             $this->connection->executeNonQuery($query, $parameters);
+
+            $this->createArtistXCalendarRow($this->retrieveLastId(), $calendarAttributes["artistIdArray"]);
+
+
         }
         catch(Exception $ex) {
             throw $ex;
@@ -53,6 +57,7 @@ class CalendarDAO extends Singleton implements IDAO
 
     }
 
+    //CORREGIR
     public function retrieveAll() {
         try {
             $calendarList = array();
@@ -83,6 +88,7 @@ class CalendarDAO extends Singleton implements IDAO
         }
     }
 
+    //CORREGIR
     public function retrieveById($id) {
         try {
             $calendar = null;
@@ -118,6 +124,7 @@ class CalendarDAO extends Singleton implements IDAO
         }            
     }
 
+    //CORREGIR
     public function update($calendar) {
         try {
             $query = "UPDATE ".$this->tableName." SET date = :date, id_event = :id_event, artists = :artists, id_place_event = :id_place_event, id_seat_type = :id_seat_type WHERE id_calendar = :id_calendar";
@@ -137,6 +144,7 @@ class CalendarDAO extends Singleton implements IDAO
 
     }
 
+    //CORREGIR
     public function retrieveEventsByString($string) {
         try {
             $calendar = null;
@@ -164,6 +172,30 @@ class CalendarDAO extends Singleton implements IDAO
         }  
     }
 
+    public function createArtistXCalendarRow($calendarId, $artistIdArray) {
+        try {
+
+
+            $query = "INSERT INTO artists_calendars (id_calendar, id_artist) VALUES (:id_calendar, :id_artist);";
+
+            $parameters["date"] = $calendarAttributes["date"];
+            $parameters["id_event"] = $calendarAttributes["eventId"];
+        
+            $this->connection = Connection::getInstance();
+
+            foreach ($artistIdArray["artistIdArray"] as $value) {
+                $parameters["id_calendar"] = $calendarId;
+                $parameters["id_artist"] = $value;
+                $this->connection->executeNonQuery($query, $parameters);
+            }
+
+            
+        }
+        catch(Exception $ex) {
+            throw $ex;
+        }
+
+    }
 
 }
 ?>

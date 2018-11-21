@@ -40,16 +40,13 @@ class CalendarController {
 		} else {
 
 			//insercion de calendario en bd
-			$calendarAttributes= array("date"=>$date, "eventId"=> $eventId);
+			$calendarAttributes= array("date"=>$date, "eventId"=> $eventId, "artistIdArray" => $artistIdArray);
 			$this->dao->create($calendarAttributes);
 			// guardo ultimo id de ultima instancia
 			$calendarId= $this->dao->retrieveLastId();
 			//instancio placeEvent a traves de el id
 			$placeEvent=$this->placeEventController->getPlaceEventById($placeEventId);
 			//instancio Event a traves de el id
-
-
-
 			$event=$this->eventController->getEventById($eventId);
 
 			foreach ($eventSeatAttributesArray as $value) {
