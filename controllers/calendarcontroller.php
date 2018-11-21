@@ -51,7 +51,7 @@ class CalendarController {
 			$event=$this->eventController->getEventById($eventId);
 
 			foreach ($eventSeatAttributesArray as $value) {
-				$eventSeat=new M_EventSeat($value['capacity'], $value['price'], $calendarId);
+				$eventSeat=new M_EventSeat(null, $calendarId, $value['capacity'], $value['price']);
 				$this->eventSeatController->addEventSeat($eventSeat);
 
 			}
