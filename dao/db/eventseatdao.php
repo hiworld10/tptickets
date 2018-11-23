@@ -15,13 +15,14 @@ class EventSeatDAO implements IDAO
 
     public function create($eventSeat) {
         try {
-            $query = "INSERT INTO ".$this->tableName." (quantity, price, id_calendar, id_seat_type) VALUES ( :quantity, :price, :id_calendar, :id_seat_type );";
+            $query = "INSERT INTO ".$this->tableName." (quantity, price, id_calendar, id_seat_type, remainder) VALUES ( :quantity, :price, :id_calendar, :id_seat_type, :remainder );";
 
             
             $parameters["quantity"] = $eventSeat->getQuantity();
             $parameters["price"] = $eventSeat->getPrice();
             $parameters["id_calendar"] = $eventSeat->getCalendarId();
             $parameters["id_seat_type"] = $eventSeat->getSeatType()->getId();
+            $parameters["remainder"] = $eventSeat->getRemainder();
 
             $this->connection = Connection::getInstance();
 
