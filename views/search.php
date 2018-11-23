@@ -42,18 +42,20 @@
 <div class="__full-height-perc" >
   <table class="table bg-light-alpha text-center mt-5">
 
-    <?php if(!empty($eventArray)) { ?>
+    <?php if(!empty($calendarArray)) { ?>
    
      <tbody>
-      <?php foreach ($eventArray as $value) { ?>
+      <?php foreach ($calendarArray as $value) { ?>
         <tr>
         
-         <td><img src="<?= $value->getImage()->getPath() ?>" height="200" width="350"/></td>
+         <td><img src="<?= $value->getEvent()->getImage()->getPath() ?>" height="200" width="350"/></td>
         <td>
           <div class="mt-5">
-             <big><big><?= $value->getName(); ?></big></big>
+             <big><big><?= $value->getEvent()->getName(); ?></big></big>
           </div>
         </td>
+
+        
       
         <td>
           <div class="mt-5">

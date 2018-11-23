@@ -102,27 +102,23 @@ class HomeController {
 //busca por nombre artista, nombre evento, lugar
     public function search($string) {
 
-    // no funca falta hacer las funciones en controladora y antes en los daos
-        //No se que hace esta instruccion, dejo solo la sentencia que sirve
-        //$eventArray = $this->calendarController->getCalendarByArtist($string);
-        /*if(!isset($eventArray)) {
-            $eventArray = $this->calendarController->getCalendarByPlaceEvent($string);
-        } else {*/
-         $eventArray = $this->eventController->getEventsByString($string);
-           // $calendarArray= $this->calendarController->getCalendarByEvent($string);
-          //var_dump($calendarArray);
-        //}     
+  
+           $calendarArray= $this->calendarController->getCalendarsByString($string);
+
+      
+          
 
 
 
-        if($eventArray != null) {
+        if($calendarArray != null) {
                                 
             //lo encontro lo muestro
             include_once VIEWS_ROOT. '/search.php';
 
         } else {
             print_r("NO SE ENCONTRARON RESULTADOS");
-            include_once VIEWS_ROOT. '/home.php';
+
+            $this->index();
         }
     }
 

@@ -123,6 +123,75 @@ class CalendarDAO implements IDAO
         }
     }
 
+    public function retrieveByEventId($eventId) {
+
+        try{
+            $calendar = null;
+            $query=  "SELECT * FROM ".$this->tableName." WHERE id_event = :id_event";
+
+            $parameters["id_event"] = $eventId;
+            $this->connection = Connection::getInstance();
+            $resultSet= $this->connection->execute($query, $parameters);
+
+
+            $eventDao = new EventDao();
+            $placeEventDao = new PlaceEventDao();
+            $eventSeatDao = new EventSeatDAO();
+            $artistDao = new ArtistDAO();
+
+
+
+            foreach ($resultSet as $row) {
+                $event = $eventDao->retrieveById($row["id_event"]);     
+                $placeEvent = $placeEventDao->retrieveByCalendarId($row["id_calendar"]);
+                $eventSeat = $eventSeatDao->retrieveByCalendarId($row["id_calendar"]);
+                $artistsArray= $this->retrieveArtistsByCalendarId($row["id_calendar"]);
+                $calendar = new Calendar($row["id_calendar"], $row["date"], $event, $artistsArray, $placeEvent, $eventSeat[0]);
+               
+            }
+
+      
+            return $calendar;
+        }catch(Exception $ex)
+        {
+         throw $ex;
+     }
+
+    }
+
+
+    //CORREGIR
+    public function retrieveCalendarsByString($string) {
+        try {
+            $calendarList = array();
+            
+            $eventDao = new EventDAO();
+            $eventList = $eventDao->retrieveByString($string);
+
+            $query = "SELECT * FROM ".$this->tableName." WHERE id_event = :id_event";
+            $this->connection = Connection::getInstance();
+
+            foreach ($eventList as $value) {
+
+                $parameters["id_event"] = $value->getId();
+
+                $resultSet =$this->connection->execute($query, $parameters);
+                foreach ($resultSet as $row) {
+                    array_push($calendarList, $this->retrieveByEventId($parameters["id_event"]));
+                    
+                }
+                
+            }
+
+
+
+            return $calendarList;
+
+        } catch(Exception $ex) {
+
+        }  
+    }
+
     public function delete($id) {
         try {
             $query = "DELETE FROM ".$this->tableName." WHERE id_calendar = :id_calendar";
@@ -169,33 +238,6 @@ class CalendarDAO implements IDAO
 
     }
 
-    //CORREGIR
-    public function retrieveEventsByString($string) {
-        try {
-            $calendar = null;
-            $resultSet = array();
-            $eventDao = new EventDAO();
-            $eventList = $eventDao->retrieveByString($string);
-
-            $query = "SELECT * FROM ".$this->tableName." WHERE id_event = :id_event";
-            $this->connection = Connection::getInstance();
-
-            foreach ($eventList as $value) {
-                $parameters["id_event"] = $value->getId();
-                array_push($this->connection->execute($query, $parameters), $resultSet);
-            }
-
-
-            foreach ($resultSet as $row) {
-                $calendar = new Calendar($row["id_calendar"], $row["date"], $row["id_event"], $row["artists"], $row["id_place_event"],  $row["id_seat_type"]);
-            }
-
-            return $calendar;
-
-        } catch(Exception $ex) {
-
-        }  
-    }
 
     public function createArtistXCalendarRows($calendarId, $artistIdArray) {
         try {

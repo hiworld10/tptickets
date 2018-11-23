@@ -22,6 +22,7 @@ class CategoryController {
 	}
 
 	public function getAll() {
+		
 		$categoryArray = $this->dao->retrieveAll(); 
 		include ADMIN_VIEWS . '/admincategory.php';
 	}

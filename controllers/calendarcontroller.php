@@ -10,6 +10,7 @@ use controllers\ArtistController as ArtistController;
 use controllers\PlaceEventController as PlaceEventController;
 use controllers\SeatTypeController as SeatTypeController;
 use controllers\EventSeatController as EventSeatController;
+use controllers\UserController as UserController;
 
 
 class CalendarController {
@@ -20,6 +21,7 @@ class CalendarController {
 	private $artistController;
 	private $seatTypeController;
 	private $eventSeatController;
+	private $userController;
 
 	public function __construct() {
 		$this->dao = new DB_CalendarDAO();
@@ -28,6 +30,7 @@ class CalendarController {
 		$this->artistController = new ArtistController();
 		$this->seatTypeController = new SeatTypeController();
 		$this->eventSeatController = new EventSeatController();
+		$this->userController = new UserController();
 	}
 
 	public function addCalendar($date, $eventId, $artistIdArray, $placeEventAttributesArray, $eventSeatAttributesArray) {
@@ -85,12 +88,20 @@ class CalendarController {
 	}
 
 	public function getAll() {
-		$calendarArray = $this->dao->retrieveAll();
+		/*Si el usuario no es admin, la controladora no permitira acceder a los datos.
+		  Ver si es posible imprimir un mensaje de alerta advirtiendo que el usuario no
+		  tiene permiso para acceder a la pagina. Aplicar esta comprobacion en los otros metodos*/
+		if (!$this->userController->isUserAdmin()) {
+			$this->userController->index();
+		} else {
+			$calendarArray = $this->dao->retrieveAll();
 		$eventArray = $this->eventController->getAllSelect();
 		$artistArray = $this->artistController->getAllSelect();
 		$seatTypeArray = $this->seatTypeController->getAllSelect();
 
 		include ADMIN_VIEWS. '/admincalendar.php';
+		}
+		
 	}
 
 	public function deleteCalendar($id){
@@ -148,8 +159,8 @@ class CalendarController {
 		return (strtotime($date) < strtotime('now'));
 	}
 
-    public function getCalendarByEvent($string) {
-        return $this->dao->retrieveEventsByString($string);
+    public function getCalendarsByString($string) {
+        return $this->dao->retrieveCalendarsByString($string);
     }
 	
 }
