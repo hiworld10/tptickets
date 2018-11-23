@@ -56,7 +56,7 @@ class EventSeatController {
 	public function updateEventSeat($id, $calendarId, $seatType, $availableSeats, $price) {
 
         $remainder = $availableSeats;
-        
+
 		$updatedEventSeat = new M_EventSeat($id, $calendarId, $seatType, $availableSeats, $price, $remainder);
 		
 		$this->dao->update($updatedEventSeat);

@@ -124,7 +124,10 @@ class EventSeatDAO implements IDAO
 
     public function update($eventSeat) {
         try {
+        
             $query = "UPDATE ".$this->tableName." SET quantity = :quantity, price = :price, remainder = :remainder WHERE id_event_seat = :id_event_seat";
+
+           
             $parameters["id_event_seat"] = $eventSeat->getId();
             $parameters["quantity"] = $eventSeat->getQuantity();
             $parameters["price"] = $eventSeat->getPrice();
@@ -138,5 +141,9 @@ class EventSeatDAO implements IDAO
         }
 
     }
+
+
+
+    
 }
 ?>

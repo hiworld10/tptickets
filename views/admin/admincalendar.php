@@ -118,7 +118,7 @@
 
     <div class="col-12 col-md-2 mb-2 mb-md-3">
           
-          <input type="hidden" name="ideventseat" class="form-control form-control-lg" value="<?= $value->getId(); ?>" readonly>
+          <input type="hidden" name="eventSeat[<?= $value->getSeatType()->getType(); ?>][ideventseat]" class="form-control form-control-lg" value="<?= $value->getId(); ?>" readonly>
     </div>
 
 
@@ -131,13 +131,13 @@
           <input type="hidden" name="eventSeat[<?= $value->getSeatType()->getType(); ?>][idseattype]" class="form-control form-control-lg" value="<?= $value->getSeatType()->getId(); ?>" readonly>
          </div>
         <label>Capacidad</label>
-         <input type="number"  min="0" class="form-control col-md-2 ml-3" name="eventSeat[<?= $value->getSeatType()->getType(); ?>][capacity]" value="<?= $value->getQuantity(); ?>" >
+         <input type="number"  min=0 class="form-control col-md-2 ml-3" name="eventSeat[<?= $value->getSeatType()->getType(); ?>][capacity]" value="<?= $value->getQuantity(); ?>" >
           
             
 
            <label>Precio</label>
         
-           <input type="number" min="0"  class="form-control col-md-2 ml-3" name="eventSeat[<?= $value->getSeatType()->getType(); ?>][price]" value="<?= $value->getPrice(); ?>" >
+           <input type="number" min=0  class="form-control col-md-2 ml-3" name="eventSeat[<?= $value->getSeatType()->getType(); ?>][price]" value="<?= $value->getPrice(); ?>" >
         
       </div>
 <?php } } ?>

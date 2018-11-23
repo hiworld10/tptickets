@@ -98,11 +98,8 @@ class CalendarController {
 		$this->getAll();
 	}
 
-	public function updateCalendar($id_calendar, $date, $eventId, $artistIdArray, $placeEventId, $placeEventAttributesArray, $eventSeatId, $eventSeatAttributesArray) {
-		
-		echo '<pre>';
-		print_r($_POST);
-		echo '</pre>';
+	public function updateCalendar($id_calendar, $date, $eventId, $artistIdArray, $placeEventId, $placeEventAttributesArray, $eventSeatAttributesArray) {
+
 		
 		if ($this->isBeforeNow($date)) {
 			echo "ERROR: la fecha ya es pasada.";
@@ -130,7 +127,7 @@ class CalendarController {
 					foreach ($eventSeatAttributesArray as $value) {
 						$seatType = $this->seatTypeController->getSeatTypeById($value['idseattype']);
 	
-						$this->eventSeatController->updateEventSeat($eventSeatId, $id_calendar, $seatType, $value['capacity'], $value['price']);
+						$this->eventSeatController->updateEventSeat($value['ideventseat'], $id_calendar, $seatType, $value['capacity'], $value['price']);
 
 					}
 
