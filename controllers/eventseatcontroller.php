@@ -51,11 +51,16 @@ class EventSeatController {
 		$this->getAll();
 	}
 
-	public function updateEventSeat($id, $calendarId, $seatTypeid, $availableSeats, $price) {
+	public function updateEventSeat($id, $calendarId, $seatType, $availableSeats, $price) {
 
-		$updatedEventSeat = new M_EventSeat($id, $calendarId,$seatType, $availableSeats, $price);
+		$updatedEventSeat = new M_EventSeat($id, $calendarId, $seatType, $availableSeats, $price);
 		$this->dao->update($updatedEventSeat);
 		$this->getAll();
+	}
+
+	public function getByCalendarId($idCalendar)
+	{
+		return $this->dao->retrieveByCalendarId($idCalendar);		
 	}
 
 	

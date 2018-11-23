@@ -76,6 +76,8 @@ class CalendarController {
 		$eventArray = $this->eventController->getAllSelect();
 		$artistArray = $this->artistController->getAllSelect();
 		$seatTypeArray = $this->seatTypeController->getAllSelect();
+
+		$eventSeatArray= $this->eventSeatController->getByCalendarId($id);
 		
 		if(isset($calendar)) {
 			include ADMIN_VIEWS . '/admincalendar.php';
@@ -96,8 +98,10 @@ class CalendarController {
 		$this->getAll();
 	}
 
-	public function updateCalendar($id_calendar, $date, $eventId, $artistIdArray, $placeEventAttributesArray, $placeEventId, $eventSeatAttributesArray, $eventSeatId) {
-
+	public function updateCalendar($id_calendar, $date, $eventId, $artistIdArray, $placeEventId, $placeEventAttributesArray, $eventSeatId, $eventSeatAttributesArray) {
+		echo "<pre>";
+		var_dump($_POST);
+		echo "</pre>";
 		
 		if ($this->isBeforeNow($date)) {
 			echo "ERROR: la fecha ya es pasada.";
@@ -107,7 +111,7 @@ class CalendarController {
 			//Recorro eventSeat y guardo sus capacidades para sumarlas en una variable
 			//para su comprobacion
 			foreach ($eventSeatAttributesArray as $value) {
-				$eventSeatSum += $value['capacity'];
+				$eventSeatSum += (int)$value['capacity'];   ///PROBLEMA TRAE UN STRING
 			}
 
 			if($eventSeatSum > $placeEventAttributesArray['capacity'])

@@ -82,7 +82,7 @@ class EventSeatDAO implements IDAO
 
         public function retrieveByCalendarId($calendarId) {
         try {
-            $eventSeat = null;
+            $eventSeatArray = array();
 
             $query = "SELECT * FROM ".$this->tableName." WHERE id_calendar = :id_calendar";
 
@@ -96,14 +96,18 @@ class EventSeatDAO implements IDAO
             foreach ($resultSet as $row) {
                 $seatType=$seatTypeDao->retrieveById($row["id_seat_type"]);
                 $eventSeat = new EventSeat($row["id_event_seat"], $row["id_calendar"], $seatType, $row["quantity"], $row["price"]);
-            }
+                array_push($eventSeatArray, $eventSeat);
 
-            return $eventSeat;
+            }
+        
+
+            return $eventSeatArray;
         }
         catch(Exception $ex) {
             throw $ex;
         }
     }
+
 
     public function delete($id) {
         try {

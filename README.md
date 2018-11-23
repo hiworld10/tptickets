@@ -69,3 +69,12 @@ homecontroller index->getAll  events
 view home
 css admin y landing page
 view admincalendar
+
+
+23/11
+eventseatController getbycalendarid
+eventseatdao retrievebycalendatir
+calendarcontroller getcalendar
+admincalendar view update
+calendardao
+eventseatcontroller update

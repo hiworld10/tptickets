@@ -75,9 +75,9 @@ class CalendarDAO implements IDAO
             foreach ($resultSet as $row) {       
                 $event = $eventDao->retrieveById($row["id_event"]);     
                 $placeEvent = $placeEventDao->retrieveByCalendarId($row["id_calendar"]);                
-                $eventSeat = $eventSeatDao->retrieveByCalendarId($row["id_calendar"]);
+                $eventSeatArray = $eventSeatDao->retrieveByCalendarId($row["id_calendar"]);
                 $artistsArray= $this->retrieveArtistsByCalendarId($row["id_calendar"]);
-                $calendar = new Calendar($row["id_calendar"], $row["date"], $event , $artistsArray , $placeEvent, $eventSeat);
+                $calendar = new Calendar($row["id_calendar"], $row["date"], $event , $artistsArray , $placeEvent, $eventSeatArray[0] );
                 array_push($calendarList, $calendar);
             }
 
@@ -113,7 +113,7 @@ class CalendarDAO implements IDAO
                 $placeEvent = $placeEventDao->retrieveByCalendarId($row["id_calendar"]);
                 $eventSeat = $eventSeatDao->retrieveByCalendarId($row["id_calendar"]);
                 $artistsArray= $this->retrieveArtistsByCalendarId($row["id_calendar"]);
-                $calendar = new Calendar($row["id_calendar"], $row["date"], $event, $artistsArray, $placeEvent, $eventSeat);
+                $calendar = new Calendar($row["id_calendar"], $row["date"], $event, $artistsArray, $placeEvent, $eventSeat[0]);
             }
 
             return $calendar;
@@ -140,9 +140,9 @@ class CalendarDAO implements IDAO
         try {
             $query = "UPDATE ".$this->tableName." SET date = :date, id_event = :id_event WHERE id_calendar = :id_calendar";
 
-            $parameters["id_calendar"] = $calendarAttributes['id_calendar'];
-            $parameters["date"] = $calendarAttributes['id_date'];
-            $parameters["id_event"] = $calendarAttributes['id_event'];
+            $parameters["id_calendar"] = $calendarAttributes['id'];
+            $parameters["date"] = $calendarAttributes['date'];
+            $parameters["id_event"] = $calendarAttributes['event'];
            
 
             $this->connection = Connection::getInstance();

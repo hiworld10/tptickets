@@ -98,5 +98,8 @@ class SeatTypeDAO implements IDAO
     }
 
 }
+
+
+
 }
 ?>
