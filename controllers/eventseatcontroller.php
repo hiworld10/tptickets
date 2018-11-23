@@ -17,12 +17,14 @@ class EventSeatController {
 	}
 
 	public function addEventSeat($calendarId, $seatType, $availableSeats, $price) {
-		$m_eventSeat = new M_EventSeat(null, $calendarId, $seatType, $availableSeats, $price);
+        $remainder = $availableSeats;
+		$m_eventSeat = new M_EventSeat(null, $calendarId, $seatType, $availableSeats, $price, $remainder);
 		$this->dao->create($m_eventSeat);
 	}
 
-	public function addEventSeatAndView( $calendarId, $seatType, $availableSeats, $price) {
-		$m_eventSeat = new M_EventSeat(null,$calendarId, $seatType, $availableSeats, $price);
+	public function addEventSeatAndView($calendarId, $seatType, $availableSeats, $price) {
+        $remainder = $availableSeats;
+		$m_eventSeat = new M_EventSeat(null,$calendarId, $seatType, $availableSeats, $price, $remainder);
 		$this->dao->create($m_eventSeat);
 		$this->getAll();
 	}
@@ -62,7 +64,5 @@ class EventSeatController {
 	{
 		return $this->dao->retrieveByCalendarId($idCalendar);		
 	}
-
-	
 }
 ?>
