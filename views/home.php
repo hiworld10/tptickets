@@ -50,24 +50,29 @@
 
 </header>
 <div  >
-  <a href="<?= FRONT_ROOT ?>/home/search/ " >
+
   <table class="table bg-light-alpha text-center mt-5">
 
     <?php if(!empty($eventArray)) { ?>
-   
      <tbody>
       <?php foreach ($eventArray as $value) { ?>
-        <a href="<?= FRONT_ROOT ?>/home/search/ " >
-        <tr>
-        
+   
+        <tr>       
          <td><img src="<?= $value->getImage()->getPath() ?>" height="200" width="350"/></td>
         <td>
-          <div class="mt-5">
+          <div class="mt-5" >
              <big><big><?= $value->getName(); ?></big></big>
           </div>
         </td>
+        <td>
+          <form action="<?=FRONT_ROOT?>/home/search" method="POST">
+            <button name="search" value="<?= $value->getName(); ?>" id="boton1" type="submit" class="btn btn-block btn-lg btn-primary btn-sm mt-5">Ver mas</button></td>
+          </form>
+        </td>
+       
       </tr>
-      </a>
+      
+   
     <?php } ?>
 
   </tbody>
@@ -87,6 +92,6 @@
     <script src="/tptickets/vendor/jquery/jquery.min.js"></script>
     <script src="/tptickets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
- 
+
 
 </html>
