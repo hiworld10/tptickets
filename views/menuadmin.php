@@ -8,7 +8,6 @@
   <li><a href="<?=FRONT_ROOT?>/eventseat/getAll" title="...">Plazas</a></li>
    <li><a href="<?=FRONT_ROOT?>/seattype/getAll" title="...">Tipo Plazas</a></li>
    <li><a href="<?=FRONT_ROOT?>/placeevent/getAll" title="...">Lugar</a></li>
-   <li><a href="<?=FRONT_ROOT?>/purchase/getAll" title="...">Compra</a></li>
-   <li><a href="<?=FRONT_ROOT?>/purchaseline/getAll" title="...">Carrito</a></li>
+
  </ul>
 </div>

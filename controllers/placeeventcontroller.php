@@ -14,12 +14,19 @@ class PlaceEventController {
 		$this->dao = new DB_PlaceEventDAO();
 	}
 
-	public function addPlaceEvent($capacity, $description, $calendarId) {
+	public function addPlaceEvent($calendarId, $capacity, $description ) {
+
+		$m_placeEvent = new M_PlaceEvent(null, $calendarId, $capacity, $description);
+		$this->dao->create($m_placeEvent);
+	}
+
+	public function addPlaceEventAndView($calendarId, $capacity, $description ) {
 
 		$m_placeEvent = new M_PlaceEvent(null, $calendarId, $capacity, $description);
 		$this->dao->create($m_placeEvent);
 		$this->getAll();
 	}
+
 
 	public function getAll() {
 		$placeEventArray = $this->dao->retrieveAll(); 
@@ -54,10 +61,10 @@ class PlaceEventController {
 	}
 
 
-	public function updatePlaceEvent($id, $capacity, $description) {
-		$updatedPlaceEvent = new M_PlaceEvent($id, 1, $capacity, $description);
+	public function updatePlaceEvent($id,$calendarId, $capacity, $description) {
+		$updatedPlaceEvent = new M_PlaceEvent($id, $calendarId, $capacity, $description);
 		$this->dao->update($updatedPlaceEvent);
-		$this->getAll();
+	
 	}
 }
 ?>

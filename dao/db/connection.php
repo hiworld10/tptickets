@@ -52,6 +52,7 @@
                 foreach($parameters as $parameterName => $value) {
                     $this->pdoStatement->bindParam(":".$parameterName, $parameters[$parameterName]);
                 }
+               
         
                 $this->pdoStatement->execute();
 

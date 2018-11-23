@@ -7,14 +7,17 @@ use dao\db\UserDAO as DB_UserDAO;
 use controllers\HomeController as HomeController;
 
 
+
 class UserController {
 
 	private $dao;
+
 	private $passwordLength = 6;
 
 
 	public function __construct() {
 		$this->dao = new DB_UserDAO();
+		
 	}
 
 
@@ -22,12 +25,24 @@ class UserController {
 
 		try {
 			$this->dao->create($_user);
-			$this->getAll();
+			if(!$this->checkSession() )// si no esta en session significa que no es admin, muestro home
+            {	
+            	$this->setSession($_user);
+            	$home= new HomeController();
+            	$home->index();
+              }else{
+             	$this->getAll();// es admin entonces muestro view/adminuser
+             }
+
+
 			return true;
 		} catch(\PDOException $ex) {
 			throw $ex;
 		}
 	}
+
+
+
 
 	public function getAll() {
 		$userArray = $this->dao->retrieveAll();
@@ -158,8 +173,8 @@ class UserController {
 
   		unset($_SESSION['userLogedIn']);
 
-  		$homeController = new HomeController();
-
+  		
+  		$homeController= new HomeController();
   		$homeController->index();
   	}
 

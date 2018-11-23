@@ -72,16 +72,6 @@ CREATE TABLE `calendars` (
   `id_event` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `calendars`
---
-
-INSERT INTO `calendars` (`id_calendar`, `date`, `id_event`) VALUES
-(1, '2018-11-20', 1),
-(2, '2018-11-30', 2),
-(3, '2018-11-29', 3),
-(4, '2018-11-29', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -139,16 +129,6 @@ CREATE TABLE `event_seats` (
   `remainder` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `event_seats`
---
-
-INSERT INTO `event_seats` (`id_event_seat`, `id_calendar`, `id_seat_type`, `quantity`, `price`, `remainder`) VALUES
-(1, 2, 2, 3000, 300, 3000),
-(2, 1, 3, 4000, 400, 4000),
-(3, 3, 4, 5000, 500, 5000),
-(4, 4, 1, 1000, 800, 1000);
-
 -- --------------------------------------------------------
 
 --
@@ -161,16 +141,6 @@ CREATE TABLE `places_events` (
   `capacity` int(11) NOT NULL,
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `places_events`
---
-
-INSERT INTO `places_events` (`id_place_event`, `id_calendar`, `capacity`, `description`) VALUES
-(1, 1, 30000, 'Estadio unico La Plata'),
-(2, 2, 20000, 'Estadio River Plate'),
-(3, 3, 20000, 'Estadio Malvinas Argentinas'),
-(4, 4, 5000, 'Teatro Colon');
 
 -- --------------------------------------------------------
 
@@ -416,7 +386,7 @@ ALTER TABLE `users`
 -- Constraints for table `artists_calendars`
 --
 ALTER TABLE `artists_calendars`
-  ADD CONSTRAINT `artists_calendars_ibfk_1` FOREIGN KEY (`id_calendar`) REFERENCES `calendars` (`id_calendar`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `artists_calendars_ibfk_1` FOREIGN KEY (`id_calendar`) REFERENCES `calendars` (`id_calendar`) ON UPDATE CASCADE ON DELETE CASCADE,
   ADD CONSTRAINT `artists_calendars_ibfk_2` FOREIGN KEY (`id_artist`) REFERENCES `artists` (`id_artist`) ON UPDATE CASCADE;
 
 --
@@ -435,14 +405,14 @@ ALTER TABLE `events`
 -- Constraints for table `event_seats`
 --
 ALTER TABLE `event_seats`
-  ADD CONSTRAINT `event_seat_ibfk_1` FOREIGN KEY (`id_calendar`) REFERENCES `calendars` (`id_calendar`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `event_seat_ibfk_1` FOREIGN KEY (`id_calendar`) REFERENCES `calendars` (`id_calendar`) ON UPDATE CASCADE ON DELETE CASCADE,
   ADD CONSTRAINT `event_seat_ibfk_2` FOREIGN KEY (`id_seat_type`) REFERENCES `seat_type` (`id_seat_type`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `places_events`
 --
 ALTER TABLE `places_events`
-  ADD CONSTRAINT `places_events_ibfk_1` FOREIGN KEY (`id_calendar`) REFERENCES `calendars` (`id_calendar`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `places_events_ibfk_1` FOREIGN KEY (`id_calendar`) REFERENCES `calendars` (`id_calendar`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 --
 -- Constraints for table `purchases`

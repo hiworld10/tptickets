@@ -22,7 +22,7 @@
             <form action="<?=  FRONT_ROOT ."/home/search"?>"  method="POST">
               <div class="form-row">
                 <div class="col-12 col-md-9 mb-2 mb-md-0 mt-5">
-                  <input type="text" name="artist" class="form-control form-control-lg" placeholder="Encontraste los que buscabas? ">
+                  <input type="text" name="artist" class="form-control form-control-lg" placeholder="Encontraste lo que buscabas? ">
                 </div>
                 <div class="col-12 col-md-3 mt-5">
                   <button type="submit" class="btn btn-block btn-lg btn-primary">Buscar</button>
@@ -42,18 +42,20 @@
 <div class="__full-height-perc" >
   <table class="table bg-light-alpha text-center mt-5">
 
-    <?php if(!empty($eventArray)) { ?>
+    <?php if(!empty($calendarArray)) { ?>
    
      <tbody>
-      <?php foreach ($eventArray as $value) { ?>
+      <?php foreach ($calendarArray as $value) { ?>
         <tr>
         
-         <td><img src="<?= $value->getImage()->getPath() ?>" height="200" width="350"/></td>
+         <td><img src="<?= $value->getEvent()->getImage()->getPath() ?>" height="200" width="350"/></td>
         <td>
           <div class="mt-5">
-             <big><big><?= $value->getName(); ?></big></big>
+             <big><big><?= $value->getEvent()->getName(); ?></big></big>
           </div>
         </td>
+
+        
       
         <td>
           <div class="mt-5">

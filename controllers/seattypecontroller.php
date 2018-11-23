@@ -18,6 +18,13 @@ class SeatTypeController {
 
 		$m_seattype = new M_SeatType(null, $type);
 		$this->dao->create($m_seattype);
+	
+	}
+
+	public function addSeatTypeandView($type) {
+
+		$m_seattype = new M_SeatType(null, $type);
+		$this->dao->create($m_seattype);
 		$this->getAll();
 	}
 
