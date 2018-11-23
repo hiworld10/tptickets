@@ -30,47 +30,52 @@ class CalendarController {
 		$this->eventSeatController = new EventSeatController();
 	}
 
-	public function addCalendar($date, $eventId, $artistIdArray, $placeEventId, $eventSeatAttributesArray) {
-		echo "<pre>";
-		print_r($_POST);
-		echo "</pre>";
+	public function addCalendar($date, $eventId, $artistIdArray, $placeEventAttributesArray, $eventSeatAttributesArray) {
 
+		
 		if ($this->isBeforeNow($date)) {
 			echo "ERROR: la fecha ya es pasada.";
 			$this->getAll();
 		} else {
+			$eventSeatSum= 0;
+			//Recorro eventSeat y guardo sus capacidades para sumarlas en una variable
+			//para su comprobacion
+			foreach ($eventSeatAttributesArray as $value) {
+				$eventSeatSum += $value['capacity'];
+			}
+
+			if($eventSeatSum > $placeEventAttributesArray['capacity'])
+			{
+				echo "ERROR: La capacidad total fue excedida.";
+				$this->getAll();
+			}else
+				{
 
 			//insercion de calendario en bd
-			$calendarAttributes= array("date"=>$date, "eventId"=> $eventId, "artistIdArray" => $artistIdArray);
-			$this->dao->create($calendarAttributes);
+					$calendarAttributes= array("date"=>$date, "eventId"=> $eventId, "artistIdArray" => $artistIdArray);
+					$this->dao->create($calendarAttributes);
 			// guardo ultimo id de ultima instancia
-			$calendarId= $this->dao->retrieveLastId();
-			//instancio placeEvent a traves de el id
-			$placeEvent=$this->placeEventController->getPlaceEventById($placeEventId);
-			//instancio Event a traves de el id
-			$event=$this->eventController->getEventById($eventId);
+					$calendarId= $this->dao->retrieveLastId();
 
-			foreach ($eventSeatAttributesArray as $value) {
-				$eventSeat=new M_EventSeat(null, $calendarId, $value['capacity'], $value['price']);
-				$this->eventSeatController->addEventSeat($eventSeat);
+					foreach ($eventSeatAttributesArray as $value) {
+						$seatType= $this->seatTypeController->getSeatTypeById($value['seattypeid']);
 
-			}
-			
-		
+						$this->eventSeatController->addEventSeat($calendarId, $seatType , $value['capacity'], $value['price']);
 
-			$artists=array();
-			foreach ($artistIdArray as $value) {
-				$artist=$this->artistController->getArtistById($value);
-				array_push($artists, $artist);
-			}
+					}
 
+					$this->placeEventController->addPlaceEvent($calendarId, $placeEventAttributesArray['capacity'],$placeEventAttributesArray['description']);
 
-			$this->getAll();	
+					$this->getAll();
+			}	
 		}
 	}
 
 	public function getCalendar($id) { 
 		$calendar=$this->dao->retrieveById($id);
+		$eventArray = $this->eventController->getAllSelect();
+		$artistArray = $this->artistController->getAllSelect();
+		$seatTypeArray = $this->seatTypeController->getAllSelect();
 		
 		if(isset($calendar)) {
 			include ADMIN_VIEWS . '/admincalendar.php';
@@ -80,7 +85,6 @@ class CalendarController {
 	public function getAll() {
 		$calendarArray = $this->dao->retrieveAll();
 		$eventArray = $this->eventController->getAllSelect();
-		$placeEventArray = $this->placeEventController->getAllSelect();
 		$artistArray = $this->artistController->getAllSelect();
 		$seatTypeArray = $this->seatTypeController->getAllSelect();
 
@@ -92,24 +96,44 @@ class CalendarController {
 		$this->getAll();
 	}
 
-	public function updateCalendar($id, $date, $eventId, $artistIdArray, $placeEventId, $id_seatType) {
+	public function updateCalendar($id_calendar, $date, $eventId, $artistIdArray, $placeEventAttributesArray, $placeEventId, $eventSeatAttributesArray, $eventSeatId) {
 
+		
 		if ($this->isBeforeNow($date)) {
 			echo "ERROR: la fecha ya es pasada.";
 			$this->getAll();
 		} else {
-			$event=$this->eventController->getEventById($eventId);
-			$placeEvent=$this->placeEventController->getPlaceEventById($placeEventId);
-			$seatType=$this->seatTypeController->getSeatTypeById($id_seatType);
-			$artists=array();
-			foreach ($artistIdArray as $key => $value) {
-				$artist=$artistController->getArtistById($value);
-				array_push($artists, $artist);
+			$eventSeatSum= 0;
+			//Recorro eventSeat y guardo sus capacidades para sumarlas en una variable
+			//para su comprobacion
+			foreach ($eventSeatAttributesArray as $value) {
+				$eventSeatSum += $value['capacity'];
 			}
-			$updatedCalendar = new M_Calendar($id, $date, $event, $artistArray, $placeEvent, $seatType);
-			$this->dao->update($updatedCalendar);
-			$this->getAll();
+
+			if($eventSeatSum > $placeEventAttributesArray['capacity'])
+			{
+				echo "ERROR: La capacidad total fue excedida.";
+				$this->getAll();
+			}else
+				{
+
+			//Update de calendario en bd
+					$calendarAttributes= array("id_calendar"=>$id_calendar, "date"=>$date, "eventId"=> $eventId, "artistIdArray" => $artistIdArray);
+					$this->dao->update($calendarAttributes);
+			
+
+					foreach ($eventSeatAttributesArray as $value) {
+						$seatType= $this->seatTypeController->getSeatTypeById($value['seattypeid']);
+						$this->eventSeatController->updateEventSeat($eventSeatId, $id_calendar, $seatType, $value['capacity'], $value['price']);
+
+					}
+
+					$this->placeEventController->updatePlaceEvent($placeEventId, $id_calendar, $placeEventAttributesArray['capacity'],$placeEventAttributesArray['description']);
+
+					$this->getAll();
+			}	
 		}
+
 	}
 
 	public function getAllSelect(){

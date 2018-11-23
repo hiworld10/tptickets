@@ -52,7 +52,7 @@ class EventSeatDAO implements IDAO
 					$value->setAvailableSeats($newVal->getAvailableSeats());
 					$value->setPrice($newVal->getPrice());
 					$value->setCalendarId($newVal->getCalendarId());
-					$value->setSeatTypeId($newVal->getSeatTypeId());
+					$value->setSeatType($newVal->getSeatType());
 				}
 			}
 		}

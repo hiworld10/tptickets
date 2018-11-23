@@ -46,7 +46,7 @@
 
     <?php   }else{   ?>
 
-    <form name='formulario' action="<?=FRONT_ROOT?>/placeevent/addPlaceEvent"  method="POST">
+    <form name='formulario' action="<?=FRONT_ROOT?>/placeevent/addPlaceEventAndView"  method="POST">
              <div class="form-row">
                   <div class="col-12 col-md-9 mb-2 mb-md-0">
                     <input type="text" name="capacity" class="form-control form-control-lg" placeholder="Ingrese la capacidad del evento..." required>

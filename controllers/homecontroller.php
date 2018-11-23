@@ -82,8 +82,10 @@ class HomeController {
                 }
 
             try {
+
                 if($this->userController->addUser($m_user)) {
                     $success = "Gracias por registrarte. Ya podes iniciar sesión.";
+                    
                 } else {
                     $alert = "Ocurrió un error al crear la cuenta. Vuelva a intentar.";
                 }

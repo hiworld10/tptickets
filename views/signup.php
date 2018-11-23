@@ -31,7 +31,7 @@
                     </div>
                     <div class="form-group">
                          <label for="">Contraseña</label>
-                         <input type="text" name="password" class="form-control form-control-lg" placeholder="Ingresar contraseña">
+                         <input type="password" name="password" class="form-control form-control-lg" placeholder="Ingresar contraseña">
                     </div>
                     <div class="form-group">
                          <label for="">Nombre</label>

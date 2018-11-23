@@ -1,21 +1,21 @@
 <?php
 namespace model;
-
+use model\SeatType as SeatType;
 
 class EventSeat
 {
     private $id;
 	private $calendarId;
-    private $seatTypeId;
+    private $seatType;
     private $quantity;
     private $price;
     private $remainder;
 
-	function __construct($id, $calendarId, $seatTypeId, $quantity, $price)
+	function __construct($id, $calendarId,SeatType $seatType, $quantity, $price)
 	{
         $this->id = $id;
         $this->calendarId = $calendarId;
-        $this->seatTypeId = $seatTypeId;
+        $this->seatType = $seatType;
         $this->quantity = $quantity;
         $this->price = $price;
         $this->remainder = $quantity;
@@ -47,14 +47,14 @@ class EventSeat
         $this->calendarId = $calendarId;
     }
 
-    public function getSeatTypeId()
+    public function getSeatType()
     {
-        return $this->seatTypeId;
+        return $this->seatType;
     }
 
-    public function setSeatTypeId($seatTypeId)
+    public function setSeatType($seatType)
     {
-        $this->seatTypeId = $seatTypeId;
+        $this->seatType = $seatType;
     }
 
     public function getPrice()

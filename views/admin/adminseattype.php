@@ -40,7 +40,7 @@
 
     <?php   }else{   ?>
 
-    <form name='formulario' action="<?=FRONT_ROOT?>/seattype/addSeatType" method="POST">
+    <form name='formulario' action="<?=FRONT_ROOT?>/seattype/addSeatTypeandView" method="POST">
              <div class="form-row">
                   <div class="col-12 col-md-9 mb-2 mb-md-0">
                     <input type="text" name="seattype" class="form-control form-control-lg" placeholder="Ingrese el tipo de plaza..." required>

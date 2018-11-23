@@ -24,25 +24,29 @@
 
 
       <form name='formulario' action="<?=FRONT_ROOT?>/calendar/updateCalendar"  method="POST">
-       <div class="form-row p-2">
+        
+      <div class="form">
         <div class="form-group col-12 col-md-2 mb-2 mb-md-0">
-          <label>Id</label>
+          <label><big><big>Id</big></big></label>
           <input type="text" name="id" class="form-control form-control-lg" value="<?= $calendar->getId(); ?>" readonly>
         </div>
-        <div class="col-md-5 mb-2 mb-md-0 form-row">
-          <label>Fecha</label>
-          <input type="date" name="date" class="form-control form-control-lg" value="<?= $calendar->getDate(); ?>" required>
-        </div>
-          <div class="col-lg-4 form-group">
+    <div class="col-12 col-md-9 mb-2 mb-md-3">
+      <label for=""><big><big>Fecha</big></big></label>
+      <input type="date"   class="form-control form-control-lg" name="date" value="<?= $calendar->getDate(); ?>" required>
+    </div>
+     <div class="col-12 col-md-9 mb-2 mb-md-3">
 
-     <label for="">Evento</label>
-     <select class="form-control" name="category" required>
-      <?php if(isset($eventArray)){ 
-       foreach ($eventArray as $key => $value) { 
+     <label for=""><big><big>Evento</big></big></label>
+
+     <select class="form-control" name="event"  required>
+      <?php if(isset($eventArray)){ ?>
+        <option value="<?= $calendar->getEvent()->getId(); ?> "><?= $calendar->getEvent()->getName(); ?></option> 
+
+      <?php foreach ($eventArray as $key => $value) { 
+        if($value->getId() != $calendar->getEvent()->getId()){// con el fin de que no se repita el mismo select
          ?>
-         <!--No es posible pasar un objeto mediante HTML (ej. '$value')-->
-         <option value="<?= $value->getId(); ?>"><?= $value->getName(); ?></option> 
-       <?php }
+         <option value="<?= $value->getId(); ?> "><?= $value->getName(); ?></option> 
+       <?php }}
      }else{ ?>
       <option >NO HAY EVENTOS</option>
     <?php } ?>
@@ -50,17 +54,33 @@
 
 </div>
 
-   <div class="form-group">
+   <div class="col-12 col-md-9 mb-2 mb-md-3">
+    <label for=""><big><big>Artistas</big></big></label>
+    <br>
 
 
+<?php //LOS ARTISTAS QUE INTEGRAN EL CALENDARIO APARECEN checked 
+      // flag que se fija si esta seteado o no
+?>
         <?php if(isset($artistArray)){
 
-        foreach ($artistArray as $key => $value) {  ?>
+        foreach ($artistArray as $key => $value) { 
+          $flag=true; 
+          foreach($calendar->getArtistArray() as $v){
+            if($value->getId() == $v->getId()){
+              $flag=false;
+            ?>
            <label >
-               <input  type="checkbox" name="artistArray" value="<?php $value->getName(); ?>" >
+               <input  type="checkbox" name="artistArray[]" value="<?= $value->getId(); ?>" checked >
                   <span><?= $value->getName()?></span>
             </label>
-        <?php } }else{ ?>
+          <?php }} if($flag==true){ ?>
+           <input  type="checkbox" name="artistArray[]" value="<?= $value->getId(); ?>" >
+                  <span><?= $value->getName()?></span>
+            </label>
+
+            
+        <?php }} }else{ ?>
           <span>NO HAY ARTISTAS CARGADOS</span>
         <?php } ?>
 
@@ -68,44 +88,72 @@
 
       
 
- <div class="col-lg-4 form-group">
+ <div class="col-12 col-md-9 mb-2 mb-md-3">
+ 
+     <label for=""><big><big>Lugar</big></big></label>
+      <div class="col-12 col-md-2 mb-2 mb-md-3">
+          <label>Id</label>
+          <input type="text" name="idPlaceEvent" class="form-control form-control-lg" value="<?= $calendar->getPlaceEvent()->getId(); ?>" readonly>
+        </div>
 
-     <label for="">Lugar</label>
-     <select class="form-control" name="placeEvent" required>
-      <?php if(isset($placeEventArray)){ 
-       foreach ($placeEventArray as $key => $value) { 
-         ?>
-         <!--No es posible pasar un objeto mediante HTML (ej. '$value')-->
-         <option value="<?= $value->getId(); ?>"><?= $value->getDescription(); ?></option> 
-       <?php }
-     }else{ ?>
-      <option >NO HAY LUGARES</option>
-    <?php } ?>
-  </select>
-
+     <label>Descripcion</label>
+     <br>
+      <input type="text"   class="form-control form-control-lg" name="placeEvent[description]" value="<?=$calendar->getPlaceEvent()->getDescription(); ?>" >
+   
+      <label>Capacidad</label>
+     <br>
+       <input type="number"   class="form-control form-control-lg" name="placeEvent[capacity]" value="<?=$calendar->getPlaceEvent()->getCapacity(); ?>">
+    
 </div>
- <div class="col-lg-4 form-group">
 
-     <label for="">Tipo Plaza</label>
-     <select class="form-control" name="seatType" required>
+ <div class="col-12 col-md-9 mb-2 mb-md-3">
+
+  <label><big><big>Plaza</big></big></label>
+  <div class="col-12 col-md-2 mb-2 mb-md-3">
+          <label>Id</label>
+          <input type="text" name="idPlaceEvent" class="form-control form-control-lg" value="<?= $calendar->getEventSeat()->getId(); ?>" readonly>
+        </div>
+
+     <label><big><big>Tipo Plaza</big></big></label>
+<?php print_r($calendar->getEventSeat()); ?>
+   
       <?php if(isset($seatTypeArray)){ 
        foreach ($seatTypeArray as $key => $value) { 
          ?>
-         <!--No es posible pasar un objeto mediante HTML (ej. '$value')-->
-         <option value="<?= $value->getId(); ?>"><?= $value->getType(); ?></option> 
+          <br>
+          <label><?= $calendar->getEventSeat()->getSeatType()->getType(); ?></label>
+
+      <div class="form-row col-12 col-md-9 mb-2 mb-md-3">
+         <input type="hidden"    name="eventSeat[<?= $value->getType(); ?>][seattypeid]" value=<?= $calendar->getEventSeat()->getSeatType()->getId(); ?> >
+        <label>Capacidad</label>
+         <input type="number"   class="form-control col-md-2 ml-3" name="eventSeat[<?= $value->getType(); ?>][capacity]" value="<?= $calendar->getEventSeat()->getQuantity(); ?>" >
+            
+
+           <label>Precio</label>
+        
+           <input type="number"   class="form-control col-md-2 ml-3" name="eventSeat[<?= $value->getType(); ?>][price]" value="<?= $calendar->getEventSeat()->getPrice(); ?>" >
+        
+      </div>
        <?php }
      }else{ ?>
       <option >NO HAY TIPOS</option>
     <?php } ?>
-  </select>
+
 
 </div>
+<?php if($eventArray && $artistArray && $seatTypeArray) { ?>
+  <div class="col-11 col-md-3 mt-4">
+    <button type="submit" class="btn btn-block btn-lg btn-primary">Agregar</button>
+  </div>
+<?php }else{ ?>
+  <div class="col-11 col-md-3 mt-4">
+    <button type="submit" disabled class="btn btn-block btn-lg btn-primary">Agregar</button>
+  </div>
+<?php } ?>
 
-      <div class="col-12 col-md-2 form-row">
-        <button type="submit" class="btn btn-block btn-lg btn-primary">Aceptar</button>
-      </div>
-    </div>
-  </form>
+</div>
+</form>
+
 
 <?php   }else{  ?>
 
@@ -132,8 +180,11 @@
   </select>
 
 </div>
+  
 
    <div class="col-12 col-md-9 mb-2 mb-md-3">
+    <label for=""><big><big>Artistas</big></big></label>
+    <br>
 
 
         <?php if(isset($artistArray)){
@@ -155,10 +206,10 @@
 
      <label for=""><big><big>Lugar</big></big></label>
      
-      <input type="text"   class="form-control form-control-lg" name="description" placeholder="Ingrese descripcion del lugar..." >
+      <input type="text"   class="form-control form-control-lg" name="placeEvent[description]" placeholder="Ingrese descripcion del lugar..." >
    
  
-       <input type="number"   class="form-control form-control-lg" name="capacity" placeholder="Ingrese capacidad del lugar..." >
+       <input type="number"   class="form-control form-control-lg" name="placeEvent[capacity]" placeholder="Ingrese capacidad del lugar..." >
     
 </div>
 
@@ -172,14 +223,14 @@
           <br>
           <label><?= $value->getType(); ?></label>
       <div class="form-row col-12 col-md-9 mb-2 mb-md-3">
-       
+         <input type="hidden"    name="eventSeat[<?= $value->getType(); ?>][seattypeid]" value=<?= $value->getId(); ?> >
         <label>Capacidad</label>
-         <input type="number"   class="form-control col-md-2 ml-3" name="eventSeat[<?=$value->getType();?>][capacity]" value=0 >
+         <input type="number"   class="form-control col-md-2 ml-3" name="eventSeat[<?= $value->getType(); ?>][capacity]" value=0 >
             
 
            <label>Precio</label>
         
-           <input type="number"   class="form-control col-md-2 ml-3" name="eventSeat[<?=$value->getType();?>][price]" value=0 >
+           <input type="number"   class="form-control col-md-2 ml-3" name="eventSeat[<?= $value->getType(); ?>][price]" value=0 >
         
       </div>
        <?php }
@@ -189,7 +240,7 @@
 
 
 </div>
-<?php if($eventArray && $artistArray && $placeEventArray && $seatTypeArray) { ?>
+<?php if($eventArray && $artistArray && $seatTypeArray) { ?>
   <div class="col-11 col-md-3 mt-4">
     <button type="submit" class="btn btn-block btn-lg btn-primary">Agregar</button>
   </div>
@@ -212,20 +263,23 @@
       <thead>     
        <th>Id</th>  
        <th>Fecha</th>     
-       <th>EventoId</th>
+       <th>Evento</th>
        <th>Artistas</th>   
-       <th>LugarId</th>
-       <th>TipoPlazaId</th>         
+       <th>LugarId</th>     
      </thead>
      <tbody>
-      <?php foreach ($calendarArray as $value) { ?>
+      <?php foreach ($calendarArray as $value) {
+        ?>
         <tr>
          <td><?= $value->getId(); ?></td>
          <td><?= $value->getDate(); ?></td>
-         <td><?= $value->getEvent()->getId(); ?></td>
-         <td><?= $value->getArtistArray(); ?></td>
+         <td><?= $value->getEvent()->getName(); ?></td>
+         <td><?php
+            foreach ($value->getArtistArray() as $v) {
+              print_r($v->getName()." - ");
+            }
+         ?></td>
          <td><?= $value->getPlaceEvent()->getId(); ?></td>
-         <td><?= $value->getSeatType()->getId(); ?></td>
 
 
          <td>

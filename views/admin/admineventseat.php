@@ -71,7 +71,7 @@
 
     <?php   }else{  ?>
 
-    <form name='formulario' action="<?=FRONT_ROOT?>/eventseat/addEventSeat"  method="POST">
+    <form name='formulario' action="<?=FRONT_ROOT?>/eventseat/addEventSeatAndView"  method="POST">
              <div class="form-row p-2">
                   <div class="form-group col-12 col-md-9 mb-2 mb-md-0">
                     <input type="number"  class="form-control form-control-lg" name="availableseat" placeholder="Ingrese cantidad de asientos..." required>
@@ -137,7 +137,7 @@
                       <td><?= $value->getQuantity(); ?></td>
                        <td><?= $value->getPrice(); ?></td>
                        <td><?= $value->getCalendarId(); ?></td>
-                       <td><?= $value->getSeatTypeId(); ?></td>
+                       <td><?= $value->getSeatType()->getId(); ?></td>
 
                       <td>
                         <form action="<?=FRONT_ROOT?>/eventseat/deleteEventSeat" method="POST">

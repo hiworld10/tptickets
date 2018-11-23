@@ -50,12 +50,14 @@
 
 </header>
 <div  >
+  <a href="<?= FRONT_ROOT ?>/home/search/ " >
   <table class="table bg-light-alpha text-center mt-5">
 
     <?php if(!empty($eventArray)) { ?>
    
      <tbody>
       <?php foreach ($eventArray as $value) { ?>
+        <a href="<?= FRONT_ROOT ?>/home/search/ " >
         <tr>
         
          <td><img src="<?= $value->getImage()->getPath() ?>" height="200" width="350"/></td>
@@ -65,11 +67,13 @@
           </div>
         </td>
       </tr>
+      </a>
     <?php } ?>
 
   </tbody>
 <?php  } ?>
 </table>
+
 
 </div>
 

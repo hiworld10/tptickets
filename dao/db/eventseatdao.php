@@ -6,6 +6,7 @@ use \Exception as Exception;
 use dao\IDAO as IDAO;
 use model\EventSeat as EventSeat;    
 use dao\db\Connection as Connection;
+use dao\db\SeatTypeDAO as SeatTypeDAO;
 
 class EventSeatDAO implements IDAO
 {
@@ -17,10 +18,10 @@ class EventSeatDAO implements IDAO
             $query = "INSERT INTO ".$this->tableName." (quantity, price, id_calendar, id_seat_type) VALUES ( :quantity, :price, :id_calendar, :id_seat_type );";
 
             
-            $parameters["quantity"] = $eventSeat->getAvailableSeats();
+            $parameters["quantity"] = $eventSeat->getQuantity();
             $parameters["price"] = $eventSeat->getPrice();
             $parameters["id_calendar"] = $eventSeat->getCalendarId();
-            $parameters["id_seat_type"] = $eventSeat->getSeatTypeId();
+            $parameters["id_seat_type"] = $eventSeat->getSeatType()->getId();
 
             $this->connection = Connection::getInstance();
 
@@ -40,14 +41,13 @@ class EventSeatDAO implements IDAO
             $this->connection = Connection::getInstance();
 
             $resultSet = $this->connection->execute($query);
-
-            foreach ($resultSet as $row) {                
-                $eventSeat = new EventSeat($row["id_event_seat"], $row["id_calendar"], $row["id_seat_type"], $row["quantity"], $row["price"]);
+            $seatTypeDao= new SeatTypeDAO();
+            foreach ($resultSet as $row) {
+                $seatType=$seatTypeDao->retrieveById($row["id_seat_type"]);
+                $eventSeat = new EventSeat($row["id_event_seat"], $row["id_calendar"], $seatType, $row["quantity"], $row["price"]);
                 array_push($eventSeatList, $eventSeat);
 
-                echo "<pre>";
-                print_r($eventSeat);
-                echo "</pre>";
+        
             }
 
             return $eventSeatList;
@@ -92,8 +92,10 @@ class EventSeatDAO implements IDAO
 
             $resultSet = $this->connection->execute($query, $parameters);
 
+            $seatTypeDao= new SeatTypeDAO();
             foreach ($resultSet as $row) {
-                $eventSeat = new EventSeat($row["id_event_seat"], $row["id_calendar"], $row["id_seat_type"], $row["quantity"], $row["price"]);
+                $seatType=$seatTypeDao->retrieveById($row["id_seat_type"]);
+                $eventSeat = new EventSeat($row["id_event_seat"], $row["id_calendar"], $seatType, $row["quantity"], $row["price"]);
             }
 
             return $eventSeat;
@@ -119,10 +121,10 @@ class EventSeatDAO implements IDAO
         try {
             $query = "UPDATE ".$this->tableName." SET quantity = :quantity, price = :price, id_calendar = :id_calendar, id_seat_type = :id_seat_type WHERE id_event_seat = :id_event_seat";
             $parameters["id_event_seat"] = $eventSeat->getId();
-            $parameters["quantity"] = $eventSeat->getAvailableSeats();
+            $parameters["quantity"] = $eventSeat->getQuantity();
             $parameters["price"] = $eventSeat->getPrice();
             $parameters["id_calendar"] = $eventSeat->getCalendarId();
-            $parameters["id_seat_type"] = $eventSeat->getSeatTypeId();
+            $parameters["id_seat_type"] = $eventSeat->getSeatType()->getId();
 
             $this->connection = Connection::getInstance();
             $this->connection->executeNonQuery($query, $parameters);   
