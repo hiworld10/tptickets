@@ -20,7 +20,7 @@
 
     <div id="divform" class="__full-height-perc">
 
-      <?php if(isset($eventSeat)){ ?>
+     <!--  <?php if(isset($eventSeat)){ ?>
 
 
         <form name='formulario' action="<?=FRONT_ROOT?>/eventseat/updateEventSeat"  method="POST">
@@ -116,7 +116,7 @@
    </form>
 
 
-  <?php } ?>
+  <?php } ?> -->
 
   <div id="table">
     <table class="table bg-light-alpha">
@@ -127,7 +127,8 @@
                  <th>Asientos</th>     
                  <th>Precio</th>
                  <th>Calendario</th>
-                 <th>Tipo Plaza</th>          
+                 <th>Tipo Plaza</th>       
+                 <th>Calendar Id</th>
              </thead>
              <tbody>
               <?php foreach ($eventSeatArray as $value) { ?>
@@ -137,18 +138,10 @@
                       <td><?= $value->getQuantity(); ?></td>
                        <td><?= $value->getPrice(); ?></td>
                        <td><?= $value->getCalendarId(); ?></td>
-                       <td><?= $value->getSeatType()->getId(); ?></td>
+                       <td><?= $value->getSeatType()->getType(); ?></td>
+                       <td><?= $value->getCalendarId(); ?></td>
 
-                      <td>
-                        <form action="<?=FRONT_ROOT?>/eventseat/deleteEventSeat" method="POST">
-                        <button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit"class="btn btn-block btn-lg btn-primary btn-sm">Eliminar</button>
-                        </form>
-                      </td>
-                      <td>
-                        <form action="<?=FRONT_ROOT?>/eventseat/getEventSeat" method="POST">
-                        <button name="update" value="<?= $value->getId(); ?>" id="boton1" type="submit" class="btn btn-block btn-lg btn-primary btn-sm">Editar</button></td>
-                        </form>
-                      </td>
+                     
                   </tr>
               <?php } ?>
 

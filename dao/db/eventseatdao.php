@@ -45,7 +45,7 @@ class EventSeatDAO implements IDAO
             $seatTypeDao= new SeatTypeDAO();
             foreach ($resultSet as $row) {
                 $seatType=$seatTypeDao->retrieveById($row["id_seat_type"]);
-                $eventSeat = new EventSeat($row["id_event_seat"], $row["id_calendar"], $seatType, $row["quantity"], $row["price"]);
+                $eventSeat = new EventSeat($row["id_event_seat"], $row["id_calendar"], $seatType, $row["quantity"], $row["price"], $row["remainder"]);
                 array_push($eventSeatList, $eventSeat);
 
         
@@ -71,7 +71,7 @@ class EventSeatDAO implements IDAO
             $resultSet = $this->connection->execute($query, $parameters);
 
             foreach ($resultSet as $row) {
-                $event = new EventSeat($row["id_event_seat"], $row["id_calendar"], $row["id_seat_type"], $row["quantity"], $row["price"]);
+                $event = new EventSeat($row["id_event_seat"], $row["id_calendar"], $row["id_seat_type"], $row["quantity"], $row["price"], $row["remainder"]);
             }
 
             return $eventSeat;
@@ -96,7 +96,7 @@ class EventSeatDAO implements IDAO
             $seatTypeDao= new SeatTypeDAO();
             foreach ($resultSet as $row) {
                 $seatType=$seatTypeDao->retrieveById($row["id_seat_type"]);
-                $eventSeat = new EventSeat($row["id_event_seat"], $row["id_calendar"], $seatType, $row["quantity"], $row["price"]);
+                $eventSeat = new EventSeat($row["id_event_seat"], $row["id_calendar"], $seatType, $row["quantity"], $row["price"],$row["remainder"]);
                 array_push($eventSeatArray, $eventSeat);
 
             }
@@ -124,12 +124,11 @@ class EventSeatDAO implements IDAO
 
     public function update($eventSeat) {
         try {
-            $query = "UPDATE ".$this->tableName." SET quantity = :quantity, price = :price, id_calendar = :id_calendar, id_seat_type = :id_seat_type WHERE id_event_seat = :id_event_seat";
+            $query = "UPDATE ".$this->tableName." SET quantity = :quantity, price = :price, remainder = :remainder WHERE id_event_seat = :id_event_seat";
             $parameters["id_event_seat"] = $eventSeat->getId();
             $parameters["quantity"] = $eventSeat->getQuantity();
             $parameters["price"] = $eventSeat->getPrice();
-            $parameters["id_calendar"] = $eventSeat->getCalendarId();
-            $parameters["id_seat_type"] = $eventSeat->getSeatType()->getId();
+            $parameters["remainder"] = $eventSeat->getRemainder();
 
             $this->connection = Connection::getInstance();
             $this->connection->executeNonQuery($query, $parameters);   

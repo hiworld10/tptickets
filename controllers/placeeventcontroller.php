@@ -61,10 +61,10 @@ class PlaceEventController {
 	}
 
 
-	public function updatePlaceEvent($id, $capacity, $description) {
-		$updatedPlaceEvent = new M_PlaceEvent($id, 1, $capacity, $description);
+	public function updatePlaceEvent($id,$calendarId, $capacity, $description) {
+		$updatedPlaceEvent = new M_PlaceEvent($id, $calendarId, $capacity, $description);
 		$this->dao->update($updatedPlaceEvent);
-		$this->getAll();
+	
 	}
 }
 ?>

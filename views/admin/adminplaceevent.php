@@ -20,7 +20,7 @@
 
     <div id="divform" class="__full-height-perc">
 
-      <?php if(isset($placeEvent)){ ?>
+    <!--   <?php if(isset($placeEvent)){ ?>
 
 
         <form name='formulario' action="<?=FRONT_ROOT?>/placeevent/updatePlaceEvent"  method="POST">
@@ -60,7 +60,7 @@
                 </div>
     </form>
 
-  <?php } ?>
+  <?php } ?> -->
 
   <div id="table">
     <table class="table bg-light-alpha">
@@ -69,7 +69,8 @@
               <thead>     
                  <th>Id</th>  
                  <th>Capacidad</th> 
-                 <th>Descripcion</th>              
+                 <th>Descripcion</th> 
+                 <th>Calendar Id</th>             
              </thead>
              <tbody>
               <?php foreach ($placeEventArray as $value) { ?>
@@ -77,16 +78,9 @@
                      <td><?= $value->getId(); ?></td>
                       <td><?= $value->getCapacity(); ?></td>
                       <td><?= $value->getDescription(); ?></td>
-                      <td>
-                        <form action="<?=FRONT_ROOT?>/placeevent/deletePlaceEvent" method="POST">
-                        <button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit"class="btn btn-block btn-lg btn-primary btn-sm">Eliminar</button>
-                        </form>
-                      </td>
-                      <td>
-                        <form action="<?=FRONT_ROOT?>/placeevent/getPlaceEvent" method="POST">
-                        <button name="update" value="<?= $value->getId(); ?>" id="boton1" type="submit" class="btn btn-block btn-lg btn-primary btn-sm">Editar</button></td>
-                        </form>
-                      </td>
+                      <td><?= $value->getCalendarId(); ?></td>
+
+                      
                   </tr>
               <?php } ?>
 

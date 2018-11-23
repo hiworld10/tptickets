@@ -112,9 +112,8 @@ class PlaceEventDAO  implements IDAO
 
     public function update($place_event) {
         try {
-            $query = "UPDATE ".$this->tableName." SET id_calendar = :id_calendar, capacity = :capacity, description = :description WHERE id_place_event = :id_place_event";
+            $query = "UPDATE ".$this->tableName." SET capacity = :capacity, description = :description WHERE id_place_event = :id_place_event";
             $parameters["id_place_event"] = $place_event->getId();
-            $parameters["id_calendar"] = $place_event->getCalendarId();
             $parameters["capacity"] = $place_event->getCapacity();
             $parameters["description"] = $place_event->getDescription();
 

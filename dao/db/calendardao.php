@@ -26,7 +26,7 @@ class CalendarDAO implements IDAO
 
             $this->connection->executeNonQuery($query, $parameters);
 
-            $this->createArtistXCalendarRow($this->retrieveLastId(), $calendarAttributes["artistIdArray"]);
+            $this->createArtistXCalendarRows($this->retrieveLastId(), $calendarAttributes["artistIdArray"]);
 
 
         }
@@ -136,17 +136,32 @@ class CalendarDAO implements IDAO
     }
 
  
+    public function deleteArtistXCalendarByCalendarId($calendarId) {
+        try {
+            $query = "DELETE FROM artists_calendars WHERE id_calendar = :id_calendar";
+            $parameters["id_calendar"] = $calendarId;
+            $this->connection = Connection::getInstance();
+            $this->connection->executeNonQuery($query, $parameters);   
+        }
+        catch(Exception $ex) {
+            throw $ex;
+        }            
+    }
     public function update($calendarAttributes) {
         try {
             $query = "UPDATE ".$this->tableName." SET date = :date, id_event = :id_event WHERE id_calendar = :id_calendar";
 
-            $parameters["id_calendar"] = $calendarAttributes['id'];
+            $this->deleteArtistXCalendarByCalendarId( $calendarAttributes['id_calendar']);
+
+            $parameters["id_calendar"] = $calendarAttributes['id_calendar'];
             $parameters["date"] = $calendarAttributes['date'];
-            $parameters["id_event"] = $calendarAttributes['event'];
+            $parameters["id_event"] = $calendarAttributes['eventId'];
            
 
             $this->connection = Connection::getInstance();
-            $this->connection->executeNonQuery($query, $parameters);   
+            $this->connection->executeNonQuery($query, $parameters); 
+
+            $this->createArtistXCalendarRows($calendarAttributes['id_calendar'], $calendarAttributes["artistIdArray"]);
         }
         catch(Exception $ex) {
             throw $ex;
@@ -182,7 +197,7 @@ class CalendarDAO implements IDAO
         }  
     }
 
-    public function createArtistXCalendarRow($calendarId, $artistIdArray) {
+    public function createArtistXCalendarRows($calendarId, $artistIdArray) {
         try {
 
 
@@ -204,7 +219,33 @@ class CalendarDAO implements IDAO
 
     }
 
+    public function retrieveArtistXCalendarByArtistId($calendarId)
+    {
+        try {
+            $artistXcalendar= null;
 
+            $query = "SELECT id_artist FROM artists_calendars WHERE id_calendar = :id_calendar";
+
+            $parameters["id_calendar"] = $calendarId;
+
+            $artistDao = new ArtistDAO();
+
+            $this->connection = Connection::getInstance();
+
+            $resultSet = $this->connection->execute($query, $parameters);
+
+            foreach ($resultSet as $row) {
+                $artist = $artistDao->retrieveById($row['id_artist']);
+                array_push($artists_calendar_array, $artist);
+
+            }
+
+            return $artists_calendar_array;
+        }
+        catch(Exception $ex) {
+            throw $ex;
+        }
+    }
 
      public function retrieveArtistsByCalendarId($calendarId) {
         try {

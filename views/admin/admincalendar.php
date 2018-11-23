@@ -104,7 +104,7 @@
    
       <label>Capacidad</label>
      <br>
-       <input type="number"   class="form-control form-control-lg" name="placeEvent[capacity]" value="<?=$calendar->getPlaceEvent()->getCapacity(); ?>">
+       <input type="number"  min="1000" class="form-control form-control-lg" name="placeEvent[capacity]" value="<?=$calendar->getPlaceEvent()->getCapacity(); ?>">
     
 </div>
 
@@ -126,13 +126,18 @@
 
       <div class="form-row col-12 col-md-9 mb-2 mb-md-3">
          
+         <div class="col-12 col-md-2 mb-2 mb-md-3">
+          
+          <input type="hidden" name="eventSeat[<?= $value->getSeatType()->getType(); ?>][idseattype]" class="form-control form-control-lg" value="<?= $value->getSeatType()->getId(); ?>" readonly>
+         </div>
         <label>Capacidad</label>
-         <input type="number"   class="form-control col-md-2 ml-3" name="eventSeat[<?= $value->getSeatType()->getType(); ?>][capacity]" value="<?= $value->getQuantity(); ?>" >
+         <input type="number"  min="0" class="form-control col-md-2 ml-3" name="eventSeat[<?= $value->getSeatType()->getType(); ?>][capacity]" value="<?= $value->getQuantity(); ?>" >
+          
             
 
            <label>Precio</label>
         
-           <input type="number"   class="form-control col-md-2 ml-3" name="eventSeat[<?= $value->getSeatType()->getType(); ?>][price]" value="<?= $value->getPrice(); ?>" >
+           <input type="number" min="0"  class="form-control col-md-2 ml-3" name="eventSeat[<?= $value->getSeatType()->getType(); ?>][price]" value="<?= $value->getPrice(); ?>" >
         
       </div>
 <?php } } ?>
@@ -211,7 +216,7 @@
       <input type="text"   class="form-control form-control-lg" name="placeEvent[description]" placeholder="Ingrese descripcion del lugar..." >
    
  
-       <input type="number"   class="form-control form-control-lg" name="placeEvent[capacity]" placeholder="Ingrese capacidad del lugar..." >
+       <input type="number" min="1000"  class="form-control form-control-lg" name="placeEvent[capacity]" placeholder="Ingrese capacidad del lugar..." >
     
 </div>
 
@@ -227,12 +232,12 @@
       <div class="form-row col-12 col-md-9 mb-2 mb-md-3">
          <input type="hidden"    name="eventSeat[<?= $value->getType(); ?>][seattypeid]" value=<?= $value->getId(); ?> >
         <label>Capacidad</label>
-         <input type="number"   class="form-control col-md-2 ml-3" name="eventSeat[<?= $value->getType(); ?>][capacity]" value=0 >
+         <input type="number" min="0"  class="form-control col-md-2 ml-3" name="eventSeat[<?= $value->getType(); ?>][capacity]" value=0 >
             
 
            <label>Precio</label>
         
-           <input type="number"   class="form-control col-md-2 ml-3" name="eventSeat[<?= $value->getType(); ?>][price]" value=0 >
+           <input type="number" min="0"  class="form-control col-md-2 ml-3" name="eventSeat[<?= $value->getType(); ?>][price]" value=0 >
         
       </div>
        <?php }
