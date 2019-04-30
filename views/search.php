@@ -13,7 +13,7 @@
 <header class="text-white text-center">
       
 
-    
+    <?php if(!isset($calendar)){ ?>
       <div class="container">
         <div class="row">
          
@@ -33,7 +33,7 @@
           </div>
         
       </div>
-
+    <?php  } ?>
 </header>
 
 
@@ -47,12 +47,12 @@
      <tbody>
       <?php foreach ($calendarArray as $value) { ?>
         <tr>
-        
          <td><img src="<?= $value->getEvent()->getImage()->getPath() ?>" height="200" width="350"/></td>
         <td>
           <div class="mt-5">
              <big><big><?= $value->getEvent()->getName(); ?></big></big>
           </div>
+          
         </td>
 
         
@@ -68,7 +68,8 @@
     <?php } ?>
 
   </tbody>
-<?php  } ?>
+<?php  }
+ ?>
 </table>
 
 </div>
