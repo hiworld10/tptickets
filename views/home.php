@@ -4,7 +4,7 @@
 
  <?php include_once(HEADER); ?>
 
-  <body>
+  
 <style type="text/css">
   main{
     background-image: url("<?= IMG_FRONT_ROOT?>/fondologin.jpg");
@@ -49,20 +49,30 @@
       </div>
 
 </header>
-<div  >
+<body>
+
+<div >
 
   <table class="table bg-light-alpha text-center mt-5">
 
-    <?php if(!empty($eventArray)) { ?>
+    <?php if(!empty($calendarArray)) { ?>
      <tbody>
-      <?php foreach ($eventArray as $value) { ?>
+      <?php foreach ($calendarArray as $value) { ?>
    
         <tr>       
-         <td><img src="<?= $value->getImage()->getPath() ?>" height="200" width="350"/></td>
+         <td><img src="<?= $value->getEvent()->getImage()->getPath() ?>" height="200" width="350"/></td>
         <td>
-          <div class="mt-5" >
-             <big><big><?= $value->getName(); ?></big></big>
-          </div>
+          <form id="getCalendar" action="<?=  FRONT_ROOT ."/home/getCalendar"?>"  method="POST">
+
+            <div class="mt-5" >
+              <a href="javascript:document.forms.getCalendar.submit()"> <!-- para que mande el form desde el hipervinc -->
+              <input type="hidden" name="id_calendar" value="<?=$value->getId();  ?>">
+              <big><big><?= $value->getEvent()->getName(); ?></big></big><br>
+              <big><?=$value->getDate(); ?></big>
+             </a>
+            </div>
+          </form>
+          
         </td>
         <td>
           <form action="<?=FRONT_ROOT?>/home/search" method="POST">
@@ -77,13 +87,12 @@
 
   </tbody>
 <?php  } ?>
-</table>
 
 
 </div>
+</table>
 
  </body>
-
 
 
 <?php include_once(FOOTER); ?>
@@ -91,7 +100,5 @@
     <!-- Bootstrap core JavaScript -->
     <script src="/tptickets/vendor/jquery/jquery.min.js"></script>
     <script src="/tptickets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-
 
 </html>
