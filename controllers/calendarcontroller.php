@@ -87,6 +87,11 @@ class CalendarController {
 		}
 	}
 
+	public function getCalendarById($id) { 
+		return $this->dao->retrieveById($id);
+
+	}
+
 	public function getAll() {
 		/*Si el usuario no es admin, la controladora no permitira acceder a los datos.
 		  Ver si es posible imprimir un mensaje de alerta advirtiendo que el usuario no
