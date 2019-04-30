@@ -24,7 +24,7 @@ class HomeController {
     }
 
     public function index() {
-        $eventArray=$this->eventController->getAllSelect();
+        $calendarArray=$this->calendarController->getAllSelect();
         include_once VIEWS_ROOT. '/home.php';
     }
 
@@ -118,6 +118,21 @@ class HomeController {
         } else {
             print_r("NO SE ENCONTRARON RESULTADOS");
 
+            $this->index();
+        }
+    }
+
+
+    public function getCalendar($id_calendar) {
+        
+        $calendarArray=array();//  la vista search esta codeada para que reciba un array
+        $calendar= $this->calendarController->getCalendarById($id_calendar);
+        array_push($calendarArray, $calendar);
+        if($calendarArray != null) {
+            
+            include_once VIEWS_ROOT. '/search.php';
+
+        } else {
             $this->index();
         }
     }
