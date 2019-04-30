@@ -74,3 +74,10 @@ calendarcontroller getcalendar
 admincalendar view update
 calendardao
 eventseatcontroller update
+
+
+30/4
+homecontroller
+calendarcontroller
+view home->>>>> problema no muestra footer reveer!!!!!!!!!
+view search
