@@ -24,7 +24,7 @@ class CategoryController {
 	public function getAll() {
 		
 		$categoryArray = $this->dao->retrieveAll(); 
-		include ADMIN_VIEWS . '/admincategory.php';
+		require ADMIN_VIEWS . '/admincategory.php';
 	}
 
 	public function getAllSelect() {
@@ -42,7 +42,7 @@ class CategoryController {
 	public function getCategory($id) {
 		$category=$this->dao->retrieveById($id);		
 		if(isset($category)) {
-			include ADMIN_VIEWS . '/admincategory.php';
+			require ADMIN_VIEWS . '/admincategory.php';
 		}
 	}
 

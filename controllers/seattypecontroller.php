@@ -30,7 +30,7 @@ class SeatTypeController {
 
 	public function getAll(){
 		$seatTypeArray = $this->dao->retrieveAll(); 
-		include ADMIN_VIEWS . '/adminseattype.php';
+		require ADMIN_VIEWS . '/adminseattype.php';
 	}
 
 	public function getAllSelect(){
@@ -54,7 +54,7 @@ class SeatTypeController {
 		$seattype=$this->dao->retrieveById($id);
 
 		if(isset($seattype)){
-			include ADMIN_VIEWS . '/adminseattype.php';
+			require ADMIN_VIEWS . '/adminseattype.php';
 		}
 
 	}

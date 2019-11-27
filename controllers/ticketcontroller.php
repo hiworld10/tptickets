@@ -21,7 +21,7 @@ use controllers\HomeController as HomeController;
  	/*
 	public function getAll(){
 		$ticketArray = $this->dao->retrieveAll();
-		include ADMIN_VIEWS . '/';		//Falta la view de tickets
+		require ADMIN_VIEWS . '/';		//Falta la view de tickets
 		
 	}
 	*/
@@ -29,7 +29,7 @@ use controllers\HomeController as HomeController;
 	public function getTicket($id) {
 		$ticket = $this->dao->retrieveById($id);
 		if(isset($ticket)){
-			include ADMIN_VIEWS . '/';	//Falta la view de tickets
+			require ADMIN_VIEWS . '/';	//Falta la view de tickets
 		}
 	}
 	*/

@@ -13,8 +13,8 @@
   /**
    * Archivos necesarios de inicio
    */
-  include_once "config/autoload.php";
-  include_once "config/data.php";
+  require "config/autoload.php";
+  require "config/data.php";
 
   /**
    * Alias

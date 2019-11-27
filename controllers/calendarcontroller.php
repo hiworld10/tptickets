@@ -83,7 +83,7 @@ class CalendarController {
 		$eventSeatArray= $this->eventSeatController->getByCalendarId($id);
 		
 		if(isset($calendar)) {
-			include ADMIN_VIEWS . '/admincalendar.php';
+			require ADMIN_VIEWS . '/admincalendar.php';
 		}
 	}
 
@@ -104,7 +104,7 @@ class CalendarController {
 		$artistArray = $this->artistController->getAllSelect();
 		$seatTypeArray = $this->seatTypeController->getAllSelect();
 
-		include ADMIN_VIEWS. '/admincalendar.php';
+		require ADMIN_VIEWS. '/admincalendar.php';
 		}
 		
 	}

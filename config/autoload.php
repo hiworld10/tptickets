@@ -8,7 +8,7 @@ class Autoload {
 
 			$path = str_replace("\\", '/', ROOT.$className) . ".php";
 			$path = strtolower($path);
-			include_once($path);
+			require($path);
 		});
 	}
 }

@@ -30,7 +30,7 @@ class PlaceEventController {
 
 	public function getAll() {
 		$placeEventArray = $this->dao->retrieveAll(); 
-		include ADMIN_VIEWS . '/adminplaceevent.php';
+		require ADMIN_VIEWS . '/adminplaceevent.php';
 	}
 
 	public function getAllSelect() {
@@ -48,7 +48,7 @@ class PlaceEventController {
 	public function getPlaceEvent($id) {
 		$placeEvent=$this->dao->retrieveById($id);		
 		if(isset($placeEvent)) {
-			include ADMIN_VIEWS . '/adminplaceevent.php';
+			require ADMIN_VIEWS . '/adminplaceevent.php';
 		}
 	}
 	public function getPlaceEventById($id) {

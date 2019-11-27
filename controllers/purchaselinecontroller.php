@@ -23,13 +23,13 @@ use controllers\HomeController as HomeController;
 	}
  	public function getAll(){
 		$purchaseLineArray = $this->dao->retrieveAll();
-		include ADMIN_VIEWS . '/adminpurchase.php';
+		require ADMIN_VIEWS . '/adminpurchase.php';
 		
 	}
  	public function getPurchaseLine($id) {
 		$purchase = $this->dao->retrieveById($id);
 		if(isset($purchaseLine)){
-			include ADMIN_VIEWS . '/adminpurchase.php';
+			require ADMIN_VIEWS . '/adminpurchase.php';
 		}
 	}
  	public function deletePurchaseLine($id){

@@ -25,7 +25,7 @@ class HomeController {
 
     public function index() {
         $calendarArray=$this->calendarController->getAllSelect();
-        include_once VIEWS_ROOT. '/home.php';
+        require VIEWS_ROOT. '/home.php';
     }
 
 
@@ -54,14 +54,14 @@ class HomeController {
 
         if($showHome) {
             if($user->getAdmin() == "true") {
-                include_once ADMIN_VIEWS. '/admin.php';
+                require ADMIN_VIEWS. '/admin.php';
             } else {
-                include_once VIEWS_ROOT. '/home.php';
+                require VIEWS_ROOT. '/home.php';
             }   
         } else {
                 //vista login
             print_r($alert);
-            include_once VIEWS_ROOT. '/login.php';
+            require VIEWS_ROOT. '/login.php';
         }
     }
 
@@ -113,7 +113,7 @@ class HomeController {
         if($calendarArray != null) {
                                 
             //lo encontro lo muestro
-            include_once VIEWS_ROOT. '/search.php';
+            require VIEWS_ROOT. '/search.php';
 
         } else {
             print_r("NO SE ENCONTRARON RESULTADOS");
@@ -130,7 +130,7 @@ class HomeController {
         array_push($calendarArray, $calendar);
         if($calendarArray != null) {
             
-            include_once VIEWS_ROOT. '/search.php';
+            require VIEWS_ROOT. '/search.php';
 
         } else {
             $this->index();

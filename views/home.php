@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
- <?php include_once(HEADER); ?>
+ <?php require(HEADER); ?>
 
   
 <style type="text/css">
@@ -17,7 +17,7 @@
 </style>
 
 
-<?php include_once(NAVBAR); ?>
+<?php require(NAVBAR); ?>
 
 
 
@@ -95,7 +95,7 @@
  </body>
 
 
-<?php include_once(FOOTER); ?>
+<?php require(FOOTER); ?>
 
     <!-- Bootstrap core JavaScript -->
     <script src="/tptickets/vendor/jquery/jquery.min.js"></script>

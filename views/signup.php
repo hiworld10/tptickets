@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include_once(HEADER); ?>
+<?php require(HEADER); ?>
 
   <body>
 
- <?php include_once(NAVBAR); ?>
+ <?php require(NAVBAR); ?>
 
 <style type="text/css">
   main{
@@ -48,7 +48,7 @@
           </div>
      </main>
 
-    <?php include_once(FOOTER); ?>
+    <?php require(FOOTER); ?>
 
    
     

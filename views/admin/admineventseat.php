@@ -4,17 +4,17 @@
 
   <html lang="en" class="__full-height-perc">
 
-    <?php include_once(VIEWS_ROOT.HEADER); ?>
+    <?php require(VIEWS_ROOT.HEADER); ?>
 
     <body class="__full-height-perc">
 
-       <?php include_once(VIEWS_ROOT.NAVBAR); ?>
+       <?php require(VIEWS_ROOT.NAVBAR); ?>
 
 
  
 
   <div id="container" class="__full-height-perc">
-      <?php include_once(VIEWS_ROOT.MENUADMIN); ?>
+      <?php require(VIEWS_ROOT.MENUADMIN); ?>
 
 
 

@@ -39,7 +39,7 @@ class EventController {
 		$event = $this->dao->retrieveById($id);
 		$categoryArray = $this->categoryController->getAllSelect();	
 		if(isset($event) && isset($categoryArray)) {
-			include ADMIN_VIEWS . '/adminevent.php';
+			require ADMIN_VIEWS . '/adminevent.php';
 		}
 	}
 
@@ -50,7 +50,7 @@ class EventController {
 	public function getAll() {
 		$eventArray = $this->dao->retrieveAll();
 		$categoryArray = $this->categoryController->getAllSelect();
-		include ADMIN_VIEWS. '/adminevent.php';
+		require ADMIN_VIEWS. '/adminevent.php';
 	}
 
 	public function getAllSelect() {

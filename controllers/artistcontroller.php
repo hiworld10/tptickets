@@ -31,7 +31,7 @@ class ArtistController {
 			$this->userController->index();
 		} else {
 			$artistArray = $this->dao->retrieveAll();
-			include ADMIN_VIEWS . '/adminartist.php';
+			require ADMIN_VIEWS . '/adminartist.php';
 		}
 	}
 
@@ -47,7 +47,7 @@ class ArtistController {
 	public function getArtist($id){
 		$artist=$this->dao->retrieveById($id);		
 		if(isset($artist)){
-			include ADMIN_VIEWS . '/adminartist.php';
+			require ADMIN_VIEWS . '/adminartist.php';
 		}
 	}
 

@@ -46,14 +46,14 @@ class UserController {
 
 	public function getAll() {
 		$userArray = $this->dao->retrieveAll();
-		include ADMIN_VIEWS . '/adminuser.php';
+		require ADMIN_VIEWS . '/adminuser.php';
 		
 	}
 
 	public function getUser($id) {
 		$user = $this->dao->retrieveById($id);
 		if(isset($user)){
-			include ADMIN_VIEWS . '/adminuser.php';
+			require ADMIN_VIEWS . '/adminuser.php';
 		}
 	}
 
@@ -120,14 +120,14 @@ class UserController {
 
 
 	public function index() {
-		include VIEWS_ROOT. '/login.php';
+		require VIEWS_ROOT. '/login.php';
 	}
 
 	public function signup() {
-		include VIEWS_ROOT. '/signup.php';
+		require VIEWS_ROOT. '/signup.php';
 	}
 	public function adminview() {
-		include ADMIN_VIEWS. '/admin.php';
+		require ADMIN_VIEWS. '/admin.php';
 	}
 
 

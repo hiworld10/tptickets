@@ -30,14 +30,14 @@ class PurchaseController {
 
 	public function getAll(){
 		$purchaseArray = $this->dao->retrieveAll();
-		include ADMIN_VIEWS . '/adminpurchase.php';
+		require ADMIN_VIEWS . '/adminpurchase.php';
 		
 	}
 
 	public function getPurchase($id) {
 		$purchase = $this->dao->retrieveById($id);
 		if(isset($purchase)){
-			include ADMIN_VIEWS . '/adminpurchase.php';
+			require ADMIN_VIEWS . '/adminpurchase.php';
 		}
 	}
 
