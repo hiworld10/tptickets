@@ -16,7 +16,8 @@ class Photo {
          if (!empty($photo)) {
 
             if (in_array($folder, $folders)) {
-               $imageDirectory = IMG_UPLOADS. '\\'. $folder . '\\';
+               $imageDirectory = IMG_UPLOADS. '/'. $folder . '/';
+               echo $imageDirectory;
 
 
                if(!file_exists($imageDirectory)){
