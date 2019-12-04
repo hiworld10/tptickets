@@ -10,9 +10,11 @@
 
     <title>IziTicket - Página principal</title>
 
+
+
     <!-- Bootstrap core CSS -->
 
-    <link href="<?= FRONT_ROOT ?>/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<?php /*   <link href="<?= FRONT_ROOT ?>/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="<?= FRONT_ROOT ?>/css/admin.css" >
 
     <!-- Custom fonts for this template -->
@@ -22,6 +24,9 @@
 
     <!-- Custom styles for this template -->
     <link href="<?= FRONT_ROOT ?>/css/landing-page.min.css" rel="stylesheet">
-</head>
+</head> 
+  */ ?>
+
+  <link rel="stylesheet" href="/vendor/bootstrap-4.4.1-dist/css/bootstrap.css">
 
  <link rel="stylesheet" type="text/css" href="<?=FRONT_ROOT?>/css/admin.css" >
