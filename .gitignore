@@ -1,3 +1,2 @@
-.htaccess
-vendor/*
 img/events/*
+vendor/old/*
