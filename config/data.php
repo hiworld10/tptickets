@@ -27,4 +27,4 @@ define('MOV_UPLOADS_PATH', FRONT_ROOT . '/content/uploads/movies');
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'tptickets');
 define('DB_USER', 'root');
-define('DB_PASS', '');
+define('DB_PASS', 'root');
