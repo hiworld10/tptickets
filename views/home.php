@@ -74,6 +74,7 @@
           </form>
           
         </td>
+        <?php } ?>
         <td>
           <form action="<?=FRONT_ROOT?>/home/search" method="POST">
             <button name="search" value="<?= $value->getName(); ?>" id="boton1" type="submit" class="btn btn-block btn-lg btn-primary btn-sm mt-5">Ver mas</button></td>
@@ -83,7 +84,7 @@
       </tr>
       
    
-    <?php } ?>
+    
 
   </tbody>
 <?php  } ?>
