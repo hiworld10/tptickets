@@ -77,7 +77,7 @@ class CalendarController {
 	public function getCalendar($id) { 
 		$calendar=$this->dao->retrieveById($id);
 		$eventArray = $this->eventController->getAllSelect();
-		$artistArray = $this->artistController->getAllSelect();
+		$artistArray = $this->artistController->getAll();
 		$seatTypeArray = $this->seatTypeController->getAllSelect();
 
 		$eventSeatArray= $this->eventSeatController->getByCalendarId($id);
@@ -101,7 +101,7 @@ class CalendarController {
 		} else {
 			$calendarArray = $this->dao->retrieveAll();
 		    $eventArray = $this->eventController->getAllSelect();
-		    $artistArray = $this->artistController->getAllSelect();
+		    $artistArray = $this->artistController->getAll();
 		    $seatTypeArray = $this->seatTypeController->getAllSelect();
 
 		    require ADMIN_VIEWS. '/admincalendar.php';
