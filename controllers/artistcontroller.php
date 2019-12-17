@@ -1,10 +1,10 @@
 <?php 
 namespace controllers;
 
-use model\Artist as M_Artist;
+use model\Artist;
 use dao\db\ArtistDAO as DB_ArtistDAO;
 use dao\lists\ArtistDAO as List_ArtistDAO;
-use controllers\UserController as UserController;
+use controllers\UserController;
 
 class ArtistController {
 
@@ -17,9 +17,8 @@ class ArtistController {
 	}
 
 	public function addArtist($artistName) {
-
-		$m_artist = new M_Artist(null, $artistName);
-		$this->dao->create($m_artist);
+		$artist = new Artist(null, $artistName);
+		$this->dao->create($artist);
 		$this->getAll();
 	}
 
@@ -35,37 +34,31 @@ class ArtistController {
 		}
 	}
 
-	public function getAllSelect(){
+	public function getAllSelect() {
 		return $this->dao->retrieveAll();
 	}
 
-	public function deleteArtist($id){
+	public function deleteArtist($id) {
 		$this->dao->delete($id);
 		$this->getAll();
 	}
 
-	public function getArtist($id){
+	public function getArtist($id) {
 		$artist=$this->dao->retrieveById($id);		
 		if(isset($artist)){
 			require ADMIN_VIEWS . '/adminartist.php';
 		}
 	}
 
-	public function getArtistById($id){
+	public function getArtistById($id) {
 		$artist=$this->dao->retrieveById($id);		
-
 	}
 
-
-
-	
-	public function updateArtist($id, $newName){
-		$updatedArtist = new M_Artist($id, $newName);
+	public function updateArtist($id, $newName) {
+		$updatedArtist = new Artist($id, $newName);
 		$this->dao->update($updatedArtist);
 		$this->getAll();
 	}
-
-	
 }
 
 ?>

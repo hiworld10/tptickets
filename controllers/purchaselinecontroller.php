@@ -1,10 +1,10 @@
 <?php 
 namespace controllers;
- use model\PurchaseLine as M_PurchaseLine;
+ use model\PurchaseLine;
 use dao\lists\PurchaseLineDAO as List_PurchaseLineDAO;
 use dao\db\PurchaseLineDAO as DB_PurchaseLineDAO;
-use controllers\TicketController as TicketController;
-use controllers\HomeController as HomeController;
+use controllers\TicketController;
+use controllers\HomeController;
  class PurchaseLineController {
  	private $dao;
  	private $ticketController;
@@ -38,7 +38,7 @@ use controllers\HomeController as HomeController;
 	}
  	public function updatePurchaseLine($id, $amount, $ticketid, $purchaseid) {
  		$newTicket = $this->ticketcontroller->getTicketSelect($ticketid);
-		$updatedPurchaseLine = new M_PurchaseLine($id, $amount, $newticket, $purchaseid);
+		$updatedPurchaseLine = new PurchaseLine($id, $amount, $newticket, $purchaseid);
 		$this->dao->update($updatedPurchaseLine);
 		$this->getAll();
 	}

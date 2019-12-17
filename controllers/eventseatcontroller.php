@@ -1,9 +1,9 @@
 <?php 
 namespace controllers;
-use model\EventSeat as M_EventSeat;
+use model\EventSeat;
 use dao\lists\EventSeatDAO as List_EventSeatDAO;
 use dao\db\EventSeatDAO as DB_EventSeatDAO;
-use controllers\SeatTypeController as SeatTypeController;
+use controllers\SeatTypeController;
 
 class EventSeatController {
 
@@ -18,14 +18,14 @@ class EventSeatController {
 
 	public function addEventSeat($calendarId, $seatType, $availableSeats, $price) {
         $remainder = $availableSeats;
-		$m_eventSeat = new M_EventSeat(null, $calendarId, $seatType, $availableSeats, $price, $remainder);
-		$this->dao->create($m_eventSeat);
+		$eventSeat = new EventSeat(null, $calendarId, $seatType, $availableSeats, $price, $remainder);
+		$this->dao->create($eventSeat);
 	}
 
 	public function addEventSeatAndView($calendarId, $seatType, $availableSeats, $price) {
         $remainder = $availableSeats;
-		$m_eventSeat = new M_EventSeat(null,$calendarId, $seatType, $availableSeats, $price, $remainder);
-		$this->dao->create($m_eventSeat);
+		$eventSeat = new EventSeat(null,$calendarId, $seatType, $availableSeats, $price, $remainder);
+		$this->dao->create($eventSeat);
 		$this->getAll();
 	}
 
@@ -57,7 +57,7 @@ class EventSeatController {
 
         $remainder = $availableSeats;
 
-		$updatedEventSeat = new M_EventSeat($id, $calendarId, $seatType, $availableSeats, $price, $remainder);
+		$updatedEventSeat = new EventSeat($id, $calendarId, $seatType, $availableSeats, $price, $remainder);
 		
 		$this->dao->update($updatedEventSeat);
 		

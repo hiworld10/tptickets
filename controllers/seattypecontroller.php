@@ -1,7 +1,7 @@
 <?php 
 namespace controllers;
 
-use model\SeatType as M_SeatType;
+use model\SeatType;
 use dao\lists\SeatTypeDAO as List_SeatTypeDAO;
 use dao\db\SeatTypeDAO as DB_SeatTypeDAO;
 
@@ -16,15 +16,15 @@ class SeatTypeController {
 
 	public function addSeatType($type) {
 
-		$m_seattype = new M_SeatType(null, $type);
-		$this->dao->create($m_seattype);
+		$seatType = new SeatType(null, $type);
+		$this->dao->create($seatType);
 	
 	}
 
 	public function addSeatTypeandView($type) {
 
-		$m_seattype = new M_SeatType(null, $type);
-		$this->dao->create($m_seattype);
+		$seatType = new SeatType(null, $type);
+		$this->dao->create($seatType);
 		$this->getAll();
 	}
 
@@ -61,7 +61,7 @@ class SeatTypeController {
 
 
 	public function updateSeatType($id, $newType) {
-		$updatedSeatType = new M_SeatType($id, $newType);
+		$updatedSeatType = new SeatType($id, $newType);
 		$this->dao->update($updatedSeatType);
 		$this->getAll();
 	}

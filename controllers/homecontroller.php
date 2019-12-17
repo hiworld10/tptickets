@@ -1,17 +1,12 @@
 <?php 
 namespace controllers;
 
-use model\User as M_User;
-use controllers\UserController as UserController;
-use controllers\ArtistController as ArtistController;
-use controllers\CalendarController as CalendarController;
-use controllers\EventController as EventController;
+use model\User;
+use controllers\UserController;
+use controllers\ArtistController;
+use controllers\CalendarController;
+use controllers\EventController;
 
-/**
- *
- */
-
-//ESTA INDENTACION ES REPULSIVA, CORREGIR
 class HomeController {
 
     private $user;
@@ -75,15 +70,15 @@ class HomeController {
         if($this->userController->checkEmail($email)) {
             //checkeo que password sea mayor a 6 caracteres
             if($this->userController->checkPassword($password)) {
-                $m_user = new M_User(null, $email, $password, $firstname, $lastname, $admin);
+                $user = new User(null, $email, $password, $firstname, $lastname, $admin);
 
                 if(isset($admin)) {
-                    $m_user->setAdmin($admin);
+                    $user->setAdmin($admin);
                 }
 
             try {
 
-                if($this->userController->addUser($m_user)) {
+                if($this->userController->addUser($user)) {
                     $success = "Gracias por registrarte. Ya podes iniciar sesión.";
                     
                 } else {

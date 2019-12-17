@@ -1,16 +1,16 @@
 <?php 
 namespace controllers;
-use config\Singleton as Singleton;
-use model\Calendar as M_Calendar;
-use model\EventSeat as M_EventSeat;
+use config\Singleton;
+use model\Calendar;
+use model\EventSeat;
 use dao\lists\CalendarDAO as List_CalendarDAO;
 use dao\db\CalendarDAO as DB_CalendarDAO;
-use controllers\EventController as EventController;
-use controllers\ArtistController as ArtistController;
-use controllers\PlaceEventController as PlaceEventController;
-use controllers\SeatTypeController as SeatTypeController;
-use controllers\EventSeatController as EventSeatController;
-use controllers\UserController as UserController;
+use controllers\EventController;
+use controllers\ArtistController;
+use controllers\PlaceEventController;
+use controllers\SeatTypeController;
+use controllers\EventSeatController;
+use controllers\UserController;
 
 
 class CalendarController {
@@ -100,11 +100,11 @@ class CalendarController {
 			$this->userController->index();
 		} else {
 			$calendarArray = $this->dao->retrieveAll();
-		$eventArray = $this->eventController->getAllSelect();
-		$artistArray = $this->artistController->getAllSelect();
-		$seatTypeArray = $this->seatTypeController->getAllSelect();
+		    $eventArray = $this->eventController->getAllSelect();
+		    $artistArray = $this->artistController->getAllSelect();
+		    $seatTypeArray = $this->seatTypeController->getAllSelect();
 
-		require ADMIN_VIEWS. '/admincalendar.php';
+		    require ADMIN_VIEWS. '/admincalendar.php';
 		}
 		
 	}
@@ -132,24 +132,23 @@ class CalendarController {
 			{
 				echo "ERROR: La capacidad total fue excedida.";
 				$this->getAll();
-			}else
-				{
+			} else {
 
 			//Update de calendario en bd
-					$calendarAttributes= array("id_calendar"=>$id_calendar, "date"=>$date, "eventId"=> $eventId, "artistIdArray" => $artistIdArray);
-					$this->dao->update($calendarAttributes);
-			
+				$calendarAttributes= array("id_calendar"=>$id_calendar, "date"=>$date, "eventId"=> $eventId, "artistIdArray" => $artistIdArray);
+				$this->dao->update($calendarAttributes);
+		
 
-					foreach ($eventSeatAttributesArray as $value) {
-						$seatType = $this->seatTypeController->getSeatTypeById($value['idseattype']);
-	
-						$this->eventSeatController->updateEventSeat($value['ideventseat'], $id_calendar, $seatType, $value['capacity'], $value['price']);
+				foreach ($eventSeatAttributesArray as $value) {
+					$seatType = $this->seatTypeController->getSeatTypeById($value['idseattype']);
 
-					}
+					$this->eventSeatController->updateEventSeat($value['ideventseat'], $id_calendar, $seatType, $value['capacity'], $value['price']);
 
-					$this->placeEventController->updatePlaceEvent($placeEventId, $id_calendar, $placeEventAttributesArray['capacity'],$placeEventAttributesArray['description']);
+				}
 
-					$this->getAll();
+				$this->placeEventController->updatePlaceEvent($placeEventId, $id_calendar, $placeEventAttributesArray['capacity'],$placeEventAttributesArray['description']);
+
+				$this->getAll();
 			}	
 		}
 

@@ -1,9 +1,9 @@
 <?php 
 namespace controllers;
- use model\Ticket as Ticket;
+ use model\Ticket;
 use dao\lists\TicketDAO as List_TicketDAO;
 use dao\db\TicketDAO as DB_TicketDAO;
-use controllers\HomeController as HomeController;
+use controllers\HomeController;
  class TicketController {
  	private $dao;
  	public function __construct() {

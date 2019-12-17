@@ -1,11 +1,11 @@
 <?php
 
 namespace controllers;
-use model\Event as M_Event;
-use model\Photo as Photo;
+use model\Event;
+use model\Photo;
 use dao\lists\EventDAO as List_EventDAO;
 use dao\db\EventDAO as DB_EventDAO;
-use controllers\CategoryController as CategoryController;
+use controllers\CategoryController;
 
 class EventController {
 
@@ -30,8 +30,8 @@ class EventController {
 		$rootPhoto->uploadPhoto($photo, "events");
 
 		$category = $this->categoryController->getCategorySelect($categoryId);
-		$m_event = new M_event(null, $name, $category, $rootPhoto);
-		$this->dao->create($m_event);
+		$event = new Event(null, $name, $category, $rootPhoto);
+		$this->dao->create($event);
 		$this->getAll();
 	}
 
@@ -74,7 +74,7 @@ class EventController {
 		$rootPhoto->uploadPhoto($photo, "events");
 
 		$newCategory = $this->categoryController->getCategorySelect($categoryId);
-		$updatedEvent = new M_Event($id, $newName, $newCategory, $rootPhoto);
+		$updatedEvent = new Event($id, $newName, $newCategory, $rootPhoto);
 		$this->dao->update($updatedEvent);
 		$this->getAll();
 	}

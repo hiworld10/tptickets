@@ -1,10 +1,10 @@
 <?php 
 namespace controllers;
 
-use model\User as M_User;
+use model\User;
 use dao\lists\UserDAO as List_UserDAO;
 use dao\db\UserDAO as DB_UserDAO;
-use controllers\HomeController as HomeController;
+use controllers\HomeController;
 
 
 
@@ -21,13 +21,13 @@ class UserController {
 	}
 
 
-	public function addUser($_user) {
+	public function addUser($user) {
 
 		try {
-			$this->dao->create($_user);
+			$this->dao->create($user);
 			if(!$this->checkSession() )// si no esta en session significa que no es admin, muestro home
             {	
-            	$this->setSession($_user);
+            	$this->setSession($user);
             	$home= new HomeController();
             	$home->index();
               }else{
@@ -69,7 +69,7 @@ class UserController {
 		
 		//checkeo que password sea mayor a 6 caracteres
 		if($this->checkPassword($pass)) {
-			$updatedUser = new M_User($id, $email, $pass, $firstname, $lastname, $admin);
+			$updatedUser = new User($id, $email, $pass, $firstname, $lastname, $admin);
 
 			if(isset($admin)){
 				$updatedUser->setAdmin($admin);

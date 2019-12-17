@@ -1,7 +1,7 @@
 <?php 
 namespace controllers;
 
-use model\PlaceEvent as M_PlaceEvent;
+use model\PlaceEvent;
 use dao\lists\PlaceEventDAO as List_PlaceEventDAO;
 use dao\db\PlaceEventDAO as DB_PlaceEventDAO;
 
@@ -16,14 +16,14 @@ class PlaceEventController {
 
 	public function addPlaceEvent($calendarId, $capacity, $description ) {
 
-		$m_placeEvent = new M_PlaceEvent(null, $calendarId, $capacity, $description);
-		$this->dao->create($m_placeEvent);
+		$placeEvent = new PlaceEvent(null, $calendarId, $capacity, $description);
+		$this->dao->create($placeEvent);
 	}
 
 	public function addPlaceEventAndView($calendarId, $capacity, $description ) {
 
-		$m_placeEvent = new M_PlaceEvent(null, $calendarId, $capacity, $description);
-		$this->dao->create($m_placeEvent);
+		$placeEvent = new PlaceEvent(null, $calendarId, $capacity, $description);
+		$this->dao->create($placeEvent);
 		$this->getAll();
 	}
 
@@ -62,7 +62,7 @@ class PlaceEventController {
 
 
 	public function updatePlaceEvent($id,$calendarId, $capacity, $description) {
-		$updatedPlaceEvent = new M_PlaceEvent($id, $calendarId, $capacity, $description);
+		$updatedPlaceEvent = new PlaceEvent($id, $calendarId, $capacity, $description);
 		$this->dao->update($updatedPlaceEvent);
 	
 	}

@@ -1,10 +1,10 @@
 <?php 
 namespace controllers;
 
-use model\Purchase as M_Purchase;
+use model\Purchase;
 use dao\lists\PurchaseDAO as List_PurchaseDAO;
 use dao\db\PurchaseDAO as DB_PurchaseDAO;
-use controllers\HomeController as HomeController;
+use controllers\HomeController;
 
 
 class PurchaseController {
@@ -49,7 +49,7 @@ class PurchaseController {
 
 	public function updatePurchase($id, $date, $purchaseline) {
 
-		$updatedPurchase = new M_Purchase($id, $date, $purchaseline);
+		$updatedPurchase = new Purchase($id, $date, $purchaseline);
 		$this->dao->update($updatedPurchase);
 		$this->getAll();
 	}
