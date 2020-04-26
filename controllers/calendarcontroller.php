@@ -76,7 +76,7 @@ class CalendarController {
 
 	public function getCalendar($id) { 
 		$calendar=$this->dao->retrieveById($id);
-		$eventArray = $this->eventController->getAllSelect();
+		$eventArray = $this->eventController->getAll();
 		$artistArray = $this->artistController->getAll();
 		$seatTypeArray = $this->seatTypeController->getAllSelect();
 
@@ -100,7 +100,7 @@ class CalendarController {
 			$this->userController->index();
 		} else {
 			$calendarArray = $this->dao->retrieveAll();
-		    $eventArray = $this->eventController->getAllSelect();
+		    $eventArray = $this->eventController->getAll();
 		    $artistArray = $this->artistController->getAll();
 		    $seatTypeArray = $this->seatTypeController->getAllSelect();
 

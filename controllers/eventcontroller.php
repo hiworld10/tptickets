@@ -18,7 +18,13 @@ class EventController {
 		
 	}
 
-	public function addEvent($name, $categoryId) {
+    public function index() {
+        $eventArray = $this->dao->retrieveAll();
+        $categoryArray = $this->categoryController->getAll();
+        require ADMIN_VIEWS. '/adminevent.php';
+    }
+
+	public function add($name, $categoryId) {
 		if (!empty($_FILES['photo']['name'])) {
 			$photo = $_FILES['photo'];
 
@@ -32,10 +38,10 @@ class EventController {
 		$category = $this->categoryController->get($categoryId);
 		$event = new Event(null, $name, $category, $rootPhoto);
 		$this->dao->create($event);
-		$this->getAll();
+		$this->index();
 	}
 
-	public function getEvent($id) { 
+	public function edit($id) { 
 		$event = $this->dao->retrieveById($id);
 		$categoryArray = $this->categoryController->getAll();	
 		if(isset($event) && isset($categoryArray)) {
@@ -43,26 +49,19 @@ class EventController {
 		}
 	}
 
-	public function getEventById($id) { 
-		return $this->dao->retrieveById($id);
-	}
-
 	public function getAll() {
-		$eventArray = $this->dao->retrieveAll();
-		$categoryArray = $this->categoryController->getAll();
-		require ADMIN_VIEWS. '/adminevent.php';
-	}
-
-	public function getAllSelect() {
 		return $this->dao->retrieveAll();
 	}
 
-	public function deleteEvent($id){
-		$this->dao->delete($id);
-		$this->getAll();
-	}
+    public function getById($id) { 
+        return $this->dao->retrieveById($id);
+    }
 
-	public function updateEvent($id, $newName, $categoryId) {
+    public function getByString($string) {
+        return $this->dao->retrieveByString($string);
+    }
+
+	public function update($id, $newName, $categoryId) {
 		if (!empty($_FILES['photo']['name'])) {
 			$photo = $_FILES['photo'];
 
@@ -76,12 +75,12 @@ class EventController {
 		$newCategory = $this->categoryController->get($categoryId);
 		$updatedEvent = new Event($id, $newName, $newCategory, $rootPhoto);
 		$this->dao->update($updatedEvent);
-		$this->getAll();
+		$this->index();
 	}
-
-    public function getEventsByString($string) {
-        return $this->dao->retrieveByString($string);
-    }
 	
+    public function delete($id) {
+        $this->dao->delete($id);
+        $this->index();
+    }
 }
 ?>
