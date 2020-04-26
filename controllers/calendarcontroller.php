@@ -33,12 +33,27 @@ class CalendarController {
 		$this->userController = new UserController();
 	}
 
-	public function addCalendar($date, $eventId, $artistIdArray, $placeEventAttributesArray, $eventSeatAttributesArray) {
+    public function index() {
+        /*Si el usuario no es admin, la controladora no permitira acceder a los datos.
+          Ver si es posible imprimir un mensaje de alerta advirtiendo que el usuario no
+          tiene permiso para acceder a la pagina. Aplicar esta comprobacion en los otros metodos*/
+        if (!$this->userController->isUserAdmin()) {
+            $this->userController->index();
+        } else {
+            $calendarArray = $this->dao->retrieveAll();
+            $eventArray = $this->eventController->getAll();
+            $artistArray = $this->artistController->getAll();
+            $seatTypeArray = $this->seatTypeController->getAllSelect();
 
-		
+            require ADMIN_VIEWS. '/admincalendar.php';
+        }
+        
+    }
+	public function add($date, $eventId, $artistIdArray, $placeEventAttributesArray, $eventSeatAttributesArray) {
+
 		if ($this->isBeforeNow($date)) {
 			echo "ERROR: la fecha ya es pasada.";
-			$this->getAll();
+			$this->index();
 		} else {
 			$eventSeatSum= 0;
 			//Recorro eventSeat y guardo sus capacidades para sumarlas en una variable
@@ -50,7 +65,7 @@ class CalendarController {
 			if($eventSeatSum > $placeEventAttributesArray['capacity'])
 			{
 				echo "ERROR: La capacidad total fue excedida.";
-				$this->getAll();
+				$this->index();
 			}else
 				{
 
@@ -69,57 +84,42 @@ class CalendarController {
 
 					$this->placeEventController->addPlaceEvent($calendarId, $placeEventAttributesArray['capacity'],$placeEventAttributesArray['description']);
 
-					$this->getAll();
+					$this->index();
 			}	
 		}
 	}
 
-	public function getCalendar($id) { 
-		$calendar=$this->dao->retrieveById($id);
-		$eventArray = $this->eventController->getAll();
-		$artistArray = $this->artistController->getAll();
-		$seatTypeArray = $this->seatTypeController->getAllSelect();
-
-		$eventSeatArray= $this->eventSeatController->getByCalendarId($id);
-		
-		if(isset($calendar)) {
-			require ADMIN_VIEWS . '/admincalendar.php';
-		}
-	}
-
-	public function getCalendarById($id) { 
+	public function getById($id) { 
 		return $this->dao->retrieveById($id);
 
 	}
 
-	public function getAll() {
-		/*Si el usuario no es admin, la controladora no permitira acceder a los datos.
-		  Ver si es posible imprimir un mensaje de alerta advirtiendo que el usuario no
-		  tiene permiso para acceder a la pagina. Aplicar esta comprobacion en los otros metodos*/
-		if (!$this->userController->isUserAdmin()) {
-			$this->userController->index();
-		} else {
-			$calendarArray = $this->dao->retrieveAll();
-		    $eventArray = $this->eventController->getAll();
-		    $artistArray = $this->artistController->getAll();
-		    $seatTypeArray = $this->seatTypeController->getAllSelect();
+    public function getByString($string) {
+        return $this->dao->retrieveCalendarsByString($string);
+    }
 
-		    require ADMIN_VIEWS. '/admincalendar.php';
-		}
-		
-	}
+    public function getAll() {
+        return $this->dao->retrieveAll();
+    }
 
-	public function deleteCalendar($id){
-		$this->dao->delete($id);
-		$this->getAll();
-	}
+    public function edit($id) { 
+        $calendar = $this->dao->retrieveById($id);
+        $eventArray = $this->eventController->getAll();
+        $artistArray = $this->artistController->getAll();
+        $seatTypeArray = $this->seatTypeController->getAllSelect();
+        $eventSeatArray = $this->eventSeatController->getByCalendarId($id);
+        
+        if(isset($calendar)) {
+            require ADMIN_VIEWS . '/admincalendar.php';
+        }
+    }
 
-	public function updateCalendar($id_calendar, $date, $eventId, $artistIdArray, $placeEventId, $placeEventAttributesArray, $eventSeatAttributesArray) {
+	public function update($id_calendar, $date, $eventId, $artistIdArray, $placeEventId, $placeEventAttributesArray, $eventSeatAttributesArray) {
 
 		
 		if ($this->isBeforeNow($date)) {
 			echo "ERROR: la fecha ya es pasada.";
-			$this->getAll();
+			$this->index();
 		} else {
 			$eventSeatSum= 0;
 			//Recorro eventSeat y guardo sus capacidades para sumarlas en una variable
@@ -131,7 +131,7 @@ class CalendarController {
 			if($eventSeatSum > $placeEventAttributesArray['capacity'])
 			{
 				echo "ERROR: La capacidad total fue excedida.";
-				$this->getAll();
+				$this->index();
 			} else {
 
 			//Update de calendario en bd
@@ -148,24 +148,20 @@ class CalendarController {
 
 				$this->placeEventController->updatePlaceEvent($placeEventId, $id_calendar, $placeEventAttributesArray['capacity'],$placeEventAttributesArray['description']);
 
-				$this->getAll();
+				$this->index();
 			}	
 		}
 
 	}
 
-	public function getAllSelect(){
-		return $this->dao->retrieveAll();
-	}
+    public function delete($id) {
+        $this->dao->delete($id);
+        $this->index();
+    }
 
 	/*Comprueba que la fecha introducida no sea pasada a la actual*/
-	public function isBeforeNow($date) {
+	private function isBeforeNow($date) {
 		return (strtotime($date) < strtotime('now'));
 	}
-
-    public function getCalendarsByString($string) {
-        return $this->dao->retrieveCalendarsByString($string);
-    }
-	
 }
 ?>

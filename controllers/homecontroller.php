@@ -5,7 +5,6 @@ use model\User;
 use controllers\UserController;
 use controllers\ArtistController;
 use controllers\CalendarController;
-use controllers\EventController;
 
 class HomeController {
 
@@ -15,14 +14,12 @@ class HomeController {
     function __construct() {
         $this->userController = new UserController();
         $this->calendarController = new CalendarController();
-        $this->eventController = new EventController();
     }
 
     public function index() {
-        $calendarArray=$this->calendarController->getAllSelect();
+        $calendarArray=$this->calendarController->getAll();
         require VIEWS_ROOT. '/home.php';
     }
-
 
     public function login($email = null, $password = null) {
 
@@ -94,34 +91,24 @@ class HomeController {
 
     }
 
-//busca por nombre artista, nombre evento, lugar
+    //busca por nombre artista, nombre evento, lugar
     public function search($string) {
 
-  
-           $calendarArray= $this->calendarController->getCalendarsByString($string);
+        $calendarArray= $this->calendarController->getByString($string);
 
-      
-          
-
-
-
-        if($calendarArray != null) {
-                                
+        if($calendarArray != null) { 
             //lo encontro lo muestro
             require VIEWS_ROOT. '/search.php';
-
         } else {
             print_r("NO SE ENCONTRARON RESULTADOS");
-
             $this->index();
         }
     }
 
-
     public function getCalendar($id_calendar) {
         
         $calendarArray=array();//  la vista search esta codeada para que reciba un array
-        $calendar= $this->calendarController->getCalendarById($id_calendar);
+        $calendar= $this->calendarController->getById($id_calendar);
         array_push($calendarArray, $calendar);
         if($calendarArray != null) {
             
@@ -131,6 +118,4 @@ class HomeController {
             $this->index();
         }
     }
-
-
 }
