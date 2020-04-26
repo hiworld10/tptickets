@@ -29,7 +29,7 @@ class EventController {
 		$rootPhoto= new Photo();
 		$rootPhoto->uploadPhoto($photo, "events");
 
-		$category = $this->categoryController->getCategorySelect($categoryId);
+		$category = $this->categoryController->get($categoryId);
 		$event = new Event(null, $name, $category, $rootPhoto);
 		$this->dao->create($event);
 		$this->getAll();
@@ -37,7 +37,7 @@ class EventController {
 
 	public function getEvent($id) { 
 		$event = $this->dao->retrieveById($id);
-		$categoryArray = $this->categoryController->getAllSelect();	
+		$categoryArray = $this->categoryController->getAll();	
 		if(isset($event) && isset($categoryArray)) {
 			require ADMIN_VIEWS . '/adminevent.php';
 		}
@@ -49,7 +49,7 @@ class EventController {
 
 	public function getAll() {
 		$eventArray = $this->dao->retrieveAll();
-		$categoryArray = $this->categoryController->getAllSelect();
+		$categoryArray = $this->categoryController->getAll();
 		require ADMIN_VIEWS. '/adminevent.php';
 	}
 
@@ -73,7 +73,7 @@ class EventController {
 		$rootPhoto = new Photo();
 		$rootPhoto->uploadPhoto($photo, "events");
 
-		$newCategory = $this->categoryController->getCategorySelect($categoryId);
+		$newCategory = $this->categoryController->get($categoryId);
 		$updatedEvent = new Event($id, $newName, $newCategory, $rootPhoto);
 		$this->dao->update($updatedEvent);
 		$this->getAll();

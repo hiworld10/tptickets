@@ -23,7 +23,7 @@
       <?php if(isset($category)){ ?>
 
 
-        <form name='formulario' action="<?=FRONT_ROOT?>/category/updateCategory"  method="POST">
+        <form name='formulario' action="<?=FRONT_ROOT?>/category/update"  method="POST">
              <div class="form-row">
                   <div class="col-md-1 mb-2 mb-md-0 form-row">
                     <label>Id</label>
@@ -41,7 +41,7 @@
 
     <?php   }else{   ?>
 
-    <form name='formulario' action="<?=FRONT_ROOT?>/category/addCategory"  method="POST">
+    <form name='formulario' action="<?=FRONT_ROOT?>/category/add"  method="POST">
              <div class="form-row">
                   <div class="col-12 col-md-9 mb-2 mb-md-0">
                     <input type="text" name="category" class="form-control form-control-lg" placeholder="Ingrese nombre de la categoria..." required>
@@ -68,12 +68,12 @@
                      <td><?= $value->getId(); ?></td>
                       <td><?= $value->getType(); ?></td>
                       <td>
-                        <form action="<?=FRONT_ROOT?>/category/deleteCategory" method="POST">
+                        <form action="<?=FRONT_ROOT?>/category/delete" method="POST">
                         <button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit"class="btn btn-block btn-lg btn-primary btn-sm">Eliminar</button>
                         </form>
                       </td>
                       <td>
-                        <form action="<?=FRONT_ROOT?>/category/getCategory" method="POST">
+                        <form action="<?=FRONT_ROOT?>/category/edit" method="POST">
                         <button name="update" value="<?= $value->getId(); ?>" id="boton1" type="submit" class="btn btn-block btn-lg btn-primary btn-sm">Editar</button></td>
                         </form>
                       </td>

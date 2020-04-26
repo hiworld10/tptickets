@@ -14,47 +14,44 @@ class CategoryController {
 		$this->dao = new DB_CategoryDAO();
 	}
 
-	public function addCategory($type) {
-
-		$category = new Category(null, $type);
-		$this->dao->create($category);
-		$this->getAll();
-	}
-
-	public function getAll() {
+	public function index() {
 		
 		$categoryArray = $this->dao->retrieveAll(); 
 		require ADMIN_VIEWS . '/admincategory.php';
 	}
 
-	public function getAllSelect() {
+    public function add($type) {
+
+        $category = new Category(null, $type);
+        $this->dao->create($category);
+        $this->index();
+    }
+
+	public function getAll() {
 		return $this->dao->retrieveAll();
 	}
 	
+    public function get($id) {
+        return $this->dao->retrieveById($id);
+    }
 
-	public function deleteCategory($id) {
+	public function delete($id) {
 
 		$this->dao->delete($id);
-		$this->getAll();
+		$this->index();
 	}
 
-
-	public function getCategory($id) {
+	public function edit($id) {
 		$category=$this->dao->retrieveById($id);		
 		if(isset($category)) {
 			require ADMIN_VIEWS . '/admincategory.php';
 		}
 	}
 
-		public function getCategorySelect($id) {
-		return $this->dao->retrieveById($id);
-	}
-
-
-	public function updateCategory($id, $newType) {
+	public function update($id, $newType) {
 		$updatedCategory = new Category($id, $newType);
 		$this->dao->update($updatedCategory);
-		$this->getAll();
+		$this->index();
 	}
 }
 ?>
