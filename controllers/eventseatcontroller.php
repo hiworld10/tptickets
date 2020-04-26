@@ -37,7 +37,7 @@ class EventSeatController {
 		}
 	}
 
-	public function getAll() {
+	public function index() {
 		$eventSeatArray = $this->dao->retrieveAll();
 		$seatTypeArray = $this->seatTypeController->getAllSelect();
 		require ADMIN_VIEWS . '/admineventseat.php';

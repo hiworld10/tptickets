@@ -44,7 +44,7 @@ class UserController {
 
 
 
-	public function getAll() {
+	public function index() {
 		$userArray = $this->dao->retrieveAll();
 		require ADMIN_VIEWS . '/adminuser.php';
 		

@@ -28,7 +28,7 @@ class PlaceEventController {
 	}
 
 
-	public function getAll() {
+	public function index() {
 		$placeEventArray = $this->dao->retrieveAll(); 
 		require ADMIN_VIEWS . '/adminplaceevent.php';
 	}
