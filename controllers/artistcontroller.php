@@ -21,7 +21,8 @@ class ArtistController {
           Ver si es posible imprimir un mensaje de alerta advirtiendo que el usuario no
           tiene permiso para acceder a la pagina. Aplicar esta comprobacion en los otros metodos. NOTE: Esto deberia modificarse para mayor eficiencia de codigo*/
         if (!$this->userController->isUserAdmin()) {
-            $this->userController->index();
+            echo "Debe iniciar sesion para ver esta pagina.";
+            $this->userController->loginScreen();
         } else {
             $artistArray = $this->dao->retrieveAll();
             require ADMIN_VIEWS . '/adminartist.php';
