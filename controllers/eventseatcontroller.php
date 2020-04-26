@@ -31,7 +31,7 @@ class EventSeatController {
 
 	public function getEventSeat($id) { 
 		$eventSeat=$this->dao->retrieveById($id);
-		$seatTypeArray = $this->seatTypeController->getAllSelect();	
+		$seatTypeArray = $this->seatTypeController->getAll();	
 		if(isset($eventSeat) && isset($calendarArray) && isset($seatTypeArray)) {
 			require ADMIN_VIEWS . '/admineventseat.php';
 		}
@@ -39,7 +39,7 @@ class EventSeatController {
 
 	public function index() {
 		$eventSeatArray = $this->dao->retrieveAll();
-		$seatTypeArray = $this->seatTypeController->getAllSelect();
+		$seatTypeArray = $this->seatTypeController->getAll();
 		require ADMIN_VIEWS . '/admineventseat.php';
 		
 	}

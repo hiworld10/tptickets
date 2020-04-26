@@ -14,60 +14,43 @@ class SeatTypeController {
 		$this->dao = new DB_SeatTypeDAO();
 	}
 
-	public function addSeatType($type) {
+    public function index() {        
+        $seatTypeArray = $this->dao->retrieveAll(); 
+        require ADMIN_VIEWS . '/adminseattype.php';
+    }
 
-		$seatType = new SeatType(null, $type);
-		$this->dao->create($seatType);
-	
-	}
-
-	public function addSeatTypeandView($type) {
-
+	public function add($type) {
 		$seatType = new SeatType(null, $type);
 		$this->dao->create($seatType);
 		$this->getAll();
 	}
 
-	public function getAll(){
-		$seatTypeArray = $this->dao->retrieveAll(); 
-		require ADMIN_VIEWS . '/adminseattype.php';
-	}
-
-	public function getAllSelect(){
+	public function getAll() {
 		return $this->dao->retrieveAll();
 	}
-	
 
-	public function deleteSeatType($id){
-
-		$this->dao->delete($id);
-		$this->getAll();
+	public function get($id) {
+		 return $seattype=$this->dao->retrieveById($id);		
 	}
 
-
-	public function getSeatTypeById($id){
-		 return $seattype=$this->dao->retrieveById($id);	
-		
-	
-	}
-	public function getSeatType($id){
+	public function edit($id) {
 		$seattype=$this->dao->retrieveById($id);
 
 		if(isset($seattype)){
 			require ADMIN_VIEWS . '/adminseattype.php';
 		}
-
 	}
 
-
-	public function updateSeatType($id, $newType) {
+	public function update($id, $newType) {
 		$updatedSeatType = new SeatType($id, $newType);
 		$this->dao->update($updatedSeatType);
 		$this->getAll();
 	}
-
-	
-
+    
+    public function delete($id) {
+        $this->dao->delete($id);
+        $this->getAll();
+    }
 }
 
 ?>

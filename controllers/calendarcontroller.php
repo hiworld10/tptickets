@@ -43,7 +43,7 @@ class CalendarController {
             $calendarArray = $this->dao->retrieveAll();
             $eventArray = $this->eventController->getAll();
             $artistArray = $this->artistController->getAll();
-            $seatTypeArray = $this->seatTypeController->getAllSelect();
+            $seatTypeArray = $this->seatTypeController->getAll();
 
             require ADMIN_VIEWS. '/admincalendar.php';
         }
@@ -76,7 +76,7 @@ class CalendarController {
 					$calendarId= $this->dao->retrieveLastId();
 
 					foreach ($eventSeatAttributesArray as $value) {
-						$seatType= $this->seatTypeController->getSeatTypeById($value['seattypeid']);
+						$seatType= $this->seatTypeController->get($value['seattypeid']);
 
 							$this->eventSeatController->addEventSeat($calendarId, $seatType , $value['capacity'], $value['price']);
 					
@@ -106,7 +106,7 @@ class CalendarController {
         $calendar = $this->dao->retrieveById($id);
         $eventArray = $this->eventController->getAll();
         $artistArray = $this->artistController->getAll();
-        $seatTypeArray = $this->seatTypeController->getAllSelect();
+        $seatTypeArray = $this->seatTypeController->getAll();
         $eventSeatArray = $this->eventSeatController->getByCalendarId($id);
         
         if(isset($calendar)) {
@@ -140,7 +140,7 @@ class CalendarController {
 		
 
 				foreach ($eventSeatAttributesArray as $value) {
-					$seatType = $this->seatTypeController->getSeatTypeById($value['idseattype']);
+					$seatType = $this->seatTypeController->get($value['idseattype']);
 
 					$this->eventSeatController->updateEventSeat($value['ideventseat'], $id_calendar, $seatType, $value['capacity'], $value['price']);
 
