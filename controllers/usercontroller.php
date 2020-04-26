@@ -6,20 +6,21 @@ use dao\lists\UserDAO as List_UserDAO;
 use dao\db\UserDAO as DB_UserDAO;
 use controllers\HomeController;
 
-
-
 class UserController {
 
 	private $dao;
-
 	private $passwordLength = 6;
-
 
 	public function __construct() {
 		$this->dao = new DB_UserDAO();
 		
 	}
 
+    public function index() {
+        $userArray = $this->dao->retrieveAll();
+        require ADMIN_VIEWS . '/adminuser.php';
+        
+    }
 
 	public function addUser($user) {
 
@@ -31,7 +32,7 @@ class UserController {
             	$home= new HomeController();
             	$home->index();
               }else{
-             	$this->getAll();// es admin entonces muestro view/adminuser
+             	$this->index();// es admin entonces muestro view/adminuser
              }
 
 
@@ -41,26 +42,11 @@ class UserController {
 		}
 	}
 
-
-
-
-	public function index() {
-		$userArray = $this->dao->retrieveAll();
-		require ADMIN_VIEWS . '/adminuser.php';
-		
-	}
-
 	public function getUser($id) {
 		$user = $this->dao->retrieveById($id);
 		if(isset($user)){
 			require ADMIN_VIEWS . '/adminuser.php';
 		}
-	}
-
-	public function deleteUser($id) {
-
-		$this->dao->delete($id);
-		$this->getAll();
 	}
 
 	public function updateUser($id, $email, $pass, $firstname, $lastname, $admin='false') {
@@ -78,8 +64,14 @@ class UserController {
 
 		} else echo "LA PASSWORD ES MUY CORTA, tiene que tener al menos 6 caracteres";
 
-		$this->getAll();
+		$this->index();
 	}
+
+    public function deleteUser($id) {
+
+        $this->dao->delete($id);
+        $this->index();
+    }
 
 	//corregido 28/10 bd
 	public function checkEmail($email){
@@ -104,7 +96,6 @@ class UserController {
 		return ((strlen ($pass) < $this->passwordLength) ? false : true);
 	}
 
-
 	public function login($email, $password) {
 
 		$user =  $this->dao->retrieveByEmail($email);
@@ -118,25 +109,24 @@ class UserController {
 		return false;
 	}
 
-
-	public function index() {
+    //TODO: two declared indexes, needs to fix
+	public function loginScreen() {
 		require VIEWS_ROOT. '/login.php';
 	}
 
 	public function signup() {
 		require VIEWS_ROOT. '/signup.php';
 	}
+
 	public function adminview() {
 		require ADMIN_VIEWS. '/admin.php';
 	}
-
 
   	/* Este método verifica si existe un usuario en sesion y en caso
       * afirmativo lo toma de la base de datos y compara contraseñas.
       * Esto lo hace con el fin de asegurar que si cambio algun dato
       * obtiene la información actualizada.
       */
-
   	public function checkSession() {
   		if (session_status() == PHP_SESSION_NONE)
   			session_start();
@@ -152,7 +142,6 @@ class UserController {
   			return false;
   		}
   	}
-
 
     public function isUserAdmin() {
         /*Si $user es verdadero, verifico que el atributo admin sea "true"*/
@@ -172,12 +161,10 @@ class UserController {
   			session_start();
 
   		unset($_SESSION['userLogedIn']);
-
-  		
+	
   		$homeController= new HomeController();
   		$homeController->index();
   	}
-
 }
 
 ?>

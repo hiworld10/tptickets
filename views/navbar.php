@@ -29,7 +29,7 @@
           <?php }else{ ?>
             <a class="navbar-brand" href="<?= FRONT_ROOT ?>/home/">IziTicket</a>
         <div class="right">
-          	<a class="btn btn-primary" href="<?= FRONT_ROOT ?>/user">Ingresar</a>
+          	<a class="btn btn-primary" href="<?= FRONT_ROOT ?>/user/loginScreen">Ingresar</a>
           	<a class="btn btn-primary" href="<?= FRONT_ROOT ?>/user/signup">Registrarse</a>
         </div>
           <?php } ?>
