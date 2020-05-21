@@ -14,17 +14,17 @@ class EventDAO implements IDAO
     private $connection;
     private $tableName = "events";
 
+    public function __construct() {
+        $this->connection = Connection::getInstance();
+    }
+
     public function create($event) {
         try {
             $query = "INSERT INTO ".$this->tableName." (id_event, name, id_category, image) VALUES (:id_event, :name, :id_category, :image);";
-
             $parameters["id_event"] = $event->getId();
             $parameters["name"] = $event->getName();
             $parameters["id_category"] = $event->getCategory()->getId();
             $parameters["image"] = $event->getImage()->getPath();
-
-            $this->connection = Connection::getInstance();
-
             $this->connection->executeNonQuery($query, $parameters);
         }
         catch(Exception $ex) {
@@ -36,22 +36,15 @@ class EventDAO implements IDAO
         try {
             $eventList = array();
             $categoryDAO = new CategoryDAO();
-
             $query = "SELECT * FROM ".$this->tableName;
-
-            $this->connection = Connection::getInstance();
-
             $resultSet = $this->connection->execute($query);
-            
             foreach ($resultSet as $row) {
                 $category = $categoryDAO->retrieveById($row["id_category"]);
                 $photo= new Photo();
-                 $photo->setPath($row['image']);
-            
+                $photo->setPath($row['image']);        
                 $event = new Event($row["id_event"], $row["name"], $category, $photo);
                 array_push($eventList, $event);
             }
-
             return $eventList;
         }
         catch(Exception $ex) {
@@ -63,22 +56,15 @@ class EventDAO implements IDAO
         try {
             $event = null;
             $categoryDAO = new CategoryDAO();
-
             $query = "SELECT * FROM ".$this->tableName." WHERE id_event = :id_event";
-
             $parameters["id_event"] = $id;
-
-            $this->connection = Connection::getInstance();
-
             $resultSet = $this->connection->execute($query, $parameters);
-
             foreach ($resultSet as $row) {
                 $category = $categoryDAO->retrieveById($row["id_category"]);
-                 $photo= new Photo();
-                 $photo->setPath($row['image']);
+                $photo= new Photo();
+                $photo->setPath($row['image']);
                 $event = new Event($row["id_event"], $row["name"], $category, $photo);
             }
-
             return $event;
         }
         catch(Exception $ex) {
@@ -90,7 +76,6 @@ class EventDAO implements IDAO
         try {
             $query = "DELETE FROM ".$this->tableName." WHERE id_event = :id_event";
             $parameters["id_event"] = $id;
-            $this->connection = Connection::getInstance();
             $this->connection->executeNonQuery($query, $parameters);   
         }
         catch(Exception $ex) {
@@ -105,8 +90,6 @@ class EventDAO implements IDAO
             $parameters["name"] = $event->getName();
             $parameters["id_category"] = $event->getCategory()->getId();
             $parameters["image"]= $event->getImage()->getPath();
-
-            $this->connection = Connection::getInstance();
             $this->connection->executeNonQuery($query, $parameters);   
         }
         catch(Exception $ex) {
@@ -120,20 +103,14 @@ class EventDAO implements IDAO
             $eventList = array();
             $categoryDAO = new CategoryDAO();
             $query = "SELECT * FROM ".$this->tableName." WHERE name LIKE '%".$string."%';";
-
-            $this->connection = Connection::getInstance();
-
             $resultSet = $this->connection->execute($query);
-            
             foreach ($resultSet as $row) {
                 $category = $categoryDAO->retrieveById($row["id_category"]);
                 $photo= new Photo();
                 $photo->setPath($row['image']);
-            
                 $event = new Event($row["id_event"], $row["name"], $category, $photo);
                 array_push($eventList, $event);
             }
-
             return $eventList;
         }
         catch(Exception $ex) {
