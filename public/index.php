@@ -13,15 +13,15 @@
   /**
    * Archivos necesarios de inicio
    */
-  require "../config/autoload.php";
-  require "../config/data.php";
+  require "../app/autoload/autoload.php";
+  require "../app/config/data.php";
 
   /**
    * Alias
    */
-  use config\Autoload as Autoload;
-  use config\Router   as Router;
-  use config\Request  as Request;
+  use app\autoload\Autoload;
+  use config\Router;
+  use config\Request;
 
   /**
    * Flujo de ejecución
