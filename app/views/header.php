@@ -27,6 +27,6 @@
 </head> 
   */ ?>
 
-  <link rel="stylesheet" href="/vendor/bootstrap-4.4.1-dist/css/bootstrap.css">
+  <link rel="stylesheet" href="./bootstrap-4.4.1-dist/css/bootstrap.css">
 
  <link rel="stylesheet" type="text/css" href="<?=FRONT_ROOT?>/css/admin.css" >
