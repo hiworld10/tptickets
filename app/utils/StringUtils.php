@@ -25,7 +25,7 @@ class StringUtils
      * @return string
      */
     public static function convertToStudlyCaps($string) {
-        return str_replace(' ', '', ucwords(str_replace('-', '', $string)));
+        return str_replace(' ', '', ucwords(str_replace('-', ' ', $string)));
     }
 
 }
