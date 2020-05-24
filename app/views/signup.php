@@ -24,7 +24,7 @@
                     <h2>Registrate!</h2>
                    
                </header>
-               <form class="login-form bg-dark-alpha p-5 text-white" action="<?=FRONT_ROOT?>/home/addUser ?>" method="POST">
+               <form class="login-form bg-dark-alpha p-5 text-white" action="<?=FRONT_ROOT?>/home/add-user" method="POST">
                     <div class="form-group">
                          <label for="">Email</label>
                          <input type="email" name="email" class="form-control form-control-lg" placeholder="Ingresar email">
