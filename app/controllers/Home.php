@@ -19,7 +19,7 @@ class Home {
 
     public function index() {
         $calendarArray=$this->calendarController->getAll();
-        require VIEWS_ROOT. '/home.php';
+        require VIEWS_ROOT . '/home/index.php';
     }
 
     public function login($email = null, $password = null) {
@@ -49,7 +49,7 @@ class Home {
             if($user->getAdmin() == "true") {
                 require ADMIN_VIEWS. '/admin.php';
             } else {
-                require VIEWS_ROOT. '/home.php';
+                require VIEWS_ROOT . '/home/index.php';
             }   
         } else {
                 //vista login
