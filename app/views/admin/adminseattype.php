@@ -22,7 +22,7 @@
       <?php if(isset($seattype)){ ?>
 
 
-        <form name='formulario' action="<?=FRONT_ROOT?>/seattype/update"  method="POST">
+        <form name='formulario' action="<?=FRONT_ROOT?>/seat-types/update"  method="POST">
              <div class="form-row">
                   <div class="col-md-1 mb-2 mb-md-0 form-row">
                     <label>Id</label>
@@ -40,7 +40,7 @@
 
     <?php   }else{   ?>
 
-    <form name='formulario' action="<?=FRONT_ROOT?>/seattype/add" method="POST">
+    <form name='formulario' action="<?=FRONT_ROOT?>/seat-types/add" method="POST">
              <div class="form-row">
                   <div class="col-12 col-md-9 mb-2 mb-md-0">
                     <input type="text" name="seattype" class="form-control form-control-lg" placeholder="Ingrese el tipo de plaza..." required>
@@ -67,12 +67,12 @@
                      <td><?= $value->getId(); ?></td>
                       <td><?= $value->getType(); ?></td>
                       <td>
-                        <form action="<?=FRONT_ROOT?>/seattype/delete" method="POST">
+                        <form action="<?=FRONT_ROOT?>/seat-types/delete" method="POST">
                         <button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit"class="btn btn-block btn-lg btn-primary btn-sm">Eliminar</button>
                         </form>
                       </td>
                       <td>
-                        <form action="<?=FRONT_ROOT?>/seattype/edit" method="POST">
+                        <form action="<?=FRONT_ROOT?>/seat-types/edit" method="POST">
                         <button name="update" value="<?= $value->getId(); ?>" id="boton1" type="submit" class="btn btn-block btn-lg btn-primary btn-sm">Editar</button></td>
                         </form>
                       </td>
