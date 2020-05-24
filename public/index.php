@@ -14,7 +14,7 @@
    * Archivos necesarios de inicio
    */
   require "../app/autoload/Autoload.php";
-  require "../app/config/data.php";
+  require "../app/config/config.php";
 
   /**
    * Alias
