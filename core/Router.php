@@ -1,6 +1,9 @@
 <?php 
 
 namespace core;
+
+use app\utils\StringUtils;
+
 /**
  * Main front controller for the MVC. Routes the provided URL and calls the appropriate controller and method.
  */
@@ -9,7 +12,7 @@ class Router {
     public function __construct(Request $request) {
 
         $controller = $request->getController();
-        $controller = $this->convertToStudlyCaps($controller);
+        $controller = StringUtils::convertToStudlyCaps($controller);
         /**
          * If admin parameter from Request is true, the namespace will include the 'admin' directory in the controllers directory
          */
@@ -26,7 +29,7 @@ class Router {
         }
 
         $method = $request->getMethod();
-        $method = $this->convertToCamelCase($method);
+        $method = StringUtils::convertToCamelCase($method);
 
         if (is_callable([$controller, $method])) {
             $parameters = $request->getParameters();
@@ -43,28 +46,6 @@ class Router {
         } else {
             die("Error: Method '" . $method . "' in Controller '" . $controller . "' does not exist or is not accessible.");
         }
-    }
-
-    /**
-     * Convierte en camel case el string correspondiente a la funcion de la controladora a llamar
-     * 
-     * @param  string
-     * @return string
-     */
-    private function convertToCamelCase($string) {
-        return lcfirst($this->convertToStudlyCaps($string));
-    }
-
-    /**
-     * Capitaliza la inicial de cada caracter posterior a un '-' del string correspondiente a la funcion de la controladora a llamar. Se utiliza en conjunto con la funcion convertToCamelCase().
-     *
-     * De este modo, en el URL se podra llamar al metodo deseado separando palabras con un '-'. Ej: 'artists/get-all'
-     * 
-     * @param  string
-     * @return string
-     */
-    private function convertToStudlyCaps($string) {
-        return str_replace(' ', '', ucwords(str_replace('-', '', $string)));
     }
 }
 
