@@ -62,7 +62,7 @@
         <tr>       
          <td><img src="<?= $value->getEvent()->getImage()->getPath() ?>" height="200" width="350"/></td>
         <td>
-          <form id="getCalendar" action="<?=  FRONT_ROOT ."/home/getCalendar"?>"  method="POST">
+          <form id="getCalendar" action="<?=  FRONT_ROOT ."/home/get-calendar"?>"  method="POST">
 
             <div class="mt-5" >
               <a href="javascript:document.forms.getCalendar.submit()"> <!-- para que mande el form desde el hipervinc -->
