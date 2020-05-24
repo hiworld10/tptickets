@@ -24,7 +24,7 @@
       <!-- Este div aparecerá si un artista debe ser modificado -->
       <?php if(isset($artist)) { ?>
 
-        <form name='formulario' action="<?=FRONT_ROOT?>/artist/update" method="POST">
+        <form name='formulario' action="<?=FRONT_ROOT?>/artists/update" method="POST">
          <div class="form-row">
           <div class="col-md-1 mb-2 mb-md-0 form-row">
             <label> Id</label>
@@ -43,7 +43,7 @@
     <?php   } else {   ?>
 
       <!-- De no ser así, se habilitará el formulario para agregar artistas  -->
-      <form name='formulario' action="<?=FRONT_ROOT?>/artist/add"  method="POST">
+      <form name='formulario' action="<?=FRONT_ROOT?>/artists/add"  method="POST">
        <div class="form-row">
         <div class="col-12 col-md-9 mb-2 mb-md-0">
           <input type="text" name="artist" class="form-control form-control-lg" placeholder="Ingrese nombre del artista..." required>
@@ -73,11 +73,11 @@
          <td><?= $value->getId(); ?></td>
          <td><?= $value->getName(); ?></td>
          <td>
-          <form action="<?=FRONT_ROOT?>/artist/delete" method="POST">
+          <form action="<?=FRONT_ROOT?>/artists/delete" method="POST">
             <button name="iddelete" value="<?= $value->getId();  ?>" id="boton1" type="submit"class="btn btn-block btn-lg btn-primary btn-sm">Eliminar</button>
           </form>
           <td>
-            <form action="<?=FRONT_ROOT?>/artist/edit" method="POST">
+            <form action="<?=FRONT_ROOT?>/artists/edit" method="POST">
               <button name="update" value="<?= $value->getId(); ?>" id="boton1" type="submit" class="btn btn-block btn-lg btn-primary btn-sm">Editar</button></td>
             </form>
           </tr>
