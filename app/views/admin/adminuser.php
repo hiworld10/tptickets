@@ -23,7 +23,7 @@
       <!-- Este div aparecerá si un artista debe ser modificado -->
       <?php if(isset($user)) { ?>
 
-        <form name='formulario' action="<?=FRONT_ROOT?>/user/updateUser"  method="POST">
+        <form name='formulario' action="<?=FRONT_ROOT?>/users/updateUser"  method="POST">
      <div class="form">
       <div class="col-9 col-md-2 mb-2 mb-md-0 ">
         <label>Id</label>
@@ -112,12 +112,12 @@
          <td><?= $value->getAdmin(); ?></td>
 
          <td>
-          <form action="<?=FRONT_ROOT?>/user/deleteUser" method="POST">
+          <form action="<?=FRONT_ROOT?>/users/deleteUser" method="POST">
             <button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit"class="btn btn-block btn-lg btn-primary btn-sm">Eliminar</button>
           </form>
         </td>
         <td>
-          <form action="<?=FRONT_ROOT?>/user/getUser" method="POST">
+          <form action="<?=FRONT_ROOT?>/users/getUser" method="POST">
             <button name="update" value="<?= $value->getId(); ?>" type="submit" id="boton1" class="btn btn-block btn-lg btn-primary btn-sm">Editar</button>
         </td>
           </form>
