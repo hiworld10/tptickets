@@ -13,15 +13,15 @@
   /**
    * Archivos necesarios de inicio
    */
-  require "../app/autoload/autoload.php";
+  require "../app/autoload/Autoload.php";
   require "../app/config/data.php";
 
   /**
    * Alias
    */
   use app\autoload\Autoload;
-  use config\Router;
-  use config\Request;
+  use core\Router;
+  use core\Request;
 
   /**
    * Flujo de ejecución
@@ -29,6 +29,4 @@
 
   Autoload::start();
 
-  $request = new Request();
-
-  Router::direct($request);
+  new Router(new Request);
