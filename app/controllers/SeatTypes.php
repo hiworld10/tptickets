@@ -23,7 +23,7 @@ class SeatTypes {
 	public function add($type) {
 		$seatType = new SeatType(null, $type);
 		$this->dao->create($seatType);
-		$this->getAll();
+		$this->index();
 	}
 
 	public function getAll() {
@@ -45,12 +45,12 @@ class SeatTypes {
 	public function update($id, $newType) {
 		$updatedSeatType = new SeatType($id, $newType);
 		$this->dao->update($updatedSeatType);
-		$this->getAll();
+		$this->index();
 	}
     
     public function delete($id) {
         $this->dao->delete($id);
-        $this->getAll();
+        $this->index();
     }
 }
 
