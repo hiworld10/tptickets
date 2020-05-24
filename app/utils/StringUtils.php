@@ -13,7 +13,7 @@ class StringUtils
      * @return string
      */
     public static function convertToCamelCase($string) {
-        return lcfirst($this->convertToStudlyCaps($string));
+        return lcfirst(self::convertToStudlyCaps($string));
     }
 
     /**
