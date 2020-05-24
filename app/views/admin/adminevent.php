@@ -23,7 +23,7 @@
     <?php if(isset($event)){ ?>
 
 
-      <form name='formulario' action="<?=FRONT_ROOT?>/event/update"  enctype="multipart/form-data" method="POST">
+      <form name='formulario' action="<?=FRONT_ROOT?>/events/update"  enctype="multipart/form-data" method="POST">
        <div class="form">
         <div class="col-md-2 mb-2 mb-md-0 form">
           <label>Id</label>
@@ -58,7 +58,7 @@
 
 <?php   }else{  ?>
 
-  <form name='formulario' action="<?=FRONT_ROOT?>/event/add"  enctype="multipart/form-data" method="POST">
+  <form name='formulario' action="<?=FRONT_ROOT?>/events/add"  enctype="multipart/form-data" method="POST">
    <div class="form-row p-2">
     <div class="form-group col-12 col-md-9 mb-2 mb-md-0">
       <input type="text"  class="form-control form-control-lg" name="name" placeholder="Ingrese nombre del evento..." required>
@@ -110,12 +110,12 @@
      
 
          <td>
-          <form action="<?=FRONT_ROOT?>/event/delete" method="POST">
+          <form action="<?=FRONT_ROOT?>/events/delete" method="POST">
             <button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit"class="btn btn-block btn-lg btn-primary btn-sm">Eliminar</button>
           </form>
         </td>
         <td>
-          <form action="<?=FRONT_ROOT?>/event/edit" method="POST">
+          <form action="<?=FRONT_ROOT?>/events/edit" method="POST">
             <button name="update" value="<?= $value->getId(); ?>" id="boton1" type="submit" class="btn btn-block btn-lg btn-primary btn-sm">Editar</button></td>
           </form>
         </td>
