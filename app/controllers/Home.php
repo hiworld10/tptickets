@@ -54,7 +54,7 @@ class Home {
         } else {
                 //vista login
             print_r($alert);
-            require VIEWS_ROOT. '/login.php';
+            require VIEWS_ROOT . '/login.php';
         }
     }
 
@@ -99,7 +99,7 @@ class Home {
 
         if($calendarArray != null) { 
             //lo encontro lo muestro
-            require VIEWS_ROOT. '/search.php';
+            require VIEWS_ROOT . '/home/search.php';
         } else {
             print_r("NO SE ENCONTRARON RESULTADOS");
             $this->index();
@@ -113,7 +113,7 @@ class Home {
         array_push($calendarArray, $calendar);
         if($calendarArray != null) {
             
-            require VIEWS_ROOT. '/search.php';
+            require VIEWS_ROOT . '/home/search.php';
 
         } else {
             $this->index();
