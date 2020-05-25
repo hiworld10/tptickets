@@ -1,17 +1,4 @@
-
-  <!DOCTYPE html>
-
-
-  <html lang="en" class="__full-height-perc">
-
-    <?php require(VIEWS_ROOT.HEADER); ?>
-
-    <body class="__full-height-perc">
-
-       <?php require(VIEWS_ROOT.NAVBAR); ?>
-
-
- 
+<?php require HEADER; ?>
 
   <div id="container" class="__full-height-perc">
       <?php require(VIEWS_ROOT.MENUADMIN); ?>
