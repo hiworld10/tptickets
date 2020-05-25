@@ -17,6 +17,12 @@ require "../app/config/config.php";
 use app\autoload\Autoload;
 use core\Router;
 use core\Request;
+/*
+Inicio de $_SESSION
+ */
+if (!isset($_SESSION)) {
+    session_start();
+}
 /**
 * Flujo de ejecución
 */
