@@ -12,7 +12,7 @@
             </div>
             <div class="form-group">
                  <label for="">Apellido</label>
-                 <input type="text" name="lastname" class="form-control form-control-lg" placeholder="Ingresar apellido">
+                 <input type="text" name="surname" class="form-control form-control-lg" placeholder="Ingresar apellido">
             </div>            
             <div class="form-group">
                  <label for="">Email</label>
@@ -24,7 +24,7 @@
             </div>
             <div class="form-group">
                  <label for="">Confirmar contraseña</label>
-                 <input type="password" name="password" class="form-control form-control-lg" placeholder="Ingresar contraseña">
+                 <input type="password" name="confirm_password" class="form-control form-control-lg" placeholder="Ingresar contraseña">
             </div>            
             <button class="btn btn-dark btn-block btn-lg mt-5" type="submit">
                  Registrarse

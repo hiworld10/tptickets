@@ -14,6 +14,51 @@ class Users extends \core\Controller {
         echo "Users controller index method called.";
     }
 
+    public function register() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            //Almacenar datos de formulario en el arreglo asociativo $data, para mostrar la informacion introducida previamente en caso de no ser correcta y asi permitir que el usuario la corrija mas rapidamente
+            $data = [
+                'name' => '',
+                'surname' => '',
+                'email' => '',
+                'password' => '',
+                'confirm_password' => '',
+                'name_err' => '',
+                'surname_err' => '',
+                'email_err' => '',
+                'password_err' => '',
+                'confirm_password_err' => ''
+            ];
+
+            //Cargar vista
+            $this->view('users/register', $data);
+        } else {
+            //Procesar formulario
+            //Sanitizar datos de POST
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            //Iniciar arreglo de datos con la informacion obtenida
+            $data = [
+                'name' => ucwords(trim($_POST['name'])),
+                'surname' => ucwords(trim($_POST['surname'])),
+                'email' => trim($_POST['email']),
+                'password' => $_POST['password'],
+                'confirm_password' => $_POST['confirm_password'],
+                'name_err' => '',
+                'surname_err' => '',
+                'email_err' => '',
+                'password_err' => '',
+                'confirm_password_err' => ''
+            ];
+
+            echo '<pre>';
+            print_r($data);
+            echo '</pre>';
+        }
+    }
+
+
+
 	//corregido 28/10 bd
 	public function checkEmail($email){
 		$check=true;
