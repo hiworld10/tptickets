@@ -18,11 +18,11 @@ class UserDAO implements IDAO
 
     public function create($data) {
         try {
-            $query = "INSERT INTO ".$this->tableName." (email, password, first_name, last_name, is_admin) VALUES (:email, :password, :first_name, :last_name, :is_admin);";
+            $query = "INSERT INTO ".$this->tableName." (email, password, name, surname, is_admin) VALUES (:email, :password, :name, :surname, :is_admin);";
             $parameters["email"] = $data['email'];
             $parameters["password"] = Password::hash($data['password']);
-            $parameters["first_name"] = $data['name'];
-            $parameters["last_name"] = $data['surname'];
+            $parameters["name"] = $data['name'];
+            $parameters["surname"] = $data['surname'];
             //conversion de valores para la tabla (admite solo 0 y 1 (tinyint))
             if (isset($data['is_admin'])) {
                 $parameters["is_admin"] = $this->stringBooleanToTinyInt($user->getAdmin());
