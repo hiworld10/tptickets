@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\controllers\Home;
 use app\utils\Password;
+use app\utils\Redirector;
 
 class Users extends \core\Controller {
 
@@ -22,8 +23,6 @@ class Users extends \core\Controller {
                 'name' => '',
                 'surname' => '',
                 'email' => '',
-                'password' => '',
-                'confirm_password' => '',
             ];
 
             //Cargar vista
@@ -37,10 +36,11 @@ class Users extends \core\Controller {
             $data = [
                 'name' => ucwords(trim($_POST['name'])),
                 'surname' => ucwords(trim($_POST['surname'])),
-                'email' => trim($_POST['email']),
-                'password' => $_POST['password'],
-                'confirm_password' => $_POST['confirm_password']
+                'email' => trim($_POST['email'])
             ];
+            //Para mayor seguridad, las contraseñas se procesan aparte, si no son validadas correctamente, no seran mostradas en su correspondiente campo cuando se muestre nuevamente el formulario de registracion
+            $password = $_POST['password'];
+            $confirm_password = $_POST['confirm_password'];
             //Verificar que los campos de nombre y apellido
             if (empty($data['name'])) {
                 $data['errors']['name_err'] = "Debes introducir tu nombre";
@@ -55,57 +55,34 @@ class Users extends \core\Controller {
                 $data['errors']['email_err'] = "El e-mail introducido ya está asociado con una cuenta en nuestro sistema";
             }
             //Validar contraseña
-            if (empty($data['password'])) {
+            if (empty($password)) {
                 $data['errors']['password_err'] = "Debes introducir una contraseña";
-            } elseif (Password::hasLength($data['password'], 6)) {
+            } elseif (Password::hasLength($password, 6)) {
                  $data['errors']['password_err'] = "La contraseña debe tener al menos 6 caracteres";
             }
             //Validar confirmacion contraseña
-            if (empty($data['confirm_password'])) {
+            if (empty($confirm_password)) {
                 $data['errors']['confirm_password_err'] = "Debes confirmar la contraseña";
-            } elseif (!Password::match($data['password'], $data['confirm_password'])) {
+            } elseif (!Password::match($password, $confirm_password)) {
                  $data['errors']['confirm_password_err'] = "Las contraseñas no coinciden";
             }
 
             if (empty($data['errors'])) {
-                echo "No errors detected, check successful. Account creation should continue here.<br>";
-                echo '<pre>';
-                print_r($data);
-                echo '</pre>';
+                
+                Redirector::redirect('users/success');
             } else {
                 $this->view('users/register', $data);
             }
         }
     }
 
-
-
-	//corregido 28/10 bd
-	public function checkEmail($email){
-		$check=true;
-		$arrayUsers=$this->dao->retrieveAll();
-
-		if (isset($arrayUsers)) {
-
-			foreach ($arrayUsers as $key => $value) {
-				if ($email == $value->getEmail()) {
-					$check = false;
-				}
-			}
-		}
-		return $check;
-	}
-
-	//strlen cuenta la cantidad de caracteres String
-	//en este caso vamos a restringir la pass a mas de 6 caracteres
-	public function checkPassword($pass) {
-		//el operador ternario es mas kool
-		return ((strlen ($pass) < $this->passwordLength) ? false : true);
-	}
+    public function success() {
+        $this->view('users/success');
+    }
 
 	public function login($email, $password) {
 
-		$user =  $this->dao->retrieveByEmail($email);
+		$user =  $this->user_dao->retrieveByEmail($email);
 
 		if($user) {
 			if($user->getPassword() == $password) {
@@ -121,9 +98,6 @@ class Users extends \core\Controller {
 		require VIEWS_ROOT. '/login.php';
 	}
 
-	public function signup() {
-		require VIEWS_ROOT. '/signup.php';
-	}
 
 	public function adminview() {
 		require ADMIN_VIEWS. '/admin.php';
