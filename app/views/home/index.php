@@ -23,22 +23,21 @@
 </header>
 
 <div>
+    <?php if(isset($data['err'])) echo $data['err']; ?>
     <table class="table bg-light-alpha text-center mt-5">
-        <?php if(!empty($calendarArray)) { ?>
+        <?php if(!empty($data['calendars'])) { ?>
             <tbody>
-            <?php foreach ($calendarArray as $value) { ?>
+            <?php foreach ($data['calendars'] as $value) { ?>
                 <tr>       
                     <td><img src="<?= $value->getEvent()->getImage()->getPath() ?>" height="200" width="350"/></td>
                     <td>
-                        <form id="getCalendar" action="<?=  FRONT_ROOT ."/home/get-calendar"?>"  method="POST">
-                            <div class="mt-5">
-                                <a href="javascript:document.forms.getCalendar.submit()"> <!-- para que mande el form desde el hipervinc -->
-                                    <input type="hidden" name="id_calendar" value="<?=$value->getId();  ?>">
-                                    <big><big><?= $value->getEvent()->getName(); ?></big></big><br>
-                                    <big><?=$value->getDate(); ?></big>
-                                </a>
-                            </div>
-                        </form>
+                        <div class="mt-5">
+                            <a href="<?php echo FRONT_ROOT . "/home/get-calendar/" . $value->getId() ?>">    
+                                <input type="hidden" name="id_calendar" value="<?=$value->getId();  ?>">
+                                <big><big><?= $value->getEvent()->getName(); ?></big></big><br>
+                                <big><?=$value->getDate(); ?></big>
+                            </a>
+                        </div>
                     </td>
             <?php } ?>
                     <td>

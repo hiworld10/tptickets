@@ -1,7 +1,7 @@
 <?php require HEADER; ?>
 
 <header class="text-white text-center">
-    <?php if(!isset($calendar)){ ?>
+    <?php if(!isset($data['calendars'])){ ?>
         <div class="container">
             <div class="row">
                 <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
@@ -23,9 +23,9 @@
 
 <div class="__full-height-perc" >
     <table class="table bg-light-alpha text-center mt-5">
-    <?php if(!empty($calendarArray)) { ?>
+    <?php if(!empty($data['calendars'])) { ?>
         <tbody>
-        <?php foreach ($calendarArray as $value) { ?>
+        <?php foreach ($data['calendars'] as $value) { ?>
             <tr>
                 <td><img src="<?= $value->getEvent()->getImage()->getPath() ?>" height="200" width="350"/></td>
                 <td>
