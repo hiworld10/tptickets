@@ -19,7 +19,7 @@
                  <input type="email" name="email" class="form-control form-control-lg" placeholder="Ingresar email">
             </div>
             <div class="form-group">
-                 <label for="">Contraseña</label>
+                 <label for="">Contraseña (min. 6 caracteres)</label>
                  <input type="password" name="password" class="form-control form-control-lg" placeholder="Ingresar contraseña">
             </div>
             <div class="form-group">
