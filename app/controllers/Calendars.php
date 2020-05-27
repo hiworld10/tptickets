@@ -39,16 +39,16 @@ class Calendars {
         /*Si el usuario no es admin, la controladora no permitira acceder a los datos.
           Ver si es posible imprimir un mensaje de alerta advirtiendo que el usuario no
           tiene permiso para acceder a la pagina. Aplicar esta comprobacion en los otros metodos*/
-        if (!$this->userController->isUserAdmin()) {
-            $this->userController->index();
-        } else {
+        //if (!$this->userController->isUserAdmin()) {
+        //    $this->userController->index();
+        //} else {
             $calendarArray = $this->dao->retrieveAll();
             $eventArray = $this->eventController->getAll();
             $artistArray = $this->artistController->getAll();
             $seatTypeArray = $this->seatTypeController->getAll();
 
             require ADMIN_VIEWS. '/admincalendar.php';
-        }
+        //}
         
     }
 	public function add($date, $eventId, $artistIdArray, $placeEventAttributesArray, $eventSeatAttributesArray) {
