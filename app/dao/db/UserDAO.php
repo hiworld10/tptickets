@@ -43,7 +43,7 @@ class UserDAO implements IDAO
             $query = "SELECT * FROM ".$this->tableName;
             $resultSet = $this->connection->execute($query);
             foreach ($resultSet as $row) {                
-                $user = new User($row["id_user"], $row["email"], $row["password"], $row["first_name"], $row["last_name"], $row["is_admin"]);
+                $user = new User($row["id_user"], $row["email"], $row["password"], $row["name"], $row["surname"], $row["is_admin"]);
                 //conversion de tinyint a string para muestreo
                 $user->setAdmin($this->tinyIntBooleanToString($user->getAdmin()));
                 array_push($userList, $user);
@@ -62,7 +62,7 @@ class UserDAO implements IDAO
             $parameters["id_user"] = $id;
             $resultSet = $this->connection->execute($query, $parameters);
             foreach ($resultSet as $row) {
-                $user = new User($row["id_user"], $row["email"], $row["password"], $row["first_name"], $row["last_name"], $row["is_admin"]);
+                $user = new User($row["id_user"], $row["email"], $row["password"], $row["name"], $row["surname"], $row["is_admin"]);
                 //conversion de tinyint a string para muestreo
                 $user->setAdmin($this->tinyIntBooleanToString($user->getAdmin()));
             }
@@ -80,7 +80,7 @@ class UserDAO implements IDAO
             $parameters["email"] = $email;
             $resultSet = $this->connection->execute($query, $parameters);
             foreach ($resultSet as $row) {
-                $user = new User($row["id_user"], $row["email"], $row["password"], $row["first_name"], $row["last_name"], $row["is_admin"]);
+                $user = new User($row["id_user"], $row["email"], $row["password"], $row["name"], $row["surname"], $row["is_admin"]);
                 //conversion de tinyint a string para muestreo
                 $user->setAdmin($this->tinyIntBooleanToString($user->getAdmin()));
             }
@@ -106,12 +106,12 @@ class UserDAO implements IDAO
 
     public function update($user) {
         try {
-            $query = "UPDATE ".$this->tableName." SET email = :email, password = :password, first_name = :first_name, last_name= :last_name, is_admin = :is_admin WHERE id_user = :id_user";
+            $query = "UPDATE ".$this->tableName." SET email = :email, password = :password, name = :name, surname= :surname, is_admin = :is_admin WHERE id_user = :id_user";
             $parameters["id_user"] = $user->getId();
             $parameters["email"] = $user->getEmail();
             $parameters["password"] = $user->getPassword();
-            $parameters["first_name"] = $user->getFirstname();
-            $parameters["last_name"] = $user->getLastname();
+            $parameters["name"] = $user->getFirstname();
+            $parameters["surname"] = $user->getLastname();
             //conversion de valores para la tabla (admite solo 0 y 1 (tinyint))
             $parameters["is_admin"] = $this->stringBooleanToTinyInt($user->getAdmin());
             $this->connection->executeNonQuery($query, $parameters);   
