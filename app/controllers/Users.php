@@ -10,6 +10,7 @@ class Users extends \core\Controller {
 
     public function __construct() {
         $this->user_dao = $this->dao('User');
+        //$this->user_m = $this->model('User');
     }
 
     public function index() {
@@ -68,7 +69,9 @@ class Users extends \core\Controller {
             }
 
             if (empty($data['errors'])) {
-                
+                $data['password'] = $password;
+                $data['confirm_password'] = $confirm_password;
+                $this->user_dao->create($data);
                 Redirector::redirect('users/success');
             } else {
                 $this->view('users/register', $data);

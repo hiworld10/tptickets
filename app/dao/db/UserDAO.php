@@ -1,11 +1,11 @@
 <?php
 namespace app\dao\db;
 
-
 use \Exception as Exception;
 use app\dao\IDAO as IDAO;
 use app\models\User as User;    
 use app\dao\db\Connection as Connection;
+use app\utils\Password;
 
 class UserDAO implements IDAO
 {
@@ -16,16 +16,20 @@ class UserDAO implements IDAO
         $this->connection = Connection::getInstance();
     }    
 
-    public function create($user) {
+    public function create($data) {
         try {
-            $query = "INSERT INTO ".$this->tableName." (id_user, email, password, first_name, last_name, is_admin) VALUES (:id_user, :email, :password, :first_name, :last_name, :is_admin);";
-            $parameters["id_user"] = $user->getId();
-            $parameters["email"] = $user->getEmail();
-            $parameters["password"] = $user->getPassword();
-            $parameters["first_name"] = $user->getFirstname();
-            $parameters["last_name"] = $user->getLastname();
+            $query = "INSERT INTO ".$this->tableName." (email, password, first_name, last_name, is_admin) VALUES (:email, :password, :first_name, :last_name, :is_admin);";
+            $parameters["email"] = $data['email'];
+            $parameters["password"] = Password::hash($data['password']);
+            $parameters["first_name"] = $data['name'];
+            $parameters["last_name"] = $data['surname'];
             //conversion de valores para la tabla (admite solo 0 y 1 (tinyint))
-            $parameters["is_admin"] = $this->stringBooleanToTinyInt($user->getAdmin());
+            if (isset($data['is_admin'])) {
+                $parameters["is_admin"] = $this->stringBooleanToTinyInt($user->getAdmin());
+            } else {
+                $parameters['is_admin'] = 0;
+            }
+            
             $this->connection->executeNonQuery($query, $parameters);
         }
         catch(Exception $ex) {
