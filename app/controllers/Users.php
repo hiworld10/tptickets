@@ -2,76 +2,16 @@
 
 namespace app\controllers;
 
-use app\models\User;
-use app\dao\lists\UserDAO as List_UserDAO;
-use app\dao\db\UserDAO as DB_UserDAO;
 use app\controllers\Home;
 
-class Users {
+class Users extends \core\Controller {
 
-	private $dao;
-	private $passwordLength = 6;
-
-	public function __construct() {
-		$this->dao = new DB_UserDAO();
-		
-	}
-
-    public function index() {
-        $userArray = $this->dao->retrieveAll();
-        require ADMIN_VIEWS . '/adminuser.php';
-        
+    public function __construct() {
+        $this->user_dao = $this->dao('User');
     }
 
-	public function addUser($user) {
-
-		try {
-			$this->dao->create($user);
-			if(!$this->checkSession() )// si no esta en session significa que no es admin, muestro home
-            {	
-            	$this->setSession($user);
-            	$home = new Home();
-            	$home->index();
-              }else{
-             	$this->index();// es admin entonces muestro view/adminuser
-             }
-
-
-			return true;
-		} catch(\PDOException $ex) {
-			throw $ex;
-		}
-	}
-
-	public function getUser($id) {
-		$user = $this->dao->retrieveById($id);
-		if(isset($user)){
-			require ADMIN_VIEWS . '/adminuser.php';
-		}
-	}
-
-	public function updateUser($id, $email, $pass, $firstname, $lastname, $admin='false') {
-
-		/*Aca no se va a chequear el email porque en caso de que ese campo no sea el que se quiera modificar haria que se generen conflictos ya que ya va a existir un usuario con ese email, por lo tanto determine que el email no se pueda editar (readonly)*/
-		
-		//checkeo que password sea mayor a 6 caracteres
-		if($this->checkPassword($pass)) {
-			$updatedUser = new User($id, $email, $pass, $firstname, $lastname, $admin);
-
-			if(isset($admin)){
-				$updatedUser->setAdmin($admin);
-				$this->dao->update($updatedUser);
-			}
-
-		} else echo "LA PASSWORD ES MUY CORTA, tiene que tener al menos 6 caracteres";
-
-		$this->index();
-	}
-
-    public function deleteUser($id) {
-
-        $this->dao->delete($id);
-        $this->index();
+    public function index() {
+        echo "Users controller index method called.";
     }
 
 	//corregido 28/10 bd
