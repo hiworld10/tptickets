@@ -2,24 +2,42 @@
 
 namespace app\controllers;
 
-use app\models\User;
-use app\controllers\Users;
-use app\controllers\Artists;
-use app\controllers\Calendars;
+use core\Controller;
 
-class Home {
-
-    private $user;
-    private $calendar;
+class Home extends Controller {
 
     function __construct() {
-        $this->userController = new Users();
-        $this->calendarController = new Calendars();
+        $this->user_dao = $this->dao('User');
+        $this->calendar_dao = $this->dao('Calendar');
     }
 
     public function index() {
-        $calendarArray=$this->calendarController->getAll();
-        require VIEWS_ROOT . '/home/index.php';
+        $data['calendars'] = $this->calendar_dao->retrieveAll();
+        $this->view('home/index', $data);
+    }
+
+    //busca por nombre artista, nombre evento, lugar
+    public function search($string) {
+        $data['calendars'] = $this->calendar_dao->retrieveCalendarsByString($string);
+
+        if($data['calendars'] != null) { 
+            $this->view('home/search', $data);
+        } else {
+            $data['err'] = "No hay resultados.";
+            $this->view('', $data);
+        }
+    }
+
+    public function getCalendar($id_calendar) {
+        
+        $data['calendars'] = array();//  la vista search esta codeada para que reciba un array
+        $calendar = $this->calendar_dao->retrieveById($id_calendar);
+        array_push($data['calendars'], $calendar);
+        if($data['calendars'] != null) {
+            $this->view('home/search', $data);
+        } else {
+            $this->index();
+        }
     }
 
     public function login($email = null, $password = null) {
@@ -90,33 +108,5 @@ class Home {
 
         } else echo "YA EXISTE UN USUARIO CON ESE EMAIL";
 
-    }
-
-    //busca por nombre artista, nombre evento, lugar
-    public function search($string) {
-
-        $calendarArray= $this->calendarController->getByString($string);
-
-        if($calendarArray != null) { 
-            //lo encontro lo muestro
-            require VIEWS_ROOT . '/home/search.php';
-        } else {
-            print_r("NO SE ENCONTRARON RESULTADOS");
-            $this->index();
-        }
-    }
-
-    public function getCalendar($id_calendar) {
-        
-        $calendarArray=array();//  la vista search esta codeada para que reciba un array
-        $calendar= $this->calendarController->getById($id_calendar);
-        array_push($calendarArray, $calendar);
-        if($calendarArray != null) {
-            
-            require VIEWS_ROOT . '/home/search.php';
-
-        } else {
-            $this->index();
-        }
     }
 }
