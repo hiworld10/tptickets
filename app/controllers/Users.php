@@ -18,21 +18,16 @@ class Users extends \core\Controller {
     public function register() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             //Almacenar datos de formulario en el arreglo asociativo $data, para mostrar la informacion introducida previamente en caso de no ser correcta y asi permitir que el usuario la corrija mas rapidamente
-            /*$data = [
+            $data = [
                 'name' => '',
                 'surname' => '',
                 'email' => '',
                 'password' => '',
                 'confirm_password' => '',
-                'name_err' => '',
-                'surname_err' => '',
-                'email_err' => '',
-                'password_err' => '',
-                'confirm_password_err' => ''
-            ];*/
+            ];
 
             //Cargar vista
-            $this->view('users/register');
+            $this->view('users/register', $data);
         } else {
             //Procesar formulario
             //Sanitizar datos de POST
@@ -45,17 +40,7 @@ class Users extends \core\Controller {
                 'email' => trim($_POST['email']),
                 'password' => $_POST['password'],
                 'confirm_password' => $_POST['confirm_password']
-                //'errors' => ''
-                /*'name_err' => '',
-                'surname_err' => '',
-                'email_err' => '',
-                'password_err' => '',
-                'confirm_password_err' => ''*/
             ];
-
-            echo '<pre>';
-            print_r($data);
-            echo '</pre>';
             //Verificar que los campos de nombre y apellido
             if (empty($data['name'])) {
                 $data['errors']['name_err'] = "Debes introducir tu nombre";
@@ -83,12 +68,13 @@ class Users extends \core\Controller {
             }
 
             if (empty($data['errors'])) {
-                echo "No errors detected, check successful";
+                echo "No errors detected, check successful. Account creation should continue here.<br>";
+                echo '<pre>';
+                print_r($data);
+                echo '</pre>';
+            } else {
+                $this->view('users/register', $data);
             }
-
-            echo '<pre>';
-            print_r($data);
-            echo '</pre>';
         }
     }
 
