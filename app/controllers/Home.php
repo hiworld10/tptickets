@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use core\Controller;
+use app\controllers\Users;
 
 class Home extends Controller {
 
@@ -43,20 +44,16 @@ class Home extends Controller {
     public function login($email = null, $password = null) {
 
         $showHome = false; // Esto se vuelve true solo si hay un usuario logueado.
-
+        $userController = new Users();
         // Verifico si existe un usuario logueado. Le paso la responsabilidad a UserController de verificarlo
-        if($user = $this->userController->checkSession()) {
+        if($user = $userController->checkSession()) {
               $showHome = true;
-
         } else {
-
         // Si no hay usuario logueado pero viene un usuario como parametro, es un intento de logueo.
             if(isset($email)) {
-
             // Intento loguear. Le paso la responsabilidad a UserController. Si es true, muetro home. Caso contrario sigo...
-                if($user = $this->userController->login($email, $password)) {
+                if($user = $userController->login($email, $password)) {
                   $showHome = true;
-
                 } else {
                   $alert = "Datos incorrectos, vuelva a intentar.";
                 }
