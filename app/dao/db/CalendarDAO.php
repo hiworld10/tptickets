@@ -5,7 +5,7 @@ use app\dao\IDAO as IDAO;
 use app\models\Artist as Artist;
 use app\models\Calendar as Calendar;    
 use app\dao\db\Connection as Connection;
-use app\dao\db\EventDao as EventDao;
+use app\dao\db\EventDAO as EventDAO;
 use app\dao\db\PlaceEventDAO as PlaceEventDao;
 use app\dao\db\EventSeatDAO as EventSeatDao;
 use app\dao\db\ArtistDAO as ArtistDAO;
