@@ -211,9 +211,9 @@ CREATE TABLE `tickets` (
 CREATE TABLE `users` (
   `id_user` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `password` varchar(50) NOT NULL,
-  `first_name` varchar(30) NOT NULL,
-  `last_name` varchar(40) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `name` varchar(60) NOT NULL,
+  `surname` varchar(70) NOT NULL,
   `is_admin` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -221,7 +221,7 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id_user`, `email`, `password`, `first_name`, `last_name`, `is_admin`) VALUES
+INSERT INTO `users` (`id_user`, `email`, `password`, `name`, `surname`, `is_admin`) VALUES
 (1, 'admin@tptickets.com', 'lapassword', 'El', 'Admin', 1),
 (2, 'user@email.com', 'thecontra', 'Sr', 'Usuario', 0),
 (3, 'a@test.com', 'password', 'A', 'Test', 0);
