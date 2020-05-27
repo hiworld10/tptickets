@@ -9,7 +9,7 @@ namespace core;
 Class Controller {
 
     public function dao($dao) {
-        $dao = $dao . 'DAO';
+        $dao = ucwords($dao) . 'DAO';
         $namespace = 'app\dao\db\\';
         $file = '../app/dao/db/' . $dao . '.php';
         if (file_exists($file)) {
