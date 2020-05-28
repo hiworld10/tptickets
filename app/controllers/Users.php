@@ -160,7 +160,7 @@ class Users extends \core\Controller {
 
     private function createSession($user) {
         $_SESSION['user_id'] = $user->getId();
-        $_SESSION['user_name'] = $user->getFirstname();
+        $_SESSION['user_name'] = $user->getName();
     }
 
     private function destroySession() {
