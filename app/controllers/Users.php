@@ -161,7 +161,7 @@ class Users extends \core\Controller {
     }
 
     private function createSession($user) {
-        //session_regenerate_id(true);
+        session_regenerate_id(true);
         $_SESSION['user_id'] = $user->getId();
         $_SESSION['user_name'] = $user->getName();
     }
