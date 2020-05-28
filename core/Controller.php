@@ -8,7 +8,7 @@ use \app\utils\StringUtils;
  * Controladora base de la cual otras extenderán. Provee las funcionalidades básicas de carga de objetos con acceso a modelos (DAO) y vistas.
  */
 
-Class Controller {
+abstract Class Controller {
 
     public function dao($dao) {
         $dao = StringUtils::convertToStudlyCaps($dao) . 'DAO';
