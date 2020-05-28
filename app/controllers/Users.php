@@ -116,8 +116,9 @@ class Users extends \core\Controller {
             if(empty($data['errors'])) {
                 $user = $this->authenticate($data['email'], $password);
                 if ($user) {
+                    $this->createSession($user);
                     //Mensaje de bienvenida (mejorarlo con mensajes Flash)
-                    $data['login_successful'] = "Sesión iniciada con éxito. Bienvenido, " . $user->getFirstname();
+                    $data['login_successful'] = "Sesión iniciada con éxito. Bienvenido, " . $_SESSION['user_name'];
                     //Mostrar el menu de admin si el usuario lo es, o el inicio convencional si no
                     if ($user->getAdmin() == 'false') {
                         $this->view('', $data);
@@ -150,6 +151,11 @@ class Users extends \core\Controller {
             return ($password = $user->getPassword()) ? $user : false;
         }
         return false;
+    }
+
+    private function createSession($user) {
+        $_SESSION['user_id'] = $user->getId();
+        $_SESSION['user_name'] = $user->getFirstname();
     }
 
   	/* Este método verifica si existe un usuario en sesion y en caso
