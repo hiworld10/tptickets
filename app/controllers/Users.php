@@ -164,14 +164,23 @@ class Users extends \core\Controller {
     }
 
     private function destroySession() {
-        $_SESSION = array();
+        //Desligar todas las variables en $_SESSION
+        $_SESSION = [];
+        //Borrar la cookie en sesion
         if (ini_get("session.use_cookies")) {
             $params = session_get_cookie_params();
-            setcookie(session_name(), '', time() - 42000,
-                $params['path'], $params['domain'],
-                $params['secure'], $params['httponly']
+
+            setcookie(
+                session_name(), 
+                '', 
+                time() - 42000,
+                $params['path'], 
+                $params['domain'],
+                $params['secure'], 
+                $params['httponly']
             );
         }
+        //Finalmente, destruir la sesion
         session_destroy();
     }
 
@@ -199,17 +208,6 @@ class Users extends \core\Controller {
   	public function setSession($user) {
   		$_SESSION['userLogedIn'] = $user;
   	}
-
-  	/*public function logout() {
-
-  		if (session_status() == PHP_SESSION_NONE)
-  			session_start();
-
-  		unset($_SESSION['userLogedIn']);
-	
-  		$homeController = new Home();
-  		$homeController->index();
-  	}*/
 }
 
 ?>
