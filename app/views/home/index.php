@@ -1,5 +1,9 @@
 <?php require HEADER; ?>
 
+<?php if (isset($data['login_successful'])): ?>
+    <p><?php echo htmlspecialchars($data['login_successful']) ?></p>
+<?php endif ?>
+
 <header class="masthead text-white text-center">
     <div class="overlay"></div>
     <div class="container">

@@ -83,7 +83,56 @@ class Users extends \core\Controller {
         $this->view('users/success');
     }
 
-	public function login($email, $password) {
+    public function login() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            //Almacenar datos de formulario en el arreglo asociativo $data, para mostrar la informacion introducida previamente en caso de no ser correcta y asi permitir que el usuario la corrija mas rapidamente
+            $data = [
+                'email' => '',
+            ];
+            //Cargar vista
+            $this->view('users/login', $data);
+        } else {
+            //Procesar formulario
+            //Sanitizar datos de POST
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            //Iniciar arreglo de datos con la informacion obtenida
+            $data = [
+                'email' => trim($_POST['email'])
+            ];
+            //Para mayor seguridad, las contraseñas se procesan aparte, si no son validadas correctamente, no seran mostradas en su correspondiente campo cuando se muestre nuevamente el formulario de registracion
+            $password = $_POST['password'];
+            //Verificar e-mail
+            if (empty($data['email'])) {
+                $data['errors']['email_err'] = "Debes introducir tu e-mail asociado con tu cuenta";
+            }
+            if (empty($password)) {
+                $data['errors']['password_err'] = "debes introducir tu contraseña";
+            }
+            if(empty($data['errors'])) {
+                $user = $this->authenticate($data['email'], $password);
+                if ($user) {
+                    $data['login_successful'] = "Sesión iniciada con éxito. Bienvenido, " . $user->getFirstname();
+                    $this->view('home/index', $data);
+                } else {
+                    $data['errors']['login_failed'] = "Usuario o contraseña incorrectos";
+                    $this->view('users/login', $data);
+                }
+            } else {
+                $this->view('users/login', $data);
+            }
+        }
+    }
+
+    private function authenticate($email, $password) {
+        $user = $this->user_dao->retrieveByEmail($email);
+        if ($user) {
+            return (Password::verify($password, $user->getPassword())) ? $user : false;
+        }
+        return false;
+    }
+
+	/*public function login($email, $password) {
 
 		$user =  $this->user_dao->retrieveByEmail($email);
 
@@ -94,7 +143,7 @@ class Users extends \core\Controller {
 			}
 		}
 		return false;
-	}
+	}*/
 
     //TODO: two declared indexes, needs to fix
 	public function loginScreen() {
