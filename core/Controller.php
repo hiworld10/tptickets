@@ -41,6 +41,11 @@ Class Controller {
             die('Error: la vista no pudo encontrarse en la ruta ' . $file);
         }
     }
+
+    public function redirect($url) {
+        header('Location: ' . FRONT_ROOT . '/' . $url, true, 303);
+        exit;
+    }
 }
 
 ?> 
