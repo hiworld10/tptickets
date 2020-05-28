@@ -10,7 +10,7 @@
     <?php if(isset($calendar)){ ?>
 
 
-      <form name='formulario' action="<?=FRONT_ROOT?>/calendar/update"  method="POST">
+      <form name='formulario' action="<?=FRONT_ROOT?>/calendars/update"  method="POST">
         
       <div class="form">
         
@@ -152,7 +152,7 @@
 <?php   }else{  ?>
 
 
-  <form name='formulario' action="<?=FRONT_ROOT?>/calendar/add"  method="POST">
+  <form name='formulario' action="<?=FRONT_ROOT?>/calendars/add"  method="POST">
    <div class="form">
     <div class="col-12 col-md-9 mb-2 mb-md-3">
       <label for=""><big><big>Fecha</big></big></label>
@@ -277,12 +277,12 @@
 
 
          <td>
-          <form action="<?=FRONT_ROOT?>/calendar/delete" method="POST">
+          <form action="<?=FRONT_ROOT?>/calendars/delete" method="POST">
             <button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit"class="btn btn-block btn-lg btn-primary btn-sm">Eliminar</button>
           </form>
         </td>
         <td>
-          <form action="<?=FRONT_ROOT?>/calendar/edit" method="POST">
+          <form action="<?=FRONT_ROOT?>/calendars/edit" method="POST">
             <button name="update" value="<?= $value->getId(); ?>" id="boton1" type="submit" class="btn btn-block btn-lg btn-primary btn-sm">Editar</button></td>
           </form>
         </td>
