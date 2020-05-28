@@ -116,15 +116,10 @@ class Users extends \core\Controller {
             if(empty($data['errors'])) {
                 $user = $this->authenticate($data['email'], $password);
                 if ($user) {
+                    //Si las credenciales son validas, se crea la sesion
                     $this->createSession($user);
-                    //Mensaje de bienvenida (mejorarlo con mensajes Flash)
-                    $data['login_successful'] = "Sesión iniciada con éxito. Bienvenido, " . $_SESSION['user_name'];
-                    //Mostrar el menu de admin si el usuario lo es, o el inicio convencional si no
-                    if ($user->getAdmin() == 'false') {
-                        $this->view('', $data);
-                    } else {
-                        $this->view('admin/admin');
-                    }
+                    //Redireccionar al home
+                    $this->redirect('');
                 } else {
                     //Mostrar de nuevo el formulario de login si no hubo inicio de sesión exitoso
                     $data['errors']['login_failed'] = "Usuario o contraseña incorrectos";
@@ -164,6 +159,10 @@ class Users extends \core\Controller {
         session_regenerate_id(true);
         $_SESSION['user_id'] = $user->getId();
         $_SESSION['user_name'] = $user->getName();
+        if ($user->getAdmin() == 'true') {
+            echo "Admin is true";
+            $_SESSION['is_admin'] = $user->getAdmin();
+        }
     }
 
     private function destroySession() {

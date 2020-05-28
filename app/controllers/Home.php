@@ -13,8 +13,12 @@ class Home extends Controller {
     }
 
     public function index() {
-        $data['calendars'] = $this->calendar_dao->retrieveAll();
-        $this->view('home/index', $data);
+        if (isset($_SESSION['is_admin'])) {
+            $this->view('admin/admin');
+        } else {
+            $data['calendars'] = $this->calendar_dao->retrieveAll();
+            $this->view('home/index', $data);
+        }
     }
 
     //busca por nombre artista, nombre evento, lugar
