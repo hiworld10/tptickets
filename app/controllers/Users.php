@@ -153,9 +153,26 @@ class Users extends \core\Controller {
         return false;
     }
 
+    public function logout() {
+        $this->destroySession();
+        $this->redirect('');
+    }
+
     private function createSession($user) {
         $_SESSION['user_id'] = $user->getId();
         $_SESSION['user_name'] = $user->getFirstname();
+    }
+
+    private function destroySession() {
+        $_SESSION = array();
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie(session_name(), '', time() - 42000,
+                $params['path'], $params['domain'],
+                $params['secure'], $params['httponly']
+            );
+        }
+        session_destroy();
     }
 
   	/* Este método verifica si existe un usuario en sesion y en caso
@@ -183,7 +200,7 @@ class Users extends \core\Controller {
   		$_SESSION['userLogedIn'] = $user;
   	}
 
-  	public function logout() {
+  	/*public function logout() {
 
   		if (session_status() == PHP_SESSION_NONE)
   			session_start();
@@ -192,7 +209,7 @@ class Users extends \core\Controller {
 	
   		$homeController = new Home();
   		$homeController->index();
-  	}
+  	}*/
 }
 
 ?>
