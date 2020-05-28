@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use app\controllers\Home;
 use app\utils\Password;
-use app\utils\Redirector;
+use app\Auth;
 
 class Users extends \core\Controller {
 
@@ -117,7 +117,7 @@ class Users extends \core\Controller {
                 $user = $this->authenticate($data['email'], $password);
                 if ($user) {
                     //Si las credenciales son validas, se crea la sesion
-                    $this->createSession($user);
+                    Auth::createSession($user);
                     //Redireccionar al home
                     $this->redirect('');
                 } else {
@@ -151,7 +151,7 @@ class Users extends \core\Controller {
     }
 
     public function logout() {
-        $this->destroySession();
+        Auth::destroySession();
         $this->redirect('');
     }
 }
