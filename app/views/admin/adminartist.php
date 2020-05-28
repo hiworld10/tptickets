@@ -2,7 +2,7 @@
 
   <div id="container" class="__full-height-perc">
 
-   <?php require(VIEWS_ROOT.MENUADMIN); ?>
+   <?php require(ADMIN_NAVBAR); ?>
 
 
    <div id="divform"  class="__full-height-perc">

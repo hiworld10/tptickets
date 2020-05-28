@@ -11,7 +11,7 @@ define('IMG_UPLOADS', PUBLIC_ROOT . '/img');
 /* Vistas principales */
 define('HEADER', VIEWS_ROOT . 'inc/header.php');
 define('NAVBAR', VIEWS_ROOT . 'inc/navbar.php');
-define('MENUADMIN', 'menuadmin.php');
+define('ADMIN_NAVBAR', VIEWS_ROOT . 'inc/admin_navbar.php');
 define('FOOTER', VIEWS_ROOT . 'inc/footer.php');
 
 /* Rutas URL */
