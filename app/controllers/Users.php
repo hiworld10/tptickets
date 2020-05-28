@@ -71,8 +71,11 @@ class Users extends \core\Controller {
             if (empty($data['errors'])) {
                 $data['password'] = $password;
                 $data['confirm_password'] = $confirm_password;
+                if (isset($_POST['is_admin'])) {
+                    $data['is_admin'] = 'true';
+                }
                 $this->user_dao->create($data);
-                Redirector::redirect('users/success');
+                $this->redirect('users/success');
             } else {
                 $this->view('users/register', $data);
             }
@@ -109,51 +112,45 @@ class Users extends \core\Controller {
             if (empty($password)) {
                 $data['errors']['password_err'] = "debes introducir tu contraseña";
             }
+            //Si no se encontraron errores, proceder a la autenticidad de las credenciales
             if(empty($data['errors'])) {
                 $user = $this->authenticate($data['email'], $password);
                 if ($user) {
+                    //Mensaje de bienvenida (mejorarlo con mensajes Flash)
                     $data['login_successful'] = "Sesión iniciada con éxito. Bienvenido, " . $user->getFirstname();
-                    $this->view('home/index', $data);
+                    //Mostrar el menu de admin si el usuario lo es, o el inicio convencional si no
+                    if ($user->getAdmin() == 'false') {
+                        $this->view('', $data);
+                    } else {
+                        $this->view('admin/admin');
+                    }
                 } else {
+                    //Mostrar de nuevo el formulario de login si no hubo inicio de sesión exitoso
                     $data['errors']['login_failed'] = "Usuario o contraseña incorrectos";
                     $this->view('users/login', $data);
                 }
+              //Caso contrario, mostrar nuevamente el formulario de login  
             } else {
                 $this->view('users/login', $data);
             }
         }
     }
-
+    /**
+     * Verifica si las credenciales introducidas son validas y retorna el correspondiente usuario en caso de que lo haga exitosamente.
+     * @param  string $email    El email
+     * @param  password $password La contraseña
+     * @return mixed           El objeto User o false
+     */
     private function authenticate($email, $password) {
         $user = $this->user_dao->retrieveByEmail($email);
-        if ($user) {
+        if ($user->getAdmin() == 'false') {
             return (Password::verify($password, $user->getPassword())) ? $user : false;
+        } else {
+            //Aqui la contraseña no es verificada ante un hash, debido a que la cuenta de admin esta hardcodeada con una contraseña con pleno texto. Esto debe ser corregido de alguna forma.
+            return ($password = $user->getPassword()) ? $user : false;
         }
         return false;
     }
-
-	/*public function login($email, $password) {
-
-		$user =  $this->user_dao->retrieveByEmail($email);
-
-		if($user) {
-			if($user->getPassword() == $password) {
-				$this->setSession($user);
-				return $user;
-			}
-		}
-		return false;
-	}*/
-
-    //TODO: two declared indexes, needs to fix
-	public function loginScreen() {
-		require VIEWS_ROOT. '/login.php';
-	}
-
-
-	public function adminview() {
-		require ADMIN_VIEWS. '/admin.php';
-	}
 
   	/* Este método verifica si existe un usuario en sesion y en caso
       * afirmativo lo toma de la base de datos y compara contraseñas.
@@ -175,14 +172,6 @@ class Users extends \core\Controller {
   			return false;
   		}
   	}
-
-    public function isUserAdmin() {
-        /*Si $user es verdadero, verifico que el atributo admin sea "true"*/
-        $user = $this->checkSession();
-        if($user) {
-            return (($user->getAdmin() == "true") ? true : false); 
-        }
-    }
 
   	public function setSession($user) {
   		$_SESSION['userLogedIn'] = $user;
