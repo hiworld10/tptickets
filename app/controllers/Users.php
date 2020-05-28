@@ -183,31 +183,6 @@ class Users extends \core\Controller {
         //Finalmente, destruir la sesion
         session_destroy();
     }
-
-  	/* Este método verifica si existe un usuario en sesion y en caso
-      * afirmativo lo toma de la base de datos y compara contraseñas.
-      * Esto lo hace con el fin de asegurar que si cambio algun dato
-      * obtiene la información actualizada.
-      */
-  	public function checkSession() {
-  		if (session_status() == PHP_SESSION_NONE)
-  			session_start();
-
-  		if(isset($_SESSION['userLogedIn'])) {
-
-  			$user = $this->dao->retrieveByEmail($_SESSION['userLogedIn']->getEmail());
-
-  			if($user->getPassword() == $_SESSION['userLogedIn']->getPassword())
-  				return $user;
-
-  		} else {
-  			return false;
-  		}
-  	}
-
-  	public function setSession($user) {
-  		$_SESSION['userLogedIn'] = $user;
-  	}
 }
 
 ?>
