@@ -14,18 +14,18 @@ class User
 	private $id;
 	private $email;
 	private $password;
-	private $firstname;
-	private $lastname;
+	private $name;
+	private $surname;
 	private $admin;
 	public $m_purchase;
 
-	function __construct($id, $email, $password, $firstname, $lastname, $admin)
+	function __construct($id, $email, $password, $name, $surname, $admin)
 	{
 		$this->id = $id;
 		$this->email = $email;
 		$this->password = $password;
-		$this->firstname = $firstname;
-		$this->lastname = $lastname;
+		$this->name = $name;
+		$this->surname = $surname;
 		$this->admin = $admin;
 	}
 
@@ -40,14 +40,14 @@ class User
 		return $this->password;
 	}
 
-	public function getFirstname()
+	public function getName()
 	{
-		return $this->firstname;
+		return $this->name;
 	}
 
-	public function getLastname()
+	public function getSurname()
 	{
-		return $this->lastname;
+		return $this->surname;
 	}
 
 	public function getId()
@@ -71,14 +71,14 @@ class User
 		$this->password=$password;
 	}
 
-	public function setFirstname($firstname)
+	public function setName($name)
 	{
-		$this->firstname=$firstname;
+		$this->name=$name;
 	}
 
-	public function setLastname($lastname)
+	public function setSurname($surname)
 	{
-		$this->lastname=$lastname;
+		$this->surname=$surname;
 	}
 
 
