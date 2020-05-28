@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 28, 2020 at 05:50 AM
+-- Generation Time: May 28, 2020 at 05:19 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -21,10 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `tptickets`
 --
-
-DROP DATABASE IF EXISTS tptickets;
-CREATE DATABASE tptickets;
-use tptickets;
 
 -- --------------------------------------------------------
 
@@ -67,14 +63,15 @@ CREATE TABLE `artists_calendars` (
 --
 
 INSERT INTO `artists_calendars` (`id_artist_calendar`, `id_calendar`, `id_artist`) VALUES
-(1, 5, 5),
-(2, 5, 6),
-(3, 5, 7),
-(4, 6, 1),
-(5, 7, 2),
-(6, 7, 3),
-(7, 7, 5),
-(8, 7, 6);
+(1, 1, 1),
+(2, 2, 2),
+(3, 2, 3),
+(4, 2, 4),
+(5, 2, 5),
+(6, 2, 6),
+(7, 3, 1),
+(8, 3, 4),
+(9, 3, 7);
 
 -- --------------------------------------------------------
 
@@ -93,9 +90,9 @@ CREATE TABLE `calendars` (
 --
 
 INSERT INTO `calendars` (`id_calendar`, `date`, `id_event`) VALUES
-(5, '2020-08-01', 4),
-(6, '2020-08-15', 1),
-(7, '2020-08-30', 2);
+(1, '2020-08-01', 1),
+(2, '2020-08-15', 2),
+(3, '2020-08-30', 4);
 
 -- --------------------------------------------------------
 
@@ -159,18 +156,18 @@ CREATE TABLE `event_seats` (
 --
 
 INSERT INTO `event_seats` (`id_event_seat`, `id_calendar`, `id_seat_type`, `quantity`, `price`, `remainder`) VALUES
-(5, 5, 1, 5000, 500, 5000),
-(6, 5, 2, 3000, 1000, 3000),
-(7, 5, 3, 1500, 2500, 1500),
-(8, 5, 4, 500, 5000, 500),
-(9, 6, 1, 15000, 500, 15000),
-(10, 6, 2, 5000, 2000, 5000),
-(11, 6, 3, 7000, 3000, 7000),
-(12, 6, 4, 3000, 6000, 3000),
-(13, 7, 1, 30000, 1000, 30000),
-(14, 7, 2, 20000, 3000, 20000),
-(15, 7, 3, 0, 0, 0),
-(16, 7, 4, 0, 0, 0);
+(1, 1, 1, 15000, 500, 15000),
+(2, 1, 2, 5000, 2000, 5000),
+(3, 1, 3, 7000, 1500, 7000),
+(4, 1, 4, 3000, 2500, 3000),
+(5, 2, 1, 30000, 2000, 30000),
+(6, 2, 2, 20000, 3000, 20000),
+(7, 2, 3, 0, 0, 0),
+(8, 2, 4, 0, 0, 0),
+(9, 3, 1, 15000, 1500, 15000),
+(10, 3, 2, 5000, 2500, 5000),
+(11, 3, 3, 0, 0, 0),
+(12, 3, 4, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -190,9 +187,9 @@ CREATE TABLE `places_events` (
 --
 
 INSERT INTO `places_events` (`id_place_event`, `id_calendar`, `capacity`, `description`) VALUES
-(5, 5, 10000, 'WTF Stadium'),
-(6, 6, 30000, 'Estadio Velez'),
-(7, 7, 50000, 'XD Arena');
+(1, 1, 30000, 'Estadio Velez'),
+(2, 2, 50000, 'XD Arena'),
+(3, 3, 20000, 'WTF Stadium');
 
 -- --------------------------------------------------------
 
@@ -380,13 +377,13 @@ ALTER TABLE `artists`
 -- AUTO_INCREMENT for table `artists_calendars`
 --
 ALTER TABLE `artists_calendars`
-  MODIFY `id_artist_calendar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_artist_calendar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `calendars`
 --
 ALTER TABLE `calendars`
-  MODIFY `id_calendar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_calendar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -404,13 +401,13 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT for table `event_seats`
 --
 ALTER TABLE `event_seats`
-  MODIFY `id_event_seat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_event_seat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `places_events`
 --
 ALTER TABLE `places_events`
-  MODIFY `id_place_event` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_place_event` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `purchases`
