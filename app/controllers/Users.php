@@ -144,11 +144,13 @@ class Users extends \core\Controller {
      */
     private function authenticate($email, $password) {
         $user = $this->user_dao->retrieveByEmail($email);
-        if ($user->getAdmin() == 'false') {
-            return (Password::verify($password, $user->getPassword())) ? $user : false;
-        } else {
-            //Aqui la contraseña no es verificada ante un hash, debido a que la cuenta de admin esta hardcodeada con una contraseña con pleno texto. Esto debe ser corregido de alguna forma.
-            return ($password = $user->getPassword()) ? $user : false;
+        if ($user) {
+            if ($user->getAdmin() == 'false') {
+                return (Password::verify($password, $user->getPassword())) ? $user : false;
+            } else {
+                //Aqui la contraseña no es verificada ante un hash, debido a que la cuenta de admin esta hardcodeada con una contraseña con pleno texto. Esto debe ser corregido de alguna forma.
+                return ($password = $user->getPassword()) ? $user : false;
+            }
         }
         return false;
     }
@@ -159,6 +161,7 @@ class Users extends \core\Controller {
     }
 
     private function createSession($user) {
+        //session_regenerate_id(true);
         $_SESSION['user_id'] = $user->getId();
         $_SESSION['user_name'] = $user->getName();
     }
