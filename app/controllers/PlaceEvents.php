@@ -13,8 +13,13 @@ class PlaceEvents extends \app\controllers\Authentication {
 
 	public function __construct() {
         $this->requireAdminLogin();
-		$this->dao = new DB_PlaceEventDAO();
+		$this->dao = $this->dao('PlaceEvent');
 	}
+
+    public function index() {
+        $data['place_events'] = $this->dao->retrieveAll(); 
+        $this->view('admin/place_events', $data);
+    }
 
 	public function addPlaceEvent($calendarId, $capacity, $description ) {
 
@@ -27,12 +32,6 @@ class PlaceEvents extends \app\controllers\Authentication {
 		$placeEvent = new PlaceEvent(null, $calendarId, $capacity, $description);
 		$this->dao->create($placeEvent);
 		$this->getAll();
-	}
-
-
-	public function index() {
-		$placeEventArray = $this->dao->retrieveAll(); 
-		require ADMIN_VIEWS . '/adminplaceevent.php';
 	}
 
 	public function getAllSelect() {
