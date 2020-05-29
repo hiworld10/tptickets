@@ -2,58 +2,52 @@
 
 namespace app\controllers;
 
-use app\models\Category;
-use app\dao\lists\CategoryDAO as List_CategoryDAO;
-use app\dao\db\CategoryDAO as DB_CategoryDAO;
-
-
 class Categories extends \app\controllers\Authentication {
-
-	private $dao;
 
 	public function __construct() {
         $this->requireAdminLogin();
-		$this->dao = new DB_CategoryDAO();
+		$this->dao = $this->dao('Category');
 	}
 
 	public function index() {
 		
-		$categoryArray = $this->dao->retrieveAll(); 
-		require ADMIN_VIEWS . '/admincategory.php';
+		$data['categories'] = $this->dao->retrieveAll(); 
+		$this->view('admin/categories', $data);
 	}
 
-    public function add($type) {
+    public function add() {
+        $this->redirectIfRequestIsNotPost('categories');
 
-        $category = new Category(null, $type);
+        $category['type'] = trim($_POST['type']); 
         $this->dao->create($category);
-        $this->index();
+
+        $this->redirect('categories');
     }
-
-	public function getAll() {
-		return $this->dao->retrieveAll();
-	}
-	
-    public function get($id) {
-        return $this->dao->retrieveById($id);
-    }
-
-	public function delete($id) {
-
-		$this->dao->delete($id);
-		$this->index();
-	}
 
 	public function edit($id) {
-		$category=$this->dao->retrieveById($id);		
-		if(isset($category)) {
-			require ADMIN_VIEWS . '/admincategory.php';
+		$data['category'] = $this->dao->retrieveById($id);		
+		if(isset($data['category'])) {
+            $this->view('admin/categories', $data);
 		}
 	}
 
-	public function update($id, $newType) {
-		$updatedCategory = new Category($id, $newType);
-		$this->dao->update($updatedCategory);
-		$this->index();
+	public function update($id) {
+
+        $this->redirectIfRequestIsNotPost('categories');
+
+        $category['id_category'] = $id;
+        $category['type'] = trim($_POST['type']);
+		$this->dao->update($category);
+
+		$this->redirect('categories');
 	}
+
+    public function delete($id) {
+        $this->redirectIfRequestIsNotPost('categories');
+        
+        $this->dao->delete($id);
+        
+        $this->redirect('categories');
+    }
 }
 ?>

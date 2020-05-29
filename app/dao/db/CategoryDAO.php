@@ -1,6 +1,6 @@
 <?php
-namespace app\dao\db;
 
+namespace app\dao\db;
 
 use \Exception as Exception;
 use app\dao\IDAO as IDAO;
@@ -18,9 +18,8 @@ class CategoryDAO implements IDAO
 
     public function create($category) {
         try {
-            $query = "INSERT INTO ".$this->tableName." (id_category, type) VALUES (:id_category, :type);";
-            $parameters["id_category"] = $category->getId();
-            $parameters["type"] = $category->getType();
+            $query = "INSERT INTO ".$this->tableName." (type) VALUES (:type);";
+            $parameters["type"] = $category['type'];
             $this->connection->executeNonQuery($query, $parameters);
         }
         catch(Exception $ex) {
@@ -74,8 +73,8 @@ class CategoryDAO implements IDAO
     public function update($category) {
        try {
         $query = "UPDATE ".$this->tableName." SET type = :type WHERE id_category = :id_category";
-        $parameters["id_category"] = $category->getId();
-        $parameters["type"] = $category->getType();
+        $parameters["id_category"] = $category['id_category'];
+        $parameters["type"] = $category['type'];
         $this->connection->executeNonQuery($query, $parameters);   
         }
         catch(Exception $ex) {
