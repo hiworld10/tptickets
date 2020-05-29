@@ -2,58 +2,51 @@
 
 namespace app\controllers;
 
-use app\models\Artist;
-use app\dao\db\ArtistDAO as DB_ArtistDAO;
-use app\dao\lists\ArtistDAO as List_ArtistDAO;
-use app\controllers\Users;
-use app\controllers\Auth;
-
 class Artists extends \app\controllers\Authentication {
-
-	private $dao;
-	private $userController;
 
 	public function __construct() {
         $this->requireAdminLogin();
-		$this->dao = new DB_ArtistDAO();
-		$this->userController = new Users();
+		$this->artist_dao = $this->dao('Artist');
 	}
 
     public function index() {
-            $artistArray = $this->dao->retrieveAll();
-            require ADMIN_VIEWS . '/adminartist.php';
+            $data['artist_list'] = $this->artist_dao->retrieveAll();
+            $this->view('admin/artists', $data);
     }
 
-	public function add($artistName) {
-		$artist = new Artist(null, $artistName);
-		$this->dao->create($artist);
-		$this->index();
-	}
+	public function add() {
+        $this->redirectIfRequestIsNotPost('artists');
 
-	public function getAll() {
-		return $this->dao->retrieveAll();
+        $data = ['name' => trim($_POST['name'])];
+        $this->artist_dao->create($data);
+		
+		$this->redirect('artists');
 	}
-
-    public function get($id) {
-        $artist=$this->dao->retrieveById($id);      
-    }
 
 	public function edit($id) {
-		$artist=$this->dao->retrieveById($id);		
-		if(isset($artist)){
-			require ADMIN_VIEWS . '/adminartist.php';
+		$data['artist'] = $this->artist_dao->retrieveById($id);		
+		if(isset($data['artist'])) {
+            $this->view('admin/artists', $data);
 		}
 	}
 
-	public function update($id, $newName) {
-		$updatedArtist = new Artist($id, $newName);
-		$this->dao->update($updatedArtist);
-		$this->index();
+	public function update($id) {
+        $this->redirectIfRequestIsNotPost('artists');
+
+        $data['id_artist'] = $id;
+    	$data['name'] = $_POST['name'];
+    	$this->artist_dao->update($data);
+    
+        $this->redirect('artists');
 	}
 
     public function delete($id) {
-        $this->dao->delete($id);
-        $this->index();
+        //Se tendría que agregar una confirmación adicional para eliminar el item, para evitar el borrado accidental.
+        $this->redirectIfRequestIsNotPost('artists');
+
+        $this->artist_dao->delete($id);
+
+        $this->redirect('artists');
     }
 
 }

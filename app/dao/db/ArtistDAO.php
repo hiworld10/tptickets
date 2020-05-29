@@ -15,10 +15,16 @@ class ArtistDAO implements IDAO
         $this->connection = Connection::getInstance();
     }
 
-    public function create($artist) {
+    public function create($data) {
         try {
+            echo '<pre>';
+            print_r($data);
+            echo '</pre>';
             $query = "INSERT INTO ".$this->tableName." (name) VALUES (:name);";
-            $parameters["name"] = $artist->getName();
+            $parameters["name"] = $data['name'];
+            echo '<pre>';
+            print_r($parameters);
+            echo '</pre>';
             $this->connection->executeNonQuery($query, $parameters);
         }
         catch(Exception $ex) {
@@ -69,11 +75,11 @@ class ArtistDAO implements IDAO
         }            
     }
 
-    public function update($artist) {
+    public function update($data) {
         try {
             $query = "UPDATE ".$this->tableName." SET name = :name WHERE id_artist = :id_artist";
-            $parameters["id_artist"] = $artist->getId();
-            $parameters["name"] = $artist->getName();
+            $parameters["id_artist"] = $data['id_artist'];
+            $parameters["name"] = $data['name'];
             $this->connection->executeNonQuery($query, $parameters);   
         }
         catch(Exception $ex) {
