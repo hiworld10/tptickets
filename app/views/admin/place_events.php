@@ -43,7 +43,7 @@
         <div id="table">
             <table class="table bg-light-alpha">
 
-                <?php if(!empty($placeEventArray)) { ?>
+                <?php if(!empty($data['place_events'])) { ?>
                     <thead>     
                         <th>Id</th>  
                         <th>Capacidad</th> 
@@ -51,7 +51,7 @@
                         <th>Calendar Id</th>             
                     </thead>
                     <tbody>
-                        <?php foreach ($placeEventArray as $value) { ?>
+                        <?php foreach ($data['place_events'] as $value) { ?>
                             <tr>
                                 <td><?= $value->getId(); ?></td>
                                 <td><?= $value->getCapacity(); ?></td>
