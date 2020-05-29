@@ -80,7 +80,7 @@
   <div id="table" class="__full-height-perc">
     <table class="table bg-light-alpha">
 
-          <?php if(!empty($userArray)) { ?>
+          <?php if(!empty($data['users'])) { ?>
       <thead>     
        <th>Id</th>  
        <th>Email</th> 
@@ -90,13 +90,12 @@
        <th>Admin</th>           
      </thead>
      <tbody>
-      <?php foreach ($userArray as $value) { ?>
+      <?php foreach ($data['users'] as $value) { ?>
         <tr>
          <td><?= $value->getId(); ?></td>
          <td><?= $value->getEmail(); ?></td>
-         <td><?= $value->getPassword(); ?></td>
-         <td><?= $value->getFirstname(); ?></td>
-         <td><?= $value->getLastname(); ?></td>
+         <td><?= $value->getName(); ?></td>
+         <td><?= $value->getSurname(); ?></td>
          <td><?= $value->getAdmin(); ?></td>
 
          <td>
