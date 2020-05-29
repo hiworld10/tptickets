@@ -10,7 +10,7 @@ use \app\utils\StringUtils;
 
 abstract Class Controller {
 
-    public function dao($dao) {
+    protected function dao($dao) {
         $dao = StringUtils::convertToStudlyCaps($dao) . 'DAO';
         $namespace = 'app\dao\db\\';
         $file = '../app/dao/db/' . $dao . '.php';
@@ -30,7 +30,7 @@ abstract Class Controller {
         }        
     }*/
 
-    public function view($view, $data = []) {
+    protected function view($view, $data = []) {
         if (empty($view)) {
             $view = 'home/index';
         }
@@ -42,10 +42,16 @@ abstract Class Controller {
         }
     }
 
-    public function redirect($url) {
+    protected function redirect($url) {
         header('Location: ' . FRONT_ROOT . '/' . $url, true, 303);
         exit;
     }
+
+    protected function redirectIfRequestIsNotPost($url) {
+        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+            $this->redirect($url);
+        }
+    } 
 }
 
 ?> 
