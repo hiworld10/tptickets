@@ -25,7 +25,7 @@ class UserDAO implements IDAO
             $parameters["surname"] = $data['surname'];
             //conversion de valores para la tabla (admite solo 0 y 1 (tinyint))
             if (isset($data['is_admin'])) {
-                $parameters["is_admin"] = $this->stringBooleanToTinyInt($user->getAdmin());
+                $parameters["is_admin"] = $this->stringBooleanToTinyInt($data['is_admin']);
             } else {
                 $parameters['is_admin'] = 0;
             }
