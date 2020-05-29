@@ -4,17 +4,17 @@
     <?php require(ADMIN_NAVBAR); ?>
     <div id="divform" class="__full-height-perc">
 
-        <?php if(isset($event)): ?>
+        <?php if(isset($data['event'])): ?>
 
             <form name='formulario' action="<?=FRONT_ROOT?>/events/update"  enctype="multipart/form-data" method="POST">
                 <div class="form">
                     <div class="col-md-2 mb-2 mb-md-0 form">
                         <label>Id</label>
-                        <input type="text" name="id" class="form-control form-control-lg" value="<?= $event->getId(); ?>" readonly>
+                        <input type="text" name="id" class="form-control form-control-lg" value="<?= $data['event']->getId(); ?>" readonly>
                     </div>
                     <div class="col-md-7 mb-2 mb-md-0 form">
                         <label>Nombre</label>
-                        <input type="text" name="event" class="form-control form-control-lg" value="<?= $event->getName(); ?>" required>
+                        <input type="text" name="name" class="form-control form-control-lg" value="<?= $data['event']->getName(); ?>" required>
                     </div>
                     <div class="col-md-7 mb-2 mb-md-0  mt-2 form">
                         <label>Categoria</label>
@@ -30,7 +30,7 @@
                     </div>
                     <div class="col-lg-7 form-group mt-2">
                         <label>Imagen</label>
-                        <input type="file" name="photo" class="form-control form-control-lg"required>
+                        <input type="file" name="photo" class="form-control form-control-lg"  required>
                     </div>
                     <div class="col-11 col-md-3 mt-4">
                         <button type="submit" class="btn btn-block btn-lg btn-primary">Aceptar</button>
@@ -93,9 +93,8 @@
                                     </form>
                                 </td>
                                 <td>
-                                    <form action="<?=FRONT_ROOT?>/events/edit" method="POST">
-                                        <button name="update" value="<?= $value->getId(); ?>" id="boton1" type="submit" class="btn btn-block btn-lg btn-primary btn-sm">Editar</button></td>
-                                    </form>
+                                    <a href="<?=FRONT_ROOT?>/events/edit/<?=$value->getId()?>" class="btn btn-block btn-lg btn-primary btn-sm">Editar
+                                    </a>
                                 </td>
                             </tr>
                         <?php endforeach ?>

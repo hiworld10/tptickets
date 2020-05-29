@@ -20,11 +20,10 @@ class EventDAO implements IDAO
 
     public function create($event) {
         try {
-            $query = "INSERT INTO ".$this->tableName." (id_event, name, id_category, image) VALUES (:id_event, :name, :id_category, :image);";
-            $parameters["id_event"] = $event->getId();
-            $parameters["name"] = $event->getName();
-            $parameters["id_category"] = $event->getCategory()->getId();
-            $parameters["image"] = $event->getImage()->getPath();
+            $query = "INSERT INTO ".$this->tableName." (name, id_category, image) VALUES (:name, :id_category, :image);";
+            $parameters["name"] = $event['name'];
+            $parameters["id_category"] = $event['id_category'];
+            $parameters["image"] = $event['image'];
             $this->connection->executeNonQuery($query, $parameters);
         }
         catch(Exception $ex) {
@@ -86,10 +85,10 @@ class EventDAO implements IDAO
     public function update($event) {
         try {
             $query = "UPDATE ".$this->tableName." SET name = :name, id_category = :id_category, image = :image WHERE id_event = :id_event";
-            $parameters["id_event"] = $event->getId();
-            $parameters["name"] = $event->getName();
-            $parameters["id_category"] = $event->getCategory()->getId();
-            $parameters["image"]= $event->getImage()->getPath();
+            $parameters["id_event"] = $event['id_event'];
+            $parameters["name"] = $event['name'];
+            $parameters["id_category"] = $event['id_category'];
+            $parameters["image"]= $event['image'];
             $this->connection->executeNonQuery($query, $parameters);   
         }
         catch(Exception $ex) {

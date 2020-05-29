@@ -18,44 +18,40 @@ class Events extends \app\controllers\Authentication {
         $this->view('admin/events', $data);
     }
 
-	public function add($name, $categoryId) {
+	public function add() {
+        $this->redirectIfRequestIsNotPost('events');
+
+        //Subida de imagen a la carpeta desginada de eventos
 		if (!empty($_FILES['photo']['name'])) {
 			$photo = $_FILES['photo'];
 
 		} else {
 			$photo = null;
 		}
-
 		$rootPhoto= new Photo();
 		$rootPhoto->uploadPhoto($photo, "events");
+        //Se guarda la ruta de la imagen en string para ser almacenada en la BD
+        $event['image'] = $rootPhoto->getPath();
+        //Igual forma con el resto de los datos
+		$event['id_category'] = $this->category_dao->retrieveById($_POST['category'])->getId();
+        $event['name'] = trim($_POST['name']);
+        //Finalmente se realiza el query y se redirecciona al index de eventos
+		$this->event_dao->create($event);
 
-		$category = $this->categoryController->get($categoryId);
-		$event = new Event(null, $name, $category, $rootPhoto);
-		$this->dao->create($event);
-		$this->index();
+		$this->redirect('events');
 	}
 
 	public function edit($id) { 
-		$event = $this->dao->retrieveById($id);
-		$categoryArray = $this->categoryController->getAll();	
-		if(isset($event) && isset($categoryArray)) {
-			require ADMIN_VIEWS . '/adminevent.php';
+		$data['event'] = $this->event_dao->retrieveById($id);
+		$data['categories'] = $this->category_dao->retrieveAll();	
+		if(isset($data['event']) && isset($data['categories'])) {
+			$this->view('admin/events', $data);
 		}
 	}
 
-	public function getAll() {
-		return $this->dao->retrieveAll();
-	}
+	public function update($id) {
+        $this->redirectIfRequestIsNotPost('events');
 
-    public function getById($id) { 
-        return $this->dao->retrieveById($id);
-    }
-
-    public function getByString($string) {
-        return $this->dao->retrieveByString($string);
-    }
-
-	public function update($id, $newName, $categoryId) {
 		if (!empty($_FILES['photo']['name'])) {
 			$photo = $_FILES['photo'];
 
@@ -66,15 +62,21 @@ class Events extends \app\controllers\Authentication {
 		$rootPhoto = new Photo();
 		$rootPhoto->uploadPhoto($photo, "events");
 
-		$newCategory = $this->categoryController->get($categoryId);
-		$updatedEvent = new Event($id, $newName, $newCategory, $rootPhoto);
-		$this->dao->update($updatedEvent);
-		$this->index();
+        $event['image'] = $rootPhoto->getPath();
+        $event['id_event'] = $id;
+        $event['id_category'] = $this->category_dao->retrieveById($_POST['category'])->getId();
+        $event['name'] = trim($_POST['name']);
+        $this->event_dao->update($event);
+
+		$this->redirect('events');
 	}
 	
     public function delete($id) {
-        $this->dao->delete($id);
-        $this->index();
+        $this->redirectIfRequestIsNotPost('events');
+        
+        $this->event_dao->delete($id);
+        
+        $this->redirect('events');
     }
 }
 ?>
