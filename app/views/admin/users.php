@@ -1,5 +1,15 @@
 <?php require HEADER; ?>
 
+<?php if (isset($data['errors'])): ?>
+    <h3>Se han producido errores:</h3>
+    <br>
+    <ul>
+    <?php foreach ($data['errors'] as $error): ?>
+        <li><?php echo $error ?></li>
+    <?php endforeach ?>
+    </ul>
+<?php endif ?>
+
   <div id="container" class="__full-height-perc">
 
        <?php require(ADMIN_NAVBAR); ?>
@@ -50,7 +60,7 @@
     <?php   } else {   ?>
 
         <!-- De no ser así, se habilitará el formulario para agregar usuarios  -->
-        <form name='formulario' action="<?=FRONT_ROOT?>/home/addUser"  method="POST">
+        <form name='formulario' action="<?=FRONT_ROOT?>/users/register"  method="POST">
        <div class="form">
         <div class="col-12 col-md-9 mb-2 mb-md-3">
           <input type="email" name="email" class="form-control form-control-lg" placeholder="Email..." required>
@@ -59,10 +69,13 @@
           <input type="password" name="password" class="form-control form-control-lg" placeholder="Contraseña..." required>
         </div>
         <div class="col-12 col-md-9 mb-2 mb-md-3">
+          <input type="password" name="confirm_password" class="form-control form-control-lg" placeholder="Confirmar contraseña..." required>
+        </div>        
+        <div class="col-12 col-md-9 mb-2 mb-md-3">
           <input type="text" name="name" class="form-control form-control-lg" placeholder="Nombre..." required>
         </div>
         <div class="col-12 col-md-9 mb-2 mb-md-3">
-          <input type="text" name="lastname" class="form-control form-control-lg" placeholder="Apellido..." required="">
+          <input type="text" name="surname" class="form-control form-control-lg" placeholder="Apellido..." required>
         </div>
         <div class="col-12 col-md-9 mb-2 mb-md-3">
          <label><input type="checkbox" name="admin" class="form-control form-control-lg" value="true">Admin</label>
@@ -84,7 +97,6 @@
       <thead>     
        <th>Id</th>  
        <th>Email</th> 
-       <th>Password</th> 
        <th>Nombre</th>   
        <th>Apellido</th>
        <th>Admin</th>           
@@ -99,7 +111,7 @@
          <td><?= $value->getAdmin(); ?></td>
 
          <td>
-          <form action="<?=FRONT_ROOT?>/users/deleteUser" method="POST">
+          <form action="<?=FRONT_ROOT?>/users/delete" method="POST">
             <button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit"class="btn btn-block btn-lg btn-primary btn-sm">Eliminar</button>
           </form>
         </td>

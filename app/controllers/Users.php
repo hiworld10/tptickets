@@ -72,13 +72,21 @@ class Users extends \app\controllers\Authentication {
             if (empty($data['errors'])) {
                 $data['password'] = $password;
                 $data['confirm_password'] = $confirm_password;
-                if (isset($_POST['is_admin'])) {
+                if (isset($_POST['admin'])) {
                     $data['is_admin'] = 'true';
                 }
                 $this->user_dao->create($data);
-                $this->redirect('users/success');
+                if (Auth::isAdminLoggedIn()) {
+                    $this->redirect('users');
+                } else {
+                    $this->redirect('users/success');
+                }
             } else {
-                $this->view('users/register', $data);
+                if (Auth::isAdminLoggedIn()) {
+                    $this->view('admin/users', $data);
+                } else {
+                    $this->view('users/register', $data);
+                }
             }
         }
     }
@@ -154,6 +162,13 @@ class Users extends \app\controllers\Authentication {
     public function logout() {
         Auth::destroySession();
         $this->redirect('');
+    }
+
+    public function delete($id) {
+        $this->requireAdminLogin();
+        $this->redirectIfRequestIsNotPost('users');
+        $this->user_dao->delete($id);
+        $this->redirect('users');
     }
 }
 
