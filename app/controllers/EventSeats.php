@@ -7,12 +7,13 @@ use app\dao\lists\EventSeatDAO as List_EventSeatDAO;
 use app\dao\db\EventSeatDAO as DB_EventSeatDAO;
 use app\controllers\SeatTypes;
 
-class EventSeats {
+class EventSeats extends \app\controllers\Authentication {
 
 	private $dao;
 	private $seatTypeController;
 
 	public function __construct() {
+        $this->requireAdminLogin();
 		$this->dao = new DB_EventSeatDAO();
 	
 		$this->seatTypeController = new SeatTypes();

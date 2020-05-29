@@ -7,11 +7,12 @@ use app\dao\lists\PlaceEventDAO as List_PlaceEventDAO;
 use app\dao\db\PlaceEventDAO as DB_PlaceEventDAO;
 
 
-class PlaceEvents {
+class PlaceEvents extends \app\controllers\Authentication {
 
 	private $dao;
 
 	public function __construct() {
+        $this->requireAdminLogin();
 		$this->dao = new DB_PlaceEventDAO();
 	}
 

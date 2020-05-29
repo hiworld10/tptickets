@@ -7,11 +7,12 @@ use app\dao\lists\CategoryDAO as List_CategoryDAO;
 use app\dao\db\CategoryDAO as DB_CategoryDAO;
 
 
-class Categories {
+class Categories extends \app\controllers\Authentication {
 
 	private $dao;
 
 	public function __construct() {
+        $this->requireAdminLogin();
 		$this->dao = new DB_CategoryDAO();
 	}
 

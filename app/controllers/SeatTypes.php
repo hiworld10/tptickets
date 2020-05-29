@@ -7,11 +7,12 @@ use app\dao\lists\SeatTypeDAO as List_SeatTypeDAO;
 use app\dao\db\SeatTypeDAO as DB_SeatTypeDAO;
 
 
-class SeatTypes {
+class SeatTypes extends \app\controllers\Authentication {
 
 	private $dao;
 
 	public function __construct() {
+        $this->requireAdminLogin();
 		$this->dao = new DB_SeatTypeDAO();
 	}
 

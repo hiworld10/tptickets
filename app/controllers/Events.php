@@ -7,13 +7,15 @@ use app\models\Photo;
 use app\dao\lists\EventDAO as List_EventDAO;
 use app\dao\db\EventDAO as DB_EventDAO;
 use app\controllers\Categories;
+use app\controllers\Auth;
 
-class Events {
+class Events extends \app\controllers\Authentication {
 
 	private $dao;
 	private $categoryController;
 
 	public function __construct() {
+        $this->requireAdminLogin();
 		$this->dao = new DB_EventDAO();
 		$this->categoryController = new Categories();
 		
