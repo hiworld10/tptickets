@@ -6,15 +6,16 @@ use app\controllers\Home;
 use app\utils\Password;
 use app\Auth;
 
-class Users extends \core\Controller {
+class Users extends \app\controllers\Authentication {
 
     public function __construct() {
         $this->user_dao = $this->dao('User');
-        //$this->user_m = $this->model('User');
     }
 
     public function index() {
-        echo "Users controller index method called.";
+        $this->requireAdminLogin();
+        $data['users'] = $this->user_dao->retrieveAll();
+        $this->view('admin/users', $data);
     }
 
     public function register() {
