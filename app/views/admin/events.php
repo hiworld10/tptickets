@@ -19,8 +19,8 @@
                     <div class="col-md-7 mb-2 mb-md-0  mt-2 form">
                         <label>Categoria</label>
                         <select class="form-control" name="category" required>
-                            <?php if($categoryArray): ?> 
-                                <?php foreach ($categoryArray as $key => $value): ?> 
+                            <?php if($data['categories']): ?> 
+                                <?php foreach ($data['categories'] as $key => $value): ?> 
                                     <option value="<?= $value->getId(); ?>"><?= $value->getType(); ?></option> 
                                 <?php endforeach ?>
                             <?php else: ?>
@@ -49,8 +49,8 @@
 
                         <label for="">Categoria</label>
                         <select class="form-control" name="category" required>
-                            <?php if($categoryArray): ?> 
-                                <?php foreach ($categoryArray as $key => $value): ?>  
+                            <?php if($data['categories']): ?> 
+                                <?php foreach ($data['categories'] as $key => $value): ?>  
                                     <!--No es posible pasar un objeto mediante HTML (ej. '$value')-->
                                     <option value="<?= $value->getId(); ?>"><?= $value->getType(); ?></option> 
                                 <?php endforeach ?>
@@ -73,7 +73,7 @@
         <div id="table">
             <table class="table bg-light-alpha">
 
-                <?php if(!empty($eventArray)): ?>
+                <?php if(!empty($data['events'])): ?>
                     <thead>     
                         <th>Id</th>  
                         <th>Nombre</th>     
@@ -81,7 +81,7 @@
                         <th>Imagen</th>            
                     </thead>
                     <tbody>
-                        <?php foreach ($eventArray as $value): ?>
+                        <?php foreach ($data['events'] as $value): ?>
                             <tr>
                                 <td><?= $value->getId(); ?></td>
                                 <td><?= $value->getName(); ?></td>

@@ -2,29 +2,20 @@
 
 namespace app\controllers;
 
-use app\models\Event;
 use app\models\Photo;
-use app\dao\lists\EventDAO as List_EventDAO;
-use app\dao\db\EventDAO as DB_EventDAO;
-use app\controllers\Categories;
-use app\controllers\Auth;
 
 class Events extends \app\controllers\Authentication {
 
-	private $dao;
-	private $categoryController;
-
 	public function __construct() {
         $this->requireAdminLogin();
-		$this->dao = new DB_EventDAO();
-		$this->categoryController = new Categories();
-		
+		$this->event_dao = $this->dao('Event');
+        $this->category_dao = $this->dao('Category');		
 	}
 
     public function index() {
-        $eventArray = $this->dao->retrieveAll();
-        $categoryArray = $this->categoryController->getAll();
-        require ADMIN_VIEWS. '/adminevent.php';
+        $data['events'] = $this->event_dao->retrieveAll();
+        $data['categories'] = $this->category_dao->retrieveAll();
+        $this->view('admin/events', $data);
     }
 
 	public function add($name, $categoryId) {
