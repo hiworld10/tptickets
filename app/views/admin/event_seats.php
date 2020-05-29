@@ -1,3 +1,4 @@
+
 <?php require HEADER; ?>
 
 <div id="container" class="__full-height-perc">
@@ -93,7 +94,7 @@
 
         <div id="table">
             <table class="table bg-light-alpha">
-                <?php if (!empty($eventSeatArray)): ?>
+                <?php if (!empty($data['event_seats'])): ?>
                     <thead>     
                         <th>Id</th>  
                         <th>Asientos</th>     
@@ -103,7 +104,7 @@
                         <th>Calendar Id</th>
                     </thead>
                     <tbody>
-                        <?php foreach ($eventSeatArray as $value): ?>
+                        <?php foreach ($data['event_seats'] as $value): ?>
                             <tr>
                                 <td><?= $value->getId(); ?></td>
                                 <td><?= $value->getQuantity(); ?></td>

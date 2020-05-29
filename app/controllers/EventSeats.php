@@ -9,15 +9,17 @@ use app\controllers\SeatTypes;
 
 class EventSeats extends \app\controllers\Authentication {
 
-	private $dao;
-	private $seatTypeController;
-
 	public function __construct() {
         $this->requireAdminLogin();
-		$this->dao = new DB_EventSeatDAO();
-	
-		$this->seatTypeController = new SeatTypes();
+		$this->event_seat_dao = $this->dao('EventSeat');
+		$this->seat_type_dao = $this->dao('SeatType');
 	}
+
+    public function index() {
+        $data['event_seats'] = $this->event_seat_dao->retrieveAll();
+        //$seatTypeArray = $this->seat_type_dao->retrieveAll();
+        $this->view('admin/event_seats', $data);
+    }
 
 	public function addEventSeat($calendarId, $seatType, $availableSeats, $price) {
         $remainder = $availableSeats;
@@ -38,13 +40,6 @@ class EventSeats extends \app\controllers\Authentication {
 		if(isset($eventSeat) && isset($calendarArray) && isset($seatTypeArray)) {
 			require ADMIN_VIEWS . '/admineventseat.php';
 		}
-	}
-
-	public function index() {
-		$eventSeatArray = $this->dao->retrieveAll();
-		$seatTypeArray = $this->seatTypeController->getAll();
-		require ADMIN_VIEWS . '/admineventseat.php';
-		
 	}
 	
 	public function getAllSelect(){
