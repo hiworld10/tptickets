@@ -6,11 +6,10 @@ class Auth
 {
     public static function createSession($user) {
         session_regenerate_id(true);
-        $_SESSION['user_id'] = $user->getId();
-        $_SESSION['user_name'] = $user->getName();
+        $_SESSION['tptickets_user_id'] = $user->getId();
+        $_SESSION['tptickets_user_name'] = $user->getName();
         if ($user->getAdmin() == 'true') {
-            echo "Admin is true";
-            $_SESSION['is_admin'] = $user->getAdmin();
+            $_SESSION['tptickets_is_admin'] = $user->getAdmin();
         }
     }
 
@@ -37,12 +36,12 @@ class Auth
 
     public static function isUserLoggedIn()
     {
-        return isset($_SESSION['user_id']);
+        return isset($_SESSION['tptickets_user_id']);
     }
 
     public static function isAdminLoggedIn()
     {
-        return isset($_SESSION['is_admin']);
+        return isset($_SESSION['tptickets_is_admin']);
     }
 }
 

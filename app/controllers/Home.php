@@ -13,7 +13,7 @@ class Home extends Controller {
     }
 
     public function index() {
-        if (isset($_SESSION['is_admin'])) {
+        if (isset($_SESSION['tptickets_is_admin'])) {
             $this->view('admin/admin');
         } else {
             $data['calendars'] = $this->calendar_dao->retrieveAll();
