@@ -2,56 +2,52 @@
 
 namespace app\controllers;
 
-use app\models\SeatType;
-use app\dao\lists\SeatTypeDAO as List_SeatTypeDAO;
-use app\dao\db\SeatTypeDAO as DB_SeatTypeDAO;
-
-
 class SeatTypes extends \app\controllers\Authentication {
-
-	private $dao;
 
 	public function __construct() {
         $this->requireAdminLogin();
-		$this->dao = new DB_SeatTypeDAO();
+		$this->dao = $this->dao('SeatType');
 	}
 
-    public function index() {        
-        $seatTypeArray = $this->dao->retrieveAll(); 
-        require ADMIN_VIEWS . '/adminseattype.php';
+    public function index() {
+        
+        $data['seat_types'] = $this->dao->retrieveAll(); 
+        $this->view('admin/seat_types', $data);
     }
 
-	public function add($type) {
-		$seatType = new SeatType(null, $type);
-		$this->dao->create($seatType);
-		$this->index();
-	}
+    public function add() {
+        $this->redirectIfRequestIsNotPost('seat-types');
 
-	public function getAll() {
-		return $this->dao->retrieveAll();
-	}
+        $seat_type['description'] = trim($_POST['description']); 
+        $this->dao->create($seat_type);
 
-	public function get($id) {
-		 return $seattype=$this->dao->retrieveById($id);		
-	}
+        $this->redirect('seat-types');
+    }
 
-	public function edit($id) {
-		$seattype=$this->dao->retrieveById($id);
+    public function edit($id) {
+        $data['seat_type'] = $this->dao->retrieveById($id);      
+        if(isset($data['seat_type'])) {
+            $this->view('admin/seat_types', $data);
+        }
+    }
 
-		if(isset($seattype)){
-			require ADMIN_VIEWS . '/adminseattype.php';
-		}
-	}
+    public function update($id) {
 
-	public function update($id, $newType) {
-		$updatedSeatType = new SeatType($id, $newType);
-		$this->dao->update($updatedSeatType);
-		$this->index();
-	}
-    
+        $this->redirectIfRequestIsNotPost('seat-types');
+
+        $seat_type['id_seat_type'] = $id;
+        $seat_type['description'] = trim($_POST['description']);
+        $this->dao->update($seat_type);
+
+        $this->redirect('seat-types');
+    }
+
     public function delete($id) {
+        $this->redirectIfRequestIsNotPost('seat-types');
+        
         $this->dao->delete($id);
-        $this->index();
+        
+        $this->redirect('seat-types');
     }
 }
 

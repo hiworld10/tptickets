@@ -16,11 +16,10 @@ class SeatTypeDAO implements IDAO
         $this->connection = Connection::getInstance();
     }
 
-    public function create($seatType) {
+    public function create($seat_type) {
         try {
-            $query = "INSERT INTO ".$this->tableName." (id_seat_type, description) VALUES (:id_seat_type, :description);";
-            $parameters["id_seat_type"] = $seatType->getId();
-            $parameters["description"] = $seatType->getType();
+            $query = "INSERT INTO ".$this->tableName." (description) VALUES (:description);";
+            $parameters["description"] = $seat_type['description'];
             $this->connection->executeNonQuery($query, $parameters);
         }
         catch(Exception $ex) {
@@ -71,11 +70,11 @@ class SeatTypeDAO implements IDAO
         }            
     }
 
-    public function update($seatType) {
+    public function update($seat_type) {
        try {
             $query = "UPDATE ".$this->tableName." SET description = :description WHERE id_seat_type = :id_seat_type";
-            $parameters["id_seat_type"] = $seatType->getId();
-            $parameters["description"] = $seatType->getType();
+            $parameters["id_seat_type"] = $seat_type['id_seat_type'];
+            $parameters["description"] = $seat_type['description'];
             $this->connection->executeNonQuery($query, $parameters);   
         }
         catch(Exception $ex) {

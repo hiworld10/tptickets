@@ -3,16 +3,16 @@
 <div id="container" class="__full-height-perc">
     <?php require(ADMIN_NAVBAR); ?>
     <div id="divform" class="__full-height-perc">
-        <?php if (isset($seattype)): ?>
+        <?php if (isset($data['seat_type'])): ?>
             <form name='formulario' action="<?=FRONT_ROOT?>/seat-types/update"  method="POST">
                 <div class="form-row">
                     <div class="col-md-1 mb-2 mb-md-0 form-row">
                         <label>Id</label>
-                        <input type="text" name="id" class="form-control form-control-lg" value="<?= $seattype->getId(); ?>" readonly>
+                        <input type="text" name="id" class="form-control form-control-lg" value="<?= $data['seat_type']->getId(); ?>" readonly>
                     </div>
                     <div class="col-md-7 mb-2 mb-md-0 form-row">
                         <label>Nombre</label>
-                        <input type="text" name="seattype" class="form-control form-control-lg" value="<?= $seattype->getType(); ?>" required>
+                        <input type="text" name="description" class="form-control form-control-lg" value="<?= $data['seat_type']->getType(); ?>" required>
                     </div>
                     <div class="col-12 col-md-2 mt-4">
                         <button type="submit" class="btn btn-block btn-lg btn-primary">Aceptar</button>
@@ -23,7 +23,7 @@
             <form name='formulario' action="<?=FRONT_ROOT?>/seat-types/add" method="POST">
                 <div class="form-row">
                     <div class="col-12 col-md-9 mb-2 mb-md-0">
-                        <input type="text" name="seattype" class="form-control form-control-lg" placeholder="Ingrese el tipo de plaza..." required>
+                        <input type="text" name="description" class="form-control form-control-lg" placeholder="Ingrese el tipo de plaza..." required>
                     </div>
                     <div class="col-12 col-md-3">
                         <button type="submit" class="btn btn-block btn-lg btn-primary">Agregar</button>
@@ -35,13 +35,13 @@
         <div id="table">
             <table class="table bg-light-alpha">
 
-                <?php if (!empty($seatTypeArray)): ?>
+                <?php if (!empty($data['seat_types'])): ?>
                     <thead>     
                         <th>Id</th>  
                         <th>Nombre</th>            
                     </thead>
                     <tbody>
-                        <?php foreach ($seatTypeArray as $value): ?>
+                        <?php foreach ($data['seat_types'] as $value): ?>
                             <tr>
                                 <td><?= $value->getId(); ?></td>
                                 <td><?= $value->getType(); ?></td>
@@ -51,9 +51,8 @@
                                     </form>
                                 </td>
                                 <td>
-                                    <form action="<?=FRONT_ROOT?>/seat-types/edit" method="POST">
-                                        <button name="update" value="<?= $value->getId(); ?>" id="boton1" type="submit" class="btn btn-block btn-lg btn-primary btn-sm">Editar</button></td>
-                                    </form>
+                                    <a href="<?=FRONT_ROOT?>/seat-types/edit/<?=$value->getId()?>" class="btn btn-block btn-lg btn-primary btn-sm">Editar
+                                    </a>
                                 </td>
                             </tr>
                         <?php endforeach ?>
