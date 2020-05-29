@@ -152,8 +152,8 @@
 						<label for=""><big><big>Evento</big></big></label>
 						<select class="form-control" name="event" required>
 
-							<?php if (isset($eventArray)): ?>
-								<?php foreach ($eventArray as $key => $value): ?>
+							<?php if (isset($data['events'])): ?>
+								<?php foreach ($data['events'] as $key => $value): ?>
 									<!--No es posible pasar un objeto mediante HTML (ej. '$value')-->
 									<option value="<?= $value->getId(); ?>"><?= $value->getName(); ?></option> 
 								<?php endforeach ?>
@@ -167,8 +167,8 @@
 						<label for=""><big><big>Artistas</big></big></label>
 						<br>
 
-						<?php if(isset($artistArray)): ?>
-							<?php foreach ($artistArray as $key => $value): ?>
+						<?php if(isset($data['artists'])): ?>
+							<?php foreach ($data['artists'] as $key => $value): ?>
 								<label>
 									<input  type="checkbox" name="artistArray[]" value="<?= $value->getId(); ?>" >
 									<span><?= $value->getName()?></span>
@@ -187,8 +187,8 @@
 					<div class="col-12 col-md-9 mb-2 mb-md-3">
 						<label><big><big>Tipo Plaza</big></big></label>
 
-						<?php if (isset($seatTypeArray)): ?>
-							<?php foreach ($seatTypeArray as $key => $value): ?>
+						<?php if (isset($data['seat_types'])): ?>
+							<?php foreach ($data['seat_types'] as $key => $value): ?>
 
 								<br>
 								<label><?= $value->getType(); ?></label>
@@ -206,7 +206,7 @@
 						<?php endif ?>
 
 					</div>
-					<?php if ($eventArray && $artistArray && $seatTypeArray): ?>
+					<?php if ($data['events'] && $data['artists'] && $data['seat_types']): ?>
 						<div class="col-11 col-md-3 mt-4">
 							<button type="submit" class="btn btn-block btn-lg btn-primary">Agregar</button>
 						</div>
@@ -223,7 +223,7 @@
 		<div id="table" class="__full-height-perc">
 			<table class="table bg-light-alpha">
 
-				<?php if (!empty($calendarArray)): ?>
+				<?php if (!empty($data['calendars'])): ?>
 					<thead>     
 						<th>Id</th>  
 						<th>Fecha</th>     
@@ -232,7 +232,7 @@
 						<th>LugarId</th>     
 					</thead>
 					<tbody>
-						<?php foreach ($calendarArray as $value): ?>
+						<?php foreach ($data['calendars'] as $value): ?>
 							<tr>
 								<td><?= $value->getId(); ?></td>
 								<td><?= $value->getDate(); ?></td>

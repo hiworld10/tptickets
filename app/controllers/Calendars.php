@@ -34,16 +34,20 @@ class Calendars extends \app\controllers\Authentication {
 		$this->seatTypeController = new SeatTypes();
 		$this->eventSeatController = new EventSeats();
 		$this->userController = new Users();
+
+        $this->calendar_dao = $this->dao('Calendar');
+        $this->event_dao = $this->dao('Event');
+        $this->artist_dao = $this->dao('Artist');
+        $this->seat_type_dao = $this->dao('SeatType');
 	}
 
     public function index() {
         
-        $calendarArray = $this->dao->retrieveAll();
-        $eventArray = $this->eventController->getAll();
-        $artistArray = $this->artistController->getAll();
-        $seatTypeArray = $this->seatTypeController->getAll();
-
-        require ADMIN_VIEWS. '/admincalendar.php';
+        $data['calendars'] = $this->calendar_dao->retrieveAll();
+        $data['events'] = $this->event_dao->retrieveAll();
+        $data['artists'] = $this->artist_dao->retrieveAll();
+        $data['seat_types'] = $this->seat_type_dao->retrieveAll();
+        $this->view('admin/calendars', $data);
     }
 	public function add($date, $eventId, $artistIdArray, $placeEventAttributesArray, $eventSeatAttributesArray) {
 
