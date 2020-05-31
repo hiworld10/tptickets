@@ -17,34 +17,38 @@
 	<div id="divform"  class="__full-height-perc">
 		<div id=edit class="__full-height-perc">
 			<!-- Este div aparecerá si un artista debe ser modificado -->
-			<?php if (isset($user)): ?>
+			<?php if (isset($data['user'])): ?>
 
-				<form name='formulario' action="<?=FRONT_ROOT?>/users/updateUser"  method="POST">
+				<form name='formulario' action="<?=FRONT_ROOT?>/users/update" method="POST">
 					<div class="form">
 						<div class="col-9 col-md-2 mb-2 mb-md-0 ">
 							<label>Id</label>
-							<input type="text" name="id" class="form-control form-control-lg" value="<?= $user->getId(); ?>" readonly>
+							<input type="text" name="id_user" class="form-control form-control-lg" value="<?= $data['user']->getId(); ?>" readonly>
 						</div>
 						<div class="col-12 col-md-9 mb-2 mb-md-0">
 							<label>Email</label>
-							<input type="email" name="email" class="form-control form-control-lg" value="<?= $user->getEmail(); ?>" readonly>
-						</div>
-						<div class="col-12 col-md-9 mb-2 mb-md-0">
-							<label>Password</label>
-							<input type="password" name="password" class="form-control form-control-lg" value="<?= $user->getPassword(); ?>" required>
+							<input type="email" name="email" class="form-control form-control-lg" value="<?= $data['user']->getEmail(); ?>">
 						</div>
 						<div class="col-12 col-md-9 mb-2 mb-md-0">
 							<label>Nombre</label>
-							<input type="text" name="firstname" class="form-control form-control-lg" value="<?= $user->getFirstName(); ?>" required>
+							<input type="text" name="name" class="form-control form-control-lg" value="<?= $data['user']->getName(); ?>" required>
 						</div>
 						<div class="col-12 col-md-9 mb-2 mb-md-0">
 							<label>Apellido</label>
-							<input type="text" name="lastname" class="form-control form-control-lg" value="<?= $user->getLastName(); ?>" required>
+							<input type="text" name="surname" class="form-control form-control-lg" value="<?= $data['user']->getSurname(); ?>" required>
+						</div>						
+						<div class="col-12 col-md-9 mb-2 mb-md-0">
+							<label>Contraseña (dejar en blanco para mantener la previa)</label>
+							<input type="password" name="password" class="form-control form-control-lg">
 						</div>
+						<div class="col-12 col-md-9 mb-2 mb-md-0">
+							<label>Confirmar contraseña</label>
+							<input type="password" name="confirm_password" class="form-control form-control-lg">
+						</div>						
 						<div class="col-12 col-md-9 mb-2 mb-md-3">
 							<?php /*si el valor devuelve "true", el checkbox queda marcado con el atributo html "checked". Caso contrario, aparece sin marcar*/ ?>
 							<label><input type="checkbox" name="admin" class="form-control form-control-lg" value="true"
-								<?php if($user->getAdmin() == "true") echo "checked" ?>>Admin</label>
+								<?php if($data['user']->getAdmin() == "true") echo "checked" ?>>Admin</label>
 						</div>
 						<div class="col-12 col-md-3">
 								<button type="submit" class="btn btn-block btn-lg btn-primary">Aceptar</button>
@@ -60,18 +64,18 @@
 						<div class="col-12 col-md-9 mb-2 mb-md-3">
 							<input type="email" name="email" class="form-control form-control-lg" placeholder="Email..." required>
 						</div>
-						<div class="col-12 col-md-9 mb-2 mb-md-3">
-							<input type="password" name="password" class="form-control form-control-lg" placeholder="Contraseña..." required>
-						</div>
-						<div class="col-12 col-md-9 mb-2 mb-md-3">
-							<input type="password" name="confirm_password" class="form-control form-control-lg" placeholder="Confirmar contraseña..." required>
 						</div>        
 						<div class="col-12 col-md-9 mb-2 mb-md-3">
 							<input type="text" name="name" class="form-control form-control-lg" placeholder="Nombre..." required>
 						</div>
 						<div class="col-12 col-md-9 mb-2 mb-md-3">
 							<input type="text" name="surname" class="form-control form-control-lg" placeholder="Apellido..." required>
+						</div>						
+						<div class="col-12 col-md-9 mb-2 mb-md-3">
+							<input type="password" name="password" class="form-control form-control-lg" placeholder="Contraseña..." required>
 						</div>
+						<div class="col-12 col-md-9 mb-2 mb-md-3">
+							<input type="password" name="confirm_password" class="form-control form-control-lg" placeholder="Confirmar contraseña..." required>
 						<div class="col-12 col-md-9 mb-2 mb-md-3">
 							<label><input type="checkbox" name="admin" class="form-control form-control-lg" value="true">Admin</label>
 						</div>
@@ -111,9 +115,8 @@
 										</form>
 									</td>
 									<td>
-										<form action="<?=FRONT_ROOT?>/users/getUser" method="POST">
-											<button name="update" value="<?= $value->getId(); ?>" type="submit" id="boton1" class="btn btn-block btn-lg btn-primary btn-sm">Editar</button>
-										</form>
+                                    	<a href="<?=FRONT_ROOT?>/users/edit/<?=$value->getId()?>" class="btn btn-block btn-lg btn-primary btn-sm">Editar
+                                    	</a>
 									</td>
 								</tr>
 							<?php endforeach ?>

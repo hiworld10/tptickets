@@ -170,6 +170,89 @@ class Users extends \app\controllers\Authentication {
         $this->user_dao->delete($id);
         $this->redirect('users');
     }
+
+    public function update($id) {
+        $this->redirectIfRequestIsNotPost('users');
+
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        //Iniciar arreglo de datos con la informacion obtenida
+        $data = [
+            'name' => ucwords(trim($_POST['name'])),
+            'surname' => ucwords(trim($_POST['surname'])),
+            'email' => trim($_POST['email']),
+            'id_user' => $id
+        ];
+
+        if (empty($data['name'])) {
+            $data['errors']['name_err'] = "Debes introducir un nombre";
+        }
+        if (empty($data['surname'])) {
+            $data['errors']['surname_err'] = "Debes introducir un apellido";
+        }
+        //Verificar que el campo de e-mail no este vacio
+        if (empty($data['email'])) {
+            $data['errors']['email_err'] = "Debes proveer un e-mail";
+        }
+        //Verificar que el email no este asociado con una cuenta de id diferente a la cuenta a actualizar
+        $user = $this->user_dao->retrieveByEmail($data['email']);
+        if ($user->getId() != $id) {
+            $data['errors']['email_err'] = "El e-mail introducido ya está asociado con una cuenta en nuestro sistema";   
+        }
+
+        //Si se dejaron en blanco los campos para contraseña, no se procesará dicha información y sólo se actualizarán los otros datos correspondientes al usuario
+        if (!empty($_POST['password']) && !empty($_POST['confirm_password'])) {
+            $password = $_POST['password'];
+            $confirm_password = $_POST['confirm_password'];
+
+            if (Password::hasLength($password, 6)) {
+                $data['errors']['password_err'] = "La contraseña debe tener al menos 6 caracteres";
+            } 
+            if (!Password::match($password, $confirm_password)) {
+                $data['errors']['confirm_password_err'] = "Las contraseñas no coinciden";
+            }
+        }
+
+        if (empty($data['errors'])) {
+
+            if (isset($_POST['admin'])) {
+                $data['is_admin'] = 'true';
+            }
+            if (isset($password) && isset($confirm_password)) {
+                $data['password'] = $password;
+                $data['confirm_password'] = $confirm_password;
+                $this->user_dao->update($data);
+            } else {
+                $this->user_dao->updateWithoutPassword($data);
+            }
+
+            if (Auth::isAdminLoggedIn()) {
+                $this->redirect('users');
+            } else {
+                die("user update data successful, view goes here");
+            }
+        } else {
+            if (Auth::isAdminLoggedIn()) {
+                //Se obtiene nuevamente la info en la BD del usuario para mostrar los campos en el formulario
+                $data['user'] = $this->user_dao->retrieveById($id);
+                $this->view('admin/users', $data);
+            } else {
+                die("user own data update went wrong");
+            }
+        }        
+
+    }
+
+    public function edit($id) {
+        $data['user'] = $this->user_dao->retrieveById($id);
+        if (isset($data['user'])) {
+            if (Auth::isAdminLoggedIn()) {
+                $this->view('admin/users', $data);
+            } else {
+                echo "View file for user update data goes here.";
+            }
+        }
+    }
 }
 
 ?>
