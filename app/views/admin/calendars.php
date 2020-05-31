@@ -1,5 +1,15 @@
 <?php require HEADER; ?>
 
+<?php if (isset($data['errors'])): ?>
+    <h3>Se han producido errores:</h3>
+    <br>
+    <ul>
+        <?php foreach ($data['errors'] as $error): ?>
+            <li><?php echo $error ?></li>
+        <?php endforeach ?>
+    </ul>
+<?php endif ?>
+
 <div id="container" class="__full-height-perc">
 	<?php require(ADMIN_NAVBAR); ?>
 	<div id="divform" class="__full-height-perc">

@@ -41,15 +41,39 @@ class Calendars extends \app\controllers\Authentication {
         $this->seat_type_dao = $this->dao('SeatType');
 	}
 
-    public function index() {
+    public function index($data = []) {
         
         $data['calendars'] = $this->calendar_dao->retrieveAll();
         $data['events'] = $this->event_dao->retrieveAll();
         $data['artists'] = $this->artist_dao->retrieveAll();
         $data['seat_types'] = $this->seat_type_dao->retrieveAll();
+
         $this->view('admin/calendars', $data);
     }
-	public function add($date, $eventId, $artistIdArray, $placeEventAttributesArray, $eventSeatAttributesArray) {
+
+    public function add() {
+        $this->redirectIfRequestIsNotPost('calendars');
+
+        if ($this->isBeforeNow($_POST['date'])) {
+            $data['errors']['date_is_before_now'] = "La fecha ya es pasada";
+        }
+
+        $event_seats_sum = 0;
+        foreach ($_POST['eventSeat'] as $value) {
+            $event_seats_sum += $value['capacity'];
+        }
+        if ($event_seats_sum > $_POST['placeEvent']['capacity']) {
+            $data['errors']['capacity_limit_reached'] = "Se excedió la capacidad máxima de asientos disponibles";                 
+        }
+
+        if (!empty($data['errors'])) {
+            $this->index($data);
+        }
+
+        echo "Exito xd";
+    }
+
+	public function adds($date, $eventId, $artistIdArray, $placeEventAttributesArray, $eventSeatAttributesArray) {
 
 		if ($this->isBeforeNow($date)) {
 			echo "ERROR: la fecha ya es pasada.";
