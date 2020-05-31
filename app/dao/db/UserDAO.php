@@ -16,16 +16,16 @@ class UserDAO implements IDAO
         $this->connection = Connection::getInstance();
     }    
 
-    public function create($data) {
+    public function create($user) {
         try {
             $query = "INSERT INTO ".$this->tableName." (email, password, name, surname, is_admin) VALUES (:email, :password, :name, :surname, :is_admin);";
-            $parameters["email"] = $data['email'];
-            $parameters["password"] = Password::hash($data['password']);
-            $parameters["name"] = $data['name'];
-            $parameters["surname"] = $data['surname'];
+            $parameters["email"] = $user['email'];
+            $parameters["password"] = Password::hash($user['password']);
+            $parameters["name"] = $user['name'];
+            $parameters["surname"] = $user['surname'];
             //conversion de valores para la tabla (admite solo 0 y 1 (tinyint))
-            if (isset($data['is_admin'])) {
-                $parameters["is_admin"] = $this->stringBooleanToTinyInt($data['is_admin']);
+            if (isset($user['is_admin'])) {
+                $parameters["is_admin"] = $this->stringBooleanToTinyInt($user['is_admin']);
             } else {
                 $parameters['is_admin'] = 0;
             }
@@ -107,18 +107,42 @@ class UserDAO implements IDAO
     public function update($user) {
         try {
             $query = "UPDATE ".$this->tableName." SET email = :email, password = :password, name = :name, surname= :surname, is_admin = :is_admin WHERE id_user = :id_user";
-            $parameters["id_user"] = $user->getId();
-            $parameters["email"] = $user->getEmail();
-            $parameters["password"] = $user->getPassword();
-            $parameters["name"] = $user->getFirstname();
-            $parameters["surname"] = $user->getLastname();
+            $parameters["id_user"] = $user['id_user'];
+            $parameters["email"] = $user['email'];
+            $parameters["password"] = Password::hash($user['password']);
+            $parameters["name"] = $user['name'];
+            $parameters["surname"] = $user['surname'];
             //conversion de valores para la tabla (admite solo 0 y 1 (tinyint))
-            $parameters["is_admin"] = $this->stringBooleanToTinyInt($user->getAdmin());
-            $this->connection->executeNonQuery($query, $parameters);   
+            if (isset($user['is_admin'])) {
+                $parameters["is_admin"] = $this->stringBooleanToTinyInt($user['is_admin']);
+            } else {
+                $parameters['is_admin'] = 0;
+            }
+            $this->connection->executeNonQuery($query, $parameters);
         }
         catch(Exception $ex) {
             throw $ex;
         }
+    }
+
+    public function updateWithoutPassword($user) {
+        try {
+            $query = "UPDATE ".$this->tableName." SET email = :email, name = :name, surname= :surname, is_admin = :is_admin WHERE id_user = :id_user";
+            $parameters["id_user"] = $user['id_user'];
+            $parameters["email"] = $user['email'];
+            $parameters["name"] = $user['name'];
+            $parameters["surname"] = $user['surname'];
+            //conversion de valores para la tabla (admite solo 0 y 1 (tinyint))
+            if (isset($user['is_admin'])) {
+                $parameters["is_admin"] = $this->stringBooleanToTinyInt($user['is_admin']);
+            } else {
+                $parameters['is_admin'] = 0;
+            }
+            $this->connection->executeNonQuery($query, $parameters);
+        }
+        catch(Exception $ex) {
+            throw $ex;
+        }        
     }
 
     public function stringBooleanToTinyInt($val) {
