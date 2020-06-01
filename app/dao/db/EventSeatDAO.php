@@ -17,14 +17,14 @@ class EventSeatDAO implements IDAO
         $this->connection = Connection::getInstance();
     }
 
-    public function create($eventSeat) {
+    public function create($event_seat) {
         try {
-            $query = "INSERT INTO ".$this->tableName." (quantity, price, id_calendar, id_seat_type, remainder) VALUES ( :quantity, :price, :id_calendar, :id_seat_type, :remainder );";
-            $parameters["quantity"] = $eventSeat->getQuantity();
-            $parameters["price"] = $eventSeat->getPrice();
-            $parameters["id_calendar"] = $eventSeat->getCalendarId();
-            $parameters["id_seat_type"] = $eventSeat->getSeatType()->getId();
-            $parameters["remainder"] = $eventSeat->getRemainder();
+            $query = "INSERT INTO " . $this->tableName . " (quantity, price, id_calendar, id_seat_type, remainder) VALUES (:quantity, :price, :id_calendar, :id_seat_type, :remainder);";
+            $parameters["quantity"] = $event_seat['quantity'];
+            $parameters["price"] = $event_seat['price'];
+            $parameters["id_calendar"] = $event_seat['id_calendar'];
+            $parameters["id_seat_type"] = $event_seat['id_seat_type'];
+            $parameters["remainder"] = $event_seat['remainder'];
             $this->connection->executeNonQuery($query, $parameters);
         }
         catch(Exception $ex) {

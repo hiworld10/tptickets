@@ -20,18 +20,38 @@ class CalendarDAO implements IDAO
 		$this->connection = Connection::getInstance();
 	}
 
-	public function create($calendarAttributes) {
+	public function create($calendar) {
 		try {
 			$query = "INSERT INTO ".$this->tableName." (date, id_event) VALUES (:date, :id_event);";
-			$parameters["date"] = $calendarAttributes["date"];
-			$parameters["id_event"] = $calendarAttributes["eventId"];
+			$parameters["date"] = $calendar["date"];
+			$parameters["id_event"] = $calendar["id_event"];
 			$this->connection->executeNonQuery($query, $parameters);
-			$this->createArtistXCalendarRows($this->retrieveLastId(), $calendarAttributes["artistIdArray"]);
+
+			if (isset($calendar['id_artist_arr'])) {
+				$calendar_id = $this->retrieveLastId();
+				$this->createArtistXCalendarRows($calendar_id, $calendar['id_artist_arr']);
+			}
+
+
 		}
 		catch(Exception $ex) {
 			throw $ex;
 		}
 	}
+
+	public function createArtistXCalendarRows($calendar_id, $id_artist_arr) {
+		try {
+			$query = "INSERT INTO artists_calendars (id_calendar, id_artist) VALUES (:id_calendar, :id_artist);";
+			foreach ($id_artist_arr as $value) {
+				$parameters["id_calendar"] = $calendar_id;
+				$parameters["id_artist"] = $value;
+				$this->connection->executeNonQuery($query, $parameters);
+			}
+		}
+		catch(Exception $ex) {
+			throw $ex;
+		}
+	}	
 
 	public function retrieveLastId()
 	{
@@ -63,7 +83,7 @@ class CalendarDAO implements IDAO
 				$placeEvent = $placeEventDao->retrieveByCalendarId($row["id_calendar"]);
 				$eventSeatArray = $eventSeatDao->retrieveByCalendarId($row["id_calendar"]);
 				$artistsArray = $this->retrieveArtistsByCalendarId($row["id_calendar"]);
-				$calendar = new Calendar($row["id_calendar"], $row["date"], $event, $artistsArray,$placeEvent, $eventSeatArray[0]);
+				$calendar = new Calendar($row["id_calendar"], $row["date"], $event, $artistsArray, $placeEvent, $eventSeatArray[0]);
 				array_push($calendarList, $calendar);
 			}
 			return $calendarList;
@@ -174,20 +194,6 @@ class CalendarDAO implements IDAO
 			$parameters["id_event"] = $calendarAttributes['eventId'];
 			$this->connection->executeNonQuery($query, $parameters); 
 			$this->createArtistXCalendarRows($calendarAttributes['id_calendar'], $calendarAttributes["artistIdArray"]);
-		}
-		catch(Exception $ex) {
-			throw $ex;
-		}
-	}
-
-	public function createArtistXCalendarRows($calendarId, $artistIdArray) {
-		try {
-			$query = "INSERT INTO artists_calendars (id_calendar, id_artist) VALUES (:id_calendar, :id_artist);";
-			foreach ($artistIdArray as $value) {
-				$parameters["id_calendar"] = $calendarId;
-				$parameters["id_artist"] = $value;
-				$this->connection->executeNonQuery($query, $parameters);
-			}
 		}
 		catch(Exception $ex) {
 			throw $ex;

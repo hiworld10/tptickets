@@ -19,9 +19,9 @@ class PlaceEventDAO  implements IDAO
     public function create($place_event) {
         try {
             $query = "INSERT INTO ".$this->tableName." (id_calendar, capacity, description) VALUES ( :id_calendar, :capacity, :description);";
-            $parameters["id_calendar"] = $place_event->getCalendarId();
-            $parameters["capacity"] = $place_event->getCapacity();
-            $parameters["description"] = $place_event->getDescription();
+            $parameters["id_calendar"] = $place_event["id_calendar"];
+            $parameters["capacity"] = $place_event["capacity"];
+            $parameters["description"] = $place_event["description"];
             $this->connection->executeNonQuery($query, $parameters);
         }
         catch(Exception $ex) {

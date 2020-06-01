@@ -160,7 +160,7 @@
 					</div>
 					<div class="col-12 col-md-9 mb-2 mb-md-3">
 						<label for=""><big><big>Evento</big></big></label>
-						<select class="form-control" name="event" required>
+						<select class="form-control" name="id_event" required>
 
 							<?php if (isset($data['events'])): ?>
 								<?php foreach ($data['events'] as $key => $value): ?>
@@ -180,7 +180,7 @@
 						<?php if(isset($data['artists'])): ?>
 							<?php foreach ($data['artists'] as $key => $value): ?>
 								<label>
-									<input  type="checkbox" name="artistArray[]" value="<?= $value->getId(); ?>" >
+									<input  type="checkbox" name="id_artist_arr[]" value="<?= $value->getId(); ?>" >
 									<span><?= $value->getName()?></span>
 								</label>
 							<?php endforeach ?>
@@ -191,8 +191,8 @@
 					</div>
 					<div class="col-12 col-md-9 mb-2 mb-md-3">
 						<label for=""><big><big>Lugar</big></big></label>
-						<input type="text"   class="form-control form-control-lg" name="placeEvent[description]" placeholder="Ingrese descripcion del lugar..." >
-						<input type="number" min="1000"  class="form-control form-control-lg" name="placeEvent[capacity]" placeholder="Ingrese capacidad del lugar..." >
+						<input type="text"   class="form-control form-control-lg" name="place_event[description]" placeholder="Ingrese descripcion del lugar..." >
+						<input type="number" min="1000"  class="form-control form-control-lg" name="place_event[capacity]" placeholder="Ingrese capacidad del lugar..." >
 					</div>
 					<div class="col-12 col-md-9 mb-2 mb-md-3">
 						<label><big><big>Tipo Plaza</big></big></label>
@@ -203,12 +203,12 @@
 								<br>
 								<label><?= $value->getType(); ?></label>
 								<div class="form-row col-12 col-md-9 mb-2 mb-md-3">
-									<input type="hidden"    name="eventSeat[<?= $value->getType(); ?>][seattypeid]" value=<?= $value->getId(); ?> >
+									<input type="hidden"    name="event_seats[<?= $value->getType(); ?>][id_seat_type]" value=<?= $value->getId(); ?> >
 									<label>Capacidad</label>
-									<input type="number" min="0"  class="form-control col-md-2 ml-3" name="eventSeat[<?= $value->getType(); ?>][capacity]" value=0 >
+									<input type="number" min="0"  class="form-control col-md-2 ml-3" name="event_seats[<?= $value->getType(); ?>][quantity]" value=0 >
 
 									<label>Precio</label>
-									<input type="number" min="0"  class="form-control col-md-2 ml-3" name="eventSeat[<?= $value->getType(); ?>][price]" value=0 >
+									<input type="number" min="0"  class="form-control col-md-2 ml-3" name="event_seats[<?= $value->getType(); ?>][price]" value=0 >
 								</div>
 							<?php endforeach ?>
 						<?php else: ?>
