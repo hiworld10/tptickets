@@ -2,38 +2,10 @@
 
 namespace app\controllers;
 
-use config\Singleton;
-use app\models\Calendar;
-use app\models\EventSeat;
-use app\dao\lists\CalendarDAO as List_CalendarDAO;
-use app\dao\db\CalendarDAO as DB_CalendarDAO;
-use app\controllers\Events;
-use app\controllers\Artists;
-use app\controllers\PlaceEvents;
-use app\controllers\SeatTypes;
-use app\controllers\EventSeats;
-use app\controllers\Users;
-
-
 class Calendars extends \app\controllers\Authentication {
-
-	private $dao;
-	private $eventController;
-	private $placeEventController;
-	private $artistController;
-	private $seatTypeController;
-	private $eventSeatController;
-	private $userController;
 
 	public function __construct() {
         $this->requireAdminLogin();
-		$this->dao = new DB_CalendarDAO();
-		$this->eventController = new Events();
-		$this->placeEventController = new PlaceEvents();
-		$this->artistController = new Artists();
-		$this->seatTypeController = new SeatTypes();
-		$this->eventSeatController = new EventSeats();
-		$this->userController = new Users();
 
         $this->calendar_dao = $this->dao('Calendar');
         $this->event_dao = $this->dao('Event');
@@ -118,79 +90,106 @@ class Calendars extends \app\controllers\Authentication {
 
             $this->place_event_dao->create($place_event);
 
-            echo '<pre>';
-            print_r($this->calendar_dao->retrieveById($calendar_id));
-            echo '</pre>';
+            $this->redirect('calendars');
+        }
+    }
+
+    public function update($id) {
+        $this->redirectIfRequestIsNotPost('calendars');
+
+        echo '<pre>';
+        print_r($_POST);
+        echo '</pre>';
+
+        $data = [   
+                    'id_calendar' => $id,
+                    'date' => $_POST['date'],
+                    'id_event' => $_POST['id_event'],
+                    'place_event' => $_POST['place_event'],
+                    'event_seats' => $_POST['event_seats']
+                ];
+        $data['place_event']['description'] = trim($data['place_event']['description']);
+
+        if (isset($_POST['id_artist_arr'])) {
+            $data['id_artist_arr'] = $_POST['id_artist_arr'];
         }
 
-    }
+        if ($this->isBeforeNow($data['date'])) {
+            $data['errors']['date_is_before_now'] = "La fecha ya es pasada";
+        }
 
-	public function adds($date, $eventId, $artistIdArray, $placeEventAttributesArray, $eventSeatAttributesArray) {
+        $event_seats_sum = 0;
+        foreach ($data['event_seats'] as $key => $value) {
+            $event_seats_sum += $value['new_quantity'];
 
-		if ($this->isBeforeNow($date)) {
-			echo "ERROR: la fecha ya es pasada.";
-			$this->index();
-		} else {
-			$eventSeatSum= 0;
-			//Recorro eventSeat y guardo sus capacidades para sumarlas en una variable
-			//para su comprobacion
-			foreach ($eventSeatAttributesArray as $value) {
-				$eventSeatSum += $value['capacity'];
-			}
+            //Se debe verificar que el remanente de asientos correspondientes a su tipo no sea menor a 0 previo a actualizar la nueva cantidad
+            $value['remainder'] += $value['new_quantity'] - $value['previous_quantity'];
 
-			if($eventSeatSum > $placeEventAttributesArray['capacity'])
-			{
-				echo "ERROR: La capacidad total fue excedida.";
-				$this->index();
-			}else
-				{
+            if ($value['remainder'] < 0) {
+                $data['errors'][$key . '_remainder_err'] = "La cantidad de asientos restantes a la categoria $key se ha sobrepasado de cero.";
+            }
+        }
 
-			//insercion de calendario en bd
-					$calendarAttributes= array("date"=>$date, "eventId"=> $eventId, "artistIdArray" => $artistIdArray);
-					$this->dao->create($calendarAttributes);
-			// guardo ultimo id de ultima instancia
-					$calendarId= $this->dao->retrieveLastId();
+        if ($event_seats_sum > $data['place_event']['capacity']) {
+            $data['errors']['capacity_limit_reached'] = "Se excedió la capacidad máxima de asientos disponibles";                 
+        }
 
-					foreach ($eventSeatAttributesArray as $value) {
-						$seatType= $this->seatTypeController->get($value['seattypeid']);
+        if (!empty($data['errors'])) {
 
-							$this->eventSeatController->addEventSeat($calendarId, $seatType , $value['capacity'], $value['price']);
-					
-					}
+            $this->index($data);
 
-					$this->placeEventController->addPlaceEvent($calendarId, $placeEventAttributesArray['capacity'],$placeEventAttributesArray['description']);
+        } else {
 
-					$this->index();
-			}	
-		}
-	}
+            $calendar_data = [
+                                'id_calendar' = $id,
+                                'date' => $data['date'],
+                                'id_artist_arr' => $data['id_artist_arr'],
+                                'id_event' => $data['id_event']
+                             ];
 
-	public function getById($id) { 
-		return $this->dao->retrieveById($id);
+            $this->calendar_dao->update($calendar_data);
 
-	}
+            foreach ($data['event_seats'] as $value) {
 
-    public function getByString($string) {
-        return $this->dao->retrieveCalendarsByString($string);
-    }
+                $event_seat_data = [
+                                       'id_calendar' => $id,
+                                       'id_seat_type' => $value['id_seat_type'],
+                                       'quantity' => $value['quantity'],
+                                       'price' => $value['price'],
+                                       //ATENCION: Esto sólo es válido cuando se crea el nuevo objeto, NUNCA cuando se actualiza
+                                       'remainder' => $value['remainder']
+                                   ];
 
-    public function getAll() {
-        return $this->dao->retrieveAll();
+                $this->event_seat_dao->update($event_seat_data);
+            }
+
+            $place_event = [
+                                'id_calendar' => $id,
+                                'capacity' => $data['place_event']['capacity'],
+                                'description' => $data['place_event']['description']
+                           ];
+
+            $this->place_event_dao->update($place_event);
+
+            $this->redirect('calendars');
+
+        }
+
     }
 
     public function edit($id) { 
-        $calendar = $this->dao->retrieveById($id);
-        $eventArray = $this->eventController->getAll();
-        $artistArray = $this->artistController->getAll();
-        $seatTypeArray = $this->seatTypeController->getAll();
-        $eventSeatArray = $this->eventSeatController->getByCalendarId($id);
+        $data['calendar'] = $this->calendar_dao->retrieveById($id);
+        $data['events'] = $this->event_dao->retrieveAll();
+        $data['artists'] = $this->artist_dao->retrieveAll();
+        $data['seat_types'] = $this->seat_type_dao->retrieveAll();
+        $data['event_seats'] = $this->event_seat_dao->retrieveByCalendarId($id);
         
-        if(isset($calendar)) {
-            require ADMIN_VIEWS . '/admincalendar.php';
+        if(isset($data['calendar'])) {
+            $this->view('admin/calendars', $data);
         }
     }
 
-	public function update($id_calendar, $date, $eventId, $artistIdArray, $placeEventId, $placeEventAttributesArray, $eventSeatAttributesArray) {
+	public function updates($id_calendar, $date, $eventId, $artistIdArray, $placeEventId, $placeEventAttributesArray, $eventSeatAttributesArray) {
 
 		
 		if ($this->isBeforeNow($date)) {

@@ -191,7 +191,7 @@ class CalendarDAO implements IDAO
 			$query = "UPDATE ".$this->tableName." SET date = :date, id_event = :id_event WHERE id_calendar = :id_calendar";
 			$parameters["id_calendar"] = $calendarAttributes['id_calendar'];
 			$parameters["date"] = $calendarAttributes['date'];
-			$parameters["id_event"] = $calendarAttributes['eventId'];
+			$parameters["id_event"] = $calendarAttributes['id_event'];
 			$this->connection->executeNonQuery($query, $parameters); 
 			$this->createArtistXCalendarRows($calendarAttributes['id_calendar'], $calendarAttributes["artistIdArray"]);
 		}

@@ -14,35 +14,35 @@
 	<?php require(ADMIN_NAVBAR); ?>
 	<div id="divform" class="__full-height-perc">
 
-		<?php if (isset($calendar)): ?>
+		<?php if (isset($data['calendar'])): ?>
 
 			<form name='formulario' action="<?=FRONT_ROOT?>/calendars/update"  method="POST">
 				<div class="form">
 					<div class="form-row col-12 col-md-9 mb-2 mb-md-3" >
 						<label><big><big>Id Calendario</big></big></label>
-						<input type="text" name="id" class="form-control col-md-1 ml-3" value="<?= $calendar->getId(); ?>" readonly>
+						<input type="text" name="id" class="form-control col-md-1 ml-3" value="<?= $data['calendar']->getId(); ?>" readonly>
 					</div>
 					<div class="col-12 col-md-9 mb-2 mb-md-3">
 						<label for=""><big><big>Fecha</big></big></label>
-						<input type="date"   class="form-control form-control-lg" name="date" value="<?= $calendar->getDate(); ?>" required>
+						<input type="date"   class="form-control form-control-lg" name="date" value="<?= $data['calendar']->getDate(); ?>" required>
 					</div>
 					<div class="col-12 col-md-9 mb-2 mb-md-3">
 						<label for=""><big><big>Evento</big></big></label>
-						<select class="form-control" name="event"  required>
+						<select class="form-control" name="id_event"  required>
 
-							<?php if (isset($eventArray)): ?>
+							<?php if (isset($data['events'])): ?>
 
-								<option value="<?= $calendar->getEvent()->getId(); ?> "><?= $calendar->getEvent()->getName(); ?></option> 
+								<option value="<?= $data['calendar']->getEvent()->getId(); ?> "><?= $data['calendar']->getEvent()->getName(); ?></option> 
 
-								<?php foreach ($eventArray as $key => $value): ?> 
+								<?php foreach ($data['events'] as $value): ?> 
 
 									<?php // con el fin de que no se repita el mismo select ?>
-									<?php if ($value->getId() != $calendar->getEvent()->getId()): ?>
+									<?php if ($value->getId() != $data['calendar']->getEvent()->getId()): ?>
 
-									<option value="<?= $value->getId(); ?> "><?= $value->getName(); ?></option>
+									   <option value="<?= $value->getId(); ?> "><?= $value->getName(); ?></option>
 
-								<?php endif ?> 
-							<?php endforeach ?>
+								    <?php endif ?> 
+							    <?php endforeach ?>
 							<?php else: ?>
 
 								<option >NO HAY EVENTOS</option>
@@ -57,19 +57,19 @@
 						<?php //LOS ARTISTAS QUE INTEGRAN EL CALENDARIO APARECEN checked ?>
 						<?php // flag que se fija si esta seteado o no ?>	
 
-						<?php if (isset($artistArray)): ?>
+						<?php if (isset($data['artists'])): ?>
 
-							<?php foreach ($artistArray as $key => $value): ?> 
+							<?php foreach ($data['artists'] as $key => $value): ?> 
 
 								<?php $flag = true; ?> 
 
-								<?php foreach ($calendar->getArtistArray() as $v): ?>
+								<?php foreach ($data['calendar']->getArtistArray() as $v): ?>
 
 									<?php if ($value->getId() == $v->getId()): ?>
 
 										<?php $flag = false; ?>	
 										<label>
-											<input type="checkbox" name="artistArray[]" value="<?= $value->getId(); ?>" checked >
+											<input type="checkbox" name="id_artist_arr[]" value="<?= $value->getId(); ?>" checked >
 											<span><?= $value->getName()?></span>
 										</label>
 
@@ -80,7 +80,7 @@
 								<?php if ($flag == true): ?>
 
 									<label>
-										<input type="checkbox" name="artistArray[]" value="<?= $value->getId(); ?>" >
+										<input type="checkbox" name="id_artist_arr[]" value="<?= $value->getId(); ?>" >
 										<span><?= $value->getName()?></span>
 									</label>
 
@@ -99,41 +99,44 @@
 					<div class="col-12 col-md-9 mb-2 mb-md-3">
 						<label for=""><big><big>Lugar</big></big></label>
 						<div class="col-12 col-md-2 mb-2 mb-md-3">
-							<input type="hidden" name="idPlaceEvent" class="form-control form-control-lg" value="<?= $calendar->getPlaceEvent()->getId(); ?>" readonly>
+							<input type="hidden" name="place_event[id]" class="form-control form-control-lg" value="<?= $data['calendar']->getPlaceEvent()->getId(); ?>" readonly>
 						</div>
 						<label>Descripcion</label>
 						<br>
-						<input type="text"   class="form-control form-control-lg" name="placeEvent[description]" value="<?=$calendar->getPlaceEvent()->getDescription(); ?>" >
+						<input type="text"   class="form-control form-control-lg" name="place_event[description]" value="<?=$data['calendar']->getPlaceEvent()->getDescription(); ?>" >
 						<label>Capacidad</label>
 						<br>
-						<input type="number"  min="1000" class="form-control form-control-lg" name="placeEvent[capacity]" value="<?=$calendar->getPlaceEvent()->getCapacity(); ?>">
+						<input type="number"  min="1000" class="form-control form-control-lg" name="place_event[capacity]" value="<?=$data['calendar']->getPlaceEvent()->getCapacity(); ?>">
 					</div>	
 					<div class="col-12 col-md-9 mb-2 mb-md-3">
 						<label><big><big>Plazas</big></big></label>
 
-						<?php if (isset($eventSeatArray)) : ?>
+						<?php if (isset($data['event_seats'])): ?>
 
-							<?php foreach ($eventSeatArray as $value): ?>
+							<?php foreach ($data['event_seats'] as $value): ?>
 
 								<div class="col-12 col-md-2 mb-2 mb-md-3">
-									<input type="hidden" name="eventSeat[<?= $value->getSeatType()->getType(); ?>][ideventseat]" class="form-control form-control-lg" value="<?= $value->getId(); ?>" readonly>
+									<input type="hidden" name="event_seats[<?= $value->getSeatType()->getType(); ?>][id_event_seat]" class="form-control form-control-lg" value="<?= $value->getId(); ?>" readonly>
 								</div>
 								<label><?= $value->getSeatType()->getType(); ?></label>
 								<div class="form-row col-12 col-md-9 mb-2 mb-md-3">
 									<div class="col-12 col-md-2 mb-2 mb-md-3">
-										<input type="hidden" name="eventSeat[<?= $value->getSeatType()->getType(); ?>][idseattype]" class="form-control form-control-lg" value="<?= $value->getSeatType()->getId(); ?>" readonly>
+										<input type="hidden" name="event_seats[<?= $value->getSeatType()->getType(); ?>][id_seat_type]" class="form-control form-control-lg" value="<?= $value->getSeatType()->getId(); ?>" readonly>
 									</div>
 									<label>Capacidad</label>
-									<input type="number"  min=0 class="form-control col-md-2 ml-3" name="eventSeat[<?= $value->getSeatType()->getType(); ?>][capacity]" value="<?= $value->getQuantity(); ?>" >
+									<input type="number"  min=0 class="form-control col-md-2 ml-3" name="event_seats[<?= $value->getSeatType()->getType(); ?>][new_quantity]" value="<?= $value->getQuantity(); ?>" >
 									<label>Precio</label>
-									<input type="number" min=0  class="form-control col-md-2 ml-3" name="eventSeat[<?= $value->getSeatType()->getType(); ?>][price]" value="<?= $value->getPrice(); ?>" >
+									<input type="number" min=0  class="form-control col-md-2 ml-3" name="event_seats[<?= $value->getSeatType()->getType(); ?>][price]" value="<?= $value->getPrice(); ?>" >
+                                    <label>Restante</label>
+                                    <input type="number" class="form-control col-md-2 ml-3" name="event_seats[<?= $value->getSeatType()->getType(); ?>][remainder]" value="<?= $value->getRemainder(); ?>" readonly>
+                                    <input type="hidden" class="form-control col-md-2 ml-3" name="event_seats[<?= $value->getSeatType()->getType(); ?>][previous_quantity]" value="<?= $value->getQuantity(); ?>" >
 								</div>
 
 							<?php endforeach ?>
 
 						<?php endif ?>	
 
-						<?php if ($eventArray && $artistArray && $seatTypeArray): ?>
+						<?php if ($data['events'] && $data['artists'] && $data['seat_types']): ?>
 
 							<div class="col-11 col-md-3 mt-4">
 								<button type="submit" class="btn btn-block btn-lg btn-primary">Agregar</button>
@@ -259,9 +262,8 @@
 									</form>
 								</td>
 								<td>
-									<form action="<?=FRONT_ROOT?>/calendars/edit" method="POST">
-										<button name="update" value="<?= $value->getId(); ?>" id="boton1" type="submit" class="btn btn-block btn-lg btn-primary btn-sm">Editar</button></td>
-									</form>
+                                    <a href="<?=FRONT_ROOT?>/calendars/edit/<?=$value->getId()?>" class="btn btn-block btn-lg btn-primary btn-sm">Editar
+                                    </a>
 								</td>
 							</tr>
 						<?php endforeach ?>

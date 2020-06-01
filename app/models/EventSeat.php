@@ -11,14 +11,14 @@ class EventSeat
     private $price;
     private $remainder;
 
-	function __construct($id, $calendarId,SeatType $seatType, $quantity, $price)
+	function __construct($id, $calendarId,SeatType $seatType, $quantity, $price, $remainder)
 	{
         $this->id = $id;
         $this->calendarId = $calendarId;
         $this->seatType = $seatType;
         $this->quantity = $quantity;
         $this->price = $price;
-        $this->remainder = $quantity;
+        $this->remainder = $remainder;
 	}
 
     public function setQuantity($newQuantity)
