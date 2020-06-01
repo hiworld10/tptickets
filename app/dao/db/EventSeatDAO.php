@@ -1,7 +1,6 @@
 <?php
 namespace app\dao\db;
 
-
 use \Exception as Exception;
 use app\dao\IDAO as IDAO;
 use app\models\EventSeat as EventSeat;    
@@ -35,11 +34,11 @@ class EventSeatDAO implements IDAO
     public function retrieveAll() {
         try {
             $eventSeatList = array();
-            $seatTypeDao= new SeatTypeDAO();
+            $seatTypeDao = new SeatTypeDAO();
             $query = "SELECT * FROM ".$this->tableName;
             $resultSet = $this->connection->execute($query);
             foreach ($resultSet as $row) {
-                $seatType=$seatTypeDao->retrieveById($row["id_seat_type"]);
+                $seatType = $seatTypeDao->retrieveById($row["id_seat_type"]);
                 $eventSeat = new EventSeat($row["id_event_seat"], $row["id_calendar"], $seatType, $row["quantity"], $row["price"], $row["remainder"]);
                 array_push($eventSeatList, $eventSeat);
             }
@@ -66,15 +65,15 @@ class EventSeatDAO implements IDAO
         }
     }
 
-        public function retrieveByCalendarId($calendarId) {
+    public function retrieveByCalendarId($calendarId) {
         try {
             $eventSeatArray = array();
-            $seatTypeDao= new SeatTypeDAO();
-            $query = "SELECT * FROM ".$this->tableName." WHERE id_calendar = :id_calendar";
+            $seatTypeDao = new SeatTypeDAO();
+            $query = "SELECT * FROM " . $this->tableName . " WHERE id_calendar = :id_calendar";
             $parameters["id_calendar"] = $calendarId;
             $resultSet = $this->connection->execute($query, $parameters);
             foreach ($resultSet as $row) {
-                $seatType=$seatTypeDao->retrieveById($row["id_seat_type"]);
+                $seatType = $seatTypeDao->retrieveById($row["id_seat_type"]);
                 $eventSeat = new EventSeat($row["id_event_seat"], $row["id_calendar"], $seatType, $row["quantity"], $row["price"],$row["remainder"]);
                 array_push($eventSeatArray, $eventSeat);
             }
@@ -88,7 +87,7 @@ class EventSeatDAO implements IDAO
 
     public function delete($id) {
         try {
-            $query = "DELETE FROM ".$this->tableName." WHERE id_event = :id_event";
+            $query = "DELETE FROM " . $this->tableName . " WHERE id_event = :id_event";
             $parameters["id_event_seat"] = $id;
             $this->connection->executeNonQuery($query, $parameters);   
         }
@@ -100,7 +99,7 @@ class EventSeatDAO implements IDAO
     public function update($eventSeat) {
         try {
         
-            $query = "UPDATE ".$this->tableName." SET quantity = :quantity, price = :price, remainder = :remainder WHERE id_event_seat = :id_event_seat";
+            $query = "UPDATE " . $this->tableName . " SET quantity = :quantity, price = :price, remainder = :remainder WHERE id_event_seat = :id_event_seat";
             $parameters["id_event_seat"] = $eventSeat->getId();
             $parameters["quantity"] = $eventSeat->getQuantity();
             $parameters["price"] = $eventSeat->getPrice();
