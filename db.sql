@@ -22,6 +22,10 @@ SET time_zone = "+00:00";
 -- Database: `tptickets`
 --
 
+DROP DATABASE IF EXISTS tptickets;
+CREATE DATABASE tptickets;
+use tptickets;
+
 -- --------------------------------------------------------
 
 --
