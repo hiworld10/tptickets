@@ -39,11 +39,11 @@ class CalendarDAO implements IDAO
 		}
 	}
 
-	public function createArtistXCalendarRows($calendar_id, $id_artist_arr) {
+	public function createArtistXCalendarRows($id_calendar, $id_artist_arr) {
 		try {
 			$query = "INSERT INTO artists_calendars (id_calendar, id_artist) VALUES (:id_calendar, :id_artist);";
 			foreach ($id_artist_arr as $value) {
-				$parameters["id_calendar"] = $calendar_id;
+				$parameters["id_calendar"] = $id_calendar;
 				$parameters["id_artist"] = $value;
 				$this->connection->executeNonQuery($query, $parameters);
 			}
@@ -52,6 +52,56 @@ class CalendarDAO implements IDAO
 			throw $ex;
 		}
 	}	
+
+    public function update($calendar) {
+        try {
+            $query = "UPDATE ".$this->tableName." SET date = :date, id_event = :id_event WHERE id_calendar = :id_calendar";
+            $parameters["id_calendar"] = $calendar['id_calendar'];
+            $parameters["date"] = $calendar['date'];
+            $parameters["id_event"] = $calendar['id_event'];
+            $this->connection->executeNonQuery($query, $parameters); 
+            $this->updateArtistXCalendarRows($calendar['id_calendar'], $calendar["id_artist_arr"]);
+        }
+        catch(Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    public function updateArtistXCalendarRows($id_calendar, $id_artist_arr) {
+        $artist_list = $this->retrieveArtistsByCalendarId($id_calendar);
+        $new_entries = $id_artist_arr;       
+        $deleted_entries = [];
+
+        foreach ($artist_list as $artist) {
+            if (($key = array_search($artist->getId(), $new_entries)) !== false) {
+                unset($new_entries[$key]);
+            } else {
+                $deleted_entries[] = $artist->getId();
+            }
+        }
+
+        if (!empty($new_entries)) {
+            $this->createArtistXCalendarRows($id_calendar, $new_entries);
+        }
+
+        if (!empty($deleted_entries)) {
+            foreach ($deleted_entries as $id_artist) {
+                $this->deleteArtistXCalendar($id_calendar, $id_artist);
+            }
+        }
+    }    
+
+    public function deleteArtistXCalendar($id_calendar, $id_artist) {
+        try {
+            $query = "DELETE FROM artists_calendars WHERE id_artist = :id_artist AND id_calendar = :id_calendar";
+            $parameters["id_artist"] = $id_artist;
+            $parameters["id_calendar"] = $id_calendar;
+            $this->connection->executeNonQuery($query, $parameters);   
+        }
+        catch(Exception $ex) {
+            throw $ex;
+        }            
+    }
 
 	public function retrieveLastId()
 	{
@@ -185,20 +235,6 @@ class CalendarDAO implements IDAO
 			throw $ex;
 		}            
 	}
-	public function update($calendarAttributes) {
-		try {
-			$this->deleteArtistXCalendarByCalendarId($calendarAttributes['id_calendar']);
-			$query = "UPDATE ".$this->tableName." SET date = :date, id_event = :id_event WHERE id_calendar = :id_calendar";
-			$parameters["id_calendar"] = $calendarAttributes['id_calendar'];
-			$parameters["date"] = $calendarAttributes['date'];
-			$parameters["id_event"] = $calendarAttributes['id_event'];
-			$this->connection->executeNonQuery($query, $parameters); 
-			$this->createArtistXCalendarRows($calendarAttributes['id_calendar'], $calendarAttributes["artistIdArray"]);
-		}
-		catch(Exception $ex) {
-			throw $ex;
-		}
-	}
 
 	public function retrieveArtistXCalendarByArtistId($calendarId) {
 		try {
@@ -225,10 +261,22 @@ class CalendarDAO implements IDAO
 			$query = "SELECT * FROM artists_calendars WHERE id_calendar = :id_calendar";
 			$parameters["id_calendar"] = $calendarId;
 			$resultSet = $this->connection->execute($query, $parameters);
+
+            /*echo '<pre>';
+            echo 'Result Set:<br>';
+            print_r($resultSet);
+            echo '</pre>';*/
+
 			foreach ($resultSet as $row) {
 				$artist = $artistDao->retrieveById($row['id_artist']);
 				array_push($artists_calendar_array, $artist);
 			}
+
+            /*echo '<pre>';
+            echo "Artist_calendar array:<br>";
+            print_r($artists_calendar_array);
+            echo '</pre>';*/
+
 			return $artists_calendar_array;
 		}
 		catch(Exception $ex) {

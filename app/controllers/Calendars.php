@@ -22,7 +22,7 @@ class Calendars extends \app\controllers\Authentication {
         $data['artists'] = $this->artist_dao->retrieveAll();
         $data['seat_types'] = $this->seat_type_dao->retrieveAll();
 
-        $this->view('admin/calendars', $data);
+        $this->view('admin/calendars', $data);      
     }
 
     public function add() {
@@ -95,11 +95,8 @@ class Calendars extends \app\controllers\Authentication {
     }
 
     public function update($id) {
-        $this->redirectIfRequestIsNotPost('calendars');
 
-        echo '<pre>';
-        print_r($_POST);
-        echo '</pre>';
+        $this->redirectIfRequestIsNotPost('calendars');
 
         $data = [   
                     'id_calendar' => $id,
@@ -119,13 +116,14 @@ class Calendars extends \app\controllers\Authentication {
         }
 
         $event_seats_sum = 0;
+
         foreach ($data['event_seats'] as $key => $value) {
             $event_seats_sum += $value['new_quantity'];
 
             //Se debe verificar que el remanente de asientos correspondientes a su tipo no sea menor a 0 previo a actualizar la nueva cantidad
-            $value['remainder'] += $value['new_quantity'] - $value['previous_quantity'];
+            $remainder = $value['remainder'] + $value['new_quantity'] - $value['previous_quantity'];
 
-            if ($value['remainder'] < 0) {
+            if ($remainder < 0) {
                 $data['errors'][$key . '_remainder_err'] = "La cantidad de asientos restantes a la categoria $key se ha sobrepasado de cero.";
             }
         }
@@ -141,7 +139,7 @@ class Calendars extends \app\controllers\Authentication {
         } else {
 
             $calendar_data = [
-                                'id_calendar' = $id,
+                                'id_calendar' => $id,
                                 'date' => $data['date'],
                                 'id_artist_arr' => $data['id_artist_arr'],
                                 'id_event' => $data['id_event']
@@ -151,20 +149,20 @@ class Calendars extends \app\controllers\Authentication {
 
             foreach ($data['event_seats'] as $value) {
 
+                $remainder = $value['remainder'] + $value['new_quantity'] - $value['previous_quantity'];
+
                 $event_seat_data = [
-                                       'id_calendar' => $id,
-                                       'id_seat_type' => $value['id_seat_type'],
-                                       'quantity' => $value['quantity'],
+                                       'id_event_seat' => $value['id_event_seat'],
+                                       'quantity' => $value['new_quantity'],
                                        'price' => $value['price'],
-                                       //ATENCION: Esto sólo es válido cuando se crea el nuevo objeto, NUNCA cuando se actualiza
-                                       'remainder' => $value['remainder']
+                                       'remainder' => $remainder
                                    ];
 
                 $this->event_seat_dao->update($event_seat_data);
             }
 
             $place_event = [
-                                'id_calendar' => $id,
+                                'id_place_event' => $data['place_event']['id_place_event'],
                                 'capacity' => $data['place_event']['capacity'],
                                 'description' => $data['place_event']['description']
                            ];

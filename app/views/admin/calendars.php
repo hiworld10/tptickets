@@ -99,7 +99,7 @@
 					<div class="col-12 col-md-9 mb-2 mb-md-3">
 						<label for=""><big><big>Lugar</big></big></label>
 						<div class="col-12 col-md-2 mb-2 mb-md-3">
-							<input type="hidden" name="place_event[id]" class="form-control form-control-lg" value="<?= $data['calendar']->getPlaceEvent()->getId(); ?>" readonly>
+							<input type="hidden" name="place_event[id_place_event]" class="form-control form-control-lg" value="<?= $data['calendar']->getPlaceEvent()->getId(); ?>" readonly>
 						</div>
 						<label>Descripcion</label>
 						<br>

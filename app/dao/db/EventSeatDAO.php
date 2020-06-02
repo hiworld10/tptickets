@@ -96,14 +96,20 @@ class EventSeatDAO implements IDAO
         }            
     }
 
-    public function update($eventSeat) {
+    public function update($event_seat) {
         try {
         
             $query = "UPDATE " . $this->tableName . " SET quantity = :quantity, price = :price, remainder = :remainder WHERE id_event_seat = :id_event_seat";
-            $parameters["id_event_seat"] = $eventSeat->getId();
-            $parameters["quantity"] = $eventSeat->getQuantity();
-            $parameters["price"] = $eventSeat->getPrice();
-            $parameters["remainder"] = $eventSeat->getRemainder();
+            $parameters["id_event_seat"] = $event_seat['id_event_seat'];
+            $parameters["quantity"] = $event_seat['quantity'];
+            $parameters["price"] = $event_seat['price'];
+            $parameters["remainder"] = $event_seat['remainder'];
+
+            echo '<pre>';
+            echo "Parameters data:<br>";
+            print_r($parameters);
+            echo '</pre>';
+
             $this->connection->executeNonQuery($query, $parameters);   
         }
         catch(Exception $ex) {
