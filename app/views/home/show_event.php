@@ -27,25 +27,28 @@
 </header>
 
 <div>
-    <?php if(isset($data['err'])) echo $data['err']; ?>
     <table class="table bg-light-alpha text-center mt-5">
-        <?php if(!empty($data['events'])): ?>
+        <?php if(!empty($data['calendars'])): ?>
             <tbody>
-            <?php foreach ($data['events'] as $value): ?>
+            <?php foreach ($data['calendars'] as $value): ?>
                 <tr>       
-                    <td><img src="<?= $value->getImage()->getPath() ?>" height="200" width="350"/></td>
+                    <td><img src="<?= $value->getEvent()->getImage()->getPath() ?>" height="200" width="350"/></td>
                     <td>
                         <div class="mt-5">
-                            <a href="<?php echo FRONT_ROOT . "/home/show-event/" . $value->getId() ?>">    
+                            <a href="<?php echo FRONT_ROOT . "/home/buy/" . $value->getId() ?>">    
                                 <input type="hidden" name="id_calendar" value="<?=$value->getId();  ?>">
-                                <big><big><?= $value->getName(); ?></big></big><br>
+                                <big><big><?= $value->getEvent()->getName(); ?></big></big>
+                                <br>
+                                <big><?= $value->getDate(); ?></big>
                             </a>
                         </div>
                     </td>
             <?php endforeach ?>
-                </tr>
-            </tbody>
+        <?php /*NO MUESTRA ESTE MENSAJE. Por que? Problemas con los tags?*/ ?>    
+        <?php else: ?>
+            <p>No hay fechas disponibles para este evento</p>
         <?php endif ?>
+            </tbody>
     </table>
 </div>
 
