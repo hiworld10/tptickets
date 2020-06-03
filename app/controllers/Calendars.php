@@ -228,7 +228,7 @@ class Calendars extends \app\controllers\Authentication {
 	}
 
     public function delete($id) {
-        $this->dao->delete($id);
+        $this->calendar_dao->delete($id);
         $this->index();
     }
 
