@@ -43,6 +43,11 @@ class Auth
     {
         return isset($_SESSION['tptickets_is_admin']);
     }
+
+    public static function isAccountOwner($id)
+    {
+        return ($id === $_SESSION['tptickets_user_id']);
+    }
 }
 
  ?>
