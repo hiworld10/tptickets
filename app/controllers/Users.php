@@ -18,6 +18,20 @@ class Users extends \app\controllers\Authentication {
         $this->view('admin/users', $data);
     }
 
+    public function show($id) {
+        $this->requireUserLogin();
+        $user = $this->user_dao->retrieveById($id);
+        if ($user) {
+            if (Auth::isAccountOwner($user->getId())) {
+                $data['user'] = $user;
+                $this->view('users/show', $data);
+            }    
+        } else {
+            $this->redirect('');
+        }
+        
+    }
+
     public function register() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             //Almacenar datos de formulario en el arreglo asociativo $data, para mostrar la informacion introducida previamente en caso de no ser correcta y asi permitir que el usuario la corrija mas rapidamente
@@ -79,7 +93,7 @@ class Users extends \app\controllers\Authentication {
                 if (Auth::isAdminLoggedIn()) {
                     $this->redirect('users');
                 } else {
-                    $this->redirect('users/success');
+                    $this->redirect('users/register-success');
                 }
             } else {
                 if (Auth::isAdminLoggedIn()) {
@@ -91,7 +105,7 @@ class Users extends \app\controllers\Authentication {
         }
     }
 
-    public function success() {
+    public function registerSuccess() {
         $this->view('users/success');
     }
 
@@ -229,7 +243,7 @@ class Users extends \app\controllers\Authentication {
             if (Auth::isAdminLoggedIn()) {
                 $this->redirect('users');
             } else {
-                die("user update data successful, view goes here");
+                $this->redirect('users/update-success');
             }
         } else {
             if (Auth::isAdminLoggedIn()) {
@@ -237,19 +251,29 @@ class Users extends \app\controllers\Authentication {
                 $data['user'] = $this->user_dao->retrieveById($id);
                 $this->view('admin/users', $data);
             } else {
-                die("user own data update went wrong");
+                $this->edit($id, $data);
             }
         }        
-
     }
 
-    public function edit($id) {
+    public function updateSuccess() {
+        $this->view('users/update_successful');
+    }    
+
+    public function edit($id, $data = []) {
+        $this->requireUserLogin();
         $data['user'] = $this->user_dao->retrieveById($id);
         if (isset($data['user'])) {
+
             if (Auth::isAdminLoggedIn()) {
                 $this->view('admin/users', $data);
+
             } else {
-                echo "View file for user update data goes here.";
+                if (Auth::isAccountOwner($data['user']->getId())) {
+                    $this->view('users/edit', $data);
+                } else {
+                    $this->redirect('');
+                }
             }
         }
     }
