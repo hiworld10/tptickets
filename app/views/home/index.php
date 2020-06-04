@@ -27,7 +27,6 @@
 </header>
 
 <div>
-    <?php if(isset($data['err'])) echo $data['err']; ?>
     <table class="table bg-light-alpha text-center mt-5">
         <?php if(!empty($data['events'])): ?>
             <tbody>
@@ -45,7 +44,9 @@
             <?php endforeach ?>
                 </tr>
             </tbody>
-        <?php endif ?>
+        <?php else: ?>
+            <p>¡Vaya! Parece ser que no hay eventos disponibles en este momento. Esto significa que o hemos llegado a la quiebra o algun virus infeccioso rebelde está suelto ahí afuera, que hará que indefectiblemente lleguemos a la quiebra de igual manera. ¡Manténgase sanos! Y si quieren entradas mejor vayan a ticketek. Bye </p>
+        <?php endif ?>    
     </table>
 </div>
 

@@ -18,9 +18,6 @@ class Home extends Controller {
             $this->view('admin/admin');
         } else {
             $data['events'] = $this->event_dao->retrieveAllActive();
-            if (empty($data['events'])) {
-                $data['err'] = "NO HAY EVENTOS DISPONIBLES";
-            }
             $this->view('home/index', $data);
         }
     }
