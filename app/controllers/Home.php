@@ -17,7 +17,7 @@ class Home extends Controller {
         if (isset($_SESSION['tptickets_is_admin'])) {
             $this->view('admin/admin');
         } else {
-            $data['events'] = $this->event_dao->retrieveAll();
+            $data['events'] = $this->event_dao->retrieveAllActive();
             if (empty($data['events'])) {
                 $data['err'] = "NO HAY EVENTOS DISPONIBLES";
             }

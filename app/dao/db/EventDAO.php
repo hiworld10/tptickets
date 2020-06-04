@@ -8,6 +8,8 @@ use app\models\Event as Event;
 use app\models\Photo as Photo;
 use app\dao\db\Connection as Connection;
 use app\dao\db\CategoryDAO as CategoryDAO;
+use app\dao\db\CalendarDAO;
+
 
 class EventDAO implements IDAO
 {
@@ -35,6 +37,7 @@ class EventDAO implements IDAO
         try {
             $eventList = array();
             $categoryDAO = new CategoryDAO();
+
             $query = "SELECT * FROM ".$this->tableName;
             $resultSet = $this->connection->execute($query);
             foreach ($resultSet as $row) {
@@ -44,6 +47,31 @@ class EventDAO implements IDAO
                 $event = new Event($row["id_event"], $row["name"], $category, $photo);
                 array_push($eventList, $event);
             }
+            return $eventList;
+        }
+        catch(Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    public function retrieveAllActive() {
+
+        try {
+            $eventList = array();
+            $id_event_array = array();           
+            $query = "SELECT id_event FROM calendars";
+            $resultSet = $this->connection->execute($query);
+
+            foreach ($resultSet as $row) {
+                $id_event_array[] = $row['id_event'];
+            }
+
+            $id_event_array = array_unique($id_event_array);
+            
+            foreach ($id_event_array as $id) {
+                $eventList[] = $this->retrieveById($id);
+            }
+
             return $eventList;
         }
         catch(Exception $ex) {
