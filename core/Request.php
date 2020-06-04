@@ -57,16 +57,17 @@ class Request {
         $requestMethod = $this->getRequestMethod();
 
         if($requestMethod == 'GET') {
-            //Estas instrucciones NO permiten almacenar el contenido de GET. De hecho,
-            //$urlArray nunca obtiene dicho contenido.
-            /*if(!empty($urlArray)) {
+            //Estas instrucciones NO permiten almacenar el contenido de GET obtenido de formularios. Si el dato es introducido en el url, lo almacenamos asi.
+            if(!empty($urlArray)) {
                 $this->parameters = $urlArray;
-            }*/
-            //Para solucionar esto, guardamos en el atributo 'parameters' el contenido 
+            }
+            //Sino, guardamos en el atributo 'parameters' el contenido 
             //de la variable global $_GET.
-            $this->parameters = $_GET;
-            //Y desligamos la clave 'url' ya que no es necesaria
-            unset($this->parameters['url']);
+            else {
+                $this->parameters = $_GET;
+                //Y desligamos la clave 'url' ya que no es necesaria
+                unset($this->parameters['url']);                
+            }
         } else {
             $this->parameters = $_POST;
         }   
