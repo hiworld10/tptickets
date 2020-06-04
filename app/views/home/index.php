@@ -12,10 +12,10 @@
             <h1 class="mb-5">La forma mas facil de comprar tus tickets a un solo click!</h1>
         </div>
         <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-            <form action="<?=  FRONT_ROOT ."/home/search"?>"  method="POST">
+            <form action="<?=  FRONT_ROOT ."/home/search"?>"  method="GET">
                 <div class="form-row">
                     <div class="col-12 col-md-9 mb-2 mb-md-0">
-                        <input type="text" name="artist" class="form-control form-control-lg" placeholder="Buscar por evento o artista...">
+                        <input type="text" name="q" class="form-control form-control-lg" placeholder="Buscar por evento o artista..." autofocus>
                     </div>
                     <div class="col-12 col-md-3">
                         <button type="submit" class="btn btn-block btn-lg btn-primary">Buscar</button>

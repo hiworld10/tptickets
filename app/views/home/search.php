@@ -8,7 +8,7 @@
                     <form action="<?=  FRONT_ROOT ."/home/search"?>"  method="GET">
                         <div class="form-row">
                             <div class="col-12 col-md-9 mb-2 mb-md-0 mt-5">
-                                <input type="text" name="artist" class="form-control form-control-lg" placeholder="Buscar por evento o artista... ">
+                                <input type="text" name="q" class="form-control form-control-lg" placeholder="Buscar por evento o artista... ">
                             </div>
                             <div class="col-12 col-md-3 mt-5">
                                 <button type="submit" class="btn btn-block btn-lg btn-primary">Buscar</button>
