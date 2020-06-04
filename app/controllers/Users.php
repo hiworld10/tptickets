@@ -215,7 +215,7 @@ class Users extends \app\controllers\Authentication {
         }
 
         //Si se dejaron en blanco los campos para contraseña, no se procesará dicha información y sólo se actualizarán los otros datos correspondientes al usuario
-        if (!empty($_POST['password']) && !empty($_POST['confirm_password'])) {
+        if (!empty($_POST['password']) || !empty($_POST['confirm_password'])) {
             $password = $_POST['password'];
             $confirm_password = $_POST['confirm_password'];
 
