@@ -37,10 +37,8 @@ class Home extends Controller {
 
     public function showEvent($id_event) {
         
-        $data['calendars'] = array();//  la vista search esta codeada para que reciba un array
-        $calendar = $this->calendar_dao->retrieveByEventId($id_event);
-        array_push($data['calendars'], $calendar);
-        if($data['calendars'] != null) {
+        $data['calendars'] = $this->calendar_dao->retrieveByEventId($id_event);
+        if(isset($data['calendars'])) {
             $this->view('home/show_event', $data);
         } else {
             $this->index();

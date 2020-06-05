@@ -170,7 +170,7 @@ class CalendarDAO implements IDAO
 
 	public function retrieveByEventId($eventId) {
 		try {
-			$calendar = null;
+			$calendars = [];
 			$eventDao = new EventDAO();
 			$placeEventDao = new PlaceEventDAO();
 			$eventSeatDao = new EventSeatDAO();
@@ -183,9 +183,9 @@ class CalendarDAO implements IDAO
 				$placeEvent = $placeEventDao->retrieveByCalendarId($row["id_calendar"]);
 				$eventSeat = $eventSeatDao->retrieveByCalendarId($row["id_calendar"]);
 				$artistsArray = $this->retrieveArtistsByCalendarId($row["id_calendar"]);
-				$calendar = new Calendar($row["id_calendar"], $row["date"], $event, $artistsArray, $placeEvent, $eventSeat[0]);               
+				$calendars[] = new Calendar($row["id_calendar"], $row["date"], $event, $artistsArray, $placeEvent, $eventSeat[0]);               
 			}
-			return $calendar;
+			return $calendars;
 		} 
 		catch(Exception $ex) {
 			throw $ex;
