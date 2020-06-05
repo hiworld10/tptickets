@@ -6,7 +6,7 @@
                 <a class="btn btn-primary" href="<?= FRONT_ROOT ?>/users/login">Ingresar</a>
                 <a class="btn btn-primary" href="<?= FRONT_ROOT ?>/users/register">Registrarse</a>
             <?php else :  ?>
-                <a class="btn btn-primary" href="<?= FRONT_ROOT ?>/users/show/<?= $_SESSION['tptickets_user_id'] ?>">Hola, <?php echo htmlspecialchars($_SESSION['tptickets_user_name']) ?></a>
+                <a class="btn btn-primary" href="<?= FRONT_ROOT ?>/users/show/<?= $_SESSION['tptickets_user_id'] ?>">Mi cuenta</a>
                 <a class="btn btn-primary" href="<?= FRONT_ROOT ?>/users/logout">Salir</a>
             <?php endif; ?>  
         </div>
