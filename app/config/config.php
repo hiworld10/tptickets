@@ -13,6 +13,7 @@ define('HEADER', VIEWS_ROOT . 'inc/header.php');
 define('NAVBAR', VIEWS_ROOT . 'inc/navbar.php');
 define('ADMIN_NAVBAR', VIEWS_ROOT . 'inc/admin_navbar.php');
 define('FOOTER', VIEWS_ROOT . 'inc/footer.php');
+define('FLASH_MESSAGES', VIEWS_ROOT . 'inc/messages.php');
 
 /* Rutas URL */
 define('FRONT_ROOT', 'http://localhost/tptickets');

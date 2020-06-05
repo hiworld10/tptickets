@@ -18,6 +18,7 @@
 </head>
 
 <?php require(NAVBAR); ?>
+<?php require FLASH_MESSAGES ?>
 
 <body>
 
