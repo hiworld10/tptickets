@@ -1,9 +1,5 @@
 <?php require HEADER; ?>
 
-<?php if (isset($data['login_successful'])): ?>
-    <p><?php echo htmlspecialchars($data['login_successful']) ?></p>
-<?php endif ?>
-
 <header class="masthead text-white text-center">
     <div class="overlay"></div>
     <div class="container">
@@ -45,7 +41,9 @@
                 </tr>
             </tbody>
         <?php else: ?>
-            <p>¡Vaya! Parece ser que no hay eventos disponibles en este momento. Esto significa que o hemos llegado a la quiebra o algun virus infeccioso rebelde está suelto ahí afuera, que hará que indefectiblemente lleguemos a la quiebra de igual manera. ¡Manténgase sanos! Y si quieren entradas mejor vayan a ticketek. Bye </p>
+            <div class="container">
+                <p>¡Vaya! Parece ser que no hay eventos disponibles en este momento. Esto significa que o hemos llegado a la quiebra o algun virus infeccioso rebelde está suelto ahí afuera, que hará que indefectiblemente lleguemos a la quiebra de igual manera. ¡Manténgase sanos! Y si quieren entradas mejor vayan a ticketek. Bye </p>
+            </div>
         <?php endif ?>    
     </table>
 </div>

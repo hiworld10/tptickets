@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\controllers\Home;
 use app\utils\Password;
 use app\Auth;
+use app\utils\Flash;
 
 class Users extends \app\controllers\Authentication {
 
@@ -141,11 +142,14 @@ class Users extends \app\controllers\Authentication {
                 if ($user) {
                     //Si las credenciales son validas, se crea la sesion
                     Auth::createSession($user);
+                    //Mensaje de bienvenida
+                    Flash::addMessage('Bienvenido de nuevo, ' . $user->getName());
                     //Redireccionar al home
                     $this->redirect('');
                 } else {
                     //Mostrar de nuevo el formulario de login si no hubo inicio de sesión exitoso
-                    $data['errors']['login_failed'] = "Usuario o contraseña incorrectos";
+                    Flash::addMessage('Usuario o contraseña incorretos. Intentalo de nuevo', Flash::WARNING);
+                    //$data['errors']['login_failed'] = "Usuario o contraseña incorrectos";
                     $this->view('users/login', $data);
                 }
               //Caso contrario, mostrar nuevamente el formulario de login  
