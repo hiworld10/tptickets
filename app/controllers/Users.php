@@ -97,7 +97,8 @@ class Users extends \app\controllers\Authentication {
                     Flash::addMessage('Usuario agregado.');
                     $this->redirect('users');
                 } else {
-                    $this->redirect('users/register-success');
+                    Flash::addMessage('Tu cuenta fue registrada con éxito. Iniciá sesión para continuar.');
+                    $this->redirect('users/login');
                 }
             } else {
                 if (Auth::isAdminLoggedIn()) {
