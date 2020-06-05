@@ -185,6 +185,12 @@ class CalendarDAO implements IDAO
 				$artistsArray = $this->retrieveArtistsByCalendarId($row["id_calendar"]);
 				$calendars[] = new Calendar($row["id_calendar"], $row["date"], $event, $artistsArray, $placeEvent, $eventSeat[0]);               
 			}
+
+            //Ordena los resultados por fecha ascendente
+            usort($calendars, function ($a, $b) {
+                return strcmp($a->getDate(), $b->getDate());
+            });
+
 			return $calendars;
 		} 
 		catch(Exception $ex) {
