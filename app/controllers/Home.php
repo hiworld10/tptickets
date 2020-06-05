@@ -25,7 +25,7 @@ class Home extends Controller {
     //busca por nombre artista, nombre evento, lugar
     public function search($string) {
 
-        $data['events'] = $this->event_dao->retrieveByString($string);
+        $data['events'] = $this->event_dao->retrieveActiveEventsByString($string);
 
         if($data['events'] != null) { 
             $this->view('home/search', $data);

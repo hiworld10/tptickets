@@ -79,6 +79,38 @@ class EventDAO implements IDAO
         }
     }
 
+    public function retrieveActiveEventsByString($string) {
+        try {
+
+            $events = $this->retrieveAllActive();
+
+            $results = [];
+            $categoryDAO = new CategoryDAO();
+
+            $query = "SELECT * FROM events WHERE id_event = :id_event AND name LIKE '%" . $string . "%' ";
+
+            foreach ($events as $event) {
+                $parameters["id_event"] = $event->getId();
+                $row = $this->connection->execute($query, $parameters);
+
+                $resultSet = $this->connection->execute($query, $parameters);
+                foreach ($resultSet as $row) {
+                    $category = $categoryDAO->retrieveById($row["id_category"]);
+                    $photo= new Photo();
+                    $photo->setPath($row['image']);
+                    $event = new Event($row["id_event"], $row["name"], $category, $photo);
+                    $results[] = $event; 
+                }
+            }
+
+            return $results;
+                
+        } catch (Exception $ex) {
+
+            throw $ex;
+        }
+    }
+
     public function retrieveById($id) {
         try {
             $event = null;
