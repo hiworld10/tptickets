@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Photo;
+use app\utils\Flash;
 
 class Events extends \app\controllers\Authentication {
 
@@ -38,6 +39,7 @@ class Events extends \app\controllers\Authentication {
         //Finalmente se realiza el query y se redirecciona al index de eventos
 		$this->event_dao->create($event);
 
+        Flash::addMessage('Evento agregado.');
 		$this->redirect('events');
 	}
 
@@ -68,6 +70,7 @@ class Events extends \app\controllers\Authentication {
         $event['name'] = trim($_POST['name']);
         $this->event_dao->update($event);
 
+        Flash::addMessage('Evento actualizado.');
 		$this->redirect('events');
 	}
 	
@@ -76,6 +79,7 @@ class Events extends \app\controllers\Authentication {
         
         $this->event_dao->delete($id);
         
+        Flash::addMessage('Evento eliminado.');
         $this->redirect('events');
     }
 }

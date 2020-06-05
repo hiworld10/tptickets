@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\utils\Flash;
+
 class Categories extends \app\controllers\Authentication {
 
 	public function __construct() {
@@ -21,6 +23,7 @@ class Categories extends \app\controllers\Authentication {
         $category['type'] = trim($_POST['type']); 
         $this->dao->create($category);
 
+        Flash::addMessage('Categoría agregada.');
         $this->redirect('categories');
     }
 
@@ -39,6 +42,7 @@ class Categories extends \app\controllers\Authentication {
         $category['type'] = trim($_POST['type']);
 		$this->dao->update($category);
 
+        Flash::addMessage('Categoría actualizada.');
 		$this->redirect('categories');
 	}
 
@@ -46,7 +50,7 @@ class Categories extends \app\controllers\Authentication {
         $this->redirectIfRequestIsNotPost('categories');
         
         $this->dao->delete($id);
-        
+        Flash::addMessage('Categoría eliminada.');
         $this->redirect('categories');
     }
 }

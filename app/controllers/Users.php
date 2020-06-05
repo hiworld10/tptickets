@@ -94,6 +94,7 @@ class Users extends \app\controllers\Authentication {
                 }
                 $this->user_dao->create($data);
                 if (Auth::isAdminLoggedIn()) {
+                    Flash::addMessage('Usuario agregado.');
                     $this->redirect('users');
                 } else {
                     $this->redirect('users/register-success');
@@ -188,6 +189,7 @@ class Users extends \app\controllers\Authentication {
         $this->requireAdminLogin();
         $this->redirectIfRequestIsNotPost('users');
         $this->user_dao->delete($id);
+        Flash::addMessage('Usuario eliminado.');
         $this->redirect('users');
     }
 
@@ -247,6 +249,7 @@ class Users extends \app\controllers\Authentication {
             }
 
             if (Auth::isAdminLoggedIn()) {
+                Flash::addMessage('Usuario actualizado.');
                 $this->redirect('users');
             } else {
                 $this->redirect('users/update-success');

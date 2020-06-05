@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\utils\Flash;
+
 class Calendars extends \app\controllers\Authentication {
 
 	public function __construct() {
@@ -89,7 +91,7 @@ class Calendars extends \app\controllers\Authentication {
                            ];
 
             $this->place_event_dao->create($place_event);
-
+            Flash::addMessage('Calendario agregado.');
             $this->redirect('calendars');
         }
     }
@@ -169,6 +171,7 @@ class Calendars extends \app\controllers\Authentication {
 
             $this->place_event_dao->update($place_event);
 
+            Flash::addMessage('Calendario actualizado.');
             $this->redirect('calendars');
 
         }
@@ -229,7 +232,8 @@ class Calendars extends \app\controllers\Authentication {
 
     public function delete($id) {
         $this->calendar_dao->delete($id);
-        $this->index();
+        Flash::addMessage('Calendario eliminado.');
+        $this->redirect('calendars');
     }
 
 	/*Comprueba que la fecha introducida no sea pasada a la actual*/

@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\utils\Flash;
+
 class Artists extends \app\controllers\Authentication {
 
 	public function __construct() {
@@ -20,6 +22,7 @@ class Artists extends \app\controllers\Authentication {
         $data = ['name' => trim($_POST['name'])];
         $this->artist_dao->create($data);
 		
+        Flash::addMessage('Artista agregado.');
 		$this->redirect('artists');
 	}
 
@@ -37,6 +40,7 @@ class Artists extends \app\controllers\Authentication {
     	$data['name'] = $_POST['name'];
     	$this->artist_dao->update($data);
     
+        Flash::addMessage('Artista actualizado.');
         $this->redirect('artists');
 	}
 
@@ -46,6 +50,7 @@ class Artists extends \app\controllers\Authentication {
 
         $this->artist_dao->delete($id);
 
+        Flash::addMessage('Artista eliminado.');
         $this->redirect('artists');
     }
 
