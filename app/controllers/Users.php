@@ -26,6 +26,8 @@ class Users extends \app\controllers\Authentication {
             if (Auth::isAccountOwner($user->getId())) {
                 $data['user'] = $user;
                 $this->view('users/show', $data);
+            } else {
+                $this->redirect('');
             }    
         } else {
             $this->redirect('');
