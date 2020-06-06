@@ -31,7 +31,7 @@
                     <td><img src="<?= $value->getImage()->getPath() ?>" height="200" width="350"/></td>
                     <td>
                         <div class="mt-5">
-                            <a href="<?php echo FRONT_ROOT . "/home/show-event/" . $value->getId() ?>">    
+                            <a href="<?php echo FRONT_ROOT . "/events/show/" . $value->getId() . "/" . \app\utils\StringUtils::lowercaseAndUnderscores($value->getName()) ?>">    
                                 <input type="hidden" name="id_calendar" value="<?=$value->getId();  ?>">
                                 <big><big><?= $value->getName(); ?></big></big><br>
                             </a>

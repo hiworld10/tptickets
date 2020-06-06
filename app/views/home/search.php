@@ -8,7 +8,7 @@
                     <form action="<?=  FRONT_ROOT ."/home/search"?>"  method="GET">
                         <div class="form-row">
                             <div class="col-12 col-md-9 mb-2 mb-md-0 mt-5">
-                                <input type="text" name="q" class="form-control form-control-lg" placeholder="Buscar por evento o artista... ">
+                                <input type="text" name="q" class="form-control form-control-lg" placeholder="Buscar por evento o artista... " autofocus>
                             </div>
                             <div class="col-12 col-md-3 mt-5">
                                 <button type="submit" class="btn btn-block btn-lg btn-primary">Buscar</button>
@@ -30,7 +30,7 @@
                 <td><img src="<?= $value->getImage()->getPath() ?>" height="200" width="350"/></td>
                     <td>
                         <div class="mt-5">
-                            <a href="<?php echo FRONT_ROOT . "/home/show-event/" . $value->getId() ?>">    
+                            <a href="<?php echo FRONT_ROOT . "/events/show/" . $value->getId() . "/" . \app\utils\StringUtils::lowercaseAndUnderscores($value->getName()) ?>">    
                                 <input type="hidden" name="id_calendar" value="<?=$value->getId();  ?>">
                                 <big><big><?= $value->getName(); ?></big></big><br>
                             </a>
