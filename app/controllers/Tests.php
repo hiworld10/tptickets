@@ -13,6 +13,11 @@ class Tests {
         echo "Tests/index";
     }
 
+    public function underscores()
+    {
+        echo StringUtils::lowercaseAndUnderscores("Test de funcion de underscores");
+    }
+
     public function connection($dao_type) {
         $dao_type = StringUtils::convertToStudlyCaps($dao_type);
         echo "<p>DAO is of type $dao_type</p>";
