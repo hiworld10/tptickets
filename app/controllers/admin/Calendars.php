@@ -1,6 +1,6 @@
 <?php 
 
-namespace app\controllers;
+namespace app\controllers\admin;
 
 use app\utils\Flash;
 
@@ -28,7 +28,7 @@ class Calendars extends \app\controllers\Authentication {
     }
 
     public function add() {
-        $this->redirectIfRequestIsNotPost('calendars');
+        $this->redirectIfRequestIsNotPost('admin/calendars');
 
         $data = [   
                     'date' => $_POST['date'],
@@ -92,13 +92,13 @@ class Calendars extends \app\controllers\Authentication {
 
             $this->place_event_dao->create($place_event);
             Flash::addMessage('Calendario agregado.');
-            $this->redirect('calendars');
+            $this->redirect('admin/calendars');
         }
     }
 
     public function update($id) {
 
-        $this->redirectIfRequestIsNotPost('calendars');
+        $this->redirectIfRequestIsNotPost('admin/calendars');
 
         $data = [   
                     'id_calendar' => $id,
@@ -172,7 +172,7 @@ class Calendars extends \app\controllers\Authentication {
             $this->place_event_dao->update($place_event);
 
             Flash::addMessage('Calendario actualizado.');
-            $this->redirect('calendars');
+            $this->redirect('admin/calendars');
 
         }
 
@@ -233,7 +233,7 @@ class Calendars extends \app\controllers\Authentication {
     public function delete($id) {
         $this->calendar_dao->delete($id);
         Flash::addMessage('Calendario eliminado.');
-        $this->redirect('calendars');
+        $this->redirect('admin/calendars');
     }
 
 	/*Comprueba que la fecha introducida no sea pasada a la actual*/

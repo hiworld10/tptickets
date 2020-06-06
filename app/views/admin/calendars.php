@@ -16,7 +16,7 @@
 
 		<?php if (isset($data['calendar'])): ?>
 
-			<form name='formulario' action="<?=FRONT_ROOT?>/calendars/update"  method="POST">
+			<form name='formulario' action="<?=FRONT_ROOT?>/admin/calendars/update"  method="POST">
 				<div class="form">
 					<div class="form-row col-12 col-md-9 mb-2 mb-md-3" >
 						<label><big><big>Id Calendario</big></big></label>
@@ -155,7 +155,7 @@
 
 		<?php else: ?>
 
-			<form name='formulario' action="<?=FRONT_ROOT?>/calendars/add"  method="POST">
+			<form name='formulario' action="<?=FRONT_ROOT?>/admin/calendars/add"  method="POST">
 				<div class="form">
 					<div class="col-12 col-md-9 mb-2 mb-md-3">
 						<label for=""><big><big>Fecha</big></big></label>
@@ -257,12 +257,12 @@
 								</td>
 								<td><?= $value->getPlaceEvent()->getId(); ?></td>
 								<td>
-									<form action="<?=FRONT_ROOT?>/calendars/delete" method="POST">
+									<form action="<?=FRONT_ROOT?>/admin/calendars/delete" method="POST">
 										<button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit"class="btn btn-block btn-lg btn-primary btn-sm">Eliminar</button>
 									</form>
 								</td>
 								<td>
-                                    <a href="<?=FRONT_ROOT?>/calendars/edit/<?=$value->getId()?>" class="btn btn-block btn-lg btn-primary btn-sm">Editar
+                                    <a href="<?=FRONT_ROOT?>/admin/calendars/edit/<?=$value->getId()?>" class="btn btn-block btn-lg btn-primary btn-sm">Editar
                                     </a>
 								</td>
 							</tr>
