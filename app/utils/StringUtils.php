@@ -28,6 +28,9 @@ class StringUtils
         return str_replace(' ', '', ucwords(str_replace('-', ' ', $string)));
     }
 
+    public static function lowercaseAndUnderscores($string) {
+        return str_replace(' ', '_', strtolower($string));
+    }
 }
 
  ?>
