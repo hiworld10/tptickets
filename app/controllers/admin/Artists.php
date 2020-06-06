@@ -1,6 +1,6 @@
 <?php 
 
-namespace app\controllers;
+namespace app\controllers\admin;
 
 use app\utils\Flash;
 
@@ -17,13 +17,13 @@ class Artists extends \app\controllers\Authentication {
     }
 
 	public function add() {
-        $this->redirectIfRequestIsNotPost('artists');
+        $this->redirectIfRequestIsNotPost('admin/artists');
 
         $data = ['name' => trim($_POST['name'])];
         $this->artist_dao->create($data);
 		
         Flash::addMessage('Artista agregado.');
-		$this->redirect('artists');
+		$this->redirect('admin/artists');
 	}
 
 	public function edit($id) {
@@ -34,24 +34,24 @@ class Artists extends \app\controllers\Authentication {
 	}
 
 	public function update($id) {
-        $this->redirectIfRequestIsNotPost('artists');
+        $this->redirectIfRequestIsNotPost('admin/artists');
 
         $data['id_artist'] = $id;
     	$data['name'] = $_POST['name'];
     	$this->artist_dao->update($data);
     
         Flash::addMessage('Artista actualizado.');
-        $this->redirect('artists');
+        $this->redirect('admin/artists');
 	}
 
     public function delete($id) {
         //Se tendría que agregar una confirmación adicional para eliminar el item, para evitar el borrado accidental.
-        $this->redirectIfRequestIsNotPost('artists');
+        $this->redirectIfRequestIsNotPost('admin/artists');
 
         $this->artist_dao->delete($id);
 
         Flash::addMessage('Artista eliminado.');
-        $this->redirect('artists');
+        $this->redirect('admin/artists');
     }
 
 }

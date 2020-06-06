@@ -1,6 +1,6 @@
 <div id="cssmenu" class="__full-height-perc">
     <ul>
-        <li><a href="<?=FRONT_ROOT?>/artists" >Artistas</a></li>
+        <li><a href="<?=FRONT_ROOT?>/admin/artists" >Artistas</a></li>
         <li><a href="<?=FRONT_ROOT?>/calendars" title="...">Calendarios</a></li>
         <li><a href="<?=FRONT_ROOT?>/categories"  title="...">Categorias</a></li>
         <li><a href="<?=FRONT_ROOT?>/events" title="...">Eventos</a></li>
