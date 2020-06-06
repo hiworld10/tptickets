@@ -10,7 +10,7 @@
     <?php if(isset($purchase)){ ?>
 
 
-      <form name='formulario' action="<?=FRONT_ROOT?>/purchase/updatePurchase"  method="POST">
+      <form name='formulario' action="<?=FRONT_ROOT?>/admin/purchases/updatePurchase"  method="POST">
        <div class="form-row">
         <div class="col-md-1 mb-2 mb-md-0 form-row">
           <label>Id</label>
@@ -32,7 +32,7 @@
 
 <?php   }else{  ?>
 
-  <form name='formulario' action="<?=FRONT_ROOT?>/purchase/addPurchaseLine"  method="POST">
+  <form name='formulario' action="<?=FRONT_ROOT?>/admin/purchases/addPurchaseLine"  method="POST">
    <div class="form-row p-2">
     <div class="form-group col-12 col-md-9 mb-2 mb-md-0">
       <input type="date"   class="form-control form-control-lg" name="date" placeholder="Ingrese fecha..." required>
@@ -73,12 +73,12 @@
          <td><?= $value->getPurchaseLine(); ?></td><!-- SI ES UN OBJETO HAY Q AGREGAR (getId()) -->
 
          <td>
-          <form action="<?=FRONT_ROOT?>/purchase/deletePurchase" method="POST">
+          <form action="<?=FRONT_ROOT?>/admin/purchases/deletePurchase" method="POST">
             <button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit"class="btn btn-block btn-lg btn-primary btn-sm">Eliminar</button>
           </form>
         </td>
         <td>
-          <form action="<?=FRONT_ROOT?>/purchase/getPurchase" method="POST">
+          <form action="<?=FRONT_ROOT?>/admin/purchases/getPurchase" method="POST">
             <button name="update" value="<?= $value->getId(); ?>" id="boton1" type="submit" class="btn btn-block btn-lg btn-primary btn-sm">Editar</button></td>
           </form>
         </td>

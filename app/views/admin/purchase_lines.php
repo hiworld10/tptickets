@@ -10,7 +10,7 @@
     <?php if(isset($purcharseline)){ ?>
 
 
-      <form name='formulario' action="<?=FRONT_ROOT?>/purcharseline/updatePurcharseLine"  method="POST">
+      <form name='formulario' action="<?=FRONT_ROOT?>/admin/purchase-lines/updatePurcharseLine"  method="POST">
        <div class="form-row">
         <div class="col-md-1 mb-2 mb-md-0 form-row">
           <label>Id</label>
@@ -54,7 +54,7 @@
 
 <?php   }else{  ?>
 
-  <form name='formulario' action="<?=FRONT_ROOT?>/purchaseline/addPurchaseLine"  method="POST">
+  <form name='formulario' action="<?=FRONT_ROOT?>/admin/purchase-lines/addPurchaseLine"  method="POST">
    <div class="form-row p-2">
     <div class="form-group col-12 col-md-9 mb-2 mb-md-0">
       <input type="text"   class="form-control form-control-lg" name="amount" placeholder="Ingrese monto..." required>
@@ -120,12 +120,12 @@
          <td><?= $value->getPurchaseId(); ?></td>
 
          <td>
-          <form action="<?=FRONT_ROOT?>/purchaseline/deletePurchaseLine" method="POST">
+          <form action="<?=FRONT_ROOT?>/admin/purchase-lines/deletePurchaseLine" method="POST">
             <button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit"class="btn btn-block btn-lg btn-primary btn-sm">Eliminar</button>
           </form>
         </td>
         <td>
-          <form action="<?=FRONT_ROOT?>/purchaseline/getPurchaseLine" method="POST">
+          <form action="<?=FRONT_ROOT?>/admin/purchase-lines/getPurchaseLine" method="POST">
             <button name="update" value="<?= $value->getId(); ?>" id="boton1" type="submit" class="btn btn-block btn-lg btn-primary btn-sm">Editar</button></td>
           </form>
         </td>
