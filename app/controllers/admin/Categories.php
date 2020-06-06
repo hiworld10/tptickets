@@ -1,6 +1,6 @@
 <?php 
 
-namespace app\controllers;
+namespace app\controllers\admin;
 
 use app\utils\Flash;
 
@@ -18,13 +18,13 @@ class Categories extends \app\controllers\Authentication {
 	}
 
     public function add() {
-        $this->redirectIfRequestIsNotPost('categories');
+        $this->redirectIfRequestIsNotPost('admin/categories');
 
         $category['type'] = trim($_POST['type']); 
         $this->dao->create($category);
 
         Flash::addMessage('Categoría agregada.');
-        $this->redirect('categories');
+        $this->redirect('admin/categories');
     }
 
 	public function edit($id) {
@@ -36,22 +36,22 @@ class Categories extends \app\controllers\Authentication {
 
 	public function update($id) {
 
-        $this->redirectIfRequestIsNotPost('categories');
+        $this->redirectIfRequestIsNotPost('admin/categories');
 
         $category['id_category'] = $id;
         $category['type'] = trim($_POST['type']);
 		$this->dao->update($category);
 
         Flash::addMessage('Categoría actualizada.');
-		$this->redirect('categories');
+		$this->redirect('admin/categories');
 	}
 
     public function delete($id) {
-        $this->redirectIfRequestIsNotPost('categories');
+        $this->redirectIfRequestIsNotPost('admin/categories');
         
         $this->dao->delete($id);
         Flash::addMessage('Categoría eliminada.');
-        $this->redirect('categories');
+        $this->redirect('admin/categories');
     }
 }
 ?>

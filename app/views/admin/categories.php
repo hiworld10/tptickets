@@ -7,7 +7,7 @@
 
         <?php if(isset($data['category'])): ?>
 
-            <form name='formulario' action="<?=FRONT_ROOT?>/categories/update"  method="POST">
+            <form name='formulario' action="<?=FRONT_ROOT?>/admin/categories/update"  method="POST">
                 <div class="form-row">
                     <div class="col-md-1 mb-2 mb-md-0 form-row">
                         <label>Id</label>
@@ -25,7 +25,7 @@
 
         <?php else: ?>
 
-            <form name='formulario' action="<?=FRONT_ROOT?>/categories/add"  method="POST">
+            <form name='formulario' action="<?=FRONT_ROOT?>/admin/categories/add"  method="POST">
                 <div class="form-row">
                     <div class="col-12 col-md-9 mb-2 mb-md-0">
                         <input type="text" name="type" class="form-control form-control-lg" placeholder="Ingrese nombre de la categoria..." required>
@@ -52,12 +52,12 @@
                                 <td><?= $value->getId(); ?></td>
                                 <td><?= $value->getType(); ?></td>
                                 <td>
-                                    <form action="<?=FRONT_ROOT?>/categories/delete" method="POST">
+                                    <form action="<?=FRONT_ROOT?>/admin/categories/delete" method="POST">
                                         <button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit" class="btn btn-block btn-lg btn-primary btn-sm">Eliminar</button>
                                     </form>
                                 </td>
                                 <td>
-                                    <a href="<?=FRONT_ROOT?>/categories/edit/<?=$value->getId()?>" class="btn btn-block btn-lg btn-primary btn-sm">Editar
+                                    <a href="<?=FRONT_ROOT?>/admin/categories/edit/<?=$value->getId()?>" class="btn btn-block btn-lg btn-primary btn-sm">Editar
                                     </a>
                                 </td>
                             </tr>
