@@ -28,6 +28,12 @@ class StringUtils
         return str_replace(' ', '', ucwords(str_replace('-', ' ', $string)));
     }
 
+    /**
+     * Convierte todo el string en minúsculas y reemplaza espacios en blanco por guiones bajos (underscores). Útil para mostrar nombres de eventos en los url en un formato válido.
+     * e.g 'Texto De Prueba' --> 'texto_de_prueba'
+     * @param  string
+     * @return string
+     */
     public static function lowercaseAndUnderscores($string) {
         return str_replace(' ', '_', strtolower($string));
     }
