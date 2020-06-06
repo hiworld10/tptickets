@@ -1,6 +1,6 @@
 <?php 
 
-namespace app\controllers;
+namespace app\controllers\admin;
 
 use app\utils\Flash;
 
@@ -18,13 +18,13 @@ class SeatTypes extends \app\controllers\Authentication {
     }
 
     public function add() {
-        $this->redirectIfRequestIsNotPost('seat-types');
+        $this->redirectIfRequestIsNotPost('admin/seat-types');
 
         $seat_type['description'] = trim($_POST['description']); 
         $this->dao->create($seat_type);
 
         Flash::addMessage('Tipo de plaza agregado.');
-        $this->redirect('seat-types');
+        $this->redirect('admin/seat-types');
     }
 
     public function edit($id) {
@@ -36,23 +36,23 @@ class SeatTypes extends \app\controllers\Authentication {
 
     public function update($id) {
 
-        $this->redirectIfRequestIsNotPost('seat-types');
+        $this->redirectIfRequestIsNotPost('admin/seat-types');
 
         $seat_type['id_seat_type'] = $id;
         $seat_type['description'] = trim($_POST['description']);
         $this->dao->update($seat_type);
 
         Flash::addMessage('Tipo de plaza actualizado.');
-        $this->redirect('seat-types');
+        $this->redirect('admin/seat-types');
     }
 
     public function delete($id) {
-        $this->redirectIfRequestIsNotPost('seat-types');
+        $this->redirectIfRequestIsNotPost('admin/seat-types');
         
         $this->dao->delete($id);
 
         Flash::addMessage('Tipo de plaza eliminado.');        
-        $this->redirect('seat-types');
+        $this->redirect('admin/seat-types');
     }
 }
 

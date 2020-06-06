@@ -4,7 +4,7 @@
     <?php require(ADMIN_NAVBAR); ?>
     <div id="divform" class="__full-height-perc">
         <?php if (isset($data['seat_type'])): ?>
-            <form name='formulario' action="<?=FRONT_ROOT?>/seat-types/update"  method="POST">
+            <form name='formulario' action="<?=FRONT_ROOT?>/admin/seat-types/update"  method="POST">
                 <div class="form-row">
                     <div class="col-md-1 mb-2 mb-md-0 form-row">
                         <label>Id</label>
@@ -20,7 +20,7 @@
                 </div>
             </form>
         <?php else: ?>
-            <form name='formulario' action="<?=FRONT_ROOT?>/seat-types/add" method="POST">
+            <form name='formulario' action="<?=FRONT_ROOT?>/admin/seat-types/add" method="POST">
                 <div class="form-row">
                     <div class="col-12 col-md-9 mb-2 mb-md-0">
                         <input type="text" name="description" class="form-control form-control-lg" placeholder="Ingrese el tipo de plaza..." required>
@@ -46,12 +46,12 @@
                                 <td><?= $value->getId(); ?></td>
                                 <td><?= $value->getType(); ?></td>
                                 <td>
-                                    <form action="<?=FRONT_ROOT?>/seat-types/delete" method="POST">
+                                    <form action="<?=FRONT_ROOT?>/admin/seat-types/delete" method="POST">
                                         <button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit"class="btn btn-block btn-lg btn-primary btn-sm">Eliminar</button>
                                     </form>
                                 </td>
                                 <td>
-                                    <a href="<?=FRONT_ROOT?>/seat-types/edit/<?=$value->getId()?>" class="btn btn-block btn-lg btn-primary btn-sm">Editar
+                                    <a href="<?=FRONT_ROOT?>/admin/seat-types/edit/<?=$value->getId()?>" class="btn btn-block btn-lg btn-primary btn-sm">Editar
                                     </a>
                                 </td>
                             </tr>
