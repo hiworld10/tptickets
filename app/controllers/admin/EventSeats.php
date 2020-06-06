@@ -1,6 +1,6 @@
 <?php 
 
-namespace app\controllers;
+namespace app\controllers\admin;
 
 use app\models\EventSeat;
 use app\dao\lists\EventSeatDAO as List_EventSeatDAO;

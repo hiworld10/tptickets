@@ -1,6 +1,6 @@
 <?php 
 
-namespace app\controllers;
+namespace app\controllers\admin;
 
 use app\models\PlaceEvent;
 use app\dao\lists\PlaceEventDAO as List_PlaceEventDAO;

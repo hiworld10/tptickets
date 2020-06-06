@@ -4,8 +4,8 @@
         <li><a href="<?=FRONT_ROOT?>/admin/calendars" title="...">Calendarios</a></li>
         <li><a href="<?=FRONT_ROOT?>/admin/categories"  title="...">Categorias</a></li>
         <li><a href="<?=FRONT_ROOT?>/admin/events" title="...">Eventos</a></li>
-        <li><a href="<?=FRONT_ROOT?>/place-events" title="...">Lugares</a></li>
-        <li><a href="<?=FRONT_ROOT?>/event-seats" title="...">Plazas</a></li>
+        <li><a href="<?=FRONT_ROOT?>/admin/place-events" title="...">Lugares</a></li>
+        <li><a href="<?=FRONT_ROOT?>/admin/event-seats" title="...">Plazas</a></li>
         <li><a href="<?=FRONT_ROOT?>/admin/seat-types" title="...">Tipo Plazas</a></li>
         <li><a href="<?=FRONT_ROOT?>/users" title="...">Usuarios</a></li>
     </ul>
