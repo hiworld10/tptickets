@@ -37,6 +37,7 @@ class Request {
             if ($urlArray[0] == 'admin') {
                 $this->admin = true;
                 array_shift($urlArray);
+                $this->controller = ucwords(array_shift($urlArray));
             } else {
                 $this->controller = ucwords(array_shift($urlArray));   
             }
