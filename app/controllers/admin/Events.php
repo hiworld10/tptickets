@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace app\controllers\admin;
 
 use app\models\Photo;
 use app\utils\Flash;
@@ -20,7 +20,7 @@ class Events extends \app\controllers\Authentication {
     }
 
 	public function add() {
-        $this->redirectIfRequestIsNotPost('events');
+        $this->redirectIfRequestIsNotPost('admin/events');
 
         //Subida de imagen a la carpeta desginada de eventos
 		if (!empty($_FILES['photo']['name'])) {
@@ -40,7 +40,7 @@ class Events extends \app\controllers\Authentication {
 		$this->event_dao->create($event);
 
         Flash::addMessage('Evento agregado.');
-		$this->redirect('events');
+		$this->redirect('admin/events');
 	}
 
 	public function edit($id) { 
@@ -52,7 +52,7 @@ class Events extends \app\controllers\Authentication {
 	}
 
 	public function update($id) {
-        $this->redirectIfRequestIsNotPost('events');
+        $this->redirectIfRequestIsNotPost('admin/events');
 
 		if (!empty($_FILES['photo']['name'])) {
 			$photo = $_FILES['photo'];
@@ -71,16 +71,16 @@ class Events extends \app\controllers\Authentication {
         $this->event_dao->update($event);
 
         Flash::addMessage('Evento actualizado.');
-		$this->redirect('events');
+		$this->redirect('admin/events');
 	}
 	
     public function delete($id) {
-        $this->redirectIfRequestIsNotPost('events');
+        $this->redirectIfRequestIsNotPost('admin/events');
         
         $this->event_dao->delete($id);
         
         Flash::addMessage('Evento eliminado.');
-        $this->redirect('events');
+        $this->redirect('admin/events');
     }
 }
 ?>
