@@ -27,12 +27,7 @@ class Home extends Controller {
 
         $data['events'] = $this->event_dao->retrieveActiveEventsByString($string);
 
-        if($data['events'] != null) { 
-            $this->view('home/search', $data);
-        } else {
-            $data['err'] = "No hay resultados.";
-            $this->view('', $data);
-        }
+        $this->view('home/search', $data);
     }
 
     public function showEvent($id_event) {

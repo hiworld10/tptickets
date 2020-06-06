@@ -39,6 +39,9 @@
                 </tr>
         <?php endforeach ?>
         </tbody>
+    <?php else: ?>
+        <br>
+        <p class="text-center">No se encontraron resultados. Prueba con una búsqueda diferente.</p>
     <?php endif ?>
     </table>
 </div>
