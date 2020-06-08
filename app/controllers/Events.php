@@ -16,7 +16,7 @@ class Events extends Controller {
         
         $data['calendars'] = $this->calendar_dao->retrieveByEventId($id_event);
         if(isset($data['calendars'])) {
-            $this->view('home/show_event', $data);
+            $this->view('events/show', $data);
         } else {
             $this->index();
         }
