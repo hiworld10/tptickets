@@ -35,7 +35,7 @@
                     <td><img src="<?= $value->getEvent()->getImage()->getPath() ?>" height="200" width="350"/></td>
                     <td>
                         <div class="mt-5">
-                            <a href="<?php echo FRONT_ROOT . "/home/buy/" . $value->getId() ?>">    
+                            <a href="<?php echo FRONT_ROOT . "/calendars/list-seats/" . $value->getId() ?>">    
                                 <input type="hidden" name="id_calendar" value="<?=$value->getId();  ?>">
                                 <big><big><?= $value->getEvent()->getName(); ?></big></big>
                                 <br>
