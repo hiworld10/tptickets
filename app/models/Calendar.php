@@ -15,7 +15,7 @@ class Calendar
     private $placeEvent;
     private $eventSeat;
 
-	function __construct($id, $date, Event $event, $artistArray, PlaceEvent $placeEvent, EventSeat $eventSeat)
+	function __construct($id, $date, Event $event, $artistArray, PlaceEvent $placeEvent, $eventSeat)
 	{
         $this->id = $id;
         $this->date = $date;
