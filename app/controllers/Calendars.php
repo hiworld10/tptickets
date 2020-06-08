@@ -7,16 +7,16 @@ class Calendars extends \core\Controller
 {
     public function __construct()
     {
-        $this->event_seat_dao = $this->dao('EventSeat');
         $this->calendar_dao = $this->dao('Calendar');
     }
 
-    public function listSeats($id)
+    public function listSeats($id_calendar)
     {
-        $data['event_seats'] = [];
-        $results = $this->event_seat_dao->retrieveByCalendarId($id);
+        $calendar = $this->calendar_dao->retrieveById($id_calendar);
+        $data['event_name'] = $calendar->getEvent()->getId();
+        $data['date'] = $calendar->getDate();
 
-        foreach ($results as $event_seat) {
+        foreach ($calendar->getEventSeat() as $event_seat) {
             if ($event_seat->getRemainder() > 0) {
                 $data['event_seats'][] = $event_seat;
             }
@@ -25,6 +25,8 @@ class Calendars extends \core\Controller
         echo '<pre>';
         print_r($data['event_seats']);
         echo '</pre>';
+
+        //$this->view('calendars/list_seats', $data);
     }
 }
 
