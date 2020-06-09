@@ -36,7 +36,11 @@
                                     <big><big><?= $value->getEvent()->getName(); ?></big></big>
                                     <br>
                                     <big><?= $value->getDate(); ?></big>
+                                    <br>                                
                                 </a>
+                                <?php if ($value->isSoldOut() == true): ?>
+                                    <big>ENTRADAS AGOTADAS</big>
+                                <?php endif ?>                                    
                             </div>
                         </td>
                     </tr>    
