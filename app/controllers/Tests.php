@@ -21,7 +21,11 @@ class Tests {
         echo StringUtils::lowercaseAndUnderscores("Test de funcion de underscores");
     }
 
-    public function connection($dao_type) {
+    public function connection($dao_type = '') {
+        if (empty($dao_type)) {
+            echo "No input given. Default to ArtistDAO<br>";
+            $dao_type = "Artist";
+        }
         $dao_type = StringUtils::convertToStudlyCaps($dao_type);
         echo "<p>DAO is of type $dao_type</p>";
         $class = "\app\dao\db\\$dao_type" . "DAO";
