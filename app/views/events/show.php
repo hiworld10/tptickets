@@ -1,9 +1,5 @@
 <?php require HEADER; ?>
 
-<?php if (isset($data['login_successful'])): ?>
-    <p><?php echo htmlspecialchars($data['login_successful']) ?></p>
-<?php endif ?>
-
 <header class="masthead text-white text-center">
     <div class="overlay"></div>
     <div class="container">
@@ -28,27 +24,27 @@
 
 <div>
     <table class="table bg-light-alpha text-center mt-5">
-        <?php if(!empty($data['calendars'])): ?>
-            <tbody>
-            <?php foreach ($data['calendars'] as $value): ?>
-                <tr>       
-                    <td><img src="<?= $value->getEvent()->getImage()->getPath() ?>" height="200" width="350"/></td>
-                    <td>
-                        <div class="mt-5">
-                            <a href="<?php echo FRONT_ROOT . "/calendars/list-seats/" . $value->getId() ?>">    
-                                <input type="hidden" name="id_calendar" value="<?=$value->getId();  ?>">
-                                <big><big><?= $value->getEvent()->getName(); ?></big></big>
-                                <br>
-                                <big><?= $value->getDate(); ?></big>
-                            </a>
-                        </div>
-                    </td>
-            <?php endforeach ?>
-        <?php /*NO MUESTRA ESTE MENSAJE. Por que? Problemas con los tags?*/ ?>    
-        <?php else: ?>
-            <p>No hay fechas disponibles para este evento</p>
-        <?php endif ?>
-            </tbody>
+        <tbody>
+            <?php if(!empty($data['calendars'])): ?>
+                <?php foreach ($data['calendars'] as $value): ?>
+                    <tr>       
+                        <td><img src="<?= $value->getEvent()->getImage()->getPath() ?>" height="200" width="350"/></td>
+                        <td>
+                            <div class="mt-5">
+                                <a href="<?php echo FRONT_ROOT . "/calendars/list-seats/" . $value->getId() ?>">    
+                                    <input type="hidden" name="id_calendar" value="<?=$value->getId();  ?>">
+                                    <big><big><?= $value->getEvent()->getName(); ?></big></big>
+                                    <br>
+                                    <big><?= $value->getDate(); ?></big>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>    
+                <?php endforeach ?>  
+            <?php else: ?>
+                <p>No hay fechas disponibles para este evento</p>
+            <?php endif ?>
+        </tbody>
     </table>
 </div>
 
