@@ -86,5 +86,16 @@ class Calendar
     {
         $this->eventSeat = $eventSeat;
     }
+
+    public function isSoldOut()
+    {
+        $sold_out = true;
+        foreach ($this->getEventSeat() as $event_seat) {
+            if ($event_seat->getRemainder() > 0) {
+                return false;
+            }
+        }
+        return true;
+    }    
 }
 ?>
