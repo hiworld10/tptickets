@@ -272,6 +272,7 @@ class Users extends \app\controllers\Authentication
 
     public function updateSuccess()
     {
+        $this->requireUserLogin();
         $this->view('users/update_successful');
     }
 
