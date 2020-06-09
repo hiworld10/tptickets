@@ -14,6 +14,7 @@ class Calendars extends \core\Controller
         $calendar = $this->calendar_dao->retrieveById($id_calendar);
         $data['event_name'] = $calendar->getEvent()->getName();
         $data['date'] = $calendar->getDate();
+        $data['event_seats'] = [];
 
         foreach ($calendar->getEventSeat() as $event_seat) {
             if ($event_seat->getRemainder() > 0) {
