@@ -2,7 +2,6 @@
 
 namespace app\controllers;
 
-
 class Calendars extends \core\Controller
 {
     public function __construct()
@@ -13,7 +12,7 @@ class Calendars extends \core\Controller
     public function listSeats($id_calendar)
     {
         $calendar = $this->calendar_dao->retrieveById($id_calendar);
-        $data['event_name'] = $calendar->getEvent()->getId();
+        $data['event_name'] = $calendar->getEvent()->getName();
         $data['date'] = $calendar->getDate();
 
         foreach ($calendar->getEventSeat() as $event_seat) {
@@ -22,11 +21,7 @@ class Calendars extends \core\Controller
             }
         }
 
-        echo '<pre>';
-        print_r($data['event_seats']);
-        echo '</pre>';
-
-        //$this->view('calendars/list_seats', $data);
+        $this->view('calendars/list_seats', $data);
     }
 }
 
