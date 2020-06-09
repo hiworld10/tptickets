@@ -52,11 +52,13 @@ class EventSeatDAO implements IDAO
     public function retrieveById($id) {
         try {
             $eventSeat = null;
-            $query = "SELECT * FROM ".$this->tableName." WHERE id_event = :id_event";
+            $seatTypeDao = new SeatTypeDAO;
+            $query = "SELECT * FROM ".$this->tableName." WHERE id_event_seat = :id_event_seat";
             $parameters["id_event_seat"] = $id;
             $resultSet = $this->connection->execute($query, $parameters);
             foreach ($resultSet as $row) {
-                $event = new EventSeat($row["id_event_seat"], $row["id_calendar"], $row["id_seat_type"], $row["quantity"], $row["price"], $row["remainder"]);
+                $seat_type = $seatTypeDao->retrieveById($row['id_seat_type']);
+                $eventSeat = new EventSeat($row["id_event_seat"], $row["id_calendar"], $seat_type, $row["quantity"], $row["price"], $row["remainder"]);
             }
             return $eventSeat;
         }
