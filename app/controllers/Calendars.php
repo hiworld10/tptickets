@@ -2,11 +2,12 @@
 
 namespace app\controllers;
 
-class Calendars extends \core\Controller
+class Calendars extends \app\controllers\Authentication
 {
     public function __construct()
     {
         $this->calendar_dao = $this->dao('Calendar');
+        $this->event_seat_dao = $this->dao('EventSeat');
     }
 
     public function listSeats($id_calendar)
@@ -23,6 +24,21 @@ class Calendars extends \core\Controller
         }
 
         $this->view('calendars/list_seats', $data);
+    }
+
+    public function showSeat($id_event_seat)
+    {
+        $this->redirectIfRequestisNotPost('');
+        $this->requireUserLogin();
+
+        $data['event_seat'] = $this->event_seat_dao->retrieveById($id_event_seat);
+
+        $calendar = $this->calendar_dao->retrieveById($data['event_seat']->getCalendarId());
+
+        $data['event_name'] = $calendar->getEvent()->getName();
+        $data['date'] = $calendar->getDate();
+
+        $this->view('calendars/show_seat', $data);
     }
 }
 
