@@ -12,7 +12,8 @@
             <div>
                 <pre><?php echo htmlspecialchars($event_seat->getSeatType()->getType()) ?></pre>
                 <pre><?php echo "Precio: $" . htmlspecialchars($event_seat->getPrice()) ?></pre>
-                <form action="" method="POST">
+                <form name="form" action="<?= FRONT_ROOT ?>/calendars/show-seat" method="POST">
+                    <input type="hidden" name="id_event_seat" value="<?= $event_seat->getId() ?>">
                     <button type="submit">Comprar</button>
                 </form>
             </div>
