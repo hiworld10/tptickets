@@ -5,16 +5,15 @@ use app\models\PurchaseLine as PurchaseLine;
 
 class Purchase
 {
-
 	private $id;
     private $date;
-    private $purchaseLine; //posible array???
+    private $purchase_line_arr;
 
-	function __construct($id, $date, $purchaseLine)
+	function __construct($id, $date, $purchase_line_arr)
 	{
         $this->id = $id;
         $this->date = $date;
-        $this->purchaseLine = $purchaseLine;
+        $this->purchase_line_arr = $purchase_line_arr;
 	}
 
     public function getId()
@@ -22,29 +21,14 @@ class Purchase
         return $this->id;
     }
 
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
     public function getDate()
     {
         return $this->date;
     }
 
-    public function setDate($date)
+    public function getPurchaseLineArr()
     {
-        $this->date = $date;
-    }
-
-    public function getPurchaseLine()
-    {
-        return $this->purchaseLine;
-    }
-
-    public function setPurchaseLine($purchaseLine)
-    {
-        $this->purchaseLine = $purchaseLine;
+        return $this->purchase_line_arr;
     }
 }
 ?>
