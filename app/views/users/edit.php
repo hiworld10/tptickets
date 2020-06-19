@@ -1,4 +1,4 @@
-<?php require(HEADER); ?>
+<?php require HEADER ?>
 
 <?php if (isset($data['errors'])): ?>
     <h3>Se han producido errores:</h3>
@@ -45,4 +45,4 @@
         </form>
     </div>
 </main>
-<?php require(FOOTER); ?>
+<?php require FOOTER ?>

@@ -17,7 +17,7 @@
     </style>
 </head>
 
-<?php require(NAVBAR); ?>
+<?php require NAVBAR ?>
 <?php require FLASH_MESSAGES ?>
 
 <body>

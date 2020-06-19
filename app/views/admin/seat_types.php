@@ -1,7 +1,7 @@
 <?php require HEADER; ?>
 
 <div id="container" class="__full-height-perc">
-    <?php require(ADMIN_NAVBAR); ?>
+    <?php require ADMIN_NAVBAR ?>
     <div id="divform" class="__full-height-perc">
         <?php if (isset($data['seat_type'])): ?>
             <form name='formulario' action="<?=FRONT_ROOT?>/admin/seat-types/update"  method="POST">

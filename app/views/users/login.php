@@ -31,5 +31,5 @@
     </div>
 </main>
 
-<?php require(FOOTER); ?>
+<?php require FOOTER ?>
 

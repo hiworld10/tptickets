@@ -46,4 +46,4 @@
     </table>
 </div>
 
-<?php require(FOOTER); ?>
+<?php require FOOTER ?>
