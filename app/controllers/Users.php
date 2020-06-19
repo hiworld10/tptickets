@@ -50,6 +50,10 @@ class Users extends \app\controllers\Authentication
 
     public function login()
     {
+        if (Auth::isUserLoggedIn()) {
+            $this->redirect('');
+        }
+
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             //Almacenar datos de formulario en el arreglo asociativo $data, para mostrar la informacion introducida previamente en caso de no ser correcta y asi permitir que el usuario la corrija mas rapidamente
             $data = [
@@ -106,6 +110,10 @@ class Users extends \app\controllers\Authentication
 
     public function register()
     {
+        if (Auth::isUserLoggedIn()) {
+            $this->redirect('');
+        }
+                
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             //Almacenar datos de formulario en el arreglo asociativo $data, para mostrar la informacion introducida previamente en caso de no ser correcta y asi permitir que el usuario la corrija mas rapidamente
             $data = [
