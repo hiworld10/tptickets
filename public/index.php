@@ -16,7 +16,7 @@ require "../app/config/config.php";
  * Archivo con las credenciales necesarias para el funcionamiento del programa.
  * Ver 'app/config/credentials_template.php' para más detalles.
  */
-require "../../.credentials.php";
+require "../../credentials.php";
 
 /**
 * Alias
