@@ -15,7 +15,7 @@
             <form name="form" action="<?= FRONT_ROOT ?>/purchases/add-new-line" method="POST">
                 <input type="hidden" name="id_event_seat" value="<?= $data['event_seat']->getId() ?>"><br>
                 <input type="hidden" name="price" value="<?= $data['event_seat']->getPrice() ?>"><br>
-                <input type="number" min="1" max="5" name="amount" required><br>
+                <input type="number" min="1" max="5" name="amount" value="1" required><br>
                 <button type="submit">Añadir a compra</button>
             </form>
         </div>
