@@ -11,12 +11,20 @@ error_reporting(E_ALL);
 */
 require "../app/autoload/Autoload.php";
 require "../app/config/config.php";
+
+/**
+ * Archivo con las credenciales necesarias para el funcionamiento del programa.
+ * Ver 'app/config/credentials_template.php' para más detalles.
+ */
+require "../../.credentials.php";
+
 /**
 * Alias
 */
 use app\autoload\Autoload;
 use core\Router;
 use core\Request;
+
 /*
 Inicio de $_SESSION
  */
