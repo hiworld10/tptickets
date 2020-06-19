@@ -25,10 +25,4 @@ define('CSS_PATH', FRONT_ROOT . '/content/css');
 define('IMG_UPLOADS_PATH', FRONT_ROOT . '/content/uploads/img');
 define('MOV_UPLOADS_PATH', FRONT_ROOT . '/content/uploads/movies');
 
-/* Credenciales de BD */
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'tptickets');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-
 ?>
