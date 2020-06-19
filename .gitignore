@@ -1,2 +1,6 @@
 public/img/events/*
-vendor/old/*
+vendor/
+credentials.php
+.credentials.php
+credenciales.php
+.credenciales.php
