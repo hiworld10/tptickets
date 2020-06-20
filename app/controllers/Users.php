@@ -24,6 +24,13 @@ class Users extends \app\controllers\Authentication
     {
         $this->requireAdminLogin();
         $this->redirectIfRequestIsNotPost('users');
+
+        //Previene que el primer usuario (el admin) sea borrado.
+        if ($id == 1) {
+            Flash::addMessage('No es posible eliminar este usuario debido a que este es el administrador principal.', Flash::WARNING);
+            $this->redirect('users');
+        }
+        
         $this->user_dao->delete($id);
         Flash::addMessage('Usuario eliminado.');
         $this->redirect('users');
