@@ -37,7 +37,6 @@ class CalendarDAO implements IDAO
         } catch (Exception $ex) {
             throw $ex;
         }
-
     }
 
     public function createArtistXCalendarRows($id_calendar, $id_artist_arr)
@@ -54,7 +53,6 @@ class CalendarDAO implements IDAO
         } catch (Exception $ex) {
             throw $ex;
         }
-
     }
 
     public function delete($id)
@@ -69,7 +67,6 @@ class CalendarDAO implements IDAO
         } catch (Exception $ex) {
             throw $ex;
         }
-
     }
 
     public function deleteArtistXCalendar($id_calendar, $id_artist)
@@ -85,7 +82,6 @@ class CalendarDAO implements IDAO
         } catch (Exception $ex) {
             throw $ex;
         }
-
     }
 
     public function deleteArtistXCalendarByCalendarId($calendarId)
@@ -100,7 +96,6 @@ class CalendarDAO implements IDAO
         } catch (Exception $ex) {
             throw $ex;
         }
-
     }
 
     public function retrieveAll()
@@ -130,7 +125,6 @@ class CalendarDAO implements IDAO
         } catch (Exception $ex) {
             throw $ex;
         }
-
     }
 
     public function retrieveArtistXCalendarByArtistId($calendarId)
@@ -155,7 +149,6 @@ class CalendarDAO implements IDAO
         } catch (Exception $ex) {
             throw $ex;
         }
-
     }
 
     public function retrieveArtistsByCalendarId($calendarId)
@@ -180,7 +173,6 @@ class CalendarDAO implements IDAO
         } catch (Exception $ex) {
             throw $ex;
         }
-
     }
 
     public function retrieveByEventId($eventId)
@@ -217,7 +209,6 @@ class CalendarDAO implements IDAO
         } catch (Exception $ex) {
             throw $ex;
         }
-
     }
 
     public function retrieveById($id)
@@ -248,7 +239,6 @@ class CalendarDAO implements IDAO
         } catch (Exception $ex) {
             throw $ex;
         }
-
     }
 
     public function retrieveCalendarsByString($string)
@@ -275,15 +265,16 @@ class CalendarDAO implements IDAO
         } catch (Exception $ex) {
             throw $ex;
         }
-
     }
 
     public function retrieveLastId()
     {
         try {
             $calendarId = null;
-            $query      = "SELECT id_calendar FROM " . $this->tableName . " ORDER BY id_calendar DESC LIMIT 1;";
-            $resultSet  = $this->connection->execute($query);
+
+            $query = "SELECT id_calendar FROM " . $this->tableName . " ORDER BY id_calendar DESC LIMIT 1;";
+
+            $resultSet = $this->connection->execute($query);
 
             foreach ($resultSet as $row) {
                 $calendarId = $row["id_calendar"];
@@ -294,7 +285,6 @@ class CalendarDAO implements IDAO
         } catch (Exception $ex) {
             throw $ex;
         }
-
     }
 
     public function update($calendar)
@@ -312,7 +302,6 @@ class CalendarDAO implements IDAO
         } catch (Exception $ex) {
             throw $ex;
         }
-
     }
 
     public function updateArtistXCalendarRows($id_calendar, $id_artist_arr)
@@ -322,13 +311,11 @@ class CalendarDAO implements IDAO
         $deleted_entries = [];
 
         foreach ($artist_list as $artist) {
-
             if (($key = array_search($artist->getId(), $new_entries)) !== false) {
                 unset($new_entries[$key]);
             } else {
                 $deleted_entries[] = $artist->getId();
             }
-
         }
 
         if (!empty($new_entries)) {
@@ -336,7 +323,6 @@ class CalendarDAO implements IDAO
         }
 
         if (!empty($deleted_entries)) {
-
             foreach ($deleted_entries as $id_artist) {
                 $this->deleteArtistXCalendar($id_calendar, $id_artist);
             }
