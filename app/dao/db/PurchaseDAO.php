@@ -48,4 +48,16 @@ class PurchaseDAO
         return $deleted;
     }
 
+    public function removeAllLinesInSession()
+    {
+        $deleted = false;
+
+        unset($_SESSION['tptickets_items']);
+        if (!isset($_SESSION['tptickets_items'])) {
+            $_SESSION['tptickets_subtotal'] = 0;
+            $deleted = true;
+        }
+
+        return $deleted;
+    }
 }

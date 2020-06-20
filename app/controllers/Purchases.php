@@ -49,8 +49,14 @@ class Purchases extends \app\controllers\Authentication
 
     public function emptyCart()
     {
-        if (isset($_SESSION['tptickets_items'])) {
-            unset($_SESSION['tptickets_items']);
+        $this->redirectIfRequestIsNotPost('');
+
+        if ($this->purchase_dao->removeAllLinesInSession()) {
+            Flash::addMessage('Todos los items en tu carro han sido eliminados exitosamente.');
+            $this->redirect('purchases/show-cart');
+        } else {
+            Flash::addMessage('No hemos podido procesar la operación en este momento. Intentalo más tarde.', Flash::WARNING);            
+            $this->redirect('purchases/show-cart');             
         }
     }
 

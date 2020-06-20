@@ -21,6 +21,9 @@
 	<?php endforeach ?>
 	<div class="jumbotron">
 		<big><big>Total compra: $<?php echo htmlspecialchars(number_format($data['subtotal'], 2, ',', '')) ?></big></big>
+		<form name="form" action="<?= FRONT_ROOT ?>/purchases/empty-cart" method="POST">
+			<button type="submit">Eliminar todos los items</button>
+		</form>
 	</div>
 <?php else: ?>
 	<div class="jumbotron">
