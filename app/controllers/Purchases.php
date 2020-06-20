@@ -61,10 +61,9 @@ class Purchases extends \app\controllers\Authentication
     }
 
     public function showCart()
-    {
-        $data['items'] = $_SESSION['tptickets_items'];
-        $data['subtotal'] = $_SESSION['tptickets_subtotal'];
-
+    {   
+        //obtiene $data['items'] y $data['subtotal']
+        $data = $this->purchase_dao->getAllLinesInSession();
         $this->view('purchases/show_cart', $data);
     }
 }

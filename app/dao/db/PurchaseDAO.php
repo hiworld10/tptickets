@@ -60,4 +60,12 @@ class PurchaseDAO
 
         return $deleted;
     }
+
+    public function getAllLinesInSession()
+    {
+        return [
+            'items' => $_SESSION['tptickets_items'],
+            'subtotal' => $_SESSION['tptickets_subtotal']]
+        ;
+    }
 }
