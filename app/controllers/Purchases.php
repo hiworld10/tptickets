@@ -41,10 +41,11 @@ class Purchases extends \app\controllers\Authentication
             $this->redirect('purchases/show-cart');             
         }
     }
-    
+
     public function confirm()
     {
-        echo "Confirm purchase view here";
+        $data = $this->purchase_dao->getAllLinesInSession();
+        $this->view('purchases/confirm', $data);
     }
 
     public function checkout()
