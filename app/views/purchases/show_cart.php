@@ -24,6 +24,9 @@
 		<form name="form" action="<?= FRONT_ROOT ?>/purchases/empty-cart" method="POST">
 			<button type="submit">Eliminar todos los items</button>
 		</form>
+        <form name="form" action="<?= FRONT_ROOT ?>/purchases/confirm" method="POST">
+            <button type="submit">Confirmar compra</button>
+        </form>
 	</div>
 <?php else: ?>
 	<div class="jumbotron">

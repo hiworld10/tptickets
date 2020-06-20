@@ -41,6 +41,11 @@ class Purchases extends \app\controllers\Authentication
             $this->redirect('purchases/show-cart');             
         }
     }
+    
+    public function confirm()
+    {
+        echo "Confirm purchase view here";
+    }
 
     public function checkout()
     {
