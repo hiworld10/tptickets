@@ -39,7 +39,7 @@ class Purchases extends \app\controllers\Authentication
         
     }
 
-    public function empty()
+    public function emptyAllLines()
     {
         if (isset($_SESSION['tptickets_items'])) {
             unset($_SESSION['tptickets_items']);
