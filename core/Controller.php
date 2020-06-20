@@ -51,7 +51,13 @@ abstract Class Controller {
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             $this->redirect($url);
         }
-    } 
+    }
+
+    /*protected function redirectIfNoArgsArePassed($func_num_args, $url = '') {
+        if (func_num_args() === 0) {
+            $this->redirect($url);
+        }
+    }*/     
 }
 
 ?> 
