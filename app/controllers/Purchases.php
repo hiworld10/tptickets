@@ -32,6 +32,14 @@ class Purchases extends \app\controllers\Authentication
     public function removeLine($id_event_seat)
     {
         $this->redirectIfRequestIsNotPost('');
+
+        if ($this->purchase_dao->removeLineInSession($id_event_seat)) {
+            Flash::addMessage('El item fue eliminado de tu carro exitosamente.');
+            $this->redirect('purchases/show-cart');
+        } else {
+            Flash::addMessage('No hemos podido procesar la operación en este momento. Intentalo más tarde.', Flash::WARNING);            
+            $this->redirect('purchases/show-cart');             
+        }
     }
 
     public function checkout()
