@@ -13,8 +13,11 @@
             <pre><?php echo "Precio: $" . htmlspecialchars($data['event_seat']->getPrice()) ?></pre>
             <p>Seleccioná la cantidad de asientos (Máximo 5)</p>
             <form name="form" action="<?= FRONT_ROOT ?>/purchases/add-new-line" method="POST">
-                <input type="hidden" name="id_event_seat" value="<?= $data['event_seat']->getId() ?>"><br>
-                <input type="hidden" name="price" value="<?= $data['event_seat']->getPrice() ?>"><br>
+                <input type="hidden" name="id_event_seat" value="<?= $data['event_seat']->getId() ?>">
+                <input type="hidden" name="id_calendar" value="<?= $data['event_seat']->getCalendarId() ?>">
+                <input type="hidden" name="event_name" value="<?= $data['event_name'] ?>">
+                <input type="hidden" name="date" value="<?= $data['date'] ?>">
+                <input type="hidden" name="price" value="<?= $data['event_seat']->getPrice() ?>">
                 <input type="number" min="1" max="5" name="amount" value="1" required><br>
                 <button type="submit">Añadir a compra</button>
             </form>
