@@ -17,14 +17,10 @@ class ArtistDAO implements IDAO
 
     public function create($data) {
         try {
-            echo '<pre>';
-            print_r($data);
-            echo '</pre>';
             $query = "INSERT INTO ".$this->tableName." (name) VALUES (:name);";
+
             $parameters["name"] = $data['name'];
-            echo '<pre>';
-            print_r($parameters);
-            echo '</pre>';
+            
             $this->connection->executeNonQuery($query, $parameters);
         }
         catch(Exception $ex) {
