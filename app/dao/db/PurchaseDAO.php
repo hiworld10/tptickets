@@ -4,7 +4,6 @@ namespace app\dao\db;
 
 class PurchaseDAO
 {
-
     public function __construct()
     {
         if (!isset($_SESSION['tptickets_items']) || !isset($_SESSION['tptickets_subtotal'])) {
@@ -25,6 +24,7 @@ class PurchaseDAO
             'event_name'    => $data['event_name'],
             'date'          => $data['date'],
         ];
+
         $_SESSION['tptickets_subtotal'] += $subtotal;
 
         return !empty($_SESSION['tptickets_items']) ? true : false;
@@ -37,10 +37,12 @@ class PurchaseDAO
         foreach ($_SESSION['tptickets_items'] as $key => $value) {
 
             if ($id_event_seat == $value['id_event_seat']) {
-
                 $_SESSION['tptickets_subtotal'] -= $value['subtotal'];
+
                 unset($_SESSION['tptickets_items'][$key]);
+
                 $deleted = true;
+
                 break;
             }
         }
@@ -53,8 +55,10 @@ class PurchaseDAO
         $deleted = false;
 
         unset($_SESSION['tptickets_items']);
+
         if (!isset($_SESSION['tptickets_items'])) {
             $_SESSION['tptickets_subtotal'] = 0;
+
             $deleted = true;
         }
 
@@ -64,8 +68,8 @@ class PurchaseDAO
     public function getAllLinesInSession()
     {
         return [
-            'items' => $_SESSION['tptickets_items'],
-            'subtotal' => $_SESSION['tptickets_subtotal']]
-        ;
+            'items'    => $_SESSION['tptickets_items'],
+            'subtotal' => $_SESSION['tptickets_subtotal'],
+        ];
     }
 }

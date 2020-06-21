@@ -1,65 +1,72 @@
 <?php
+
 namespace app\dao\db;
 
-
-use \Exception;
-use app\dao\IDAO;
-use app\models\Event;    
-use app\models\Image;
-use app\dao\db\Connection;
 use app\dao\db\CategoryDAO;
-use app\dao\db\CalendarDAO;
-
+use app\dao\db\Connection;
+use app\dao\IDAO;
+use app\models\Event;
+use app\models\Image;
+use \Exception;
 
 class EventDAO implements IDAO
 {
     private $connection;
     private $tableName = "events";
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->connection = Connection::getInstance();
     }
 
-    public function create($event) {
+    public function create($event)
+    {
         try {
-            $query = "INSERT INTO ".$this->tableName." (name, id_category, image) VALUES (:name, :id_category, :image);";
-            $parameters["name"] = $event['name'];
+            $query = "INSERT INTO " . $this->tableName . " (name, id_category, image) VALUES (:name, :id_category, :image)";
+
+            $parameters["name"]        = $event['name'];
             $parameters["id_category"] = $event['id_category'];
-            $parameters["image"] = $event['image'];
+            $parameters["image"]       = $event['image'];
+
             $this->connection->executeNonQuery($query, $parameters);
-        }
-        catch(Exception $ex) {
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
 
-    public function retrieveAll() {
+    public function retrieveAll()
+    {
         try {
-            $eventList = array();
+            $eventList   = [];
             $categoryDAO = new CategoryDAO();
 
-            $query = "SELECT * FROM ".$this->tableName;
+            $query = "SELECT * FROM " . $this->tableName;
+
             $resultSet = $this->connection->execute($query);
+
             foreach ($resultSet as $row) {
                 $category = $categoryDAO->retrieveById($row["id_category"]);
-                $image= new Image();
-                $image->setPath($row['image']);        
+                $image    = new Image();
+                $image->setPath($row['image']);
                 $event = new Event($row["id_event"], $row["name"], $category, $image);
                 array_push($eventList, $event);
             }
+
             return $eventList;
-        }
-        catch(Exception $ex) {
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
 
-    public function retrieveAllActive() {
+    public function retrieveAllActive()
+    {
 
         try {
-            $eventList = array();
-            $id_event_array = array();           
+            $eventList      = [];
+            $id_event_array = [];
+
             $query = "SELECT id_event FROM calendars";
+
             $resultSet = $this->connection->execute($query);
 
             foreach ($resultSet as $row) {
@@ -67,114 +74,124 @@ class EventDAO implements IDAO
             }
 
             $id_event_array = array_unique($id_event_array);
-            
+
             foreach ($id_event_array as $id) {
                 $eventList[] = $this->retrieveById($id);
             }
 
             return $eventList;
-        }
-        catch(Exception $ex) {
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
 
-    public function retrieveActiveEventsByString($string) {
+    public function retrieveActiveEventsByString($string)
+    {
         try {
 
             $events = $this->retrieveAllActive();
 
-            $results = [];
+            $results     = [];
             $categoryDAO = new CategoryDAO();
 
             $query = "SELECT * FROM events WHERE id_event = :id_event AND name LIKE '%" . $string . "%' ";
 
             foreach ($events as $event) {
                 $parameters["id_event"] = $event->getId();
+
                 $row = $this->connection->execute($query, $parameters);
 
                 $resultSet = $this->connection->execute($query, $parameters);
                 foreach ($resultSet as $row) {
                     $category = $categoryDAO->retrieveById($row["id_category"]);
-                    $image= new Image();
+                    $image    = new Image();
                     $image->setPath($row['image']);
-                    $event = new Event($row["id_event"], $row["name"], $category, $image);
-                    $results[] = $event; 
+                    $event     = new Event($row["id_event"], $row["name"], $category, $image);
+                    $results[] = $event;
                 }
             }
 
             return $results;
-                
+
         } catch (Exception $ex) {
 
             throw $ex;
         }
     }
 
-    public function retrieveById($id) {
+    public function retrieveById($id)
+    {
         try {
-            $event = null;
+            $event       = null;
             $categoryDAO = new CategoryDAO();
-            $query = "SELECT * FROM ".$this->tableName." WHERE id_event = :id_event";
+
+            $query = "SELECT * FROM " . $this->tableName . " WHERE id_event = :id_event";
+
             $parameters["id_event"] = $id;
+
             $resultSet = $this->connection->execute($query, $parameters);
             foreach ($resultSet as $row) {
                 $category = $categoryDAO->retrieveById($row["id_category"]);
-                $image= new Image();
+                $image    = new Image();
                 $image->setPath($row['image']);
                 $event = new Event($row["id_event"], $row["name"], $category, $image);
             }
+
             return $event;
-        }
-        catch(Exception $ex) {
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         try {
-            $query = "DELETE FROM ".$this->tableName." WHERE id_event = :id_event";
+            $query = "DELETE FROM " . $this->tableName . " WHERE id_event = :id_event";
+
             $parameters["id_event"] = $id;
-            $this->connection->executeNonQuery($query, $parameters);   
-        }
-        catch(Exception $ex) {
+
+            $this->connection->executeNonQuery($query, $parameters);
+        } catch (Exception $ex) {
             throw $ex;
-        }            
+        }
     }
 
-    public function update($event) {
+    public function update($event)
+    {
         try {
-            $query = "UPDATE ".$this->tableName." SET name = :name, id_category = :id_category, image = :image WHERE id_event = :id_event";
-            $parameters["id_event"] = $event['id_event'];
-            $parameters["name"] = $event['name'];
+            $query = "UPDATE " . $this->tableName . " SET name = :name, id_category = :id_category, image = :image WHERE id_event = :id_event";
+
+            $parameters["id_event"]    = $event['id_event'];
+            $parameters["name"]        = $event['name'];
             $parameters["id_category"] = $event['id_category'];
-            $parameters["image"]= $event['image'];
-            $this->connection->executeNonQuery($query, $parameters);   
-        }
-        catch(Exception $ex) {
+            $parameters["image"]       = $event['image'];
+
+            $this->connection->executeNonQuery($query, $parameters);
+        } catch (Exception $ex) {
             throw $ex;
         }
 
     }
 
-    public function retrieveByString($string) {
+    public function retrieveByString($string)
+    {
         try {
-            $eventList = array();
+            $eventList   = [];
             $categoryDAO = new CategoryDAO();
-            $query = "SELECT * FROM ".$this->tableName." WHERE name LIKE '%".$string."%';";
+
+            $query = "SELECT * FROM " . $this->tableName . " WHERE name LIKE '%" . $string . "%'";
+
             $resultSet = $this->connection->execute($query);
             foreach ($resultSet as $row) {
                 $category = $categoryDAO->retrieveById($row["id_category"]);
-                $image= new Image();
+                $image    = new Image();
                 $image->setPath($row['image']);
                 $event = new Event($row["id_event"], $row["name"], $category, $image);
                 array_push($eventList, $event);
             }
             return $eventList;
-        }
-        catch(Exception $ex) {
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
 }
-?>
