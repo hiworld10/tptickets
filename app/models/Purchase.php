@@ -1,20 +1,19 @@
 <?php
-namespace app\models;
 
-use app\models\PurchaseLine;
+namespace app\models;
 
 class Purchase
 {
-	private $id;
+    private $id;
     private $date;
     private $purchase_line_arr;
 
-	function __construct($id, $date, $purchase_line_arr)
-	{
-        $this->id = $id;
-        $this->date = $date;
+    public function __construct($id, $date, $purchase_line_arr)
+    {
+        $this->id                = $id;
+        $this->date              = $date;
         $this->purchase_line_arr = $purchase_line_arr;
-	}
+    }
 
     public function getId()
     {
@@ -31,4 +30,3 @@ class Purchase
         return $this->purchase_line_arr;
     }
 }
-?>

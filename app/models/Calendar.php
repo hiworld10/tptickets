@@ -1,29 +1,29 @@
 <?php
+
 namespace app\models;
 
 use app\models\Event;
-use app\models\PlaceEvent;
 use app\models\EventSeat;
-
+use app\models\PlaceEvent;
 
 class Calendar
 {
     private $id;
-	private $date;
+    private $date;
     private $event;
     private $artistArray;
     private $placeEvent;
     private $eventSeat;
 
-	function __construct($id, $date, Event $event, $artistArray, PlaceEvent $placeEvent, $eventSeat)
-	{
-        $this->id = $id;
-        $this->date = $date;
-        $this->event = $event;
+    public function __construct($id, $date, Event $event, $artistArray, PlaceEvent $placeEvent, $eventSeat)
+    {
+        $this->id          = $id;
+        $this->date        = $date;
+        $this->event       = $event;
         $this->artistArray = $artistArray;
-        $this->placeEvent = $placeEvent;
-        $this->eventSeat = $eventSeat;
-	}
+        $this->placeEvent  = $placeEvent;
+        $this->eventSeat   = $eventSeat;
+    }
 
     public function getDate()
     {
@@ -96,6 +96,5 @@ class Calendar
             }
         }
         return true;
-    }    
+    }
 }
-?>

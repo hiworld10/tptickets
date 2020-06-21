@@ -1,17 +1,17 @@
 <?php
+
 namespace app\models;
 
 class SeatType
 {
+    private $id;
+    private $type;
 
-	private $id;
-	private $type;
-
-	function __construct($id, $type)
-	{
-        $this->id = $id;
+    public function __construct($id, $type)
+    {
+        $this->id   = $id;
         $this->type = $type;
-	}
+    }
 
     public function getId()
     {
@@ -33,4 +33,3 @@ class SeatType
         $this->type = $type;
     }
 }
-?>
