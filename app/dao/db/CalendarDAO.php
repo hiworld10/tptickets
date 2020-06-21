@@ -116,7 +116,7 @@ class CalendarDAO implements IDAO
                 $placeEvent     = $placeEventDao->retrieveByCalendarId($row["id_calendar"]);
                 $eventSeatArray = $eventSeatDao->retrieveByCalendarId($row["id_calendar"]);
                 $artistsArray   = $this->retrieveArtistsByCalendarId($row["id_calendar"]);
-                $calendar       = new Calendar($row["id_calendar"], $row["date"], $event, $artistsArray, $placeEvent, $eventSeatArray[0]);
+                $calendar       = new Calendar($row["id_calendar"], $row["date"], $event, $artistsArray, $placeEvent, $eventSeatArray);
                 array_push($calendarList, $calendar);
             }
 
