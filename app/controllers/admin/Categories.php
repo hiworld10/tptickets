@@ -1,57 +1,64 @@
-<?php 
+<?php
 
 namespace app\controllers\admin;
 
 use app\utils\Flash;
 
-class Categories extends \app\controllers\Authentication {
-
-	public function __construct() {
+class Categories extends \app\controllers\Authentication
+{
+    public function __construct()
+    {
         $this->requireAdminLogin();
-		$this->dao = $this->dao('Category');
-	}
+        $this->dao = $this->dao('Category');
+    }
 
-	public function index() {
-		
-		$data['categories'] = $this->dao->retrieveAll(); 
-		$this->view('admin/categories', $data);
-	}
+    public function index()
+    {
+        $data['categories'] = $this->dao->retrieveAll();
+        $this->view('admin/categories', $data);
+    }
 
-    public function add() {
+    public function add()
+    {
         $this->redirectIfRequestIsNotPost('admin/categories');
 
-        $category['type'] = trim($_POST['type']); 
+        $category['type'] = trim($_POST['type']);
         $this->dao->create($category);
 
         Flash::addMessage('Categoría agregada.');
         $this->redirect('admin/categories');
     }
 
-	public function edit($id) {
-		$data['category'] = $this->dao->retrieveById($id);		
-		if(isset($data['category'])) {
-            $this->view('admin/categories', $data);
-		}
-	}
+    public function edit($id)
+    {
+        $data['category'] = $this->dao->retrieveById($id);
 
-	public function update($id) {
+        if (isset($data['category'])) {
+            $this->view('admin/categories', $data);
+        }
+    }
+
+    public function update($id)
+    {
 
         $this->redirectIfRequestIsNotPost('admin/categories');
 
         $category['id_category'] = $id;
-        $category['type'] = trim($_POST['type']);
-		$this->dao->update($category);
+        $category['type']        = trim($_POST['type']);
+
+        $this->dao->update($category);
 
         Flash::addMessage('Categoría actualizada.');
-		$this->redirect('admin/categories');
-	}
+        $this->redirect('admin/categories');
+    }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         $this->redirectIfRequestIsNotPost('admin/categories');
-        
+
         $this->dao->delete($id);
+
         Flash::addMessage('Categoría eliminada.');
         $this->redirect('admin/categories');
     }
 }
-?>
