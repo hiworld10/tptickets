@@ -1,10 +1,10 @@
 <?php
 namespace app\dao\db;
 
-use \Exception as Exception;
-use app\dao\IDAO as IDAO;
-use app\models\Artist as Artist;    
-use app\dao\db\Connection as Connection;
+use \Exception;
+use app\dao\IDAO;
+use app\models\Artist;
+use app\dao\db\Connection;
 
 class ArtistDAO implements IDAO
 {

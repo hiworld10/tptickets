@@ -2,10 +2,10 @@
 
 namespace app\dao\db;
 
-use \Exception as Exception;
-use app\dao\IDAO as IDAO;
-use app\models\Category as Category;    
-use app\dao\db\Connection as Connection;
+use \Exception;
+use app\dao\IDAO;
+use app\models\Category;    
+use app\dao\db\Connection;
 
 class CategoryDAO implements IDAO
 {

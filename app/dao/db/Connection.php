@@ -2,8 +2,8 @@
 
 namespace app\dao\db;
 
-use \PDO as PDO;
-use \Exception as Exception;
+use \PDO;
+use \Exception;
 
 class Connection
 {

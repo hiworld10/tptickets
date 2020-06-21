@@ -2,10 +2,10 @@
 namespace app\dao\db;
 
 
-use \Exception as Exception;
-use app\dao\IDAO as IDAO;
-use app\models\Ticket as Ticket;    
-use app\dao\db\Connection as Connection;
+use \Exception;
+use app\dao\IDAO;
+use app\models\Ticket;    
+use app\dao\db\Connection;
 
 class TicketDAO  implements IDAO
 {

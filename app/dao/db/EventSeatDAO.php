@@ -1,11 +1,11 @@
 <?php
 namespace app\dao\db;
 
-use \Exception as Exception;
-use app\dao\IDAO as IDAO;
-use app\models\EventSeat as EventSeat;    
-use app\dao\db\Connection as Connection;
-use app\dao\db\SeatTypeDAO as SeatTypeDAO;
+use \Exception;
+use app\dao\IDAO;
+use app\models\EventSeat;    
+use app\dao\db\Connection;
+use app\dao\db\SeatTypeDAO;
 
 class EventSeatDAO implements IDAO
 {

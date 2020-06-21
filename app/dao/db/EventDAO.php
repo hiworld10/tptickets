@@ -2,12 +2,12 @@
 namespace app\dao\db;
 
 
-use \Exception as Exception;
-use app\dao\IDAO as IDAO;
-use app\models\Event as Event;    
-use app\models\Image as Image;
-use app\dao\db\Connection as Connection;
-use app\dao\db\CategoryDAO as CategoryDAO;
+use \Exception;
+use app\dao\IDAO;
+use app\models\Event;    
+use app\models\Image;
+use app\dao\db\Connection;
+use app\dao\db\CategoryDAO;
 use app\dao\db\CalendarDAO;
 
 
