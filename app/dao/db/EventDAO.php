@@ -5,7 +5,7 @@ namespace app\dao\db;
 use \Exception as Exception;
 use app\dao\IDAO as IDAO;
 use app\models\Event as Event;    
-use app\models\Photo as Photo;
+use app\models\Image as Image;
 use app\dao\db\Connection as Connection;
 use app\dao\db\CategoryDAO as CategoryDAO;
 use app\dao\db\CalendarDAO;
@@ -42,9 +42,9 @@ class EventDAO implements IDAO
             $resultSet = $this->connection->execute($query);
             foreach ($resultSet as $row) {
                 $category = $categoryDAO->retrieveById($row["id_category"]);
-                $photo= new Photo();
-                $photo->setPath($row['image']);        
-                $event = new Event($row["id_event"], $row["name"], $category, $photo);
+                $image= new Image();
+                $image->setPath($row['image']);        
+                $event = new Event($row["id_event"], $row["name"], $category, $image);
                 array_push($eventList, $event);
             }
             return $eventList;
@@ -96,9 +96,9 @@ class EventDAO implements IDAO
                 $resultSet = $this->connection->execute($query, $parameters);
                 foreach ($resultSet as $row) {
                     $category = $categoryDAO->retrieveById($row["id_category"]);
-                    $photo= new Photo();
-                    $photo->setPath($row['image']);
-                    $event = new Event($row["id_event"], $row["name"], $category, $photo);
+                    $image= new Image();
+                    $image->setPath($row['image']);
+                    $event = new Event($row["id_event"], $row["name"], $category, $image);
                     $results[] = $event; 
                 }
             }
@@ -120,9 +120,9 @@ class EventDAO implements IDAO
             $resultSet = $this->connection->execute($query, $parameters);
             foreach ($resultSet as $row) {
                 $category = $categoryDAO->retrieveById($row["id_category"]);
-                $photo= new Photo();
-                $photo->setPath($row['image']);
-                $event = new Event($row["id_event"], $row["name"], $category, $photo);
+                $image= new Image();
+                $image->setPath($row['image']);
+                $event = new Event($row["id_event"], $row["name"], $category, $image);
             }
             return $event;
         }
@@ -165,9 +165,9 @@ class EventDAO implements IDAO
             $resultSet = $this->connection->execute($query);
             foreach ($resultSet as $row) {
                 $category = $categoryDAO->retrieveById($row["id_category"]);
-                $photo= new Photo();
-                $photo->setPath($row['image']);
-                $event = new Event($row["id_event"], $row["name"], $category, $photo);
+                $image= new Image();
+                $image->setPath($row['image']);
+                $event = new Event($row["id_event"], $row["name"], $category, $image);
                 array_push($eventList, $event);
             }
             return $eventList;

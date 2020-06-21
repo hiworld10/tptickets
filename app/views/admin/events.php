@@ -30,7 +30,7 @@
                     </div>
                     <div class="col-lg-7 form-group mt-2">
                         <label>Imagen</label>
-                        <input type="file" name="photo" class="form-control form-control-lg"  required>
+                        <input type="file" name="image" class="form-control form-control-lg"  required>
                     </div>
                     <div class="col-11 col-md-3 mt-4">
                         <button type="submit" class="btn btn-block btn-lg btn-primary">Aceptar</button>
@@ -60,7 +60,7 @@
                         </select>
                     </div>
                     <div class="col-lg-4 form-group mt-4">
-                        <input type="file"  class="form-control form-control-lg" name="photo" required>
+                        <input type="file"  class="form-control form-control-lg" name="image" required>
                     </div>
                     <div class="col-11 col-md-3 mt-4">
                         <button type="submit" class="btn btn-block btn-lg btn-primary">Agregar</button>

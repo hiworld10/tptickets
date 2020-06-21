@@ -2,7 +2,7 @@
 
 namespace app\controllers\admin;
 
-use app\models\Photo;
+use app\models\Image;
 use app\utils\Flash;
 
 class Events extends \app\controllers\Authentication {
@@ -23,16 +23,16 @@ class Events extends \app\controllers\Authentication {
         $this->redirectIfRequestIsNotPost('admin/events');
 
         //Subida de imagen a la carpeta desginada de eventos
-		if (!empty($_FILES['photo']['name'])) {
-			$photo = $_FILES['photo'];
+		if (!empty($_FILES['image']['name'])) {
+			$image = $_FILES['image'];
 
 		} else {
-			$photo = null;
+			$image = null;
 		}
-		$rootPhoto= new Photo();
-		$rootPhoto->uploadPhoto($photo, "events");
+		$rootImage= new Image();
+		$rootImage->uploadImage($image, "events");
         //Se guarda la ruta de la imagen en string para ser almacenada en la BD
-        $event['image'] = $rootPhoto->getPath();
+        $event['image'] = $rootImage->getPath();
         //Igual forma con el resto de los datos
 		$event['id_category'] = $this->category_dao->retrieveById($_POST['category'])->getId();
         $event['name'] = trim($_POST['name']);
@@ -54,17 +54,17 @@ class Events extends \app\controllers\Authentication {
 	public function update($id) {
         $this->redirectIfRequestIsNotPost('admin/events');
 
-		if (!empty($_FILES['photo']['name'])) {
-			$photo = $_FILES['photo'];
+		if (!empty($_FILES['image']['name'])) {
+			$image = $_FILES['image'];
 
 		} else {
-			$photo = null;
+			$image = null;
 		}
 
-		$rootPhoto = new Photo();
-		$rootPhoto->uploadPhoto($photo, "events");
+		$rootImage = new Image();
+		$rootImage->uploadImage($image, "events");
 
-        $event['image'] = $rootPhoto->getPath();
+        $event['image'] = $rootImage->getPath();
         $event['id_event'] = $id;
         $event['id_category'] = $this->category_dao->retrieveById($_POST['category'])->getId();
         $event['name'] = trim($_POST['name']);

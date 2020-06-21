@@ -5,11 +5,11 @@ use Exception as Exception;
 /**
 * 
 */
-class Photo {
+class Image {
 
 	private $path;
 
-	public function uploadPhoto($photo, $folder){
+	public function uploadImage($photo, $folder){
 
 		$folders= array("events");
 
