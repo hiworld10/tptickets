@@ -117,7 +117,7 @@ class Users extends \app\controllers\Authentication
 
     public function register()
     {
-        if (!Auth::isUserLoggedIn()) {
+        if (Auth::isUserLoggedIn()) {
             $this->redirect('');
         }
 
