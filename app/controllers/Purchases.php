@@ -23,10 +23,6 @@ class Purchases extends \app\controllers\Authentication
             Flash::addMessage('No hemos podido procesar la operación en este momento. Intentalo más tarde.', Flash::WARNING);            
             $this->redirect('');    
         }
-        //Contenido de las lineas de compra en sesión
-        /*echo '<pre>';
-        print_r($_SESSION['tptickets_items']);
-        echo '</pre>';*/
     }
 
     public function removeLine($id_event_seat)
