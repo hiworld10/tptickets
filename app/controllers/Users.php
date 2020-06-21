@@ -18,7 +18,7 @@ class Users extends \app\controllers\Authentication
         $this->requireAdminLogin();
         $data['users'] = $this->user_dao->retrieveAll();
         $this->view('admin/users', $data);
-    }    
+    }
 
     public function delete($id)
     {
@@ -30,7 +30,7 @@ class Users extends \app\controllers\Authentication
             Flash::addMessage('No es posible eliminar este usuario debido a que este es el administrador principal.', Flash::WARNING);
             $this->redirect('users');
         }
-        
+
         $this->user_dao->delete($id);
         Flash::addMessage('Usuario eliminado.');
         $this->redirect('users');
@@ -120,7 +120,7 @@ class Users extends \app\controllers\Authentication
         if (Auth::isUserLoggedIn()) {
             $this->redirect('');
         }
-                
+
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             //Almacenar datos de formulario en el arreglo asociativo $data, para mostrar la informacion introducida previamente en caso de no ser correcta y asi permitir que el usuario la corrija mas rapidamente
             $data = [

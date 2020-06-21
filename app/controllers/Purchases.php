@@ -18,10 +18,10 @@ class Purchases extends \app\controllers\Authentication
 
         if ($this->purchase_dao->addNewLineInSession($_POST)) {
             Flash::addMessage('El item fue añadido a tu carro de compra exitosamente.');
-            $this->redirect('');    
+            $this->redirect('');
         } else {
-            Flash::addMessage('No hemos podido procesar la operación en este momento. Intentalo más tarde.', Flash::WARNING);            
-            $this->redirect('');    
+            Flash::addMessage('No hemos podido procesar la operación en este momento. Intentalo más tarde.', Flash::WARNING);
+            $this->redirect('');
         }
     }
 
@@ -33,8 +33,8 @@ class Purchases extends \app\controllers\Authentication
             Flash::addMessage('El item fue eliminado de tu carro exitosamente.');
             $this->redirect('purchases/show-cart');
         } else {
-            Flash::addMessage('No hemos podido procesar la operación en este momento. Intentalo más tarde.', Flash::WARNING);            
-            $this->redirect('purchases/show-cart');             
+            Flash::addMessage('No hemos podido procesar la operación en este momento. Intentalo más tarde.', Flash::WARNING);
+            $this->redirect('purchases/show-cart');
         }
     }
 
@@ -46,7 +46,7 @@ class Purchases extends \app\controllers\Authentication
 
     public function checkout()
     {
-        
+
     }
 
     public function emptyCart()
@@ -57,13 +57,13 @@ class Purchases extends \app\controllers\Authentication
             Flash::addMessage('Todos los items en tu carro han sido eliminados exitosamente.');
             $this->redirect('purchases/show-cart');
         } else {
-            Flash::addMessage('No hemos podido procesar la operación en este momento. Intentalo más tarde.', Flash::WARNING);            
-            $this->redirect('purchases/show-cart');             
+            Flash::addMessage('No hemos podido procesar la operación en este momento. Intentalo más tarde.', Flash::WARNING);
+            $this->redirect('purchases/show-cart');
         }
     }
 
     public function showCart()
-    {   
+    {
         //obtiene $data['items'] y $data['subtotal']
         $data = $this->purchase_dao->getAllLinesInSession();
         $this->view('purchases/show_cart', $data);
