@@ -10,7 +10,6 @@ class Category
     {
         $this->id   = $id;
         $this->type = $type;
-
     }
 
     public function getId()
@@ -21,15 +20,5 @@ class Category
     public function getType()
     {
         return $this->type;
-    }
-
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    public function setType($type)
-    {
-        $this->type = $type;
     }
 }

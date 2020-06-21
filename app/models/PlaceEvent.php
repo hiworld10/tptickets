@@ -36,24 +36,4 @@ class PlaceEvent
     {
         return $this->description;
     }
-
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    public function setIdCalendar($idCalendar)
-    {
-        $this->idCalendar = $idCalendar;
-    }
-
-    public function setCapacity($capacity)
-    {
-        $this->capacity = $capacity;
-    }
-
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    }
 }

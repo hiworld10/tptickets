@@ -30,21 +30,9 @@ class Calendar
         return $this->date;
     }
 
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
     public function getId()
     {
         return $this->id;
-    }
-
-    public function setId($id)
-    {
-        $this->id = $id;
     }
 
     public function getEvent()
@@ -52,19 +40,9 @@ class Calendar
         return $this->event;
     }
 
-    public function setEvent($event)
-    {
-        $this->event = $event;
-    }
-
     public function getArtistArray()
     {
         return $this->artistArray;
-    }
-
-    public function setArtistArray($artistArray)
-    {
-        $this->artistArray = $artistArray;
     }
 
     public function getPlaceEvent()
@@ -72,19 +50,9 @@ class Calendar
         return $this->placeEvent;
     }
 
-    public function setPlaceEvent($placeEvent)
-    {
-        $this->placeEvent = $placeEvent;
-    }
-
     public function getEventSeat()
     {
         return $this->eventSeat;
-    }
-
-    public function setEventSeat($eventSeat)
-    {
-        $this->eventSeat = $eventSeat;
     }
 
     public function isSoldOut()

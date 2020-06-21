@@ -22,14 +22,4 @@ class Artist
     {
         return $this->name;
     }
-
-    public function setId($val)
-    {
-        $this->id = $val;
-    }
-
-    public function setName($val)
-    {
-        $this->name = $val;
-    }
 }

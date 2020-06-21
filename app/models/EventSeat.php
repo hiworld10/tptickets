@@ -23,20 +23,9 @@ class EventSeat
         $this->remainder  = $remainder;
     }
 
-    public function setQuantity($newQuantity)
-    {
-        $this->remainder = $newQuantity - $this->quantity + $this->$remainder;
-        $this->quantity  = $newQuantity;
-    }
-
     public function getId()
     {
         return $this->id;
-    }
-
-    public function setId($id)
-    {
-        $this->id = $id;
     }
 
     public function getCalendarId()
@@ -44,29 +33,14 @@ class EventSeat
         return $this->calendarId;
     }
 
-    public function setCalendarId($calendarId)
-    {
-        $this->calendarId = $calendarId;
-    }
-
     public function getSeatType()
     {
         return $this->seatType;
     }
 
-    public function setSeatType($seatType)
-    {
-        $this->seatType = $seatType;
-    }
-
     public function getPrice()
     {
         return $this->price;
-    }
-
-    public function setPrice($price)
-    {
-        $this->price = $price;
     }
 
     public function getRemainder()

@@ -36,24 +36,4 @@ class Ticket
     {
         return $this->qr;
     }
-
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    public function setPurchaseLineId($purchaseLineId)
-    {
-        $this->purchaseLineId = $purchaseLineId;
-    }
-
-    public function setNumber($number)
-    {
-        $this->number = $number;
-    }
-
-    public function setQr($qr)
-    {
-        $this->qr = $qr;
-    }
 }
