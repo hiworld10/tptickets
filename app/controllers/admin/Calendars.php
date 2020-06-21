@@ -190,46 +190,6 @@ class Calendars extends \app\controllers\Authentication {
         }
     }
 
-	public function updates($id_calendar, $date, $eventId, $artistIdArray, $placeEventId, $placeEventAttributesArray, $eventSeatAttributesArray) {
-
-		
-		if ($this->isBeforeNow($date)) {
-			echo "ERROR: la fecha ya es pasada.";
-			$this->index();
-		} else {
-			$eventSeatSum= 0;
-			//Recorro eventSeat y guardo sus capacidades para sumarlas en una variable
-			//para su comprobacion
-			foreach ($eventSeatAttributesArray as $value) {
-				$eventSeatSum += $value['capacity'];
-			}
-
-			if($eventSeatSum > $placeEventAttributesArray['capacity'])
-			{
-				echo "ERROR: La capacidad total fue excedida.";
-				$this->index();
-			} else {
-
-			//Update de calendario en bd
-				$calendarAttributes= array("id_calendar"=>$id_calendar, "date"=>$date, "eventId"=> $eventId, "artistIdArray" => $artistIdArray);
-				$this->dao->update($calendarAttributes);
-		
-
-				foreach ($eventSeatAttributesArray as $value) {
-					$seatType = $this->seatTypeController->get($value['idseattype']);
-
-					$this->eventSeatController->updateEventSeat($value['ideventseat'], $id_calendar, $seatType, $value['capacity'], $value['price']);
-
-				}
-
-				$this->placeEventController->updatePlaceEvent($placeEventId, $id_calendar, $placeEventAttributesArray['capacity'],$placeEventAttributesArray['description']);
-
-				$this->index();
-			}	
-		}
-
-	}
-
     public function delete($id) {
         $this->calendar_dao->delete($id);
         Flash::addMessage('Calendario eliminado.');
