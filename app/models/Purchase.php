@@ -1,7 +1,7 @@
 <?php
 namespace app\models;
 
-use app\models\PurchaseLine as PurchaseLine;
+use app\models\PurchaseLine;
 
 class Purchase
 {

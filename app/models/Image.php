@@ -1,6 +1,6 @@
 <?php  
 namespace app\models;
-use Exception as Exception;
+use \Exception;
 
 /**
 * 

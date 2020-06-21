@@ -1,7 +1,7 @@
 <?php
 namespace app\models;
 
-use app\models\Category as Category;
+use app\models\Category;
 
 class Event
 {

@@ -1,9 +1,9 @@
 <?php
 namespace app\models;
 
-use app\models\Event as Event;
-use app\models\PlaceEvent as PlaceEvent;
-use app\models\EventSeat as EventSeat;
+use app\models\Event;
+use app\models\PlaceEvent;
+use app\models\EventSeat;
 
 
 class Calendar

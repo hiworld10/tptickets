@@ -1,6 +1,6 @@
 <?php
 namespace app\models;
-use app\models\SeatType as SeatType;
+use app\models\SeatType;
 
 class EventSeat
 {
