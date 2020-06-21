@@ -169,11 +169,11 @@ class UserDAO implements IDAO
         }        
     }
 
-    public function stringBooleanToTinyInt($val) {
+    private function stringBooleanToTinyInt($val) {
         return (($val == "true") ? 1 : 0);
     }
 
-    public function tinyIntBooleanToString($val) {
+    private function tinyIntBooleanToString($val) {
         return (($val == 1) ? "true" : "false");
     }
 }
