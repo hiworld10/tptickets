@@ -10,7 +10,7 @@ class User
     private $name;
     private $surname;
     private $admin;
-    public $m_purchase;
+    //private $m_purchase;
 
     public function __construct($id, $email, $password, $name, $surname, $admin)
     {
