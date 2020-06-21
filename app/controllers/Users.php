@@ -56,7 +56,8 @@ class Users extends \app\controllers\Authentication
     }
 
     public function login()
-    {
+    {   
+        // Permite prevenir que se muestre la vista de login si ya hay un usuario en sesión
         if (Auth::isUserLoggedIn()) {
             $this->redirect('');
         }
@@ -117,6 +118,9 @@ class Users extends \app\controllers\Authentication
 
     public function register()
     {
+        // Permite prevenir que se muestre la vista de login si ya hay un usuario en sesión
+        // Sin embargo, esto genera conflictos a la hora de registrar un usuario como Admin
+        // TODO: encontrar alternativa
         if (Auth::isUserLoggedIn()) {
             $this->redirect('');
         }
