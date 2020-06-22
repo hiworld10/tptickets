@@ -1,60 +1,17 @@
 <?php
 
-namespace app\controllers;
+namespace app\controllers\admin;
 
-use app\dao\db\TicketDAO as DB_TicketDAO;
-
-class Tickets
-{
-    private $dao;
-    
+class Tickets extends \app\controllers\Authentication
+{    
     public function __construct()
     {
-        $this->dao = new DB_TicketDAO();
+        $this->ticket_dao = $this->dao('Ticket');
     }
 
-    public function addTicket($ticket)
+    public function index()
     {
-        try {
-            $this->dao->create($ticket);
-            $this->getAll();
-            return true;
-        } catch (\PDOException $ex) {
-            throw $ex;
-        }
-    }
-
-    /*
-    public function getAll(){
-    $ticketArray = $this->dao->retrieveAll();
-    require ADMIN_VIEWS . '/';        //Falta la view de tickets
-
-    }
-     */
-    /*
-    public function getTicket($id) {
-    $ticket = $this->dao->retrieveById($id);
-    if(isset($ticket)){
-    require ADMIN_VIEWS . '/';    //Falta la view de tickets
-    }
-    }
-     */
-    
-    public function deleteTicket($id)
-    {
-        $this->dao->delete($id);
-        $this->getAll();
-    }
-
-    public function updateTicket($id, $purchaselineid, $number, $qr)
-    {
-        $updateTicket = new M_Ticket($id, $amount, $newticket, $purchaseid);
-        $this->dao->update($updateTicket);
-        $this->getAll();
-    }
-
-    public function getTicketSelect($id)
-    {
-        return $this->dao->retrieveById($id);
+        $data['tickets'] = $this->ticket_dao->retrieveAll();
+        $this->view('admin/tickets', $data);
     }
 }
