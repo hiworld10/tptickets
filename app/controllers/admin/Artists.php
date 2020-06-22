@@ -9,6 +9,7 @@ class Artists extends \app\controllers\Authentication
     public function __construct()
     {
         $this->requireAdminLogin();
+        
         $this->artist_dao = $this->dao('Artist');
     }
 

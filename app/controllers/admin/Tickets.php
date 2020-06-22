@@ -6,6 +6,8 @@ class Tickets extends \app\controllers\Authentication
 {    
     public function __construct()
     {
+        $this->requireAdminLogin();
+        
         $this->ticket_dao = $this->dao('Ticket');
     }
 

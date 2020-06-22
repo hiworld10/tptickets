@@ -6,6 +6,8 @@ class PurchaseLines extends \app\controllers\Authentication
 {    
     public function __construct()
     {
+        $this->requireAdminLogin();
+        
         $this->purchase_line_dao = $this->dao('PurchaseLine');
     }
 

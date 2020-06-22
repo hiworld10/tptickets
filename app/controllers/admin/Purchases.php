@@ -6,6 +6,8 @@ class Purchases extends \app\controllers\Authentication
 {    
     public function __construct()
     {
+        $this->requireAdminLogin();
+        
         $this->purchase_dao = $this->dao('Purchase');
     }
 

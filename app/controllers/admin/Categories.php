@@ -9,6 +9,7 @@ class Categories extends \app\controllers\Authentication
     public function __construct()
     {
         $this->requireAdminLogin();
+        
         $this->dao = $this->dao('Category');
     }
 
