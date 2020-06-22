@@ -146,5 +146,52 @@ class Tests
         echo '</pre>';
     }
 
-    
+    public function ticketTest()
+    {
+        $ticket_dao = new TicketDAO();
+
+        $data = [
+            'id_purchase_line' => 8,
+            'number' => 1,
+            'qr' => null
+        ]; 
+        
+        // $ticket_dao->create($data);
+
+        echo '<pre>';
+        print_r($ticket_dao->retrieveAll());
+        echo '</pre>';
+
+        $id = 6;
+        echo 'retrieving ticket number ' . $id . '<br>';
+
+        echo '<pre>';
+        print_r($ticket_dao->retrieveById($id));
+        echo '</pre>';
+
+        $id = 12;
+        echo 'updating ticket number ' . $id . '<br>';
+
+        $data = [
+            'id_ticket' => $id,
+            'id_purchase_line' => 12,
+            'number' => 6,
+            'qr' => null
+        ];
+
+        $ticket_dao->update($data);
+
+        echo '<pre>';
+        print_r($ticket_dao->retrieveById($id));
+        echo '</pre>';
+
+        $id = 6;
+        echo 'deleting purchase line number ' . $id . '<br>';
+
+        $ticket_dao->delete($id);
+
+        echo '<pre>';
+        print_r($ticket_dao->retrieveAll());
+        echo '</pre>';
+    }
 }
