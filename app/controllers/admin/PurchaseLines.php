@@ -1,58 +1,17 @@
 <?php
 
-namespace app\controllers;
+namespace app\controllers\admin;
 
-use app\dao\db\PurchaseLineDAO as DB_PurchaseLineDAO;
-use app\models\PurchaseLine;
-
-class PurchaseLines
-{
-    private $dao;
-    private $ticketController;
-    private $purchaseController;
-    
+class PurchaseLines extends \app\controllers\Authentication
+{    
     public function __construct()
     {
-        $this->dao = new DB_PurchaseLineDAO();
+        $this->purchase_line_dao = $this->dao('PurchaseLine');
     }
 
-    public function addPurchaseLine($purchaseLine)
+    public function index()
     {
-        try {
-            $this->dao->create($purchaseLine);
-            $this->getAll();
-            return true;
-        } catch (\PDOException $ex) {
-            throw $ex;
-        }
-    }
-
-    public function getAll()
-    {
-        $purchaseLineArray = $this->dao->retrieveAll();
-        require ADMIN_VIEWS . '/adminpurchase.php';
-
-    }
-
-    public function getPurchaseLine($id)
-    {
-        $purchase = $this->dao->retrieveById($id);
-        if (isset($purchaseLine)) {
-            require ADMIN_VIEWS . '/adminpurchase.php';
-        }
-    }
-
-    public function deletePurchaseLine($id)
-    {
-        $this->dao->delete($id);
-        $this->getAll();
-    }
-
-    public function updatePurchaseLine($id, $amount, $ticketid, $purchaseid)
-    {
-        $newTicket           = $this->ticketcontroller->getTicketSelect($ticketid);
-        $updatedPurchaseLine = new PurchaseLine($id, $amount, $newticket, $purchaseid);
-        $this->dao->update($updatedPurchaseLine);
-        $this->getAll();
+        $data['purchase_lines'] = $this->purchase_line_dao->retrieveAll();
+        $this->view('admin/purchase_lines', $data);
     }
 }
