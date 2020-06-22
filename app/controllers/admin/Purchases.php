@@ -1,54 +1,17 @@
 <?php
 
-namespace app\controllers;
+namespace app\controllers\admin;
 
-use app\dao\db\PurchaseDAO as DB_PurchaseDAO;
-use app\models\Purchase;
-
-class Purchases
-{
-    private $dao;
-
+class Purchases extends \app\controllers\Authentication
+{    
     public function __construct()
     {
-        $this->dao = new DB_PurchaseDAO();
+        $this->purchase_dao = $this->dao('Purchase');
     }
 
-    public function addPurchase($purchase)
+    public function index()
     {
-        try {
-            $this->dao->create($purchase);
-            $this->getAll();
-            return true;
-        } catch (\PDOException $ex) {
-            throw $ex;
-        }
-    }
-
-    public function getAll()
-    {
-        $purchaseArray = $this->dao->retrieveAll();
-        require ADMIN_VIEWS . '/adminpurchase.php';
-    }
-
-    public function getPurchase($id)
-    {
-        $purchase = $this->dao->retrieveById($id);
-        if (isset($purchase)) {
-            require ADMIN_VIEWS . '/adminpurchase.php';
-        }
-    }
-
-    public function deletePurchase($id)
-    {
-        $this->dao->delete($id);
-        $this->getAll();
-    }
-
-    public function updatePurchase($id, $date, $purchaseline)
-    {
-        $updatedPurchase = new Purchase($id, $date, $purchaseline);
-        $this->dao->update($updatedPurchase);
-        $this->getAll();
+        $data['purchases'] = $this->purchase_dao->retrieveAll();
+        $this->view('admin/purchases', $data);
     }
 }
