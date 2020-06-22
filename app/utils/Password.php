@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace app\utils;
 
@@ -7,20 +7,23 @@ namespace app\utils;
  */
 class Password
 {
-    public static function verify($string, $hash) {
+    public static function verify($string, $hash)
+    {
         return (password_verify($string, $hash)) ? true : false;
     }
 
-    public static function hasLength($string, $length) {
+    public static function hasLength($string, $length)
+    {
         return (strlen($string) < $length) ? true : false;
     }
 
-    public static function hash($string) {
+    public static function hash($string)
+    {
         return password_hash($string, PASSWORD_DEFAULT);
     }
 
-    public static function match($str1, $str2) {
+    public static function match($str1, $str2)
+    {
         return ($str1 === $str2) ? true : false;
     }
 }
- ?>
