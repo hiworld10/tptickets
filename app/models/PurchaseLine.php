@@ -13,7 +13,7 @@ class PurchaseLine
     private $price;
     private $ticket;
 
-    public function __construct($id, $event_seat_id, $quantity, $purchase_id, $price, /*Ticket*/ $ticket)
+    public function __construct($id, $event_seat_id, $purchase_id, $quantity, $price, /*Ticket*/ $ticket)
     {
         $this->id            = $id;
         $this->event_seat_id = $event_seat_id;
@@ -41,5 +41,15 @@ class PurchaseLine
     public function getPurchaseId()
     {
         return $this->purchase_id;
+    }
+
+    public function getEventSeatId()
+    {
+        return $this->event_seat_id;
+    }
+
+    public function getPrice()
+    {
+        return $this->price;
     }
 }
