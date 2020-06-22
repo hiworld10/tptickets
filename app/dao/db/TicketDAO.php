@@ -20,11 +20,11 @@ class TicketDAO implements IDAO
     public function create($ticket)
     {
         try {
-            $query = "INSERT INTO " . $this->tableName . " (id_purchase_line, number, qr) VALUES (:id_purchase_line, :number, :qr);";
+            $query = "INSERT INTO " . $this->tableName . " (id_purchase_line, number, qr) VALUES (:id_purchase_line, :number, :qr)";
 
-            $parameters["id_purchase_line"] = $ticket->getPurchaseLineId();
-            $parameters["number"]           = $ticket->getNumber();
-            $parameters["qr"]               = $ticket->getQr();
+            $parameters["id_purchase_line"] = $ticket['id_purchase_line'];
+            $parameters["number"]           = $ticket['number'];
+            $parameters["qr"]               = $ticket['qr'];
 
             $this->connection->executeNonQuery($query, $parameters);
         } catch (Exception $ex) {
@@ -112,9 +112,10 @@ class TicketDAO implements IDAO
         try {
             $query = "UPDATE " . $this->tableName . " SET number = :number, qr = :qr, id_purchase_line = :id_purchase_line WHERE id_ticket = :id_ticket";
 
-            $parameters["id_purchase_line"] = $ticket->getPurchaseLineId();
-            $parameters["number"]           = $ticket->getNumber();
-            $parameters["qr"]               = $ticket->getQr();
+            $parameters["id_ticket"] = $ticket['id_ticket'];
+            $parameters["id_purchase_line"] = $ticket['id_purchase_line'];
+            $parameters["number"]           = $ticket['number'];
+            $parameters["qr"]               = $ticket['qr'];
 
             $this->connection->executeNonQuery($query, $parameters);
         } catch (Exception $ex) {
