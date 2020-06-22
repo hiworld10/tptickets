@@ -14,11 +14,11 @@ abstract class Authentication extends \core\Controller
      * Redirecciona a pagina de login si no encuentra un usuario regular en sesión.
      * @return [type] [description]
      */
-    protected function requireUserLogin()
+    protected function requireUserLogin(
+        $flash_message = 'Debes iniciar sesión para ver esta página')
     {
         if (!Auth::isUserLoggedIn()) {
-
-            Flash::addMessage('Debes iniciar sesión para ver esta página', Flash::INFO);
+            Flash::addMessage($flash_message, Flash::INFO);
             $this->redirect('users/login');
         }
     }
