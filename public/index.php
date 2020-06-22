@@ -9,7 +9,7 @@ error_reporting(E_ALL);
 /**
 * Archivos necesarios de inicio
 */
-require "../app/autoload/Autoload.php";
+require "../app/autoload/autoload.php";
 require "../app/config/config.php";
 
 /**
@@ -34,7 +34,6 @@ if (!isset($_SESSION)) {
 /**
 * Flujo de ejecución
 */
-Autoload::start();
 new Router(new Request);
 
 ?>
