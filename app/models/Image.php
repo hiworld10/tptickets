@@ -24,7 +24,7 @@ class Image
 
                 if ($photo['name'] != '') {
                     $extensionsAllow = ['png', 'jpg'];
-                    $maxSiza         = 5000000;
+                    $maxSize         = 5000000;
                     $name            = basename($photo['name']);
 
                     $file = $imageDirectory . $name;
@@ -32,7 +32,7 @@ class Image
                     $fileExtension = pathinfo($file, PATHINFO_EXTENSION);
 
                     if (in_array($fileExtension, $extensionsAllow)) {
-                        if ($photo['size'] < $maxSiza) {
+                        if ($photo['size'] < $maxSize) {
                             if (move_uploaded_file($photo["tmp_name"], $file)) {
                                 $ruta       = IMG_FRONT_ROOT . '/' . $folder . '/' . $name;
                                 $this->path = $ruta;
