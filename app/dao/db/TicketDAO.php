@@ -20,9 +20,8 @@ class TicketDAO implements IDAO
     public function create($ticket)
     {
         try {
-            $query = "INSERT INTO " . $this->tableName . " (id_ticket, id_purchase_line, number, qr) VALUES (:id_ticket, :id_purchase_line, :number, :qr);";
+            $query = "INSERT INTO " . $this->tableName . " (id_purchase_line, number, qr) VALUES (:id_purchase_line, :number, :qr);";
 
-            $parameters["id_ticket"]        = $ticket->getId();
             $parameters["id_purchase_line"] = $ticket->getPurchaseLineId();
             $parameters["number"]           = $ticket->getNumber();
             $parameters["qr"]               = $ticket->getQr();
@@ -113,7 +112,6 @@ class TicketDAO implements IDAO
         try {
             $query = "UPDATE " . $this->tableName . " SET number = :number, qr = :qr, id_purchase_line = :id_purchase_line WHERE id_ticket = :id_ticket";
 
-            $parameters["id_ticket"]        = $ticket->getId();
             $parameters["id_purchase_line"] = $ticket->getPurchaseLineId();
             $parameters["number"]           = $ticket->getNumber();
             $parameters["qr"]               = $ticket->getQr();
