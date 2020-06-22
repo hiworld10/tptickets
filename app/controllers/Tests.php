@@ -2,8 +2,13 @@
 
 namespace app\controllers;
 
+use app\dao\db\PurchaseDAO;
+use app\dao\db\PurchaseLineDAO;
+use app\dao\db\TicketDAO;
 use app\models\Calendar;
 use app\models\EventSeat;
+use app\models\Purchase;
+use app\models\Ticket;
 use app\utils\StringUtils;
 
 /**
@@ -56,4 +61,90 @@ class Tests
 
         echo $cal->isSoldOut() ? "Calendar is sold out" : "Calendar still has tickets available";
     }
+
+    public function purchaseTest()
+    {
+        $purchase_dao = new PurchaseDAO();
+
+        $data = ['id_client' => 8]; 
+        // $purchase_dao->create($data);
+
+        echo '<pre>';
+        print_r($purchase_dao->retrieveAll());
+        echo '</pre>';
+
+        $id = 5;
+        echo 'retrieving purchase number ' . $id . '<br>';
+
+        echo '<pre>';
+        print_r($purchase_dao->retrieveById($id));
+        echo '</pre>';
+
+        $id = 3;
+        echo 'updating purchase number ' . $id . '<br>';
+
+        $data = [
+            'id_purchase' => $id,
+            'id_client' => 12
+        ];
+
+        $purchase_dao->update($data);
+
+        echo '<pre>';
+        print_r($purchase_dao->retrieveById($id));
+        echo '</pre>';
+    }
+
+    public function purchaseLineTest()
+    {
+        $purchase_line_dao = new PurchaseLineDAO();
+
+        $data = [
+            'id_purchase' => 1,
+            'id_event_seat' => 17,
+            'quantity' => 1,
+            'price' => 500
+        ]; 
+        
+        $purchase_line_dao->create($data);
+
+        echo '<pre>';
+        print_r($purchase_line_dao->retrieveAll());
+        echo '</pre>';
+
+        $id = 5;
+        echo 'retrieving purchase line number ' . $id . '<br>';
+
+        echo '<pre>';
+        print_r($purchase_line_dao->retrieveById($id));
+        echo '</pre>';
+
+        $id = 3;
+        echo 'updating purchase line number ' . $id . '<br>';
+
+        $data = [
+            'id_purchase_line' => $id,
+            'id_purchase' => 2,
+            'id_event_seat' => 18,
+            'quantity' => 2,
+            'price' => 1000
+        ]; 
+
+        $purchase_line_dao->update($data);
+
+        echo '<pre>';
+        print_r($purchase_line_dao->retrieveById($id));
+        echo '</pre>';
+
+        $id = 4;
+        echo 'deleting purchase line number ' . $id . '<br>';
+
+        $purchase_line_dao->delete($id);
+
+        echo '<pre>';
+        print_r($purchase_line_dao->retrieveAll());
+        echo '</pre>';
+    }
+
+    
 }
