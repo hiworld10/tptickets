@@ -4,6 +4,7 @@ namespace app\dao\db;
 
 use app\dao\IDAO;
 use app\dao\db\Connection;
+use app\dao\db\PurchaseLineDAO;
 use app\models\Purchase;
 
 class PurchaseDAO implements IDAO
@@ -92,8 +93,7 @@ class PurchaseDAO implements IDAO
         try {
             $query = "INSERT INTO " . $this->tableName . " (id_client) VALUES (:id_client)";
 
-            $parameters["id_client"] = $data['id_client'];
-
+            $parameters["id_client"] = $data['id_client'];  
             $this->connection->executeNonQuery($query, $parameters);
         } catch (Exception $ex) {
             throw $ex;
@@ -104,13 +104,16 @@ class PurchaseDAO implements IDAO
     {
         try {
             $purchases = [];
+            $purchase_line_arr = [];
+            $purchase_line_dao = new PurchaseLineDAO();
 
             $query = "SELECT * FROM " . $this->tableName;
 
             $resultSet = $this->connection->execute($query);
 
             foreach ($resultSet as $row) {
-                $purchase = new Purchase($row['id_purchase'], $row['id_client'], $row['date']);
+                $purchase_line_arr = $purchase_line_dao->retrieveByPurchaseId($row['id_purchase']);
+                $purchase = new Purchase($row['id_purchase'], $row['id_client'], $row['date'], $purchase_line_arr);
                 array_push($purchases, $purchase);
             }
 
@@ -124,6 +127,8 @@ class PurchaseDAO implements IDAO
     {
         try {
             $purchase = null;
+            $purchase_line_arr = [];
+            $purchase_line_dao = new PurchaseLineDAO();            
 
             $query = "SELECT * FROM " . $this->tableName . " WHERE id_purchase = :id_purchase";
 
@@ -132,7 +137,8 @@ class PurchaseDAO implements IDAO
             $resultSet = $this->connection->execute($query, $parameters);
 
             foreach ($resultSet as $row) {
-                $purchase = new Purchase($row['id_purchase'], $row['id_client'], $row['date']);
+                $purchase_line_arr = $purchase_line_dao->retrieveByPurchaseId($row['id_purchase']);
+                $purchase = new Purchase($row['id_purchase'], $row['id_client'], $row['date'], $purchase_line_arr);
             }
 
             return $purchase;
