@@ -38,6 +38,11 @@ class Users extends \app\controllers\Authentication
 
     public function editProfile($data = [])
     {
+        // La modificación de datos como admin debe hacerse dentro del menú admin
+        if (Auth::isAdmin()) {
+            $this->redirect('/');    
+        }
+
         $this->requireUserLogin();
 
         $data['user'] = Auth::getUser();
