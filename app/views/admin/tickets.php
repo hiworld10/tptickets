@@ -11,7 +11,7 @@
                     <thead>     
                         <th>ID</th>  
                         <th>Linea compra</th>
-                        <th>Cantidad</th>    
+                        <th>Cantidad</th>
                     </thead>
                     <tbody>
                         <?php foreach ($data['tickets'] as $value): ?>
@@ -20,9 +20,9 @@
                                 <td><?= $value->getPurchaseLineId() ?></td>
                                 <td><?= $value->getNumber() ?></td>
                             </tr>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                     </tbody>
-                <?php endif; ?>
+                <?php endif ?>
             </table>
         </div>
     </div>
