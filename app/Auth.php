@@ -36,16 +36,6 @@ class Auth
         session_destroy();
     }
 
-    public static function isUserLoggedIn()
-    {
-        return isset($_SESSION['tptickets_user_id']);
-    }
-
-    public static function isAdminLoggedIn()
-    {
-        return isset($_SESSION['tptickets_is_admin']);
-    }
-
     public static function isAccountOwner($id)
     {
         return ($id === $_SESSION['tptickets_user_id']);
