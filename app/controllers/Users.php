@@ -45,7 +45,7 @@ class Users extends \app\controllers\Authentication
         if (isset($data['user'])) {
             $this->view('users/edit', $data);
         }
-    }    
+    }
 
     public function editAsAdmin($id, $data = [])
     {
@@ -244,7 +244,7 @@ class Users extends \app\controllers\Authentication
         if ($user) {
             if ($user->getId() != $id) {
                 $data['errors']['email_err'] = "El e-mail introducido ya está asociado con una cuenta en nuestro sistema";
-            }            
+            }
         }
 
         //Si se dejaron en blanco los campos para contraseña, no se procesará dicha información y sólo se actualizarán los otros datos correspondientes al usuario
@@ -315,5 +315,4 @@ class Users extends \app\controllers\Authentication
         }
         return false;
     }
-
 }
