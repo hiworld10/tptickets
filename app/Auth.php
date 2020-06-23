@@ -59,6 +59,15 @@ class Auth
             return $dao->retrieveById($_SESSION['tptickets_user_id']);
         }
     }
+
+    public static function isAdmin()
+    {
+        $user = static::getUser();
+
+        if ($user) {
+            return $user->getAdmin() == 'true';
+        }
+    }       
 }
 
  ?>
