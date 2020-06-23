@@ -36,22 +36,25 @@ class Users extends \app\controllers\Authentication
         $this->redirect('users');
     }
 
-    public function edit($id, $data = [])
+    public function edit($data = [])
     {
         $this->requireUserLogin();
-        $data['user'] = $this->user_dao->retrieveById($id);
+
+        $data['user'] = Auth::getUser();
+
         if (isset($data['user'])) {
+            $this->view('users/edit', $data);
+        }
+    }    
 
-            if (Auth::isAdmin()) {
-                $this->view('admin/users', $data);
+    public function editAsAdmin($id, $data = [])
+    {
+        $this->requireAdminLogin();
 
-            } else {
-                if (Auth::isAccountOwner($data['user']->getId())) {
-                    $this->view('users/edit', $data);
-                } else {
-                    $this->redirect('');
-                }
-            }
+        $data['user'] = $this->user_dao->retrieveById($id);
+
+        if (isset($data['user'])) {
+            $this->view('admin/users', $data);
         }
     }
 
@@ -196,21 +199,18 @@ class Users extends \app\controllers\Authentication
         }
     }
 
-    public function show($id)
+    public function show()
     {
         $this->requireUserLogin();
-        $user = $this->user_dao->retrieveById($id);
+
+        $user = Auth::getUser();
+
         if ($user) {
-            if (Auth::isAccountOwner($user->getId())) {
-                $data['user'] = $user;
-                $this->view('users/show', $data);
-            } else {
-                $this->redirect('');
-            }
+            $data['user'] = $user;
+            $this->view('users/show', $data);
         } else {
             $this->redirect('');
         }
-
     }
 
     public function update($id)
@@ -285,7 +285,7 @@ class Users extends \app\controllers\Authentication
                 $data['user'] = $this->user_dao->retrieveById($id);
                 $this->view('admin/users', $data);
             } else {
-                $this->edit($id, $data);
+                $this->edit($data);
             }
         }
     }

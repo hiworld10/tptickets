@@ -115,7 +115,7 @@
 										</form>
 									</td>
 									<td>
-                                    	<a href="<?=FRONT_ROOT?>/users/edit/<?=$value->getId()?>" class="btn btn-block btn-lg btn-primary btn-sm">Editar
+                                    	<a href="<?=FRONT_ROOT?>/users/edit-as-admin/<?=$value->getId()?>" class="btn btn-block btn-lg btn-primary btn-sm">Editar
                                     	</a>
 									</td>
 								</tr>
