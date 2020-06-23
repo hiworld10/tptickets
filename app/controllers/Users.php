@@ -239,8 +239,12 @@ class Users extends \app\controllers\Authentication
         }
         //Verificar que el email no este asociado con una cuenta de id diferente a la cuenta a actualizar
         $user = $this->user_dao->retrieveByEmail($data['email']);
-        if ($user->getId() != $id) {
-            $data['errors']['email_err'] = "El e-mail introducido ya está asociado con una cuenta en nuestro sistema";
+
+        // Solo si se encuentra un usuario válido se realiza esta operación (caso contrario estaríamos llamando a la función getId() en una varible nula)
+        if ($user) {
+            if ($user->getId() != $id) {
+                $data['errors']['email_err'] = "El e-mail introducido ya está asociado con una cuenta en nuestro sistema";
+            }            
         }
 
         //Si se dejaron en blanco los campos para contraseña, no se procesará dicha información y sólo se actualizarán los otros datos correspondientes al usuario
