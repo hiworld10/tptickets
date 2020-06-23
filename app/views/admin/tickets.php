@@ -12,6 +12,7 @@
                         <th>ID</th>  
                         <th>Linea compra</th>
                         <th>Cantidad</th>
+                        <th>Código qr</th>
                     </thead>
                     <tbody>
                         <?php foreach ($data['tickets'] as $value): ?>
@@ -19,6 +20,7 @@
                                 <td><?= $value->getId() ?></td>
                                 <td><?= $value->getPurchaseLineId() ?></td>
                                 <td><?= $value->getNumber() ?></td>
+                                <td>Coming soon</td>
                             </tr>
                         <?php endforeach ?>
                     </tbody>
