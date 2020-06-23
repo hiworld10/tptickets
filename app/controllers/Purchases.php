@@ -9,7 +9,11 @@ class Purchases extends \app\controllers\Authentication
     public function __construct()
     {
         $this->requireUserLogin();
-        $this->purchase_dao = $this->dao('Purchase');
+
+        $this->event_seat_dao    = $this->dao('EventSeat');
+        $this->purchase_dao      = $this->dao('Purchase');
+        $this->purchase_line_dao = $this->dao('PurchaseLine');
+        $this->ticket_dao        = $this->dao('Ticket');
     }
 
     public function addNewLine()
