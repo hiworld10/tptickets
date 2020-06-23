@@ -23,6 +23,7 @@
     <div class="jumbotron">
         <big><big>¿Deseas confirmar la compra?</big></big>
         <form name="form" action="<?= FRONT_ROOT ?>/purchases/checkout" method="POST">
+            <input type="hidden" name="tptickets_purchase_confirmed">
             <button type="submit">Sí, efectuar compra</button>
         </form><br>
         <form name="form" action="<?= FRONT_ROOT ?>/purchases/show-cart" method="POST">
