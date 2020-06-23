@@ -55,7 +55,7 @@ class Purchases extends \app\controllers\Authentication
 
         // Si este atributo (provenido de la confirmación de compra) no está seteado, se redirecciona al inicio
         if (!isset($_POST['tptickets_purchase_confirmed'])) {
-            redirect('/');
+            $this->redirect('/');
         }
 
         // Comprobar si el usuario es válido y está en sesión
