@@ -42,12 +42,12 @@ abstract Class Controller {
         }
     }
 
-    protected function redirect($url) {
-        header('Location: ' . FRONT_ROOT . '/' . $url, true, 303);
+    protected function redirect($url = '/') {
+        header('Location: ' . FRONT_ROOT . $url, true, 303);
         exit;
     }
 
-    protected function redirectIfRequestIsNotPost($url) {
+    protected function redirectIfRequestIsNotPost($url = '/') {
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             $this->redirect($url);
         }

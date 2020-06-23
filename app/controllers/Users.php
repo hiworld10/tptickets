@@ -28,12 +28,12 @@ class Users extends \app\controllers\Authentication
         //Previene que el primer usuario (el admin) sea borrado.
         if ($id == 1) {
             Flash::addMessage('No es posible eliminar este usuario debido a que este es el administrador principal.', Flash::WARNING);
-            $this->redirect('users');
+            $this->redirect('/users');
         }
 
         $this->user_dao->delete($id);
         Flash::addMessage('Usuario eliminado.');
-        $this->redirect('users');
+        $this->redirect('/users');
     }
 
     public function editProfile($data = [])
@@ -62,7 +62,7 @@ class Users extends \app\controllers\Authentication
     {
         // Permite prevenir que se muestre la vista de login si ya hay un usuario en sesión
         if (Auth::getUser()) {
-            $this->redirect('');
+            $this->redirect('/');
         }
 
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -99,7 +99,7 @@ class Users extends \app\controllers\Authentication
                     //Mensaje de bienvenida
                     Flash::addMessage('Bienvenido de nuevo, ' . $user->getName());
                     //Redireccionar al home
-                    $this->redirect('');
+                    $this->redirect('/');
                 } else {
                     //Mostrar de nuevo el formulario de login si no hubo inicio de sesión exitoso
                     Flash::addMessage('Usuario o contraseña incorretos. Intentalo de nuevo', Flash::WARNING);
@@ -116,7 +116,7 @@ class Users extends \app\controllers\Authentication
     public function logout()
     {
         Auth::destroySession();
-        $this->redirect('');
+        $this->redirect('/');
     }
 
     public function register()
@@ -124,7 +124,7 @@ class Users extends \app\controllers\Authentication
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             // Permite prevenir que se muestre la vista de login si ya hay un usuario en sesión
             if (Auth::getUser()) {
-                $this->redirect('');
+                $this->redirect('/');
             }
             //Almacenar datos de formulario en el arreglo asociativo $data, para mostrar la informacion introducida previamente en caso de no ser correcta y asi permitir que el usuario la corrija mas rapidamente
             $data = [
@@ -184,10 +184,10 @@ class Users extends \app\controllers\Authentication
                 $this->user_dao->create($data);
                 if (Auth::isAdmin()) {
                     Flash::addMessage('Usuario agregado.');
-                    $this->redirect('users');
+                    $this->redirect('/users');
                 } else {
                     Flash::addMessage('Tu cuenta fue registrada con éxito. Iniciá sesión para continuar.');
-                    $this->redirect('users/login');
+                    $this->redirect('/users/login');
                 }
             } else {
                 if (Auth::isAdmin()) {
@@ -209,7 +209,7 @@ class Users extends \app\controllers\Authentication
             $data['user'] = $user;
             $this->view('users/show_profile', $data);
         } else {
-            $this->redirect('');
+            $this->redirect('/');
         }
     }
 
@@ -275,10 +275,10 @@ class Users extends \app\controllers\Authentication
 
             if (Auth::isAdmin()) {
                 Flash::addMessage('Usuario actualizado.');
-                $this->redirect('users');
+                $this->redirect('/users');
             } else {
                 Flash::addMessage('Tus datos han sido actualizados.');
-                $this->redirect('users/show-profile');
+                $this->redirect('/users/show-profile');
             }
         } else {
             if (Auth::isAdmin()) {

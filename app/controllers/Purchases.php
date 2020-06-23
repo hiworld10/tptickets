@@ -22,10 +22,10 @@ class Purchases extends \app\controllers\Authentication
 
         if ($this->purchase_dao->addNewLineInSession($_POST)) {
             Flash::addMessage('El item fue añadido a tu carro de compra exitosamente.');
-            $this->redirect('');
+            $this->redirect('/');
         } else {
             Flash::addMessage('No hemos podido procesar la operación en este momento. Intentalo más tarde.', Flash::WARNING);
-            $this->redirect('');
+            $this->redirect('/');
         }
     }
 
@@ -35,10 +35,10 @@ class Purchases extends \app\controllers\Authentication
 
         if ($this->purchase_dao->removeLineInSession($id_event_seat)) {
             Flash::addMessage('El item fue eliminado de tu carro exitosamente.');
-            $this->redirect('purchases/show-cart');
+            $this->redirect('/purchases/show-cart');
         } else {
             Flash::addMessage('No hemos podido procesar la operación en este momento. Intentalo más tarde.', Flash::WARNING);
-            $this->redirect('purchases/show-cart');
+            $this->redirect('/purchases/show-cart');
         }
     }
 
@@ -59,10 +59,10 @@ class Purchases extends \app\controllers\Authentication
 
         if ($this->purchase_dao->removeAllLinesInSession()) {
             Flash::addMessage('Todos los items en tu carro han sido eliminados exitosamente.');
-            $this->redirect('purchases/show-cart');
+            $this->redirect('/purchases/show-cart');
         } else {
             Flash::addMessage('No hemos podido procesar la operación en este momento. Intentalo más tarde.', Flash::WARNING);
-            $this->redirect('purchases/show-cart');
+            $this->redirect('/purchases/show-cart');
         }
     }
 

@@ -15,7 +15,7 @@ class Events extends \core\Controller
         if (!empty($data['calendars'])) {
             $this->view('events/show', $data);
         } else {
-            $this->redirect('');
+            $this->redirect('/');
         }
     }
 }

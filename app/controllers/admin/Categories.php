@@ -27,7 +27,7 @@ class Categories extends \app\controllers\Authentication
         $this->dao->create($category);
 
         Flash::addMessage('Categoría agregada.');
-        $this->redirect('admin/categories');
+        $this->redirect('/admin/categories');
     }
 
     public function edit($id)
@@ -50,7 +50,7 @@ class Categories extends \app\controllers\Authentication
         $this->dao->update($category);
 
         Flash::addMessage('Categoría actualizada.');
-        $this->redirect('admin/categories');
+        $this->redirect('/admin/categories');
     }
 
     public function delete($id)
@@ -60,6 +60,6 @@ class Categories extends \app\controllers\Authentication
         $this->dao->delete($id);
 
         Flash::addMessage('Categoría eliminada.');
-        $this->redirect('admin/categories');
+        $this->redirect('/admin/categories');
     }
 }

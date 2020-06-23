@@ -19,7 +19,7 @@ abstract class Authentication extends \core\Controller
     {
         if (!Auth::getUser()) {
             Flash::addMessage($flash_message, Flash::INFO);
-            $this->redirect('users/login');
+            $this->redirect('/users/login');
         }
     }
 
@@ -30,7 +30,7 @@ abstract class Authentication extends \core\Controller
     protected function requireAdminLogin()
     {
         if (!Auth::isAdmin()) {
-            $this->redirect('');
+            $this->redirect('/');
         }
     }
 }

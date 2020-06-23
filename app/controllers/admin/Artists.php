@@ -27,7 +27,7 @@ class Artists extends \app\controllers\Authentication
         $this->artist_dao->create($data);
 
         Flash::addMessage('Artista agregado.');
-        $this->redirect('admin/artists');
+        $this->redirect('/admin/artists');
     }
 
     public function edit($id)
@@ -47,7 +47,7 @@ class Artists extends \app\controllers\Authentication
         $this->artist_dao->update($data);
 
         Flash::addMessage('Artista actualizado.');
-        $this->redirect('admin/artists');
+        $this->redirect('/admin/artists');
     }
 
     public function delete($id)
@@ -58,6 +58,6 @@ class Artists extends \app\controllers\Authentication
         $this->artist_dao->delete($id);
 
         Flash::addMessage('Artista eliminado.');
-        $this->redirect('admin/artists');
+        $this->redirect('/admin/artists');
     }
 }

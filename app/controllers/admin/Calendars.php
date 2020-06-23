@@ -95,7 +95,7 @@ class Calendars extends \app\controllers\Authentication
 
             $this->place_event_dao->create($place_event);
             Flash::addMessage('Calendario agregado.');
-            $this->redirect('admin/calendars');
+            $this->redirect('/admin/calendars');
         }
     }
 
@@ -177,7 +177,7 @@ class Calendars extends \app\controllers\Authentication
             $this->place_event_dao->update($place_event);
 
             Flash::addMessage('Calendario actualizado.');
-            $this->redirect('admin/calendars');
+            $this->redirect('/admin/calendars');
 
         }
 
@@ -200,7 +200,7 @@ class Calendars extends \app\controllers\Authentication
     {
         $this->calendar_dao->delete($id);
         Flash::addMessage('Calendario eliminado.');
-        $this->redirect('admin/calendars');
+        $this->redirect('/admin/calendars');
     }
 
     /*Comprueba que la fecha introducida no sea pasada a la actual*/

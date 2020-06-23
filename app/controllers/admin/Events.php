@@ -44,7 +44,7 @@ class Events extends \app\controllers\Authentication
         $this->event_dao->create($event);
 
         Flash::addMessage('Evento agregado.');
-        $this->redirect('admin/events');
+        $this->redirect('/admin/events');
     }
 
     public function edit($id)
@@ -78,7 +78,7 @@ class Events extends \app\controllers\Authentication
         $this->event_dao->update($event);
 
         Flash::addMessage('Evento actualizado.');
-        $this->redirect('admin/events');
+        $this->redirect('/admin/events');
     }
 
     public function delete($id)
@@ -88,6 +88,6 @@ class Events extends \app\controllers\Authentication
         $this->event_dao->delete($id);
 
         Flash::addMessage('Evento eliminado.');
-        $this->redirect('admin/events');
+        $this->redirect('/admin/events');
     }
 }

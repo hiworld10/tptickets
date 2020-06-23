@@ -27,7 +27,7 @@ class SeatTypes extends \app\controllers\Authentication
         $this->dao->create($seat_type);
 
         Flash::addMessage('Tipo de plaza agregado.');
-        $this->redirect('admin/seat-types');
+        $this->redirect('/admin/seat-types');
     }
 
     public function edit($id)
@@ -47,7 +47,7 @@ class SeatTypes extends \app\controllers\Authentication
         $this->dao->update($seat_type);
 
         Flash::addMessage('Tipo de plaza actualizado.');
-        $this->redirect('admin/seat-types');
+        $this->redirect('/admin/seat-types');
     }
 
     public function delete($id)
@@ -57,6 +57,6 @@ class SeatTypes extends \app\controllers\Authentication
         $this->dao->delete($id);
 
         Flash::addMessage('Tipo de plaza eliminado.');
-        $this->redirect('admin/seat-types');
+        $this->redirect('/admin/seat-types');
     }
 }
