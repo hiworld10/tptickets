@@ -42,7 +42,7 @@ class Users extends \app\controllers\Authentication
         $data['user'] = $this->user_dao->retrieveById($id);
         if (isset($data['user'])) {
 
-            if (Auth::isAdminLoggedIn()) {
+            if (Auth::isAdmin()) {
                 $this->view('admin/users', $data);
 
             } else {
@@ -58,7 +58,7 @@ class Users extends \app\controllers\Authentication
     public function login()
     {
         // Permite prevenir que se muestre la vista de login si ya hay un usuario en sesión
-        if (Auth::isUserLoggedIn()) {
+        if (Auth::getUser()) {
             $this->redirect('');
         }
 
@@ -120,7 +120,7 @@ class Users extends \app\controllers\Authentication
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             // Permite prevenir que se muestre la vista de login si ya hay un usuario en sesión
-            if (Auth::isUserLoggedIn()) {
+            if (Auth::getUser()) {
                 $this->redirect('');
             }
             //Almacenar datos de formulario en el arreglo asociativo $data, para mostrar la informacion introducida previamente en caso de no ser correcta y asi permitir que el usuario la corrija mas rapidamente
@@ -179,7 +179,7 @@ class Users extends \app\controllers\Authentication
                     $data['is_admin'] = 'true';
                 }
                 $this->user_dao->create($data);
-                if (Auth::isAdminLoggedIn()) {
+                if (Auth::isAdmin()) {
                     Flash::addMessage('Usuario agregado.');
                     $this->redirect('users');
                 } else {
@@ -187,7 +187,7 @@ class Users extends \app\controllers\Authentication
                     $this->redirect('users/login');
                 }
             } else {
-                if (Auth::isAdminLoggedIn()) {
+                if (Auth::isAdmin()) {
                     $this->view('admin/users', $data);
                 } else {
                     $this->view('users/register', $data);
@@ -273,14 +273,14 @@ class Users extends \app\controllers\Authentication
                 $this->user_dao->updateWithoutPassword($data);
             }
 
-            if (Auth::isAdminLoggedIn()) {
+            if (Auth::isAdmin()) {
                 Flash::addMessage('Usuario actualizado.');
                 $this->redirect('users');
             } else {
                 $this->redirect('users/update-success');
             }
         } else {
-            if (Auth::isAdminLoggedIn()) {
+            if (Auth::isAdmin()) {
                 //Se obtiene nuevamente la info en la BD del usuario para mostrar los campos en el formulario
                 $data['user'] = $this->user_dao->retrieveById($id);
                 $this->view('admin/users', $data);

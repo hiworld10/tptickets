@@ -17,7 +17,7 @@ abstract class Authentication extends \core\Controller
     protected function requireUserLogin(
         $flash_message = 'Debes iniciar sesión para ver esta página')
     {
-        if (!Auth::isUserLoggedIn()) {
+        if (!Auth::getUser()) {
             Flash::addMessage($flash_message, Flash::INFO);
             $this->redirect('users/login');
         }
@@ -29,7 +29,7 @@ abstract class Authentication extends \core\Controller
      */
     protected function requireAdminLogin()
     {
-        if (!Auth::isAdminLoggedIn()) {
+        if (!Auth::isAdmin()) {
             $this->redirect('');
         }
     }
