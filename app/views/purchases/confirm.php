@@ -13,10 +13,6 @@
                     <big>Fecha: <?php echo htmlspecialchars($item['date']) ?></big><br>
                     <big>Cantidad: <?php echo htmlspecialchars($item['amount']) ?></big><br>
                     <big>Precio (c/u): <?php echo htmlspecialchars(number_format($item['subtotal'], 2, ',', '')) ?></big><br>
-                    <form name="form" action="<?= FRONT_ROOT ?>/purchases/remove-line" method="POST">
-                        <input type="hidden" name="id_event_seat" value="<?= $item['id_event_seat'] ?>">
-                        <button type="submit">Eliminar item</button>
-                    </form>
                 </div>
             </div>
         </div>
