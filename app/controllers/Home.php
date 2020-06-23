@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\Auth;
 use core\Controller;
 
 class Home extends Controller
@@ -14,7 +15,7 @@ class Home extends Controller
 
     public function index()
     {
-        if (isset($_SESSION['tptickets_is_admin'])) {
+        if (Auth::isAdmin()) {
             $this->view('admin/admin');
         } else {
             $data['events'] = $this->event_dao->retrieveAllActive();
