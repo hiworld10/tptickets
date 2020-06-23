@@ -10,9 +10,6 @@ class Auth
         session_regenerate_id(true);
         $_SESSION['tptickets_user_id'] = $user->getId();
         $_SESSION['tptickets_user_name'] = $user->getName();
-        if ($user->getAdmin() == 'true') {
-            $_SESSION['tptickets_is_admin'] = $user->getAdmin();
-        }
     }
 
     public static function destroySession() {
