@@ -36,14 +36,14 @@ class Users extends \app\controllers\Authentication
         $this->redirect('users');
     }
 
-    public function edit($data = [])
+    public function editProfile($data = [])
     {
         $this->requireUserLogin();
 
         $data['user'] = Auth::getUser();
 
         if (isset($data['user'])) {
-            $this->view('users/edit', $data);
+            $this->view('users/edit_profile', $data);
         }
     }
 
@@ -199,7 +199,7 @@ class Users extends \app\controllers\Authentication
         }
     }
 
-    public function show()
+    public function showProfile()
     {
         $this->requireUserLogin();
 
@@ -207,7 +207,7 @@ class Users extends \app\controllers\Authentication
 
         if ($user) {
             $data['user'] = $user;
-            $this->view('users/show', $data);
+            $this->view('users/show_profile', $data);
         } else {
             $this->redirect('');
         }
@@ -278,7 +278,7 @@ class Users extends \app\controllers\Authentication
                 $this->redirect('users');
             } else {
                 Flash::addMessage('Tus datos han sido actualizados.');
-                $this->redirect('users/show');
+                $this->redirect('users/show-profile');
             }
         } else {
             if (Auth::isAdmin()) {

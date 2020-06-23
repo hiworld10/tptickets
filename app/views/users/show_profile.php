@@ -10,6 +10,6 @@
         <dt>E-mail</dt>
         <dd><?php echo htmlspecialchars($data['user']->getEmail()) ?></dd>
     </dl>
-    <a href="<?= FRONT_ROOT ?>/users/edit">Editar perfil</a>
+    <a href="<?= FRONT_ROOT ?>/users/edit-profile">Editar perfil</a>
 </div>
 <?php require FOOTER ?>
