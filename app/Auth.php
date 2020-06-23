@@ -2,6 +2,8 @@
 
 namespace app;
 
+use app\dao\db\UserDAO;
+
 class Auth
 {
     public static function createSession($user) {
@@ -47,6 +49,13 @@ class Auth
     public static function isAccountOwner($id)
     {
         return ($id === $_SESSION['tptickets_user_id']);
+    }
+
+    public static function getUser()
+    {
+        $dao = new UserDAO();
+
+        return $dao->retrieveById($_SESSION['tptickets_user_id']);
     }
 }
 
