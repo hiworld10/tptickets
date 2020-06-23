@@ -55,7 +55,9 @@ class Auth
     {
         $dao = new UserDAO();
 
-        return $dao->retrieveById($_SESSION['tptickets_user_id']);
+        if (isset($_SESSION['tptickets_user_id'])) {
+            return $dao->retrieveById($_SESSION['tptickets_user_id']);
+        }
     }
 }
 
