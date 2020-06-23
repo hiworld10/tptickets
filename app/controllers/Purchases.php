@@ -111,6 +111,24 @@ class Purchases extends \app\controllers\Authentication
         // Resetear el carro de compra
         unset($_SESSION['tptickets_items']);
         unset($_SESSION['tptickets_subtotal']);
+
+        // Variable en sesión utilizada por success()
+        $_SESSION['purchase_success'] = 'true';
+
+        $this->success();
+    }
+
+    public function success()
+    {   
+        if (isset($_SESSION['purchase_success'])) {
+            Flash::addMessage('Se ha efectuado tu compra exitosamente.');
+
+            unset($_SESSION['purchase_success']);
+            
+            $this->redirect('/purchases/show-cart');
+        }
+
+        $this->redirect('/');
     }
 
     public function emptyCart()
