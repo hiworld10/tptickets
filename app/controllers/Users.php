@@ -277,7 +277,8 @@ class Users extends \app\controllers\Authentication
                 Flash::addMessage('Usuario actualizado.');
                 $this->redirect('users');
             } else {
-                $this->redirect('users/update-success');
+                Flash::addMessage('Tus datos han sido actualizados.');
+                $this->redirect('users/show');
             }
         } else {
             if (Auth::isAdmin()) {
