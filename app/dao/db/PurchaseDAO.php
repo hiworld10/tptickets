@@ -147,6 +147,25 @@ class PurchaseDAO implements IDAO
         }
     }
 
+    public function retrieveLastId()
+    {
+        try {
+            $id_purchase = null;          
+
+            $query = "SELECT id_purchase FROM " . $this->tableName . " ORDER BY id_purchase DESC LIMIT 1";
+
+            $resultSet = $this->connection->execute($query);
+
+            foreach ($resultSet as $row) {
+                $id_purchase = $row['id_purchase'];
+            }
+
+            return $id_purchase;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }    
+
     public function delete($id)
     {
         try {

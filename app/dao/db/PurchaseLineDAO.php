@@ -94,6 +94,25 @@ class PurchaseLineDAO implements IDAO
         }
     }    
 
+    public function retrieveLastId()
+    {
+        try {
+            $id_purchase_line = null;          
+
+            $query = "SELECT id_purchase_line FROM " . $this->tableName . " ORDER BY id_purchase_line DESC LIMIT 1";
+
+            $resultSet = $this->connection->execute($query);
+
+            foreach ($resultSet as $row) {
+                $id_purchase_line = $row['id_purchase_line'];
+            }
+
+            return $id_purchase_line;
+        } catch (Exception $ex) {
+            throw $ex;
+        }        
+    }
+
     public function delete($id)
     {
         try {
