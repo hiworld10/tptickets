@@ -70,10 +70,6 @@ class Purchases extends \app\controllers\Authentication
         // COMPRA SE AGOTÓ PREVIO A LAS SIGUIENTES INSTRUCCIONES Y, SI ES ASÍ, ESTE
         // PROCEDIMIENTO DEBE CANCELARSE POR COMPLETO
 
-        echo '<pre>';
-        print_r($_SESSION['tptickets_items']);
-        echo '</pre>';
-
         $purchase_data = ['id_client' => $user->getId()];
 
         // Si se pasan las validaciones, se crea un nuevo registro de compra en la BD
@@ -115,18 +111,6 @@ class Purchases extends \app\controllers\Authentication
         // Resetear el carro de compra
         unset($_SESSION['tptickets_items']);
         unset($_SESSION['tptickets_subtotal']);
-
-        echo '<pre>';
-        print_r($this->purchase_dao->retrieveAll());
-        echo '</pre>';
-
-        echo '<pre>';
-        print_r($this->purchase_line_dao->retrieveAll());
-        echo '</pre>';
-
-        echo '<pre>';
-        print_r($this->ticket_dao->retrieveAll());
-        echo '</pre>';
     }
 
     public function emptyCart()
