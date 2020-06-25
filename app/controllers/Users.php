@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\Auth;
+use app\Mail;
 use app\utils\Flash;
 use app\utils\Password;
 
@@ -191,6 +192,7 @@ class Users extends \app\controllers\Authentication
                     Flash::addMessage('Usuario agregado.');
                     $this->redirect('/users');
                 } else {
+                    Mail::sendWelcomeMessage($data['email']);
                     Flash::addMessage('Tu cuenta fue registrada con éxito. Iniciá sesión para continuar.');
                     $this->redirect('/users/login');
                 }
