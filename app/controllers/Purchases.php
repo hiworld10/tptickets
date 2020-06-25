@@ -98,11 +98,23 @@ class Purchases extends \app\controllers\Authentication
             $id_purchase_line = $this->purchase_line_dao->retrieveLastId();
 
             // Preparación de datos para el registro de ticket
+            
+            $qr_content = "TPTickets\nEvento: " . 
+                            $item['event_name'] . 
+                            "\nFecha: " . 
+                            $item['date'] .
+                            "\nTipo asiento: " .
+                            $item['seat_type'] . 
+                            "\nCantidad: " . 
+                            $item['amount'] . 
+                            "\nID ticket: " .
+                            $id_purchase_line;
+
             $ticket_data = [
                 'id_purchase_line' => $id_purchase_line,
                 'number'           => $item['amount'],
                 // Aún resta implementar la creación de qr
-                'qr'               => null,
+                'qr'               => $qr_content,
             ];
             // Creación de registro de ticket
             $this->ticket_dao->create($ticket_data);
