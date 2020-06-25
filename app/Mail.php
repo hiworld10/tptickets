@@ -49,16 +49,16 @@ class Mail
 
     public static function sendWelcomeMessage($to)
     {
-        $text = 
-            '¡Gracias por haberte registrado! Esperamos que puedas disfrutar de todos los eventos que tenemos disponibles para vos. 
-            Visitá nuestra página utilizando el siguiente link: 
+        $text =
+            '¡Gracias por haberte registrado! Esperamos que puedas disfrutar de todos los eventos que tenemos disponibles para vos.
+            Visitá nuestra página utilizando el siguiente link:
             http://localhost/tptickets';
 
-        $html = 
+        $html =
             '<p>&iexcl;Gracias por haberte registrado! Esperamos que puedas disfrutar de todos los eventos que tenemos disponibles para vos.</p>
             <br>
-            <p>Visit&aacute; nuestra p&aacute;gina 
-                <a href="' . FRONT_ROOT .'">aqu&iacute;</a>.
+            <p>Visit&aacute; nuestra p&aacute;gina
+                <a href="' . FRONT_ROOT . '">aqu&iacute;</a>.
             </p>';
 
         return static::send(
@@ -69,5 +69,3 @@ class Mail
         );
     }
 }
-?>
-
