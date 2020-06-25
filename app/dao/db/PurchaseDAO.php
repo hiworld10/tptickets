@@ -31,6 +31,7 @@ class PurchaseDAO implements IDAO
 
         $_SESSION['tptickets_items'][] = [
             'id_event_seat' => $data['id_event_seat'],
+            'seat_type'     => $data['seat_type'],
             'amount'        => $data['amount'],
             'price'         => $data['price'],
             'subtotal'      => $subtotal,
