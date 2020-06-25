@@ -14,6 +14,7 @@
             <p>Seleccioná la cantidad de asientos (Máximo 5)</p>
             <form name="form" action="<?= FRONT_ROOT ?>/purchases/add-new-line" method="POST">
                 <input type="hidden" name="id_event_seat" value="<?= $data['event_seat']->getId() ?>">
+                <input type="hidden" name="seat_type" value="<?= $data['event_seat']->getSeatType()->getType() ?>">
                 <input type="hidden" name="id_calendar" value="<?= $data['event_seat']->getCalendarId() ?>">
                 <input type="hidden" name="event_name" value="<?= $data['event_name'] ?>">
                 <input type="hidden" name="date" value="<?= $data['date'] ?>">
