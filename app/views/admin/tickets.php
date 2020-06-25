@@ -20,7 +20,7 @@
                                 <td><?= $value->getId() ?></td>
                                 <td><?= $value->getPurchaseLineId() ?></td>
                                 <td><?= $value->getNumber() ?></td>
-                                <td>Coming soon</td>
+                                <td><img src="<?= $value->getQr()->writeDataUri() ?>" alt="qr code here"></td>
                             </tr>
                         <?php endforeach ?>
                     </tbody>
