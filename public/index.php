@@ -13,6 +13,12 @@ require "../app/autoload/autoload.php";
 require "../app/config/config.php";
 
 /**
+ * Autoloader para incluir las dependencias instaladas mediante composer
+ */
+
+require "../vendor/autoload.php";
+
+/**
  * Archivo con las credenciales necesarias para el funcionamiento del programa.
  * Ver 'app/config/credentials_template.php' para más detalles.
  */
