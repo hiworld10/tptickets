@@ -2,10 +2,11 @@
 
 namespace app\dao\db;
 
-use app\dao\db\Connection;
-use app\dao\IDAO;
-use app\models\Ticket;
+use Endroid\QrCode\QrCode;
 use \Exception;
+use app\dao\IDAO;
+use app\dao\db\Connection;
+use app\models\Ticket;
 
 class TicketDAO implements IDAO
 {
@@ -42,7 +43,9 @@ class TicketDAO implements IDAO
             $resultSet = $this->connection->execute($query);
 
             foreach ($resultSet as $row) {
-                $ticket = new Ticket($row["id_ticket"], $row["id_purchase_line"], $row["number"], $row["qr"]);
+                $qr = new QrCode($row['qr']);
+                $qr->setSize(150);
+                $ticket = new Ticket($row["id_ticket"], $row["id_purchase_line"], $row["number"], $qr);
                 array_push($ticketList, $ticket);
             }
 
@@ -64,7 +67,9 @@ class TicketDAO implements IDAO
             $resultSet = $this->connection->execute($query, $parameters);
 
             foreach ($resultSet as $row) {
-                $ticket = new Ticket($row["id_ticket"], $row["id_purchase_line"], $row["number"], $row["qr"]);
+                $qr = new QrCode($row['qr']);
+                $qr->setSize(150);                
+                $ticket = new Ticket($row["id_ticket"], $row["id_purchase_line"], $row["number"], $qr);
             }
 
             return $ticket;
