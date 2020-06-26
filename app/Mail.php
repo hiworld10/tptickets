@@ -12,17 +12,27 @@ class Mail
         $mail = new PHPMailer(true);
 
         try {
+            $mail->SMTPDebug   = 4;
+
+            $mail->SMTPOptions = [
+                'ssl' => [
+                    'verify_peer'       => false,
+                    'verify_peer_name'  => false,
+                    'allow_self_signed' => true,
+                ],
+            ];
+
             //Server settings
             $mail->isSMTP();
-            $mail->Host       = SMTP_HOST;
-            $mail->SMTPAuth   = true;
-            $mail->Username   = SMTP_USER;
-            $mail->Password   = SMTP_PASS;
+            $mail->Host = SMTP_HOST;
+            // $mail->SMTPAuth   = true;
+            // $mail->Username   = SMTP_USER;
+            // $mail->Password   = SMTP_PASS;
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port       = 587;
+            $mail->Port       = SMTP_PORT;
 
             //Recipients
-            $mail->setFrom(MAIL_DOMAIN, 'Monito Inc.');
+            $mail->setFrom(LOCAL_MAIL_DOMAIN, 'Monito Inc.');
             $mail->addAddress($to); // Name is optional
 
             // Attachments
