@@ -2,6 +2,7 @@
 
 namespace app;
 
+use core\Controller;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 
@@ -57,25 +58,13 @@ class Mail
         }
     }
 
-    public static function sendWelcomeMessage($to)
+    public static function sendWelcomeMessage($to, $data)
     {
-        $text =
-            '¡Gracias por haberte registrado! Esperamos que puedas disfrutar de todos los eventos que tenemos disponibles para vos.
-            Visitá nuestra página utilizando el siguiente link:
-            http://localhost/tptickets';
-
-        $html =
-            '<p>&iexcl;Gracias por haberte registrado! Esperamos que puedas disfrutar de todos los eventos que tenemos disponibles para vos.</p>
-            <br>
-            <p>Visit&aacute; nuestra p&aacute;gina
-                <a href="' . FRONT_ROOT . '">aqu&iacute;</a>.
-            </p>';
-
         return static::send(
             $to,
             'Bienvenido a TPTickets',
-            $html,
-            $text
+            Controller::getRenderedTemplate('mail/welcome_message.php', $data),
+            Controller::getRenderedTemplate('mail/welcome_message.txt', $data)
         );
     }
 }

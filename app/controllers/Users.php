@@ -192,7 +192,12 @@ class Users extends \app\controllers\Authentication
                     Flash::addMessage('Usuario agregado.');
                     $this->redirect('/users');
                 } else {
-                    Mail::sendWelcomeMessage($data['email']);
+                    Mail::sendWelcomeMessage(
+                        $data['email'], 
+                        [
+                            'name' => $data['name']
+                        ]
+                    );
                     Flash::addMessage('Tu cuenta fue registrada con éxito. Iniciá sesión para continuar.');
                     $this->redirect('/users/login');
                 }
