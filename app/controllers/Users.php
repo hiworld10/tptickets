@@ -87,15 +87,19 @@ class Users extends \app\controllers\Authentication
             $data = [
                 'email' => trim($_POST['email']),
             ];
+
             //Para mayor seguridad, las contraseñas se procesan aparte, si no son validadas correctamente, no seran mostradas en su correspondiente campo cuando se muestre nuevamente el formulario de registracion
             $password = $_POST['password'];
+
             //Verificar e-mail
             if (empty($data['email'])) {
-                $data['errors']['email_err'] = "Debes introducir tu e-mail asociado con tu cuenta";
+                $data['errors']['email_err'] = "Debés introducir tu e-mail asociado con tu cuenta";
             }
+
             if (empty($password)) {
-                $data['errors']['password_err'] = "debes introducir tu contraseña";
+                $data['errors']['password_err'] = "Debés introducir tu contraseña";
             }
+            
             //Si no se encontraron errores, proceder a la autenticidad de las credenciales
             if (empty($data['errors'])) {
                 $user = $this->authenticate($data['email'], $password);
@@ -108,7 +112,7 @@ class Users extends \app\controllers\Authentication
                     $this->redirect('/');
                 } else {
                     //Mostrar de nuevo el formulario de login si no hubo inicio de sesión exitoso
-                    Flash::addMessage('Usuario o contraseña incorretos. Intentalo de nuevo', Flash::WARNING);
+                    Flash::addMessage('Usuario o contraseña incorrectos. Intentalo de nuevo', Flash::WARNING);
                     //$data['errors']['login_failed'] = "Usuario o contraseña incorrectos";
                     $this->view('users/login', $data);
                 }
