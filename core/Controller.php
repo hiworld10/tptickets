@@ -44,6 +44,19 @@ abstract class Controller
         }
     }
 
+    // Esta función realísticamente tendría que ser parte de otra clase que maneje las vistas (clase View?)
+    public static function getRenderedTemplate($view, $data = [])
+    {
+        $file = VIEWS_ROOT . $view;
+        if (file_exists($file)) {
+            ob_start();
+            require $file;
+            return ob_get_clean();
+        } else {
+            die('Error: la vista no pudo encontrarse en la ruta ' . $file);
+        }
+    }    
+
     protected function redirect($url = '/')
     {
         header('Location: ' . FRONT_ROOT . $url, true, 303);
