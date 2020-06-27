@@ -41,4 +41,9 @@ class StringUtils
     {
         return str_replace(' ', '_', strtolower($string));
     }
+
+    public static function trimAndOnlyOneSpace($string)
+    {
+        return preg_replace('/\s{3,}/',' ', trim($string));
+    }
 }
