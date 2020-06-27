@@ -1,45 +1,20 @@
--- phpMyAdmin SQL Dump
--- version 5.0.1
--- https://www.phpmyadmin.net/
---
--- Host: localhost
--- Generation Time: May 28, 2020 at 05:19 PM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.3
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
--- Database: `tptickets`
---
-
-DROP DATABASE IF EXISTS tptickets;
-CREATE DATABASE tptickets;
-use tptickets;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `artists`
---
+CREATE DATABASE IF NOT EXISTS `tptickets` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `tptickets`;
 
 CREATE TABLE `artists` (
   `id_artist` int(11) NOT NULL,
   `name` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `artists`
---
 
 INSERT INTO `artists` (`id_artist`, `name`) VALUES
 (1, 'Luis Miguel'),
@@ -50,38 +25,11 @@ INSERT INTO `artists` (`id_artist`, `name`) VALUES
 (6, 'ZZ Top'),
 (7, 'Rata Blanca');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `artists_calendars`
---
-
 CREATE TABLE `artists_calendars` (
   `id_artist_calendar` int(11) NOT NULL,
   `id_calendar` int(11) NOT NULL,
   `id_artist` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `artists_calendars`
---
-
-INSERT INTO `artists_calendars` (`id_artist_calendar`, `id_calendar`, `id_artist`) VALUES
-(1, 1, 1),
-(2, 2, 2),
-(3, 2, 3),
-(4, 2, 4),
-(5, 2, 5),
-(6, 2, 6),
-(7, 3, 1),
-(8, 3, 4),
-(9, 3, 7);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `calendars`
---
 
 CREATE TABLE `calendars` (
   `id_calendar` int(11) NOT NULL,
@@ -89,39 +37,14 @@ CREATE TABLE `calendars` (
   `id_event` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `calendars`
---
-
-INSERT INTO `calendars` (`id_calendar`, `date`, `id_event`) VALUES
-(1, '2020-08-01', 1),
-(2, '2020-08-15', 2),
-(3, '2020-08-30', 4);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `categories`
---
-
 CREATE TABLE `categories` (
   `id_category` int(11) NOT NULL,
   `type` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `categories`
---
-
 INSERT INTO `categories` (`id_category`, `type`) VALUES
 (1, 'Concierto'),
 (2, 'Obra Teatral');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `events`
---
 
 CREATE TABLE `events` (
   `id_event` int(11) NOT NULL,
@@ -130,21 +53,10 @@ CREATE TABLE `events` (
   `image` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `events`
---
-
 INSERT INTO `events` (`id_event`, `name`, `id_category`, `image`) VALUES
 (1, 'Luis Miguel en Argentina', 1, 'http://localhost/tptickets/img/default_event_img.png'),
 (2, 'Woodstock 2021', 1, 'http://localhost/tptickets/img/default_event_img.png'),
-(3, 'Una Obra Teatral Cualquiera', 2, 'http://localhost/tptickets/img/default_event_img.png'),
-(4, 'WTF Festival', 1, 'http://localhost/tptickets/img/monito.jpg');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `event_seats`
---
+(3, 'Una Obra Teatral Cualquiera', 2, 'http://localhost/tptickets/img/default_event_img.png');
 
 CREATE TABLE `event_seats` (
   `id_event_seat` int(11) NOT NULL,
@@ -152,32 +64,8 @@ CREATE TABLE `event_seats` (
   `id_seat_type` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `price` double NOT NULL,
-  `remainder` int(11) NOT NULL
+  `remainder` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `event_seats`
---
-
-INSERT INTO `event_seats` (`id_event_seat`, `id_calendar`, `id_seat_type`, `quantity`, `price`, `remainder`) VALUES
-(1, 1, 1, 15000, 500, 15000),
-(2, 1, 2, 5000, 2000, 5000),
-(3, 1, 3, 7000, 1500, 7000),
-(4, 1, 4, 3000, 2500, 3000),
-(5, 2, 1, 30000, 2000, 30000),
-(6, 2, 2, 20000, 3000, 20000),
-(7, 2, 3, 0, 0, 0),
-(8, 2, 4, 0, 0, 0),
-(9, 3, 1, 15000, 1500, 15000),
-(10, 3, 2, 5000, 2500, 5000),
-(11, 3, 3, 0, 0, 0),
-(12, 3, 4, 0, 0, 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `places_events`
---
 
 CREATE TABLE `places_events` (
   `id_place_event` int(11) NOT NULL,
@@ -186,32 +74,11 @@ CREATE TABLE `places_events` (
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `places_events`
---
-
-INSERT INTO `places_events` (`id_place_event`, `id_calendar`, `capacity`, `description`) VALUES
-(1, 1, 30000, 'Estadio Velez'),
-(2, 2, 50000, 'XD Arena'),
-(3, 3, 20000, 'WTF Stadium');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `purchases`
---
-
 CREATE TABLE `purchases` (
   `id_purchase` int(11) NOT NULL,
   `id_client` int(11) NOT NULL,
-  `date` date NOT NULL
+  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `purchases_lines`
---
 
 CREATE TABLE `purchases_lines` (
   `id_purchase_line` int(11) NOT NULL,
@@ -221,20 +88,10 @@ CREATE TABLE `purchases_lines` (
   `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `seat_type`
---
-
 CREATE TABLE `seat_type` (
   `id_seat_type` int(11) NOT NULL,
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `seat_type`
---
 
 INSERT INTO `seat_type` (`id_seat_type`, `description`) VALUES
 (1, 'Campo'),
@@ -242,24 +99,12 @@ INSERT INTO `seat_type` (`id_seat_type`, `description`) VALUES
 (3, 'Platea'),
 (4, 'Platea Preferencial');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `tickets`
---
-
 CREATE TABLE `tickets` (
   `id_ticket` int(11) NOT NULL,
   `id_purchase_line` int(11) NOT NULL,
   `number` int(11) NOT NULL,
-  `qr` text NOT NULL
+  `qr` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
 
 CREATE TABLE `users` (
   `id_user` int(11) NOT NULL,
@@ -270,231 +115,121 @@ CREATE TABLE `users` (
   `is_admin` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `users`
---
-
 INSERT INTO `users` (`id_user`, `email`, `password`, `name`, `surname`, `is_admin`) VALUES
-(1, 'admin@tptickets.com', 'lapassword', 'El', 'Admin', 1),
-(2, 'user@email.com', 'thecontra', 'Sr', 'Usuario', 0),
-(3, 'a@test.com', 'password', 'A', 'Test', 0);
+(1, 'admin@tptickets.com', '$2y$10$vVgK8vkRGI4/j8rJ3hqNmuuZg23MpObqTZLZ3wmEpHIdGyhAtvb/W', 'Admin', 'El', 1);
 
---
--- Indexes for dumped tables
---
 
---
--- Indexes for table `artists`
---
 ALTER TABLE `artists`
   ADD PRIMARY KEY (`id_artist`);
 
---
--- Indexes for table `artists_calendars`
---
 ALTER TABLE `artists_calendars`
   ADD PRIMARY KEY (`id_artist_calendar`),
   ADD KEY `id_calendar` (`id_calendar`),
   ADD KEY `id_artist` (`id_artist`);
 
---
--- Indexes for table `calendars`
---
 ALTER TABLE `calendars`
   ADD PRIMARY KEY (`id_calendar`),
   ADD KEY `id_event` (`id_event`);
 
---
--- Indexes for table `categories`
---
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id_category`),
   ADD KEY `id_category` (`id_category`);
 
---
--- Indexes for table `events`
---
 ALTER TABLE `events`
   ADD PRIMARY KEY (`id_event`),
   ADD KEY `id_category` (`id_category`);
 
---
--- Indexes for table `event_seats`
---
 ALTER TABLE `event_seats`
   ADD PRIMARY KEY (`id_event_seat`),
   ADD KEY `id_calendar` (`id_calendar`),
   ADD KEY `id_seat_type` (`id_seat_type`);
 
---
--- Indexes for table `places_events`
---
 ALTER TABLE `places_events`
   ADD PRIMARY KEY (`id_place_event`),
   ADD KEY `id_calendar` (`id_calendar`);
 
---
--- Indexes for table `purchases`
---
 ALTER TABLE `purchases`
   ADD PRIMARY KEY (`id_purchase`),
   ADD KEY `id_client` (`id_client`);
 
---
--- Indexes for table `purchases_lines`
---
 ALTER TABLE `purchases_lines`
   ADD PRIMARY KEY (`id_purchase_line`),
   ADD KEY `id_event_seat` (`id_event_seat`),
   ADD KEY `id_purchase` (`id_purchase`);
 
---
--- Indexes for table `seat_type`
---
 ALTER TABLE `seat_type`
   ADD PRIMARY KEY (`id_seat_type`);
 
---
--- Indexes for table `tickets`
---
 ALTER TABLE `tickets`
   ADD PRIMARY KEY (`id_ticket`),
+  ADD UNIQUE KEY `id_purchase_line_2` (`id_purchase_line`),
   ADD KEY `id_purchase_line` (`id_purchase_line`);
 
---
--- Indexes for table `users`
---
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id_user`);
 
---
--- AUTO_INCREMENT for dumped tables
---
 
---
--- AUTO_INCREMENT for table `artists`
---
 ALTER TABLE `artists`
-  MODIFY `id_artist` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_artist` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT for table `artists_calendars`
---
 ALTER TABLE `artists_calendars`
-  MODIFY `id_artist_calendar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_artist_calendar` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT for table `calendars`
---
 ALTER TABLE `calendars`
-  MODIFY `id_calendar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_calendar` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT for table `categories`
---
 ALTER TABLE `categories`
-  MODIFY `id_category` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_category` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT for table `events`
---
 ALTER TABLE `events`
-  MODIFY `id_event` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_event` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT for table `event_seats`
---
 ALTER TABLE `event_seats`
-  MODIFY `id_event_seat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_event_seat` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT for table `places_events`
---
 ALTER TABLE `places_events`
-  MODIFY `id_place_event` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_place_event` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT for table `purchases`
---
 ALTER TABLE `purchases`
   MODIFY `id_purchase` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT for table `purchases_lines`
---
 ALTER TABLE `purchases_lines`
   MODIFY `id_purchase_line` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT for table `seat_type`
---
 ALTER TABLE `seat_type`
-  MODIFY `id_seat_type` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_seat_type` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT for table `tickets`
---
 ALTER TABLE `tickets`
   MODIFY `id_ticket` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT for table `users`
---
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- Constraints for dumped tables
---
 
---
--- Constraints for table `artists_calendars`
---
 ALTER TABLE `artists_calendars`
   ADD CONSTRAINT `artists_calendars_ibfk_1` FOREIGN KEY (`id_calendar`) REFERENCES `calendars` (`id_calendar`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `artists_calendars_ibfk_2` FOREIGN KEY (`id_artist`) REFERENCES `artists` (`id_artist`) ON UPDATE CASCADE;
 
---
--- Constraints for table `calendars`
---
 ALTER TABLE `calendars`
   ADD CONSTRAINT `calendars_ibfk_1` FOREIGN KEY (`id_event`) REFERENCES `events` (`id_event`) ON UPDATE CASCADE;
 
---
--- Constraints for table `events`
---
 ALTER TABLE `events`
   ADD CONSTRAINT `events_ibfk_1` FOREIGN KEY (`id_category`) REFERENCES `categories` (`id_category`) ON UPDATE CASCADE;
 
---
--- Constraints for table `event_seats`
---
 ALTER TABLE `event_seats`
   ADD CONSTRAINT `event_seat_ibfk_1` FOREIGN KEY (`id_calendar`) REFERENCES `calendars` (`id_calendar`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `event_seat_ibfk_2` FOREIGN KEY (`id_seat_type`) REFERENCES `seat_type` (`id_seat_type`) ON UPDATE CASCADE;
 
---
--- Constraints for table `places_events`
---
 ALTER TABLE `places_events`
   ADD CONSTRAINT `places_events_ibfk_1` FOREIGN KEY (`id_calendar`) REFERENCES `calendars` (`id_calendar`) ON DELETE CASCADE ON UPDATE CASCADE;
 
---
--- Constraints for table `purchases`
---
 ALTER TABLE `purchases`
   ADD CONSTRAINT `purchases_ibfk_2` FOREIGN KEY (`id_client`) REFERENCES `users` (`id_user`) ON UPDATE CASCADE;
 
---
--- Constraints for table `purchases_lines`
---
 ALTER TABLE `purchases_lines`
   ADD CONSTRAINT `purchases_lines_ibfk_1` FOREIGN KEY (`id_event_seat`) REFERENCES `event_seats` (`id_event_seat`) ON UPDATE CASCADE,
   ADD CONSTRAINT `purchases_lines_ibfk_2` FOREIGN KEY (`id_purchase`) REFERENCES `purchases` (`id_purchase`);
 
---
--- Constraints for table `tickets`
---
 ALTER TABLE `tickets`
   ADD CONSTRAINT `tickets_ibfk_1` FOREIGN KEY (`id_purchase_line`) REFERENCES `purchases_lines` (`id_purchase_line`) ON UPDATE CASCADE;
 COMMIT;
