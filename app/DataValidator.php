@@ -27,10 +27,6 @@ class DataValidator
 
         $errors = [];
 
-        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-        //Para mayor seguridad, las contraseñas se procesan aparte, si no son validadas correctamente, no seran mostradas en su correspondiente campo cuando se muestre nuevamente el formulario de registracion
-
         //Verificar que los campos de nombre y apellido
         if (empty($name)) {
             $errors[] = "Debes introducir tu nombre";

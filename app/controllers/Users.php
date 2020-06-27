@@ -147,7 +147,10 @@ class Users extends \app\controllers\Authentication
 
             //Cargar vista
             $this->view('users/register', $data);
+
         } else {
+
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
             $data = [
                 'name'     => StringUtils::trimAndOnlyOneSpace($_POST['name']),
