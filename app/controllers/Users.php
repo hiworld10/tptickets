@@ -156,22 +156,33 @@ class Users extends \app\controllers\Authentication
                 'surname' => ucwords(trim($_POST['surname'])),
                 'email'   => trim($_POST['email']),
             ];
+
             //Para mayor seguridad, las contraseñas se procesan aparte, si no son validadas correctamente, no seran mostradas en su correspondiente campo cuando se muestre nuevamente el formulario de registracion
             $password         = $_POST['password'];
             $confirm_password = $_POST['confirm_password'];
+
             //Verificar que los campos de nombre y apellido
             if (empty($data['name'])) {
                 $data['errors']['name_err'] = "Debes introducir tu nombre";
             }
+
             if (empty($data['surname'])) {
                 $data['errors']['surname_err'] = "Debes introducir tu apellido";
             }
+
             //Verificar e-mail, tanto que el campo no este vacio asi como asegurar que no este ya asociado con una cuenta
             if (empty($data['email'])) {
                 $data['errors']['email_err'] = "Debes proveer un e-mail";
-            } elseif ($this->user_dao->retrieveByEmail($data['email'])) {
+            }
+
+            if ($this->user_dao->retrieveByEmail($data['email'])) {
                 $data['errors']['email_err'] = "El e-mail introducido ya está asociado con una cuenta en nuestro sistema";
             }
+
+            if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+                $data['errors']['email_err'] = "El e-mail introducido no es válido";                
+            }
+
             //Validar contraseña
             if (empty($password)) {
                 $data['errors']['password_err'] = "Debes introducir una contraseña";
@@ -305,12 +316,6 @@ class Users extends \app\controllers\Authentication
                 $this->edit($data);
             }
         }
-    }
-
-    public function updateSuccess()
-    {
-        $this->requireUserLogin();
-        $this->view('users/update_successful');
     }
 
     /**
