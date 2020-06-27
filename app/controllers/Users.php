@@ -163,10 +163,13 @@ class Users extends \app\controllers\Authentication
                 if (isset($_POST['admin'])) {
                     $data['is_admin'] = 'true';
                 }
+
                 $this->user_dao->create($data);
+
                 if (Auth::isAdmin()) {
                     Flash::addMessage('Usuario agregado.');
                     $this->redirect('/users');
+
                 } else {
                     Mail::sendWelcomeMessage(
                         $data['email'],
@@ -174,6 +177,7 @@ class Users extends \app\controllers\Authentication
                             'name' => $data['name'],
                         ]
                     );
+
                     Flash::addMessage('Tu cuenta fue registrada con éxito. Iniciá sesión para continuar.');
                     $this->redirect('/users/login');
                 }
