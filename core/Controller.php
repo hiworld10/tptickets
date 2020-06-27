@@ -47,7 +47,7 @@ abstract class Controller
     // Esta función realísticamente tendría que ser parte de otra clase que maneje las vistas (clase View?)
     public static function getRenderedTemplate($view, $data = [])
     {
-        $file = VIEWS_ROOT . $view;
+        $file = VIEWS_ROOT . $view . '.php';
         if (file_exists($file)) {
             ob_start();
             require $file;

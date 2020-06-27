@@ -63,8 +63,8 @@ class Mail
         return static::send(
             $to,
             'Bienvenido a TPTickets',
-            Controller::getRenderedTemplate('mail/welcome_message.php', $data),
-            Controller::getRenderedTemplate('mail/welcome_message.txt', $data)
+            Controller::getRenderedTemplate('mail/welcome_message_html', $data),
+            Controller::getRenderedTemplate('mail/welcome_message_plain', $data)
         );
     }
 }
