@@ -3,9 +3,11 @@
 namespace app\controllers;
 
 use app\Auth;
+use app\DataValidator;
 use app\Mail;
 use app\utils\Flash;
 use app\utils\Password;
+use app\utils\StringUtils;
 
 class Users extends \app\controllers\Authentication
 {
@@ -41,7 +43,7 @@ class Users extends \app\controllers\Authentication
     {
         // La modificación de datos como admin debe hacerse dentro del menú admin
         if (Auth::isAdmin()) {
-            $this->redirect('/');    
+            $this->redirect('/');
         }
 
         $this->requireUserLogin();
@@ -99,7 +101,7 @@ class Users extends \app\controllers\Authentication
             if (empty($password)) {
                 $data['errors']['password_err'] = "Debés introducir tu contraseña";
             }
-            
+
             //Si no se encontraron errores, proceder a la autenticidad de las credenciales
             if (empty($data['errors'])) {
                 $user = $this->authenticate($data['email'], $password);
@@ -146,59 +148,18 @@ class Users extends \app\controllers\Authentication
             //Cargar vista
             $this->view('users/register', $data);
         } else {
-            //Procesar formulario
-            //Sanitizar datos de POST
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-            //Iniciar arreglo de datos con la informacion obtenida
             $data = [
-                'name'    => ucwords(trim($_POST['name'])),
-                'surname' => ucwords(trim($_POST['surname'])),
-                'email'   => trim($_POST['email']),
+                'name'     => StringUtils::trimAndOnlyOneSpace($_POST['name']),
+                'surname'  => StringUtils::trimAndOnlyOneSpace($_POST['surname']),
+                'email'    => StringUtils::trimAndOnlyOneSpace($_POST['email']),
+                'password' => $_POST['password'],
+                // 'confirm_password' => $_POST['confirm_password'],
             ];
 
-            //Para mayor seguridad, las contraseñas se procesan aparte, si no son validadas correctamente, no seran mostradas en su correspondiente campo cuando se muestre nuevamente el formulario de registracion
-            $password         = $_POST['password'];
-            $confirm_password = $_POST['confirm_password'];
-
-            //Verificar que los campos de nombre y apellido
-            if (empty($data['name'])) {
-                $data['errors']['name_err'] = "Debes introducir tu nombre";
-            }
-
-            if (empty($data['surname'])) {
-                $data['errors']['surname_err'] = "Debes introducir tu apellido";
-            }
-
-            //Verificar e-mail, tanto que el campo no este vacio asi como asegurar que no este ya asociado con una cuenta
-            if (empty($data['email'])) {
-                $data['errors']['email_err'] = "Debes proveer un e-mail";
-            }
-
-            if ($this->user_dao->retrieveByEmail($data['email'])) {
-                $data['errors']['email_err'] = "El e-mail introducido ya está asociado con una cuenta en nuestro sistema";
-            }
-
-            if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-                $data['errors']['email_err'] = "El e-mail introducido no es válido";                
-            }
-
-            //Validar contraseña
-            if (empty($password)) {
-                $data['errors']['password_err'] = "Debes introducir una contraseña";
-            } elseif (Password::hasLength($password, 6)) {
-                $data['errors']['password_err'] = "La contraseña debe tener al menos 6 caracteres";
-            }
-            //Validar confirmacion contraseña
-            if (empty($confirm_password)) {
-                $data['errors']['confirm_password_err'] = "Debes confirmar la contraseña";
-            } elseif (!Password::match($password, $confirm_password)) {
-                $data['errors']['confirm_password_err'] = "Las contraseñas no coinciden";
-            }
+            $data['errors'] = DataValidator::newUser($data);
 
             if (empty($data['errors'])) {
-                $data['password']         = $password;
-                $data['confirm_password'] = $confirm_password;
                 if (isset($_POST['admin'])) {
                     $data['is_admin'] = 'true';
                 }
@@ -208,9 +169,9 @@ class Users extends \app\controllers\Authentication
                     $this->redirect('/users');
                 } else {
                     Mail::sendWelcomeMessage(
-                        $data['email'], 
+                        $data['email'],
                         [
-                            'name' => $data['name']
+                            'name' => $data['name'],
                         ]
                     );
                     Flash::addMessage('Tu cuenta fue registrada con éxito. Iniciá sesión para continuar.');
