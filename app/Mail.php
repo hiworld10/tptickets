@@ -13,7 +13,7 @@ class Mail
         $mail = new PHPMailer(true);
 
         try {
-            $mail->SMTPDebug   = 4;
+            //$mail->SMTPDebug = 4;
 
             $mail->SMTPOptions = [
                 'ssl' => [
