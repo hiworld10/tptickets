@@ -2,11 +2,11 @@
 
 namespace app\dao\db;
 
+use app\dao\db\Connection;
+use app\dao\IDAO;
+use app\models\Ticket;
 use Endroid\QrCode\QrCode;
 use \Exception;
-use app\dao\IDAO;
-use app\dao\db\Connection;
-use app\models\Ticket;
 
 class TicketDAO implements IDAO
 {
@@ -21,13 +21,16 @@ class TicketDAO implements IDAO
     public function create($ticket)
     {
         try {
-            $query = "INSERT INTO " . $this->tableName . " (id_purchase_line, number, qr) VALUES (:id_purchase_line, :number, :qr)";
+            $query = "INSERT INTO " . $this->tableName . " (id_purchase_line, number) VALUES (:id_purchase_line, :number)";
 
             $parameters["id_purchase_line"] = $ticket['id_purchase_line'];
             $parameters["number"]           = $ticket['number'];
-            $parameters["qr"]               = $ticket['qr'];
 
             $this->connection->executeNonQuery($query, $parameters);
+
+            // Actualiza el contenido del qr añadiendo el id del ticket reciéntemente creado
+            $this->updateQr($this->retrieveLastId(), $ticket['qr']);
+
         } catch (Exception $ex) {
             throw $ex;
         }
@@ -60,15 +63,13 @@ class TicketDAO implements IDAO
         try {
             $ticket = null;
 
-            $query = "SELECT * FROM " . $this->tableName . " WHERE id_ticket = :id_ticket";
+            $query = "SELECT * FROM " . $this->tableName . " ORDER BY id_ticket DESC LIMIT 1";
 
-            $parameters["id_ticket"] = $id;
-
-            $resultSet = $this->connection->execute($query, $parameters);
+            $resultSet = $this->connection->execute($query);
 
             foreach ($resultSet as $row) {
                 $qr = new QrCode($row['qr']);
-                $qr->setSize(150);                
+                $qr->setSize(150);
                 $ticket = new Ticket($row["id_ticket"], $row["id_purchase_line"], $row["number"], $qr);
             }
 
@@ -78,26 +79,26 @@ class TicketDAO implements IDAO
         }
     }
 
-    public function retrieveByNumber($number)
+    public function retrieveLastId()
     {
         try {
-            $ticket = null;
+            $id_ticket = null;
 
-            $query = "SELECT * FROM " . $this->tableName . " WHERE number = :number";
+            $query = "SELECT id_ticket FROM " . $this->tableName . " ORDER BY id_ticket DESC LIMIT 1";
 
-            $parameters["number"] = $number;
-
-            $resultSet = $this->connection->execute($query, $parameters);
+            $resultSet = $this->connection->execute($query);
 
             foreach ($resultSet as $row) {
-                $ticket = new Ticket($row["id_ticket"], $row["id_purchase_line"], $row["number"], $row["qr"]);
+                $id_ticket = $row['id_ticket'];
             }
 
-            return $ticket;
+            return $id_ticket;
         } catch (Exception $ex) {
             throw $ex;
         }
     }
+
+
 
     public function delete($id)
     {
@@ -117,10 +118,27 @@ class TicketDAO implements IDAO
         try {
             $query = "UPDATE " . $this->tableName . " SET number = :number, qr = :qr, id_purchase_line = :id_purchase_line WHERE id_ticket = :id_ticket";
 
-            $parameters["id_ticket"] = $ticket['id_ticket'];
+            $parameters["id_ticket"]        = $ticket['id_ticket'];
             $parameters["id_purchase_line"] = $ticket['id_purchase_line'];
             $parameters["number"]           = $ticket['number'];
             $parameters["qr"]               = $ticket['qr'];
+
+            $this->connection->executeNonQuery($query, $parameters);
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    public function updateQr($id_ticket, $qr)
+    {
+        try {
+
+            $qr .= $id_ticket;
+
+            $query = "UPDATE " . $this->tableName . " SET qr = :qr WHERE id_ticket = :id_ticket";
+
+            $parameters["id_ticket"] = $id_ticket;
+            $parameters["qr"]        = $qr;
 
             $this->connection->executeNonQuery($query, $parameters);
         } catch (Exception $ex) {

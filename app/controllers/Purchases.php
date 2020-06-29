@@ -98,6 +98,8 @@ class Purchases extends \app\controllers\Authentication
         // Se obtiene el ID de compra recientemente creado
         $id_purchase = $this->purchase_dao->retrieveLastId();
 
+        $qr_list = [];
+
         // Se recorre la lista de lineas de compra en sesión y se crean los registros correspondientes
         foreach ($items as $item) {
             // Se actualiza el remanente de la plaza de evento
@@ -127,18 +129,25 @@ class Purchases extends \app\controllers\Authentication
                             $item['seat_type'] . 
                             "\nCantidad: " . 
                             $item['amount'] . 
-                            "\nID ticket: " .
-                            $id_purchase_line;
+                            "\nID ticket: ";        //Este último se almacena posteriormente
 
             $ticket_data = [
                 'id_purchase_line' => $id_purchase_line,
                 'number'           => $item['amount'],
-                // Aún resta implementar la creación de qr
                 'qr'               => $qr_content,
             ];
             // Creación de registro de ticket
             $this->ticket_dao->create($ticket_data);
+
+            $last_ticket = $this->ticket_dao->retrieveById($this->ticket_dao->retrieveLastId());
+
+            $qr_list[] = $last_ticket->getQr();
         }
+
+        foreach ($qr_list as $key => $qr) {
+            $items[$key][] = $qr;
+        }
+        
 
         $total = $_SESSION['tptickets_subtotal'];
         // Resetear el carro de compra
