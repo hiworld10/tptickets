@@ -11,6 +11,7 @@
                 <div>
                     <big><big><big><?php echo htmlspecialchars($item['event_name']) ?></big></big></big><br>
                     <big>Fecha: <?php echo htmlspecialchars($item['date']) ?></big><br>
+                    <big>Tipo asiento: <?php echo htmlspecialchars($item['seat_type']) ?></big><br>
                     <big>Cantidad: <?php echo htmlspecialchars($item['amount']) ?></big><br>
                     <big>Precio (c/u): <?php echo htmlspecialchars(number_format($item['subtotal'], 2, ',', '')) ?></big><br>
                 </div>
