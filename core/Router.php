@@ -25,7 +25,7 @@ class Router {
         if (class_exists($controller)) {
             $instance = new $controller;
         } else {
-            die("Error: Controller '" . $controller . "' does not exist.");
+            throw new \Exception("Error: Controller '" . $controller . "' does not exist.");
         }
 
         $method = $request->getMethod();
@@ -44,7 +44,7 @@ class Router {
                 call_user_func_array(array($instance, $method), $parameters);
             }
         } else {
-            die("Error: Method '" . $method . "' in Controller '" . $controller . "' does not exist or is not accessible.");
+            throw new \Exception("Method '" . $method . "' in Controller '" . $controller . "' does not exist or is not accessible.");
         }
     }
 }

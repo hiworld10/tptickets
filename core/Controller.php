@@ -40,7 +40,7 @@ abstract class Controller
         if (file_exists($file)) {
             require_once $file;
         } else {
-            die('Error: la vista no pudo encontrarse en la ruta ' . $file);
+            throw new \Exception('Archivo de vista no encontrado en la ruta ' . $file);
         }
     }
 
@@ -53,7 +53,7 @@ abstract class Controller
             require $file;
             return ob_get_clean();
         } else {
-            die('Error: la vista no pudo encontrarse en la ruta ' . $file);
+            throw new \Exception('Archivo de vista no encontrado en la ruta ' . $file);
         }
     }    
 
