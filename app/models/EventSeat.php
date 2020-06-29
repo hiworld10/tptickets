@@ -52,4 +52,14 @@ class EventSeat
     {
         return $this->quantity;
     }
+
+    public function hasAvailable($amount)
+    {
+        return $this->remainder >= $amount;
+    }
+
+    public function isSoldOut()
+    {
+        return $this->remainder <= 0;
+    }    
 }
