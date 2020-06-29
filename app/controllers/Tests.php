@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\dao\db\EventSeatDAO;
 use app\dao\db\PurchaseDAO;
 use app\dao\db\PurchaseLineDAO;
 use app\dao\db\TicketDAO;
@@ -60,5 +61,30 @@ class Tests
         $cal = new Calendar(null, null, null, null, null, $es_arr);
 
         echo $cal->isSoldOut() ? "Calendar is sold out" : "Calendar still has tickets available";
+    }
+
+    public function hasSeats()
+    {
+        $es_dao = new EventSeatDAO();
+
+        $es1 = new EventSeat(null, null, null, null, null, 2);
+
+        echo '<pre>';
+        var_dump($es1->hasAvailable(3));
+        echo '</pre>';
+
+        $es2 = $es_dao->retrieveById(11);
+
+        echo '<pre>';
+        var_dump($es2->hasAvailable(2));
+        echo '</pre>';
+
+
+        $es3 = $es_dao->retrieveById(12);
+        
+
+        echo '<pre>';
+        var_dump($es3->isSoldOut(12));
+        echo '</pre>';
     }
 }
