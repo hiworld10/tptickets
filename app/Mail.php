@@ -67,4 +67,14 @@ class Mail
             Controller::getRenderedTemplate('mail/welcome_message_plain', $data)
         );
     }
+
+    public static function purchaseDetails($to, $data)
+    {
+        return static::send(
+            $to,
+            'Compra efectuada',
+            Controller::getRenderedTemplate('mail/purchase_details_html', $data),
+            Controller::getRenderedTemplate('mail/purchase_details_plain', $data)
+        );
+    }
 }

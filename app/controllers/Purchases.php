@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\Auth;
+use app\Mail;
 use app\utils\Flash;
 
 class Purchases extends \app\controllers\Authentication
@@ -120,12 +121,21 @@ class Purchases extends \app\controllers\Authentication
             $this->ticket_dao->create($ticket_data);
         }
 
+        $total = $_SESSION['tptickets_subtotal'];
         // Resetear el carro de compra
         unset($_SESSION['tptickets_items']);
         unset($_SESSION['tptickets_subtotal']);
 
         // Variable en sesión utilizada por success()
         $_SESSION['purchase_success'] = 'true';
+
+        Mail::purchaseDetails(
+            $user->getEmail(), 
+            [
+                'name' => $user->getName(),
+                'total' => $total
+            ]
+        );
 
         $this->success();
     }
