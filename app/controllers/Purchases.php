@@ -156,17 +156,16 @@ class Purchases extends \app\controllers\Authentication
             ]
         );
 
-        $this->success();
+        $this->redirect('/purchases/success');
     }
 
     public function success()
     {   
         if (isset($_SESSION['purchase_success'])) {
-            Flash::addMessage('Se ha efectuado tu compra exitosamente.');
-
             unset($_SESSION['purchase_success']);
-            
-            $this->redirect('/purchases/show-cart');
+
+            $this->view('/purchases/success');
+            exit;
         }
 
         $this->redirect('/');
