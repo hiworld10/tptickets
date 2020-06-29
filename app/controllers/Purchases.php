@@ -67,10 +67,29 @@ class Purchases extends \app\controllers\Authentication
             $this->redirect('/');
         }
 
-        // SE DEBE COMPROBAR DE ANTEMANO SI ALGUNA DE LAS PLAZAS INCLUIDAS EN EL CARRO DE
-        // COMPRA SE AGOTÓ PREVIO A LAS SIGUIENTES INSTRUCCIONES Y, SI ES ASÍ, ESTE
-        // PROCEDIMIENTO DEBE CANCELARSE POR COMPLETO
+        $items = $_SESSION['tptickets_items'];
 
+        // Comprobar si alguno de los eventos seleccionados ya no tiene asientos disponibles
+        $available_seats = true;
+
+        foreach ($items as $key => $item) {
+            $event_seat = $this->event_seat_dao->retrieveById($item['id_event_seat']);
+
+            if (!$event_seat->hasAvailable($item['amount'])) {
+                $_SESSION['tptickets_subtotal'] -= $item['subtotal'];
+                // Sacarlo de la lista de ítems del carro de compra si es así
+                unset($_SESSION['tptickets_items'][$key]);
+                $available_seats = false;
+            }
+        }
+
+        // Redireccionar avisando al usuario de lo ocurrido
+        if (!$available_seats) {
+            Flash::addMessage('No se ha podido efectuar la compra debido a que ciertos ítems en tu carro de compra ya no están disponibles. Esto puede deberse a que el tipo de asiento del evento se agotó momentos antes de la confirmación de tu compra. Dichos ítems se han quitado de la lista.', Flash::WARNING);
+            $this->redirect('/purchases/show-cart');
+        }
+
+        // Caso contrario, continuar
         $purchase_data = ['id_client' => $user->getId()];
 
         // Si se pasan las validaciones, se crea un nuevo registro de compra en la BD
@@ -80,7 +99,7 @@ class Purchases extends \app\controllers\Authentication
         $id_purchase = $this->purchase_dao->retrieveLastId();
 
         // Se recorre la lista de lineas de compra en sesión y se crean los registros correspondientes
-        foreach ($_SESSION['tptickets_items'] as $item) {
+        foreach ($items as $item) {
             // Se actualiza el remanente de la plaza de evento
             $this->event_seat_dao->updateRemainder($item['id_event_seat'], $item['amount']);
 
