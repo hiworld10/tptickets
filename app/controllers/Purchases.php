@@ -145,11 +145,11 @@ class Purchases extends \app\controllers\Authentication
         }
 
         foreach ($qr_list as $key => $qr) {
-            $items[$key][] = $qr;
+            $items[$key]['qr'] = $qr;
         }
-        
 
         $total = $_SESSION['tptickets_subtotal'];
+        
         // Resetear el carro de compra
         unset($_SESSION['tptickets_items']);
         unset($_SESSION['tptickets_subtotal']);
@@ -157,13 +157,15 @@ class Purchases extends \app\controllers\Authentication
         // Variable en sesión utilizada por success()
         $_SESSION['purchase_success'] = 'true';
 
-        Mail::purchaseDetails(
-            $user->getEmail(), 
-            [
-                'name' => $user->getName(),
-                'total' => $total
-            ]
-        );
+
+        $purchase_data_for_email['items'] = $items;
+        $purchase_data_for_email['total'] = $total;
+        $purchase_data_for_email['id_purchase'] = $id_purchase;
+        $purchase_data_for_email['name'] = $user->getName();
+    
+        $_SESSION['purchase_data'] = $purchase_data_for_email;         
+
+        //Mail::purchaseDetails($user->getEmail(), $purchase_data_for_email);
 
         $this->redirect('/purchases/success');
     }
