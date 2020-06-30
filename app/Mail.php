@@ -8,18 +8,19 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 class Mail
 {
+    private $mail;
 
     // Preparación inicial del mail
-    public static function prepare($to, $subject)
+    public function prepare($to, $subject)
     {
-        $mail = new PHPMailer(true);
+        $this->mail = new PHPMailer(true);
 
         try {
-            // $mail->SMTPDebug = 4;
+            // $this->mail->SMTPDebug = 4;
 
             // Configuración necesaria para utilizar un servidor SMTP local.
             // Esto NO debe estar al usar un SMTP real.
-            $mail->SMTPOptions = [
+            $this->mail->SMTPOptions = [
                 'ssl' => [
                     'verify_peer'       => false,
                     'verify_peer_name'  => false,
@@ -28,23 +29,23 @@ class Mail
             ];
             
             // Configuración de servidor
-            $mail->isSMTP();
-            $mail->Host = SMTP_HOST;
-            // $mail->SMTPAuth   = true;
-            // $mail->Username   = SMTP_USER;
-            // $mail->Password   = SMTP_PASS;
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port       = SMTP_PORT;
+            $this->mail->isSMTP();
+            $this->mail->Host = SMTP_HOST;
+            // $this->mail->SMTPAuth   = true;
+            // $this->mail->Username   = SMTP_USER;
+            // $this->mail->Password   = SMTP_PASS;
+            $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $this->mail->Port       = SMTP_PORT;
 
             // Remitente y destinatario
-            $mail->setFrom(LOCAL_MAIL_DOMAIN, 'Monito Inc.');
-            $mail->addAddress($to);
+            $this->mail->setFrom(LOCAL_MAIL_DOMAIN, 'Monito Inc.');
+            $this->mail->addAddress($to);
 
             // Conteido
-            $mail->isHTML(true);
-            $mail->Subject = $subject;
+            $this->mail->isHTML(true);
+            $this->mail->Subject = $subject;
 
-            return $mail;
+            return $this->mail;
 
         } catch (Exception $e) {
             throw new Exception('Error al preparar mail.');
@@ -52,14 +53,14 @@ class Mail
 
     }
 
-    public static function send($to, $subject, $html, $text, $attachments = [])
+    public function send($to, $subject, $html, $text, $attachments = [])
     {
-        $mail = new PHPMailer(true);
+        $this->mail = new PHPMailer(true);
 
         try {
-            //$mail->SMTPDebug = 4;
+            //$this->mail->SMTPDebug = 4;
 
-            $mail->SMTPOptions = [
+            $this->mail->SMTPOptions = [
                 'ssl' => [
                     'verify_peer'       => false,
                     'verify_peer_name'  => false,
@@ -68,33 +69,33 @@ class Mail
             ];
 
             //Server settings
-            $mail->isSMTP();
-            $mail->Host = SMTP_HOST;
-            // $mail->SMTPAuth   = true;
-            // $mail->Username   = SMTP_USER;
-            // $mail->Password   = SMTP_PASS;
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port       = SMTP_PORT;
+            $this->mail->isSMTP();
+            $this->mail->Host = SMTP_HOST;
+            // $this->mail->SMTPAuth   = true;
+            // $this->mail->Username   = SMTP_USER;
+            // $this->mail->Password   = SMTP_PASS;
+            $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $this->mail->Port       = SMTP_PORT;
 
             //Recipients
-            $mail->setFrom(LOCAL_MAIL_DOMAIN, 'Monito Inc.');
-            $mail->addAddress($to); // Name is optional
+            $this->mail->setFrom(LOCAL_MAIL_DOMAIN, 'Monito Inc.');
+            $this->mail->addAddress($to); // Name is optional
 
             // Attachments
             if (!empty($attachments)) {
                 foreach ($attachments as $value) {
                     // Add attachments, new file name optional
-                    $mail->addAttachment($value['path']);
+                    $this->mail->addAttachment($value['path']);
                 }
             }
 
             // Content
-            $mail->isHTML(true); // Set email format to HTML
-            $mail->Subject = $subject;
-            $mail->Body    = $html;
-            $mail->AltBody = $text;
+            $this->mail->isHTML(true); // Set email format to HTML
+            $this->mail->Subject = $subject;
+            $this->mail->Body    = $html;
+            $this->mail->AltBody = $text;
 
-            $mail->send();
+            $this->mail->send();
 
             return true;
         } catch (Exception $e) {
@@ -102,9 +103,9 @@ class Mail
         }
     }
 
-    public static function sendWelcomeMessage($to, $data)
+    public function sendWelcomeMessage($to, $data)
     {
-        return static::send(
+        $this->send(
             $to,
             'Bienvenido a TPTickets',
             Controller::getRenderedTemplate('mail/welcome_message_html', $data),
@@ -112,13 +113,28 @@ class Mail
         );
     }
 
-    public static function purchaseDetails($to, $data)
+    public function purchaseDetails($to, $data)
     {
-        return static::send(
-            $to,
-            'Compra efectuada',
-            Controller::getRenderedTemplate('mail/purchase_details_html', $data),
-            Controller::getRenderedTemplate('mail/purchase_details_plain', $data)
-        );
+        $qr_data_for_embed = [];
+        $i                 = 1;
+
+        foreach ($data['items'] as $value) {
+            $qr_data_for_embed[] = [
+                'code' => file_get_contents($value['qr']->writeDataUri()),
+                'cid'  => 'qr_' . $i,
+            ];
+            $i++;
+        }
+
+        echo '<pre>';
+        print_r($qr_data_for_embed);
+        echo '</pre>';
+
+        // return::send(
+        //     $to,
+        //     'Detalles de tu compra',
+        //     Controller::getRenderedTemplate('mail/purchase_details_html', $data),
+        //     Controller::getRenderedTemplate('mail/purchase_details_plain', $data)
+        // );
     }
 }
