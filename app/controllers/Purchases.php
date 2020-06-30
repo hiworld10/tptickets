@@ -96,7 +96,11 @@ class Purchases extends \app\controllers\Authentication
         $this->purchase_dao->create($purchase_data);
 
         // Se obtiene el ID de compra recientemente creado
-        $id_purchase = $this->purchase_dao->retrieveLastId();
+        $last_purchase = $this->purchase_dao->retrieveById(
+            $this->purchase_dao->retrieveLastId()
+        );
+        $id_purchase = $last_purchase->getId();
+        $purchase_date = $last_purchase->getDate();
 
         $qr_list = [];
 
@@ -161,11 +165,12 @@ class Purchases extends \app\controllers\Authentication
         $purchase_data_for_email['items'] = $items;
         $purchase_data_for_email['total'] = $total;
         $purchase_data_for_email['id_purchase'] = $id_purchase;
+        $purchase_data_for_email['purchase_date'] = $purchase_date;
         $purchase_data_for_email['name'] = $user->getName();
     
-        $_SESSION['purchase_data'] = $purchase_data_for_email;         
-
-        //Mail::purchaseDetails($user->getEmail(), $purchase_data_for_email);
+        //$_SESSION['purchase_data'] = $purchase_data_for_email;         
+        $mail = new Mail();
+        $mail->purchaseDetails($user->getEmail(), $purchase_data_for_email);
 
         $this->redirect('/purchases/success');
     }
