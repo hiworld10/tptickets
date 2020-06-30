@@ -87,9 +87,11 @@ class Tests extends \core\Controller
         print_r($_SESSION['purchase_data']);
         echo '</pre>';
         
+        $_SESSION['purchase_data']['purchase_date'] = date("d-m-Y H:i", time());
         
         // $this->view('mail/purchase_details_html', $_SESSION['purchase_data']);
 
-        \app\Mail::purchaseDetails('receiver@blabla.com', $_SESSION['purchase_data']);
+        $mail = new \app\Mail();
+        $mail->purchaseDetails('receiver@blabla.com', $_SESSION['purchase_data']);
     }
 }
