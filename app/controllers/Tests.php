@@ -3,19 +3,14 @@
 namespace app\controllers;
 
 use app\dao\db\EventSeatDAO;
-use app\dao\db\PurchaseDAO;
-use app\dao\db\PurchaseLineDAO;
-use app\dao\db\TicketDAO;
 use app\models\Calendar;
 use app\models\EventSeat;
-use app\models\Purchase;
-use app\models\Ticket;
 use app\utils\StringUtils;
 
 /**
  * Test class
  */
-class Tests
+class Tests extends \core\Controller
 {
     public function index()
     {
@@ -79,12 +74,22 @@ class Tests
         var_dump($es2->hasAvailable(2));
         echo '</pre>';
 
-
         $es3 = $es_dao->retrieveById(12);
-        
 
         echo '<pre>';
         var_dump($es3->isSoldOut(12));
         echo '</pre>';
+    }
+
+    public function mailOrderDetails()
+    {
+        echo '<pre>';
+        print_r($_SESSION['purchase_data']);
+        echo '</pre>';
+        
+        
+        // $this->view('mail/purchase_details_html', $_SESSION['purchase_data']);
+
+        \app\Mail::purchaseDetails('receiver@blabla.com', $_SESSION['purchase_data']);
     }
 }
