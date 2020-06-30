@@ -8,6 +8,50 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 class Mail
 {
+
+    // Preparación inicial del mail
+    public static function prepare($to, $subject)
+    {
+        $mail = new PHPMailer(true);
+
+        try {
+            // $mail->SMTPDebug = 4;
+
+            // Configuración necesaria para utilizar un servidor SMTP local.
+            // Esto NO debe estar al usar un SMTP real.
+            $mail->SMTPOptions = [
+                'ssl' => [
+                    'verify_peer'       => false,
+                    'verify_peer_name'  => false,
+                    'allow_self_signed' => true,
+                ],
+            ];
+            
+            // Configuración de servidor
+            $mail->isSMTP();
+            $mail->Host = SMTP_HOST;
+            // $mail->SMTPAuth   = true;
+            // $mail->Username   = SMTP_USER;
+            // $mail->Password   = SMTP_PASS;
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port       = SMTP_PORT;
+
+            // Remitente y destinatario
+            $mail->setFrom(LOCAL_MAIL_DOMAIN, 'Monito Inc.');
+            $mail->addAddress($to);
+
+            // Conteido
+            $mail->isHTML(true);
+            $mail->Subject = $subject;
+
+            return $mail;
+
+        } catch (Exception $e) {
+            throw new Exception('Error al preparar mail.');
+        }
+
+    }
+
     public static function send($to, $subject, $html, $text, $attachments = [])
     {
         $mail = new PHPMailer(true);
