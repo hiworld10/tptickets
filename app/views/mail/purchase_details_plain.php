@@ -24,6 +24,8 @@ Precio x unidad: <?= '$' . number_format((float)$item['price'], 2, ',', '.') ?>
 
 Precio x cantidad: <?= $item['amount'] ?> x <?= '$' . number_format((float)$item['price'], 2, ',', '.') ?> = <?= '$' . number_format((float)$item['subtotal'], 2, ',', '.') ?>
 
+Código de ticket: <?= $item['id_ticket'] ?>
+
 
 ---------------------
 <?php endforeach ?>

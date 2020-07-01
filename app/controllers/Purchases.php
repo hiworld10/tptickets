@@ -103,6 +103,7 @@ class Purchases extends \app\controllers\Authentication
         $purchase_date = $last_purchase->getDate();
 
         $qr_list = [];
+        $ticket_id_list = [];
 
         // Se recorre la lista de lineas de compra en sesión y se crean los registros correspondientes
         foreach ($items as $item) {
@@ -146,10 +147,15 @@ class Purchases extends \app\controllers\Authentication
             $last_ticket = $this->ticket_dao->retrieveById($this->ticket_dao->retrieveLastId());
 
             $qr_list[] = $last_ticket->getQr();
+            $ticket_id_list[] = $last_ticket->getId();
         }
 
         foreach ($qr_list as $key => $qr) {
             $items[$key]['qr'] = $qr;
+        }
+
+        foreach ($ticket_id_list as $key => $id) {
+            $items[$key]['id_ticket'] = $id;
         }
 
         $total = $_SESSION['tptickets_subtotal'];
@@ -161,14 +167,14 @@ class Purchases extends \app\controllers\Authentication
         // Variable en sesión utilizada por success()
         $_SESSION['purchase_success'] = 'true';
 
-
+        // Preparación de datos para envio de email
         $purchase_data_for_email['items'] = $items;
         $purchase_data_for_email['total'] = $total;
         $purchase_data_for_email['id_purchase'] = $id_purchase;
         $purchase_data_for_email['purchase_date'] = $purchase_date;
         $purchase_data_for_email['name'] = $user->getName();
     
-        //$_SESSION['purchase_data'] = $purchase_data_for_email;         
+        // $_SESSION['purchase_data'] = $purchase_data_for_email;         
         $mail = new Mail();
         $mail->purchaseDetails($user->getEmail(), $purchase_data_for_email);
 

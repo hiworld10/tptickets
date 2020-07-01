@@ -18,6 +18,7 @@
     <pre><big>Precio x unidad: <?= '$' . number_format((float)$item['price'], 2, ',', '.') ?></big></pre>
 
     <pre><big>Precio x cantidad: <?= $item['amount'] ?> x <?= '$' . number_format((float)$item['price'], 2, ',', '.') ?> = <?= '$' . number_format((float)$item['subtotal'], 2, ',', '.') ?></big></pre>
+    <pre><big>C&oacute;digo de ticket: <?= $item['id_ticket'] ?></big></pre>
 
     <pre><big>C&oacute;digo QR:</big></pre>
 

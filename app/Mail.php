@@ -100,16 +100,18 @@ class Mail
             $data['qr_cid'][] = $cid;
 
             $this->addStringEmbeddedImage($qr_string, $cid, 'qrcode.png');
-            
-            $qr_file_path = 
-                PROJECT_ROOT . 
-                '/files/qr/' . 
-                $i . 
-                '_' .
-                StringUtils::lowercaseAndUnderscores(
-                    $value['event_name'] . '_'  . $value['seat_type']
-                ) .
-                '.png'
+
+            $qr_file_path =
+            PROJECT_ROOT .
+            '/files/qr/' .
+            $value['id_ticket'] .
+            '_' .
+            StringUtils::lowercaseAndUnderscores(
+                $value['event_name'] . '_' . $value['seat_type']
+            ) .
+            '_' .
+            $value['date'] .
+            '.png'
             ;
 
             $value['qr']->writeFile($qr_file_path);
