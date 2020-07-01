@@ -85,6 +85,11 @@ class Mail
     {
         $this->prepare($to, 'Detalles de compra');
 
+        // Para almacenar los archivos qr
+        if (!file_exists(dirname(__DIR__) . '/files/qr/')) {
+            mkdir(dirname(__DIR__) . '/files/qr/', 0777, true);
+        }
+
         $i = 1;
 
         // Almacenamiento en string de códigos qr, posteriormente agregados al mail
