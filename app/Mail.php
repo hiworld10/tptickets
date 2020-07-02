@@ -2,9 +2,9 @@
 
 namespace app;
 
-use PHPMailer\PHPMailer\PHPMailer;
 use app\utils\StringUtils;
 use core\Controller;
+use PHPMailer\PHPMailer\PHPMailer;
 
 class Mail
 {
@@ -15,7 +15,7 @@ class Mail
     {
         $this->mail = new PHPMailer(true);
 
-        $this->mail->SMTPDebug = 1;
+        // $this->mail->SMTPDebug = 4;
 
         // Configuración necesaria para utilizar un servidor SMTP local.
         // Esto NO debe estar al usar un SMTP real.
