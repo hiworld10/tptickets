@@ -83,11 +83,9 @@ class Tests extends \core\Controller
 
     public function mailOrderDetails()
     {
-        echo '<pre>';
-        print_r($_SESSION['purchase_data']);
-        echo '</pre>';
-        
-        $_SESSION['purchase_data']['purchase_date'] = date("d-m-Y H:i", time());
+        // echo '<pre>';
+        // print_r($_SESSION['purchase_data']);
+        // echo '</pre>';
         
         // $this->view('mail/purchase_details_html', $_SESSION['purchase_data']);
 
