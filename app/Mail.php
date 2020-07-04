@@ -37,7 +37,7 @@ class Mail
         $this->mail->Port       = SMTP_PORT;
 
         // Remitente y destinatario
-        $this->mail->setFrom(LOCAL_MAIL_DOMAIN, 'Monito Inc.');
+        $this->mail->setFrom(MAIL_DOMAIN, 'Monito Inc.');
         $this->mail->addAddress($to); //Nombre opcional
 
         // Conteido
