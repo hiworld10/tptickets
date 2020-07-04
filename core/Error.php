@@ -36,7 +36,7 @@ class Error
         echo "<p>Uncaught exception: '" . get_class($exception) . "'</p>";
         echo "<p>Code: " . $code . "</p>";
         echo "<p>Message: '" . $exception->getMessage() . "'</p>";
+        echo "<p>Thrown in '" . $exception->getFile() . "' on line <b>" . $exception->getLine() . "</b></p>";
         echo "<p>Stack trace:<pre><big>" . $exception->getTraceAsString() . "</big></pre></p>";
-        echo "<p>Thrown in '" . $exception->getFile() . "' on line " . $exception->getLine() . "</p>";
     }
 }
