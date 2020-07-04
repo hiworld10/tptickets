@@ -6,7 +6,7 @@
  * para poder enviar e-mails.
  *
  * Para poder hacer uso de ella, copie los contenidos y descoméntelos en un nuevo archivo 
- * e inclúyalo en el index.php mediante require().
+ * .php e inclúyalo en el index.php mediante require().
  *
  * JAMAS INCLUIR UN ARCHIVO CON CREDENCIALES COMO PARTE DE UN REPOSITORIO GIT.
  * Utilice un .gitignore apropiadamente.
@@ -20,6 +20,10 @@
 // define('DB_USER', '');
 // define('DB_PASS', '');
 // 
-// Proveedor de servicio de e-mail
+// Proveedor de SMTP (e-mail)
 // 
-// <<completar datos aqui>>
+// define('SMTP_HOST', '');
+// define('SMTP_PORT', num);
+// define('MAIL_DOMAIN', '');
+// define('SMTP_USER', '');
+// define('SMTP_PASS', '');
