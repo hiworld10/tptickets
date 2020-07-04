@@ -33,7 +33,6 @@ set_exception_handler('core\Error::exceptionHandler');
 /**
  * Usos
  */
-use app\autoload\Autoload;
 use core\Request;
 use core\Router;
 
