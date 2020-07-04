@@ -25,6 +25,12 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 /**
+ * Añadir handler para errores y excepciones
+ */
+set_error_handler('core\Error::errorHandler');
+set_exception_handler('core\Error::exceptionHandler');
+
+/**
  * Usos
  */
 use app\autoload\Autoload;
