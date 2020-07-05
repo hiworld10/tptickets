@@ -1,6 +1,6 @@
 <?php require HEADER; ?>
 
-<header class="masthead text-white text-center">
+<header class="masthead text-black text-center">
     <div class="overlay"></div>
     <div class="container">
     <div class="row">
