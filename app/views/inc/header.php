@@ -15,6 +15,16 @@
         h2 {
             color: white;
         }
+        body { 
+            background-color: #fafafa;
+            padding-top: 60px; 
+        }
+        a {
+            color: #00BBD3;
+        }
+        a:hover {
+            color: #00BBD3;
+        }
     </style>
 </head>
 
