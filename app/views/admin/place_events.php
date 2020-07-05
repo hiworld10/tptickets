@@ -20,7 +20,7 @@
                         <input type="text" name="description" class="form-control form-control-lg" value="<?= $placeEvent->getDescription(); ?>" required>
                     </div>
                     <div class="col-12 col-md-2 mt-4">
-                        <button type="submit" class="btn btn-block btn-lg btn-primary">Aceptar</button>
+                        <button type="submit" class="btn btn-block btn-lg btn-info">Aceptar</button>
                     </div>
                 </div>
             </form>
@@ -34,7 +34,7 @@
                         <input type="text" name="description" class="form-control form-control-lg" placeholder="Ingrese descripcion del evento..." required>
                     </div>
                         <div class="col-12 col-md-3">
-                            <button type="submit" class="btn btn-block btn-lg btn-primary">Agregar</button>
+                            <button type="submit" class="btn btn-block btn-lg btn-info">Agregar</button>
                         </div>
                     </div>
             </form>
