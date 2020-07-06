@@ -68,9 +68,9 @@ class PurchaseDAO implements IDAO
     {
         $deleted = false;
 
-        unset($_SESSION['tptickets_items']);
+        $_SESSION['tptickets_items'] = [];
 
-        if (!isset($_SESSION['tptickets_items'])) {
+        if (empty($_SESSION['tptickets_items'])) {
             $_SESSION['tptickets_subtotal'] = 0;
 
             $deleted = true;
