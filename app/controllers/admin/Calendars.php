@@ -31,7 +31,7 @@ class Calendars extends \app\controllers\Authentication
 
     public function add()
     {
-        $this->redirectIfRequestIsNotPost('admin/calendars');
+        $this->redirectIfRequestIsNotPost('/admin/calendars');
 
         $data = [
             'date'        => $_POST['date'],
@@ -102,7 +102,7 @@ class Calendars extends \app\controllers\Authentication
     public function update($id)
     {
 
-        $this->redirectIfRequestIsNotPost('admin/calendars');
+        $this->redirectIfRequestIsNotPost('/admin/calendars');
 
         $data = [
             'id_calendar' => $id,

@@ -28,7 +28,7 @@ class Calendars extends \app\controllers\Authentication
 
     public function showSeat($id_event_seat)
     {
-        $this->redirectIfRequestisNotPost('');
+        $this->redirectIfRequestIsNotPost('/');
         $this->requireUserLogin();
 
         $data['event_seat'] = $this->event_seat_dao->retrieveById($id_event_seat);

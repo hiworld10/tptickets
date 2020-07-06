@@ -21,7 +21,7 @@ class Artists extends \app\controllers\Authentication
 
     public function add()
     {
-        $this->redirectIfRequestIsNotPost('admin/artists');
+        $this->redirectIfRequestIsNotPost('/admin/artists');
 
         $data = ['name' => trim($_POST['name'])];
         $this->artist_dao->create($data);
@@ -40,7 +40,7 @@ class Artists extends \app\controllers\Authentication
 
     public function update($id)
     {
-        $this->redirectIfRequestIsNotPost('admin/artists');
+        $this->redirectIfRequestIsNotPost('/admin/artists');
 
         $data['id_artist'] = $id;
         $data['name']      = $_POST['name'];
@@ -53,7 +53,7 @@ class Artists extends \app\controllers\Authentication
     public function delete($id)
     {
         //Se tendría que agregar una confirmación adicional para eliminar el item, para evitar el borrado accidental.
-        $this->redirectIfRequestIsNotPost('admin/artists');
+        $this->redirectIfRequestIsNotPost('/admin/artists');
 
         $this->artist_dao->delete($id);
 

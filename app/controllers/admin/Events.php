@@ -24,7 +24,7 @@ class Events extends \app\controllers\Authentication
 
     public function add()
     {
-        $this->redirectIfRequestIsNotPost('admin/events');
+        $this->redirectIfRequestIsNotPost('/admin/events');
 
         //Subida de imagen a la carpeta desginada de eventos
         if (!empty($_FILES['image']['name'])) {
@@ -59,7 +59,7 @@ class Events extends \app\controllers\Authentication
 
     public function update($id)
     {
-        $this->redirectIfRequestIsNotPost('admin/events');
+        $this->redirectIfRequestIsNotPost('/admin/events');
 
         if (!empty($_FILES['image']['name'])) {
             $image = $_FILES['image'];
@@ -83,7 +83,7 @@ class Events extends \app\controllers\Authentication
 
     public function delete($id)
     {
-        $this->redirectIfRequestIsNotPost('admin/events');
+        $this->redirectIfRequestIsNotPost('/admin/events');
 
         $this->event_dao->delete($id);
 
