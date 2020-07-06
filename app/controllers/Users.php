@@ -24,7 +24,7 @@ class Users extends \app\controllers\Authentication
     public function delete($id)
     {
         $this->requireAdminLogin();
-        $this->redirectIfRequestIsNotPost('users');
+        $this->redirectIfRequestIsNotPost('/users');
 
         //Previene que el primer usuario (el admin) sea borrado.
         if ($id == 1) {
@@ -239,7 +239,7 @@ class Users extends \app\controllers\Authentication
 
     public function update($id)
     {
-        $this->redirectIfRequestIsNotPost('users');
+        $this->redirectIfRequestIsNotPost('/users');
 
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 

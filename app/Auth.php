@@ -2,6 +2,7 @@
 
 namespace app;
 
+use app\dao\db\PurchaseDAO;
 use app\dao\db\UserDAO;
 
 class Auth
@@ -10,6 +11,10 @@ class Auth
         session_regenerate_id(true);
         $_SESSION['tptickets_user_id'] = $user->getId();
         $_SESSION['tptickets_user_name'] = $user->getName();
+
+        if (!self::isAdmin()) {
+            PurchaseDAO::initCart();
+        }
     }
 
     public static function destroySession() {

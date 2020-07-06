@@ -31,7 +31,7 @@ class Calendars extends \app\controllers\Authentication
 
     public function add()
     {
-        $this->redirectIfRequestIsNotPost('admin/calendars');
+        $this->redirectIfRequestIsNotPost('/admin/calendars');
 
         $data = [
             'date'        => $_POST['date'],
@@ -102,7 +102,7 @@ class Calendars extends \app\controllers\Authentication
     public function update($id)
     {
 
-        $this->redirectIfRequestIsNotPost('admin/calendars');
+        $this->redirectIfRequestIsNotPost('/admin/calendars');
 
         $data = [
             'id_calendar' => $id,
@@ -198,8 +198,7 @@ class Calendars extends \app\controllers\Authentication
 
     public function delete($id)
     {
-        $this->calendar_dao->delete($id);
-        Flash::addMessage('Calendario eliminado.');
+        $this->handleDeleteCascadeConstraint($this->calendar_dao, $id);
         $this->redirect('/admin/calendars');
     }
 

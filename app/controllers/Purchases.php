@@ -20,7 +20,7 @@ class Purchases extends \app\controllers\Authentication
 
     public function addNewLine()
     {
-        $this->redirectIfRequestIsNotPost('');
+        $this->redirectIfRequestIsNotPost('/');
 
         if ($this->purchase_dao->addNewLineInSession($_POST)) {
             Flash::addMessage('El item fue añadido a tu carro de compra exitosamente.');
@@ -33,7 +33,7 @@ class Purchases extends \app\controllers\Authentication
 
     public function removeLine($id_event_seat)
     {
-        $this->redirectIfRequestIsNotPost('');
+        $this->redirectIfRequestIsNotPost('/');
 
         if ($this->purchase_dao->removeLineInSession($id_event_seat)) {
             Flash::addMessage('El item fue eliminado de tu carro exitosamente.');
@@ -52,7 +52,7 @@ class Purchases extends \app\controllers\Authentication
 
     public function checkout()
     {
-        $this->redirectIfRequestIsNotPost('');
+        $this->redirectIfRequestIsNotPost('/');
 
         // Si este atributo (provenido de la confirmación de compra) no está seteado, se redirecciona al inicio
         if (!isset($_POST['tptickets_purchase_confirmed'])) {
@@ -195,7 +195,7 @@ class Purchases extends \app\controllers\Authentication
 
     public function emptyCart()
     {
-        $this->redirectIfRequestIsNotPost('');
+        $this->redirectIfRequestIsNotPost('/');
 
         if ($this->purchase_dao->removeAllLinesInSession()) {
             Flash::addMessage('Todos los items en tu carro han sido eliminados exitosamente.');

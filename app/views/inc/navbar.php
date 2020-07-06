@@ -10,7 +10,7 @@
             <?php endif ?>
         </a>
         <div class="right">
-            <?php if(!isset($_SESSION['tptickets_user_id'])) : ?>
+            <?php if(!\app\Auth::getUser()) : ?>
                 <a class="btn btn-info" href="<?= FRONT_ROOT ?>/users/login">Ingresar</a>
                 <a class="btn btn-info" href="<?= FRONT_ROOT ?>/users/register">Registrarse</a>
             <?php else :  ?>

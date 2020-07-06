@@ -14,16 +14,20 @@ class PurchaseDAO implements IDAO
 
     public function __construct()
     {   
-        // Inicialización de carro de compra
-        if (!isset($_SESSION['tptickets_items']) || !isset($_SESSION['tptickets_subtotal'])) {
-            $_SESSION['tptickets_items']    = [];
-            $_SESSION['tptickets_subtotal'] = 0;
-        }
 
         $this->connection = Connection::getInstance();
     }
 
     // Shopping cart actions
+     
+    public static function initCart()
+    {
+        // Inicialización de carro de compra
+        if (!isset($_SESSION['tptickets_items']) || !isset($_SESSION['tptickets_subtotal'])) {
+            $_SESSION['tptickets_items']    = [];
+            $_SESSION['tptickets_subtotal'] = 0;
+        }        
+    }
 
     public function addNewLineInSession($data)
     {
@@ -68,9 +72,9 @@ class PurchaseDAO implements IDAO
     {
         $deleted = false;
 
-        unset($_SESSION['tptickets_items']);
+        $_SESSION['tptickets_items'] = [];
 
-        if (!isset($_SESSION['tptickets_items'])) {
+        if (empty($_SESSION['tptickets_items'])) {
             $_SESSION['tptickets_subtotal'] = 0;
 
             $deleted = true;

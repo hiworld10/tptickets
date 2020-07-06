@@ -3,6 +3,7 @@
 namespace core;
 
 use \app\utils\StringUtils;
+use app\utils\Flash;
 
 /**
  * Controladora base de la cual otras extenderán. Provee las funcionalidades básicas de carga de objetos con acceso a modelos (DAO) y vistas.
@@ -74,6 +75,16 @@ abstract class Controller
     {
         if (func_num_args() === 0) {
             $this->redirect($url);
+        }
+    }
+
+    protected function handleDeleteCascadeConstraint($dao, $id)
+    {
+        try {
+            $dao->delete($id);
+            Flash::addMessage("Elemento eliminado.");
+        } catch (\PDOException $e) {
+            Flash::addMessage("No es posible ejecutar esta operación. Mensaje: " . $e->getMessage(), Flash::WARNING);
         }
     }
 }

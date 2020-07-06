@@ -21,7 +21,7 @@ class SeatTypes extends \app\controllers\Authentication
 
     public function add()
     {
-        $this->redirectIfRequestIsNotPost('admin/seat-types');
+        $this->redirectIfRequestIsNotPost('/admin/seat-types');
 
         $seat_type['description'] = trim($_POST['description']);
         $this->dao->create($seat_type);
@@ -40,7 +40,7 @@ class SeatTypes extends \app\controllers\Authentication
 
     public function update($id)
     {
-        $this->redirectIfRequestIsNotPost('admin/seat-types');
+        $this->redirectIfRequestIsNotPost('/admin/seat-types');
 
         $seat_type['id_seat_type'] = $id;
         $seat_type['description']  = trim($_POST['description']);
@@ -52,7 +52,7 @@ class SeatTypes extends \app\controllers\Authentication
 
     public function delete($id)
     {
-        $this->redirectIfRequestIsNotPost('admin/seat-types');
+        $this->redirectIfRequestIsNotPost('/admin/seat-types');
 
         $this->dao->delete($id);
 

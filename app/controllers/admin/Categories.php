@@ -21,7 +21,7 @@ class Categories extends \app\controllers\Authentication
 
     public function add()
     {
-        $this->redirectIfRequestIsNotPost('admin/categories');
+        $this->redirectIfRequestIsNotPost('/admin/categories');
 
         $category['type'] = trim($_POST['type']);
         $this->dao->create($category);
@@ -42,7 +42,7 @@ class Categories extends \app\controllers\Authentication
     public function update($id)
     {
 
-        $this->redirectIfRequestIsNotPost('admin/categories');
+        $this->redirectIfRequestIsNotPost('/admin/categories');
 
         $category['id_category'] = $id;
         $category['type']        = trim($_POST['type']);
@@ -55,7 +55,7 @@ class Categories extends \app\controllers\Authentication
 
     public function delete($id)
     {
-        $this->redirectIfRequestIsNotPost('admin/categories');
+        $this->redirectIfRequestIsNotPost('/admin/categories');
 
         $this->dao->delete($id);
 
