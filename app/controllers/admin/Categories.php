@@ -56,10 +56,7 @@ class Categories extends \app\controllers\Authentication
     public function delete($id)
     {
         $this->redirectIfRequestIsNotPost('/admin/categories');
-
-        $this->dao->delete($id);
-
-        Flash::addMessage('Categoría eliminada.');
+        $this->handleDeleteCascadeConstraint($this->dao, $id);
         $this->redirect('/admin/categories');
     }
 }

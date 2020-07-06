@@ -84,10 +84,7 @@ class Events extends \app\controllers\Authentication
     public function delete($id)
     {
         $this->redirectIfRequestIsNotPost('/admin/events');
-
-        $this->event_dao->delete($id);
-
-        Flash::addMessage('Evento eliminado.');
+        $this->handleDeleteCascadeConstraint($this->event_dao, $id);
         $this->redirect('/admin/events');
     }
 }

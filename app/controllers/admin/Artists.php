@@ -54,10 +54,7 @@ class Artists extends \app\controllers\Authentication
     {
         //Se tendría que agregar una confirmación adicional para eliminar el item, para evitar el borrado accidental.
         $this->redirectIfRequestIsNotPost('/admin/artists');
-
-        $this->artist_dao->delete($id);
-
-        Flash::addMessage('Artista eliminado.');
+        $this->handleDeleteCascadeConstraint($this->artist_dao, $id);
         $this->redirect('/admin/artists');
     }
 }

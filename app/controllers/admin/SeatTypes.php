@@ -53,10 +53,7 @@ class SeatTypes extends \app\controllers\Authentication
     public function delete($id)
     {
         $this->redirectIfRequestIsNotPost('/admin/seat-types');
-
-        $this->dao->delete($id);
-
-        Flash::addMessage('Tipo de plaza eliminado.');
+        $this->handleDeleteCascadeConstraint($this->dao, $id);
         $this->redirect('/admin/seat-types');
     }
 }

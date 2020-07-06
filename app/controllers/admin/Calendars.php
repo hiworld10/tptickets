@@ -198,6 +198,7 @@ class Calendars extends \app\controllers\Authentication
 
     public function delete($id)
     {
+        $this->redirectIfRequestIsNotPost('/admin/calendars');
         $this->handleDeleteCascadeConstraint($this->calendar_dao, $id);
         $this->redirect('/admin/calendars');
     }
