@@ -2,7 +2,7 @@
     <div class="container">
         <a class="navbar-brand" href="<?= FRONT_ROOT ?>/">TPTickets</a>
         <div class="right">
-            <?php if(!isset($_SESSION['tptickets_user_id'])) : ?>
+            <?php if(!\app\Auth::getUser()) : ?>
                 <a class="btn btn-primary" href="<?= FRONT_ROOT ?>/users/login">Ingresar</a>
                 <a class="btn btn-primary" href="<?= FRONT_ROOT ?>/users/register">Registrarse</a>
             <?php else :  ?>
