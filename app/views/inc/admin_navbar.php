@@ -1,15 +1,15 @@
 <div id="cssmenu" class="__full-height-perc">
     <ul>
-        <li><a href="<?=FRONT_ROOT?>/admin/artists" >Artistas</a></li>
-        <li><a href="<?=FRONT_ROOT?>/admin/calendars" title="...">Calendarios</a></li>
-        <li><a href="<?=FRONT_ROOT?>/admin/categories"  title="...">Categorias</a></li>
-        <li><a href="<?=FRONT_ROOT?>/admin/events" title="...">Eventos</a></li>
-        <li><a href="<?=FRONT_ROOT?>/admin/place-events" title="...">Lugares</a></li>
-        <li><a href="<?=FRONT_ROOT?>/admin/event-seats" title="...">Plazas</a></li>
-        <li><a href="<?=FRONT_ROOT?>/admin/seat-types" title="...">Tipo Plazas</a></li>
-        <li><a href="<?=FRONT_ROOT?>/admin/purchases" title="...">Compras</a></li>
-        <li><a href="<?=FRONT_ROOT?>/admin/purchase-lines" title="...">Lineas Compra</a></li>
-        <li><a href="<?=FRONT_ROOT?>/admin/tickets" title="...">Tickets</a></li>
-        <li><a href="<?=FRONT_ROOT?>/users" title="...">Usuarios</a></li>
+        <li><a href="<?=FRONT_ROOT?>/admin/artists">Artistas</a></li>
+        <li><a href="<?=FRONT_ROOT?>/admin/calendars">Calendarios</a></li>
+        <li><a href="<?=FRONT_ROOT?>/admin/categories" >Categorias</a></li>
+        <li><a href="<?=FRONT_ROOT?>/admin/events">Eventos</a></li>
+        <li><a href="<?=FRONT_ROOT?>/admin/place-events">Lugares</a></li>
+        <li><a href="<?=FRONT_ROOT?>/admin/event-seats">Plazas</a></li>
+        <li><a href="<?=FRONT_ROOT?>/admin/seat-types">Tipo Plazas</a></li>
+        <li><a href="<?=FRONT_ROOT?>/admin/purchases">Compras</a></li>
+        <li><a href="<?=FRONT_ROOT?>/admin/purchase-lines">Lineas Compra</a></li>
+        <li><a href="<?=FRONT_ROOT?>/admin/tickets">Tickets</a></li>
+        <li><a href="<?=FRONT_ROOT?>/users">Usuarios</a></li>
     </ul>
 </div>
