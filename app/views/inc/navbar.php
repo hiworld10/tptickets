@@ -15,7 +15,8 @@
                 <a class="btn btn-info" href="<?= FRONT_ROOT ?>/users/register">Registrarse</a>
             <?php else :  ?>
                 <?php if (isset($_SESSION['tptickets_items'])): ?>
-                    <a href="<?= FRONT_ROOT ?>/purchases/show-cart">Tu Compra: <?php echo htmlspecialchars('$' . number_format((float)$_SESSION['tptickets_subtotal'], 2, ',', '')) ?></a>
+                    <img src="<?= FRONT_ROOT ?>/img/cart-icon.png" style="height: 28px;" alt="">
+                    <a style="color: #fafafa" href="<?= FRONT_ROOT ?>/purchases/show-cart"><?php echo htmlspecialchars('$' . number_format((float)$_SESSION['tptickets_subtotal'], 2, ',', '')) ?></a>
                 <?php endif ?>
                 <?php if (!\app\Auth::isAdmin()): ?>
                     <a class="btn btn-info" href="<?= FRONT_ROOT ?>/users/show-profile">Mi cuenta</a>
