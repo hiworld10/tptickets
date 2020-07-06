@@ -198,8 +198,7 @@ class Calendars extends \app\controllers\Authentication
 
     public function delete($id)
     {
-        $this->calendar_dao->delete($id);
-        Flash::addMessage('Calendario eliminado.');
+        $this->handleDeleteCascadeConstraint($this->calendar_dao, $id);
         $this->redirect('/admin/calendars');
     }
 
