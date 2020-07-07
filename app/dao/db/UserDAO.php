@@ -169,6 +169,23 @@ class UserDAO implements IDAO
         }        
     }
 
+    /**
+     * Verifica si las credenciales introducidas son validas y retorna el correspondiente usuario en caso de que lo haga exitosamente.
+     * @param  string $email    El email
+     * @param  password $password La contraseña
+     * @return mixed           El objeto User o false
+     */
+    public function authenticate($email, $password)
+    {
+        $user = $this->retrieveByEmail($email);
+
+        if ($user) {
+            return (Password::verify($password, $user->getPassword())) ? $user : false;
+        }
+
+        return false;
+    }    
+
     private function stringBooleanToTinyInt($val) {
         return (($val == "true") ? 1 : 0);
     }
