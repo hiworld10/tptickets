@@ -102,7 +102,7 @@ class Users extends \app\controllers\Authentication
             
             //Si no se encontraron errores, proceder a la autenticidad de las credenciales
             if (empty($data['errors'])) {
-                $user = $this->authenticate($data['email'], $password);
+                $user = $this->user_dao->authenticate($data['email'], $password);
                 if ($user) {
                     //Si las credenciales son validas, se crea la sesion
                     Auth::createSession($user);
@@ -313,22 +313,5 @@ class Users extends \app\controllers\Authentication
                 $this->edit($data);
             }
         }
-    }
-
-    /**
-     * Verifica si las credenciales introducidas son validas y retorna el correspondiente usuario en caso de que lo haga exitosamente.
-     * @param  string $email    El email
-     * @param  password $password La contraseña
-     * @return mixed           El objeto User o false
-     */
-    private function authenticate($email, $password)
-    {
-        $user = $this->user_dao->retrieveByEmail($email);
-
-        if ($user) {
-            return (Password::verify($password, $user->getPassword())) ? $user : false;
-        }
-
-        return false;
     }
 }
