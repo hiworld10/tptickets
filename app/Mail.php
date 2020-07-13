@@ -15,32 +15,37 @@ class Mail
     {
         $this->mail = new PHPMailer(true);
 
+        // Descomentar esto para mostrar depuración del envío de mail
         // $this->mail->SMTPDebug = 4;
 
+        // Esto era únicamente necesario para una versión vieja de SMTP local.
+        // No es más necesaria incluirla y sólo está para referencia
+        // 
         // Configuración necesaria para utilizar un servidor SMTP local.
         // Esto NO debe estar al usar un SMTP real.
-        $this->mail->SMTPOptions = [
-            'ssl' => [
-                'verify_peer'       => false,
-                'verify_peer_name'  => false,
-                'allow_self_signed' => true,
-            ],
-        ];
+        // $this->mail->SMTPOptions = [
+        //     'ssl' => [
+        //         'verify_peer'       => false,
+        //         'verify_peer_name'  => false,
+        //         'allow_self_signed' => true,
+        //     ],
+        // ];
 
         // Configuración de servidor
         $this->mail->isSMTP();
         $this->mail->Host = SMTP_HOST;
+        $this->mail->Port       = SMTP_PORT;
         // $this->mail->SMTPAuth   = true;
         // $this->mail->Username   = SMTP_USER;
         // $this->mail->Password   = SMTP_PASS;
-        $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $this->mail->Port       = SMTP_PORT;
+        // Usar sólo si se utiliza un tipo de encriptado
+        // $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 
         // Remitente y destinatario
         $this->mail->setFrom(MAIL_DOMAIN, 'Monito Inc.');
         $this->mail->addAddress($to); //Nombre opcional
 
-        // Conteido
+        // Contenido
         $this->mail->isHTML(true);
         $this->mail->Subject = $subject;
 
