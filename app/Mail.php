@@ -59,7 +59,7 @@ class Mail
 
     private function addAttachment($attachment)
     {
-        $this->mail->addAttachment($attachment); //new file name is optional
+        $this->mail->addAttachment($attachment); //es opcional un nuevo nombre de archivo
     }
 
     private function addStringEmbeddedImage($embedded_image, $cid, $alt_name)
@@ -106,17 +106,16 @@ class Mail
 
             $this->addStringEmbeddedImage($qr_string, $cid, 'qrcode.png');
 
-            $qr_file_path =
-            PROJECT_ROOT .
-            '/files/qr/' .
-            $value['id_ticket'] .
-            '_' .
-            StringUtils::lowercaseAndUnderscores(
-                $value['event_name'] . '_' . $value['seat_type']
-            ) .
-            '_' .
-            $value['date'] .
-            '.png'
+            $qr_file_path = PROJECT_ROOT .
+                            '/files/qr/' .
+                            $value['id_ticket'] .
+                            '_' .
+                            StringUtils::lowercaseAndUnderscores(
+                                $value['event_name'] . '_' . $value['seat_type']
+                            ) .
+                            '_' .
+                            $value['date'] .
+                            '.png'
             ;
 
             $value['qr']->writeFile($qr_file_path);
