@@ -3,7 +3,7 @@
 namespace app;
 
 use app\utils\StringUtils;
-use core\Controller;
+use core\View;
 use PHPMailer\PHPMailer\PHPMailer;
 
 class Mail
@@ -80,8 +80,8 @@ class Mail
     {
         $this->prepare($to, 'Bienvenido a TPTickets');
         $this->addBody(
-            Controller::getRenderedTemplate('mail/welcome_message_html', $data),
-            Controller::getRenderedTemplate('mail/welcome_message_plain', $data)
+            View::getRenderedTemplate('mail/welcome_message_html', $data),
+            View::getRenderedTemplate('mail/welcome_message_plain', $data)
         );
         $this->send();
     }
@@ -126,8 +126,8 @@ class Mail
         }
 
         $this->addBody(
-            Controller::getRenderedTemplate('mail/purchase_details_html', $data),
-            Controller::getRenderedTemplate('mail/purchase_details_plain', $data)
+            View::getRenderedTemplate('mail/purchase_details_html', $data),
+            View::getRenderedTemplate('mail/purchase_details_plain', $data)
         );
 
         $this->send();

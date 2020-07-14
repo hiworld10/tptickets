@@ -2,6 +2,8 @@
 
 namespace app\controllers\admin;
 
+use core\View;
+
 class PlaceEvents extends \app\controllers\Authentication
 {
     private $dao;
@@ -16,6 +18,6 @@ class PlaceEvents extends \app\controllers\Authentication
     public function index()
     {
         $data['place_events'] = $this->dao->retrieveAll();
-        $this->view('admin/place_events', $data);
+        View::render('admin/place_events', $data);
     }
 }

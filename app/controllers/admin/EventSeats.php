@@ -2,6 +2,8 @@
 
 namespace app\controllers\admin;
 
+use core\View;
+
 class EventSeats extends \app\controllers\Authentication
 {
 
@@ -17,6 +19,6 @@ class EventSeats extends \app\controllers\Authentication
     {
         $data['event_seats'] = $this->event_seat_dao->retrieveAll();
         //$seatTypeArray = $this->seat_type_dao->retrieveAll();
-        $this->view('admin/event_seats', $data);
+        View::render('admin/event_seats', $data);
     }
 }

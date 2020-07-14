@@ -3,6 +3,7 @@
 namespace app\controllers\admin;
 
 use app\utils\Flash;
+use core\View;
 
 class Categories extends \app\controllers\Authentication
 {
@@ -16,7 +17,7 @@ class Categories extends \app\controllers\Authentication
     public function index()
     {
         $data['categories'] = $this->dao->retrieveAll();
-        $this->view('admin/categories', $data);
+        View::render('admin/categories', $data);
     }
 
     public function add()
@@ -35,7 +36,7 @@ class Categories extends \app\controllers\Authentication
         $data['category'] = $this->dao->retrieveById($id);
 
         if (isset($data['category'])) {
-            $this->view('admin/categories', $data);
+            View::render('admin/categories', $data);
         }
     }
 

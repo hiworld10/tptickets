@@ -3,6 +3,7 @@
 namespace app\controllers\admin;
 
 use app\utils\Flash;
+use core\View;
 
 class Calendars extends \app\controllers\Authentication
 {
@@ -26,7 +27,7 @@ class Calendars extends \app\controllers\Authentication
         $data['artists']    = $this->artist_dao->retrieveAll();
         $data['seat_types'] = $this->seat_type_dao->retrieveAll();
 
-        $this->view('admin/calendars', $data);
+        View::render('admin/calendars', $data);
     }
 
     public function add()
@@ -192,7 +193,7 @@ class Calendars extends \app\controllers\Authentication
         $data['event_seats'] = $this->event_seat_dao->retrieveByCalendarId($id);
 
         if (isset($data['calendar'])) {
-            $this->view('admin/calendars', $data);
+            View::render('admin/calendars', $data);
         }
     }
 
