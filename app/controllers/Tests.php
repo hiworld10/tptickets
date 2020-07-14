@@ -17,11 +17,6 @@ class Tests extends \core\Controller
         echo "Tests/index";
     }
 
-    public function underscores()
-    {
-        echo StringUtils::lowercaseAndUnderscores("Test de funcion de underscores");
-    }
-
     public function connection($dao_type = '')
     {
         if (empty($dao_type)) {
@@ -41,55 +36,22 @@ class Tests extends \core\Controller
         echo '</pre>';
     }
 
-    public function soldout()
-    {
-        $es1    = new EventSeat(null, null, null, null, null, 0);
-        $es2    = new EventSeat(null, null, null, null, null, 0);
-        $es_arr = [$es1, $es2];
-        $es_num = 1;
-
-        foreach ($es_arr as $value) {
-            echo "Remainder of Event Seat $es_num: " . $value->getRemainder() . "<br>";
-            $es_num++;
-        }
-
-        $cal = new Calendar(null, null, null, null, null, $es_arr);
-
-        echo $cal->isSoldOut() ? "Calendar is sold out" : "Calendar still has tickets available";
-    }
-
-    public function hasSeats()
-    {
-        $es_dao = new EventSeatDAO();
-
-        $es1 = new EventSeat(null, null, null, null, null, 2);
-
-        echo '<pre>';
-        var_dump($es1->hasAvailable(3));
-        echo '</pre>';
-
-        $es2 = $es_dao->retrieveById(11);
-
-        echo '<pre>';
-        var_dump($es2->hasAvailable(2));
-        echo '</pre>';
-
-        $es3 = $es_dao->retrieveById(12);
-
-        echo '<pre>';
-        var_dump($es3->isSoldOut(12));
-        echo '</pre>';
-    }
-
     public function mailOrderDetails()
     {
         // echo '<pre>';
         // print_r($_SESSION['purchase_data']);
         // echo '</pre>';
         
-        // $this->view('mail/purchase_details_html', $_SESSION['purchase_data']);
+        // View::render('mail/purchase_details_html', $_SESSION['purchase_data']);
 
         $mail = new \app\Mail();
         $mail->purchaseDetails('receiver@blabla.com', $_SESSION['purchase_data']);
+    }
+
+    public function welcomeMessage()
+    {
+        $mail = new \app\Mail();
+        $mail->sendWelcomeMessage('receiver@blabla.com', ['name' => 'Nuevo Usuario']);
+        echo "Mensaje enviado";
     }
 }
