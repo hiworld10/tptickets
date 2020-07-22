@@ -32,32 +32,6 @@ abstract class Controller
         }
     }
 
-    protected function view($view, $data = [])
-    {
-        if (empty($view)) {
-            $view = 'home/index';
-        }
-        $file = '../app/views/' . $view . '.php';
-        if (file_exists($file)) {
-            require_once $file;
-        } else {
-            throw new \Exception('Archivo de vista no encontrado en la ruta ' . $file);
-        }
-    }
-
-    // Esta función realísticamente tendría que ser parte de otra clase que maneje las vistas (clase View?)
-    public static function getRenderedTemplate($view, $data = [])
-    {
-        $file = VIEWS_ROOT . $view . '.php';
-        if (file_exists($file)) {
-            ob_start();
-            require $file;
-            return ob_get_clean();
-        } else {
-            throw new \Exception('Archivo de vista no encontrado en la ruta ' . $file);
-        }
-    }    
-
     protected function redirect($url = '/')
     {
         header('Location: ' . FRONT_ROOT . $url, true, 303);
