@@ -2,10 +2,12 @@
 
 namespace app\controllers;
 
+use app\dao\db\ArtistDAO;
 use app\dao\db\EventSeatDAO;
 use app\models\Calendar;
 use app\models\EventSeat;
 use app\utils\StringUtils;
+use core\View;
 
 /**
  * Test class
@@ -53,5 +55,18 @@ class Tests extends \core\Controller
         $mail = new \app\Mail();
         $mail->sendWelcomeMessage('receiver@blabla.com', ['name' => 'Nuevo Usuario']);
         echo "Mensaje enviado";
+
+        View::render('purchases/success');
+    }
+
+    public function specialChars()
+    {
+        /*echo utf8_decode(*/View::render('mail/welcome_message_html', ['name' => 'lmao'])/*)*/;
+    }
+
+    public function getLastId()
+    {
+        $dao = new ArtistDAO();
+        echo $dao->create(['name' => 'lalala']);
     }
 }
