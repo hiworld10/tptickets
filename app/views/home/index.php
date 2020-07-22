@@ -1,6 +1,6 @@
 <?php require HEADER; ?>
 
-<header class="masthead text-white text-center">
+<header class="masthead text-black text-center">
     <div class="overlay"></div>
     <div class="container">
     <div class="row">
@@ -14,7 +14,7 @@
                         <input type="text" name="q" class="form-control form-control-lg" placeholder="Buscar por evento o artista..." autofocus>
                     </div>
                     <div class="col-12 col-md-3">
-                        <button type="submit" class="btn btn-block btn-lg btn-primary">Buscar</button>
+                        <button type="submit" class="btn btn-block btn-lg btn-info">Buscar</button>
                     </div>
                 </div>
             </form>

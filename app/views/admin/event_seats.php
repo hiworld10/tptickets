@@ -46,7 +46,7 @@
                         </select>
                     </div>
                     <div class="col-12 col-md-2 form-row">
-                        <button type="submit" class="btn btn-block btn-lg btn-primary">Aceptar</button>
+                        <button type="submit" class="btn btn-block btn-lg btn-info">Aceptar</button>
                     </div>
                 </div>
             </form>
@@ -86,7 +86,7 @@
                         </select>
                     </div>
                     <div class="col-11 col-md-3 mt-4">
-                        <button type="submit" class="btn btn-block btn-lg btn-primary">Agregar</button>
+                        <button type="submit" class="btn btn-block btn-lg btn-info">Agregar</button>
                     </div>
                 </div>
             </form>

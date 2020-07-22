@@ -33,7 +33,7 @@
                         <input type="file" name="image" class="form-control form-control-lg"  required>
                     </div>
                     <div class="col-11 col-md-3 mt-4">
-                        <button type="submit" class="btn btn-block btn-lg btn-primary">Aceptar</button>
+                        <button type="submit" class="btn btn-block btn-lg btn-info">Aceptar</button>
                     </div>
                 </div>
             </form>
@@ -63,7 +63,7 @@
                         <input type="file"  class="form-control form-control-lg" name="image" required>
                     </div>
                     <div class="col-11 col-md-3 mt-4">
-                        <button type="submit" class="btn btn-block btn-lg btn-primary">Agregar</button>
+                        <button type="submit" class="btn btn-block btn-lg btn-info">Agregar</button>
                     </div>
                 </div>
             </form>
@@ -89,11 +89,11 @@
                                 <td><img src="<?= $value->getImage()->getPath() ?>" height="100" width="100"/></td>
                                 <td>
                                     <form action="<?=FRONT_ROOT?>/admin/events/delete" method="POST">
-                                        <button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit"class="btn btn-block btn-lg btn-primary btn-sm">Eliminar</button>
+                                        <button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit"class="btn btn-block btn-lg btn-info btn-sm">Eliminar</button>
                                     </form>
                                 </td>
                                 <td>
-                                    <a href="<?=FRONT_ROOT?>/admin/events/edit/<?=$value->getId()?>" class="btn btn-block btn-lg btn-primary btn-sm">Editar
+                                    <a href="<?=FRONT_ROOT?>/admin/events/edit/<?=$value->getId()?>" class="btn btn-block btn-lg btn-info btn-sm">Editar
                                     </a>
                                 </td>
                             </tr>
