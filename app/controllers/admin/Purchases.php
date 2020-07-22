@@ -2,6 +2,8 @@
 
 namespace app\controllers\admin;
 
+use core\View;
+
 class Purchases extends \app\controllers\Authentication
 {    
     public function __construct()
@@ -14,6 +16,6 @@ class Purchases extends \app\controllers\Authentication
     public function index()
     {
         $data['purchases'] = $this->purchase_dao->retrieveAll();
-        $this->view('admin/purchases', $data);
+        View::render('admin/purchases', $data);
     }
 }

@@ -6,6 +6,7 @@ use app\Auth;
 use app\Mail;
 use app\utils\Flash;
 use app\utils\Password;
+use core\View;
 
 class Users extends \app\controllers\Authentication
 {
@@ -18,7 +19,7 @@ class Users extends \app\controllers\Authentication
     {
         $this->requireAdminLogin();
         $data['users'] = $this->user_dao->retrieveAll();
-        $this->view('admin/users', $data);
+        View::render('admin/users', $data);
     }
 
     public function delete($id)
@@ -49,7 +50,7 @@ class Users extends \app\controllers\Authentication
         $data['user'] = Auth::getUser();
 
         if (isset($data['user'])) {
-            $this->view('users/edit_profile', $data);
+            View::render('users/edit_profile', $data);
         }
     }
 
@@ -60,7 +61,7 @@ class Users extends \app\controllers\Authentication
         $data['user'] = $this->user_dao->retrieveById($id);
 
         if (isset($data['user'])) {
-            $this->view('admin/users', $data);
+            View::render('admin/users', $data);
         }
     }
 
@@ -77,7 +78,7 @@ class Users extends \app\controllers\Authentication
                 'email' => '',
             ];
             //Cargar vista
-            $this->view('users/login', $data);
+            View::render('users/login', $data);
         } else {
             //Procesar formulario
             //Sanitizar datos de POST
@@ -114,11 +115,11 @@ class Users extends \app\controllers\Authentication
                     //Mostrar de nuevo el formulario de login si no hubo inicio de sesión exitoso
                     Flash::addMessage('Usuario o contraseña incorrectos. Intentalo de nuevo', Flash::WARNING);
                     //$data['errors']['login_failed'] = "Usuario o contraseña incorrectos";
-                    $this->view('users/login', $data);
+                    View::render('users/login', $data);
                 }
                 //Caso contrario, mostrar nuevamente el formulario de login
             } else {
-                $this->view('users/login', $data);
+                View::render('users/login', $data);
             }
         }
     }
@@ -144,7 +145,7 @@ class Users extends \app\controllers\Authentication
             ];
 
             //Cargar vista
-            $this->view('users/register', $data);
+            View::render('users/register', $data);
         } else {
             //Procesar formulario
             //Sanitizar datos de POST
@@ -215,9 +216,9 @@ class Users extends \app\controllers\Authentication
                 }
             } else {
                 if (Auth::isAdmin()) {
-                    $this->view('admin/users', $data);
+                    View::render('admin/users', $data);
                 } else {
-                    $this->view('users/register', $data);
+                    View::render('users/register', $data);
                 }
             }
         }
@@ -231,7 +232,7 @@ class Users extends \app\controllers\Authentication
 
         if ($user) {
             $data['user'] = $user;
-            $this->view('users/show_profile', $data);
+            View::render('users/show_profile', $data);
         } else {
             $this->redirect('/');
         }
@@ -308,7 +309,7 @@ class Users extends \app\controllers\Authentication
             if (Auth::isAdmin()) {
                 //Se obtiene nuevamente la info en la BD del usuario para mostrar los campos en el formulario
                 $data['user'] = $this->user_dao->retrieveById($id);
-                $this->view('admin/users', $data);
+                View::render('admin/users', $data);
             } else {
                 $this->edit($data);
             }

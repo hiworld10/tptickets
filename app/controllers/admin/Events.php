@@ -4,6 +4,7 @@ namespace app\controllers\admin;
 
 use app\models\Image;
 use app\utils\Flash;
+use core\View;
 
 class Events extends \app\controllers\Authentication
 {
@@ -19,7 +20,7 @@ class Events extends \app\controllers\Authentication
     {
         $data['events']     = $this->event_dao->retrieveAll();
         $data['categories'] = $this->category_dao->retrieveAll();
-        $this->view('admin/events', $data);
+        View::render('admin/events', $data);
     }
 
     public function add()
@@ -53,7 +54,7 @@ class Events extends \app\controllers\Authentication
         $data['categories'] = $this->category_dao->retrieveAll();
 
         if (isset($data['event']) && isset($data['categories'])) {
-            $this->view('admin/events', $data);
+            View::render('admin/events', $data);
         }
     }
 

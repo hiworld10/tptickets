@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use core\View;
+
 class Events extends \core\Controller
 {
     public function __construct()
@@ -13,7 +15,7 @@ class Events extends \core\Controller
     {
         $data['calendars'] = $this->calendar_dao->retrieveByEventId($id_event);
         if (!empty($data['calendars'])) {
-            $this->view('events/show', $data);
+            View::render('events/show', $data);
         } else {
             $this->redirect('/');
         }

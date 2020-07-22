@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\Auth;
 use core\Controller;
+use core\View;
 
 class Home extends Controller
 {
@@ -16,10 +17,10 @@ class Home extends Controller
     public function index()
     {
         if (Auth::isAdmin()) {
-            $this->view('admin/admin');
+            View::render('admin/admin');
         } else {
             $data['events'] = $this->event_dao->retrieveAllActive();
-            $this->view('home/index', $data);
+            View::render('home/index', $data);
         }
     }
 
@@ -27,6 +28,6 @@ class Home extends Controller
     public function search($string)
     {
         $data['events'] = $this->event_dao->retrieveActiveEventsByString($string);
-        $this->view('home/search', $data);
+        View::render('home/search', $data);
     }
 }

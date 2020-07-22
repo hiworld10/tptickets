@@ -2,6 +2,8 @@
 
 namespace app\controllers\admin;
 
+use core\View;
+
 class PurchaseLines extends \app\controllers\Authentication
 {    
     public function __construct()
@@ -14,6 +16,6 @@ class PurchaseLines extends \app\controllers\Authentication
     public function index()
     {
         $data['purchase_lines'] = $this->purchase_line_dao->retrieveAll();
-        $this->view('admin/purchase_lines', $data);
+        View::render('admin/purchase_lines', $data);
     }
 }

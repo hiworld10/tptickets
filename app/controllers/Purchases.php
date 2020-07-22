@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\Auth;
 use app\Mail;
 use app\utils\Flash;
+use core\View;
 
 class Purchases extends \app\controllers\Authentication
 {
@@ -47,7 +48,7 @@ class Purchases extends \app\controllers\Authentication
     public function confirm()
     {
         $data = $this->purchase_dao->getAllLinesInSession();
-        $this->view('purchases/confirm', $data);
+        View::render('purchases/confirm', $data);
     }
 
     public function checkout()
@@ -186,7 +187,7 @@ class Purchases extends \app\controllers\Authentication
         if (isset($_SESSION['purchase_success'])) {
             unset($_SESSION['purchase_success']);
 
-            $this->view('/purchases/success');
+            View::render('/purchases/success');
             exit;
         }
 
@@ -210,6 +211,6 @@ class Purchases extends \app\controllers\Authentication
     {
         //obtiene $data['items'] y $data['subtotal']
         $data = $this->purchase_dao->getAllLinesInSession();
-        $this->view('purchases/show_cart', $data);
+        View::render('purchases/show_cart', $data);
     }
 }
