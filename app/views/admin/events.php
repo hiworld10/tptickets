@@ -52,7 +52,7 @@
                             <?php if($data['categories']): ?> 
                                 <?php foreach ($data['categories'] as $key => $value): ?>  
                                     <!--No es posible pasar un objeto mediante HTML (ej. '$value')-->
-                                    <option value="<?= $value->getId(); ?>"><?= $value->getType(); ?></option> 
+                                    <option value="<?= $value->getId() ?>"><?= $value->getType() ?></option> 
                                 <?php endforeach ?>
                             <?php else: ?>
                                 <option >NO HAY CATEGORIAS</option>
@@ -87,14 +87,17 @@
                                 <td><?= $value->getName(); ?></td>
                                 <td><?= $value->getCategory()->getId(); ?></td>
                                 <td><img src="<?= $value->getImage()->getPath() ?>" height="100" width="100"/></td>
-                                <td>
-                                    <form action="<?=FRONT_ROOT?>/admin/events/delete" method="POST">
-                                        <button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit"class="btn btn-block btn-lg btn-info btn-sm">Eliminar</button>
-                                    </form>
+                                <td>    
+                                    <a href="<?=FRONT_ROOT?>/admin/events/add-bundle/<?=$value->getId()?>" class="btn btn-block btn-lg <?= $value->getBundle() ? 'btn-primary' : 'btn-outline-primary' ?> btn-sm">Paquete</a>
                                 </td>
                                 <td>
                                     <a href="<?=FRONT_ROOT?>/admin/events/edit/<?=$value->getId()?>" class="btn btn-block btn-lg btn-info btn-sm">Editar
                                     </a>
+                                </td>
+                                <td>
+                                    <form action="<?=FRONT_ROOT?>/admin/events/delete" method="POST">
+                                        <button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit"class="ml-5 btn btn-block btn-lg btn-danger btn-sm">Eliminar</button>
+                                    </form>
                                 </td>
                             </tr>
                         <?php endforeach ?>

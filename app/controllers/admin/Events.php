@@ -14,6 +14,7 @@ class Events extends \app\controllers\Authentication
 
         $this->event_dao    = $this->dao('Event');
         $this->category_dao = $this->dao('Category');
+        $this->bundle_dao = $this->dao('Bundle');
     }
 
     public function index()
@@ -45,6 +46,33 @@ class Events extends \app\controllers\Authentication
         $this->event_dao->create($event);
 
         Flash::addMessage('Evento agregado.');
+        $this->redirect('/admin/events');
+    }
+
+    public function addBundle($id)
+    {
+        $data['event'] = $this->event_dao->retrieveById($id);
+        $data['bundles'] = $this->bundle_dao->retrieveAll();
+        View::render('admin/add_bundle', $data);
+    }
+
+    public function setBundle($id)
+    {
+        $this->redirectIfRequestIsNotPost('/admin/events');
+
+        $this->event_dao->setBundle($id, $_POST['id_bundle']);
+
+        Flash::addMessage('Paquete agregado a evento.');
+        $this->redirect('/admin/events');
+    }
+
+    public function unsetBundle($id)
+    {
+        $this->redirectIfRequestIsNotPost('/admin/events');
+
+        $this->event_dao->unsetBundle($id);
+
+        Flash::addMessage('Paquete removido de evento.');
         $this->redirect('/admin/events');
     }
 

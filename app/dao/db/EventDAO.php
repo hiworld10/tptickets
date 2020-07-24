@@ -195,6 +195,24 @@ class EventDAO implements IDAO
         try {
             // Debido a que es opcional, la propiedad de paquete se añade aparte
             $query = "UPDATE " . $this->tableName . " SET id_bundle = :id_bundle WHERE id_event = :id_event";
+
+            $parameters["id_event"]  = $id_event;
+            $parameters["id_bundle"] = $id_bundle;
+
+            $this->connection->executeNonQuery($query, $parameters);
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    public function unsetBundle($id_event)
+    {
+        try {
+            $query = "UPDATE " . $this->tableName . " SET id_bundle = NULL WHERE id_event = :id_event";
+
+            $parameters["id_event"]  = $id_event;
+
+            $this->connection->executeNonQuery($query, $parameters);
         } catch (Exception $ex) {
             throw $ex;
         }
