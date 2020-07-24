@@ -4,6 +4,7 @@ namespace app\dao\db;
 
 use app\dao\IDAO;
 use app\dao\db\Connection;
+use app\dao\db\EventDAO;
 use app\dao\db\PurchaseLineDAO;
 use app\models\Purchase;
 
@@ -31,6 +32,8 @@ class PurchaseDAO implements IDAO
 
     public function addNewLineInSession($data)
     {
+        $event_dao = new EventDAO();
+        $event = $event_dao->retrieveById($data['id_event']);
         $subtotal = $data['price'] * $data['amount'];
 
         $_SESSION['tptickets_items'][] = [
@@ -38,10 +41,10 @@ class PurchaseDAO implements IDAO
             'seat_type'     => $data['seat_type'],
             'amount'        => $data['amount'],
             'price'         => $data['price'],
-            'subtotal'      => $subtotal,
-            'event_name'    => $data['event_name'],
+            'event'         => $event,
             'date'          => $data['date'],
-        ];
+            'subtotal'      => $subtotal,
+        ];  
 
         $_SESSION['tptickets_subtotal'] += $subtotal;
 
