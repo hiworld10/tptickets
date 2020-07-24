@@ -2,18 +2,18 @@
 
 namespace app\models;
 
+use app\models\Bundle;
 use app\models\Category;
 
 class Event
 {
     private $id;
     private $name;
-    //No se debe explicitar el tipo de clase dentro del atributo propio
     private $category;
     private $image;
+    private $bundle; // nullable
 
-    public function __construct($id, $name, Category $category, $image) //Si en los parametros
-
+    public function __construct($id, $name, Category $category, $image)
     {
         $this->id       = $id;
         $this->name     = $name;
@@ -39,5 +39,15 @@ class Event
     public function getImage()
     {
         return $this->image;
+    }
+
+    public function getBundle()
+    {
+        return $this->bundle;
+    }
+
+    public function setBundle(Bundle $bundle)
+    {
+        $this->bundle = $bundle;
     }
 }
