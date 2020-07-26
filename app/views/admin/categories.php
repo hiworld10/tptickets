@@ -53,7 +53,7 @@
                                 <td><?= $value->getType(); ?></td>
                                 <td>
                                     <form action="<?=FRONT_ROOT?>/admin/categories/delete" method="POST">
-                                        <button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit" class="btn btn-block btn-lg btn-info btn-sm">Eliminar</button>
+                                        <button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit" class="btn btn-block btn-lg btn-danger btn-sm">Eliminar</button>
                                     </form>
                                 </td>
                                 <td>
