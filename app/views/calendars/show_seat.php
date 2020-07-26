@@ -4,11 +4,6 @@
     <h1><?php echo htmlspecialchars($data['event']->getName()) ?></h1>
     <br>
     <?php echo "Fecha de evento: " . htmlspecialchars($data['date']) ?>
-    <?php echo '<pre>';
-    print_r($data);
-    echo '</pre>';
-    
-     ?>
 </div>
 
 <div class="jumbotron">
