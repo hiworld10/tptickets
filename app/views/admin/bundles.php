@@ -34,7 +34,7 @@
                     </div>
                     <div class="col-lg-2 form-group mt-4">
                         <label for="">Descuento (%)</label>
-                        <input type="number" min="5" max="50" class="form-control form-control-lg" name="discount" required>
+                        <input type="number" min="5" max=30 class="form-control form-control-lg" name="discount" required>
                     </div>
                     <div class="col-11 col-md-3 mt-4">
                         <button type="submit" class="btn btn-block btn-lg btn-info">Agregar</button>
