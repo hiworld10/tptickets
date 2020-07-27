@@ -12,7 +12,7 @@ Item <?= $key + 1 ?>
 
 ---------------------
 
-Evento: <?= $item['event_name'] ?>
+Evento: <?= $item['event']->getName() ?>
 
 Fecha: <?= $item['date'] ?>
 
