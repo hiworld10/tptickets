@@ -11,6 +11,7 @@ SET time_zone = "+00:00";
 CREATE DATABASE IF NOT EXISTS `tptickets` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `tptickets`;
 
+DROP TABLE IF EXISTS `artists`;
 CREATE TABLE `artists` (
   `id_artist` int(11) NOT NULL,
   `name` varchar(40) NOT NULL
@@ -25,18 +26,46 @@ INSERT INTO `artists` (`id_artist`, `name`) VALUES
 (6, 'ZZ Top'),
 (7, 'Rata Blanca');
 
+DROP TABLE IF EXISTS `artists_calendars`;
 CREATE TABLE `artists_calendars` (
-  `id_artist_calendar` int(11) NOT NULL,
   `id_calendar` int(11) NOT NULL,
   `id_artist` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO `artists_calendars` (`id_calendar`, `id_artist`) VALUES
+(1, 1),
+(2, 1),
+(3, 2),
+(3, 3),
+(3, 4),
+(4, 5),
+(4, 6),
+(4, 7);
+
+DROP TABLE IF EXISTS `bundles`;
+CREATE TABLE `bundles` (
+  `id_bundle` int(11) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `discount` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO `bundles` (`id_bundle`, `description`, `discount`) VALUES
+(1, 'Woodstock 2021', 30);
+
+DROP TABLE IF EXISTS `calendars`;
 CREATE TABLE `calendars` (
   `id_calendar` int(11) NOT NULL,
   `date` date NOT NULL,
   `id_event` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO `calendars` (`id_calendar`, `date`, `id_event`) VALUES
+(1, '2020-12-01', 1),
+(2, '2020-12-02', 1),
+(3, '2021-07-31', 2),
+(4, '2021-08-01', 3);
+
+DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories` (
   `id_category` int(11) NOT NULL,
   `type` varchar(30) NOT NULL
@@ -46,18 +75,22 @@ INSERT INTO `categories` (`id_category`, `type`) VALUES
 (1, 'Concierto'),
 (2, 'Obra Teatral');
 
+DROP TABLE IF EXISTS `events`;
 CREATE TABLE `events` (
   `id_event` int(11) NOT NULL,
   `name` varchar(60) NOT NULL,
   `id_category` int(11) NOT NULL,
-  `image` varchar(60) NOT NULL
+  `image` varchar(60) NOT NULL,
+  `id_bundle` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `events` (`id_event`, `name`, `id_category`, `image`) VALUES
-(1, 'Luis Miguel en Argentina', 1, 'http://localhost/tptickets/img/default_event_img.png'),
-(2, 'Woodstock 2021', 1, 'http://localhost/tptickets/img/default_event_img.png'),
-(3, 'Una Obra Teatral Cualquiera', 2, 'http://localhost/tptickets/img/default_event_img.png');
+INSERT INTO `events` (`id_event`, `name`, `id_category`, `image`, `id_bundle`) VALUES
+(1, 'Luis Miguel en Argentina', 1, 'http://localhost/tptickets/img/default_event_img.png', NULL),
+(2, 'Woodstock 2021 - Día 1', 1, 'http://localhost/tptickets/img/default_event_img.png', 1),
+(3, 'Woodstock 2021 - Día 2', 1, 'http://localhost/tptickets/img/default_event_img.png', 1),
+(4, 'Una Obra Teatral Cualquiera', 2, 'http://localhost/tptickets/img/default_event_img.png', NULL);
 
+DROP TABLE IF EXISTS `event_seats`;
 CREATE TABLE `event_seats` (
   `id_event_seat` int(11) NOT NULL,
   `id_calendar` int(11) NOT NULL,
@@ -67,6 +100,25 @@ CREATE TABLE `event_seats` (
   `remainder` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO `event_seats` (`id_event_seat`, `id_calendar`, `id_seat_type`, `quantity`, `price`, `remainder`) VALUES
+(1, 1, 1, 10000, 1000, 10000),
+(2, 1, 2, 5000, 1500, 5000),
+(3, 1, 3, 4000, 2000, 4000),
+(4, 1, 4, 1000, 3000, 1000),
+(5, 2, 1, 10000, 1000, 10000),
+(6, 2, 2, 5000, 1500, 5000),
+(7, 2, 3, 4000, 2000, 4000),
+(8, 2, 4, 1000, 3000, 1000),
+(9, 3, 1, 50000, 2000, 50000),
+(10, 3, 2, 0, 0, 0),
+(11, 3, 3, 0, 0, 0),
+(12, 3, 4, 0, 0, 0),
+(13, 4, 1, 50000, 2000, 50000),
+(14, 4, 2, 0, 0, 0),
+(15, 4, 3, 0, 0, 0),
+(16, 4, 4, 0, 0, 0);
+
+DROP TABLE IF EXISTS `places_events`;
 CREATE TABLE `places_events` (
   `id_place_event` int(11) NOT NULL,
   `id_calendar` int(11) NOT NULL,
@@ -74,12 +126,21 @@ CREATE TABLE `places_events` (
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO `places_events` (`id_place_event`, `id_calendar`, `capacity`, `description`) VALUES
+(1, 1, 20000, 'Estadio Arena'),
+(2, 2, 20000, 'Estadio Arena'),
+(3, 3, 50000, 'XD Arena'),
+(4, 4, 50000, '');
+
+DROP TABLE IF EXISTS `purchases`;
 CREATE TABLE `purchases` (
   `id_purchase` int(11) NOT NULL,
   `id_client` int(11) NOT NULL,
+  `total` int(11) NOT NULL,
   `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+DROP TABLE IF EXISTS `purchases_lines`;
 CREATE TABLE `purchases_lines` (
   `id_purchase_line` int(11) NOT NULL,
   `id_event_seat` int(11) NOT NULL,
@@ -88,6 +149,7 @@ CREATE TABLE `purchases_lines` (
   `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+DROP TABLE IF EXISTS `seat_type`;
 CREATE TABLE `seat_type` (
   `id_seat_type` int(11) NOT NULL,
   `description` text NOT NULL
@@ -99,6 +161,7 @@ INSERT INTO `seat_type` (`id_seat_type`, `description`) VALUES
 (3, 'Platea'),
 (4, 'Platea Preferencial');
 
+DROP TABLE IF EXISTS `tickets`;
 CREATE TABLE `tickets` (
   `id_ticket` int(11) NOT NULL,
   `id_purchase_line` int(11) NOT NULL,
@@ -106,6 +169,7 @@ CREATE TABLE `tickets` (
   `qr` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id_user` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -123,9 +187,12 @@ ALTER TABLE `artists`
   ADD PRIMARY KEY (`id_artist`);
 
 ALTER TABLE `artists_calendars`
-  ADD PRIMARY KEY (`id_artist_calendar`),
+  ADD PRIMARY KEY (`id_calendar`,`id_artist`),
   ADD KEY `id_calendar` (`id_calendar`),
   ADD KEY `id_artist` (`id_artist`);
+
+ALTER TABLE `bundles`
+  ADD PRIMARY KEY (`id_bundle`);
 
 ALTER TABLE `calendars`
   ADD PRIMARY KEY (`id_calendar`),
@@ -137,7 +204,8 @@ ALTER TABLE `categories`
 
 ALTER TABLE `events`
   ADD PRIMARY KEY (`id_event`),
-  ADD KEY `id_category` (`id_category`);
+  ADD KEY `id_category` (`id_category`),
+  ADD KEY `id_bundle` (`id_bundle`);
 
 ALTER TABLE `event_seats`
   ADD PRIMARY KEY (`id_event_seat`),
@@ -172,8 +240,8 @@ ALTER TABLE `users`
 ALTER TABLE `artists`
   MODIFY `id_artist` int(11) NOT NULL AUTO_INCREMENT;
 
-ALTER TABLE `artists_calendars`
-  MODIFY `id_artist_calendar` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `bundles`
+  MODIFY `id_bundle` int(11) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `calendars`
   MODIFY `id_calendar` int(11) NOT NULL AUTO_INCREMENT;
@@ -212,9 +280,6 @@ ALTER TABLE `artists_calendars`
 
 ALTER TABLE `calendars`
   ADD CONSTRAINT `calendars_ibfk_1` FOREIGN KEY (`id_event`) REFERENCES `events` (`id_event`) ON UPDATE CASCADE;
-
-ALTER TABLE `events`
-  ADD CONSTRAINT `events_ibfk_1` FOREIGN KEY (`id_category`) REFERENCES `categories` (`id_category`) ON UPDATE CASCADE;
 
 ALTER TABLE `event_seats`
   ADD CONSTRAINT `event_seat_ibfk_1` FOREIGN KEY (`id_calendar`) REFERENCES `calendars` (`id_calendar`) ON DELETE CASCADE ON UPDATE CASCADE,
