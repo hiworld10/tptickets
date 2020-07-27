@@ -169,6 +169,9 @@ class Purchases extends \app\controllers\Authentication
         unset($_SESSION['tptickets_items']);
         unset($_SESSION['tptickets_subtotal']);
 
+        $_SESSION['tptickets_items'] = [];
+        $_SESSION['tptickets_subtotal'] = 0;
+
         // Variable en sesión utilizada por success()
         $_SESSION['purchase_success'] = 'true';
 
