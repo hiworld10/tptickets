@@ -6,13 +6,15 @@ class Purchase
 {
     private $id;
     private $client_id;
+    private $total;
     private $date;
     private $purchase_line_arr;
 
-    public function __construct($id, $client_id, $date, $purchase_line_arr)
+    public function __construct($id, $client_id, $total, $date, $purchase_line_arr)
     {
         $this->id                = $id;
-        $this->client_id = $client_id;
+        $this->client_id         = $client_id;
+        $this->total             = $total;
         $this->date              = $date;
         $this->purchase_line_arr = $purchase_line_arr;
     }
@@ -26,6 +28,11 @@ class Purchase
     {
         return $this->date;
     }
+    
+    public function getTotal()
+    {
+        return $this->total;
+    }
 
     public function getPurchaseLineArr()
     {
@@ -36,4 +43,5 @@ class Purchase
     {
         return $this->client_id;
     }
+
 }

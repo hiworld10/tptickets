@@ -3,6 +3,7 @@
 namespace app\controllers\admin;
 
 use app\utils\Flash;
+use core\View;
 
 class SeatTypes extends \app\controllers\Authentication
 {
@@ -16,7 +17,7 @@ class SeatTypes extends \app\controllers\Authentication
     public function index()
     {
         $data['seat_types'] = $this->dao->retrieveAll();
-        $this->view('admin/seat_types', $data);
+        View::render('admin/seat_types', $data);
     }
 
     public function add()
@@ -34,7 +35,7 @@ class SeatTypes extends \app\controllers\Authentication
     {
         $data['seat_type'] = $this->dao->retrieveById($id);
         if (isset($data['seat_type'])) {
-            $this->view('admin/seat_types', $data);
+            View::render('admin/seat_types', $data);
         }
     }
 

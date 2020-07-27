@@ -18,7 +18,7 @@
                         <input type="text" name="type" class="form-control form-control-lg" value="<?= $data['category']->getType(); ?>" required>
                     </div>
                     <div class="col-12 col-md-2 mt-4">
-                        <button type="submit" class="btn btn-block btn-lg btn-primary">Aceptar</button>
+                        <button type="submit" class="btn btn-block btn-lg btn-info">Aceptar</button>
                     </div>
                 </div>
             </form>
@@ -31,7 +31,7 @@
                         <input type="text" name="type" class="form-control form-control-lg" placeholder="Ingrese nombre de la categoria..." required>
                     </div>
                     <div class="col-12 col-md-3">
-                        <button type="submit" class="btn btn-block btn-lg btn-primary">Agregar</button>
+                        <button type="submit" class="btn btn-block btn-lg btn-info">Agregar</button>
                     </div>
                 </div>
             </form>
@@ -53,11 +53,11 @@
                                 <td><?= $value->getType(); ?></td>
                                 <td>
                                     <form action="<?=FRONT_ROOT?>/admin/categories/delete" method="POST">
-                                        <button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit" class="btn btn-block btn-lg btn-primary btn-sm">Eliminar</button>
+                                        <button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit" class="btn btn-block btn-lg btn-danger btn-sm">Eliminar</button>
                                     </form>
                                 </td>
                                 <td>
-                                    <a href="<?=FRONT_ROOT?>/admin/categories/edit/<?=$value->getId()?>" class="btn btn-block btn-lg btn-primary btn-sm">Editar
+                                    <a href="<?=FRONT_ROOT?>/admin/categories/edit/<?=$value->getId()?>" class="btn btn-block btn-lg btn-info btn-sm">Editar
                                     </a>
                                 </td>
                             </tr>

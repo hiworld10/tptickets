@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use core\View;
+
 class Calendars extends \app\controllers\Authentication
 {
     public function __construct()
@@ -23,7 +25,7 @@ class Calendars extends \app\controllers\Authentication
             }
         }
 
-        $this->view('calendars/list_seats', $data);
+        View::render('calendars/list_seats', $data);
     }
 
     public function showSeat($id_event_seat)
@@ -35,9 +37,9 @@ class Calendars extends \app\controllers\Authentication
 
         $calendar = $this->calendar_dao->retrieveById($data['event_seat']->getCalendarId());
 
-        $data['event_name'] = $calendar->getEvent()->getName();
-        $data['date']       = $calendar->getDate();
+        $data['event'] = $calendar->getEvent();
+        $data['date']  = $calendar->getDate();
 
-        $this->view('calendars/show_seat', $data);
+        View::render('calendars/show_seat', $data);
     }
 }

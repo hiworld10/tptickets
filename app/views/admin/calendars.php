@@ -139,13 +139,13 @@
 						<?php if ($data['events'] && $data['artists'] && $data['seat_types']): ?>
 
 							<div class="col-11 col-md-3 mt-4">
-								<button type="submit" class="btn btn-block btn-lg btn-primary">Agregar</button>
+								<button type="submit" class="btn btn-block btn-lg btn-info">Agregar</button>
 							</div>
 
 						<?php else: ?>
 
 							<div class="col-11 col-md-3 mt-4">
-								<button type="submit" disabled class="btn btn-block btn-lg btn-primary">Agregar</button>
+								<button type="submit" disabled class="btn btn-block btn-lg btn-info">Agregar</button>
 							</div>
 
 						<?php endif ?>
@@ -221,11 +221,11 @@
 					</div>
 					<?php if ($data['events'] && $data['artists'] && $data['seat_types']): ?>
 						<div class="col-11 col-md-3 mt-4">
-							<button type="submit" class="btn btn-block btn-lg btn-primary">Agregar</button>
+							<button type="submit" class="btn btn-block btn-lg btn-info">Agregar</button>
 						</div>
 					<?php else: ?>
 						<div class="col-11 col-md-3 mt-4">
-							<button type="submit" disabled class="btn btn-block btn-lg btn-primary">Agregar</button>
+							<button type="submit" disabled class="btn btn-block btn-lg btn-info">Agregar</button>
 						</div>
 					<?php endif ?>
 				</div>
@@ -258,11 +258,11 @@
 								<td><?= $value->getPlaceEvent()->getId(); ?></td>
 								<td>
 									<form action="<?=FRONT_ROOT?>/admin/calendars/delete" method="POST">
-										<button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit"class="btn btn-block btn-lg btn-primary btn-sm">Eliminar</button>
+										<button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit"class="btn btn-block btn-lg btn-danger btn-sm">Eliminar</button>
 									</form>
 								</td>
 								<td>
-                                    <a href="<?=FRONT_ROOT?>/admin/calendars/edit/<?=$value->getId()?>" class="btn btn-block btn-lg btn-primary btn-sm">Editar
+                                    <a href="<?=FRONT_ROOT?>/admin/calendars/edit/<?=$value->getId()?>" class="btn btn-block btn-lg btn-info btn-sm">Editar
                                     </a>
 								</td>
 							</tr>

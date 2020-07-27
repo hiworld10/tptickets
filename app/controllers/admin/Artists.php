@@ -3,6 +3,7 @@
 namespace app\controllers\admin;
 
 use app\utils\Flash;
+use core\View;
 
 class Artists extends \app\controllers\Authentication
 {
@@ -16,7 +17,7 @@ class Artists extends \app\controllers\Authentication
     public function index()
     {
         $data['artist_list'] = $this->artist_dao->retrieveAll();
-        $this->view('admin/artists', $data);
+        View::render('admin/artists', $data);
     }
 
     public function add()
@@ -34,7 +35,7 @@ class Artists extends \app\controllers\Authentication
     {
         $data['artist'] = $this->artist_dao->retrieveById($id);
         if (isset($data['artist'])) {
-            $this->view('admin/artists', $data);
+            View::render('admin/artists', $data);
         }
     }
 

@@ -4,6 +4,7 @@ namespace app\controllers\admin;
 
 use app\models\Image;
 use app\utils\Flash;
+use core\View;
 
 class Events extends \app\controllers\Authentication
 {
@@ -13,13 +14,14 @@ class Events extends \app\controllers\Authentication
 
         $this->event_dao    = $this->dao('Event');
         $this->category_dao = $this->dao('Category');
+        $this->bundle_dao = $this->dao('Bundle');
     }
 
     public function index()
     {
         $data['events']     = $this->event_dao->retrieveAll();
         $data['categories'] = $this->category_dao->retrieveAll();
-        $this->view('admin/events', $data);
+        View::render('admin/events', $data);
     }
 
     public function add()
@@ -47,13 +49,40 @@ class Events extends \app\controllers\Authentication
         $this->redirect('/admin/events');
     }
 
+    public function addBundle($id)
+    {
+        $data['event'] = $this->event_dao->retrieveById($id);
+        $data['bundles'] = $this->bundle_dao->retrieveAll();
+        View::render('admin/add_bundle', $data);
+    }
+
+    public function setBundle($id)
+    {
+        $this->redirectIfRequestIsNotPost('/admin/events');
+
+        $this->event_dao->setBundle($id, $_POST['id_bundle']);
+
+        Flash::addMessage('Paquete agregado a evento.');
+        $this->redirect('/admin/events');
+    }
+
+    public function unsetBundle($id)
+    {
+        $this->redirectIfRequestIsNotPost('/admin/events');
+
+        $this->event_dao->unsetBundle($id);
+
+        Flash::addMessage('Paquete removido de evento.');
+        $this->redirect('/admin/events');
+    }
+
     public function edit($id)
     {
         $data['event']      = $this->event_dao->retrieveById($id);
         $data['categories'] = $this->category_dao->retrieveAll();
 
         if (isset($data['event']) && isset($data['categories'])) {
-            $this->view('admin/events', $data);
+            View::render('admin/events', $data);
         }
     }
 

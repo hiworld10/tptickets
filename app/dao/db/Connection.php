@@ -72,4 +72,9 @@ class Connection
             throw $ex;
         }
     }
+
+    public function lastInsertId()
+    {
+        return $this->pdo->lastInsertId();
+    }
 }

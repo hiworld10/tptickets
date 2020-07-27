@@ -51,7 +51,7 @@
 								<?php if($data['user']->getAdmin() == "true") echo "checked" ?>>Admin</label>
 						</div>
 						<div class="col-12 col-md-3">
-								<button type="submit" class="btn btn-block btn-lg btn-primary">Aceptar</button>
+								<button type="submit" class="btn btn-block btn-lg btn-info">Aceptar</button>
 						</div>
 					</div>
 				</form>
@@ -80,7 +80,7 @@
 							<label><input type="checkbox" name="admin" class="form-control form-control-lg" value="true">Admin</label>
 						</div>
 						<div class="col-12 col-md-3">
-							<button type="submit" class="btn btn-block btn-lg btn-primary">Agregar</button>
+							<button type="submit" class="btn btn-block btn-lg btn-info">Agregar</button>
 						</div>
 					</div>
 				</form>
@@ -111,11 +111,11 @@
 
 									<td>
 										<form action="<?=FRONT_ROOT?>/users/delete" method="POST">
-											<button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit"class="btn btn-block btn-lg btn-primary btn-sm">Eliminar</button>
+											<button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit"class="btn btn-block btn-lg btn-danger btn-sm">Eliminar</button>
 										</form>
 									</td>
 									<td>
-                                    	<a href="<?=FRONT_ROOT?>/users/edit-as-admin/<?=$value->getId()?>" class="btn btn-block btn-lg btn-primary btn-sm">Editar
+                                    	<a href="<?=FRONT_ROOT?>/users/edit-as-admin/<?=$value->getId()?>" class="btn btn-block btn-lg btn-info btn-sm">Editar
                                     	</a>
 									</td>
 								</tr>

@@ -5,16 +5,8 @@
     <title>TPTickets</title>
     <link rel="stylesheet" href="<?= FRONT_ROOT ?>/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="<?= FRONT_ROOT ?>/css/admin.css">
-    <style type="text/css">
-        main {
-            background-image: url("<?= IMG_FRONT_ROOT ?>/fondologin.jpg");
-            height: auto;
-            width: auto;
-        }
-        h2 {
-            color: white;
-        }
-    </style>
+    <link rel="icon" href="<?= FRONT_ROOT ?>/tickets-blue.png">
+    <link rel="stylesheet" href="<?= FRONT_ROOT ?>/css/custom.css">
 </head>
 
 <?php require NAVBAR ?>

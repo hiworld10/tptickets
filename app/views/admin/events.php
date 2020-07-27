@@ -33,7 +33,7 @@
                         <input type="file" name="image" class="form-control form-control-lg"  required>
                     </div>
                     <div class="col-11 col-md-3 mt-4">
-                        <button type="submit" class="btn btn-block btn-lg btn-primary">Aceptar</button>
+                        <button type="submit" class="btn btn-block btn-lg btn-info">Aceptar</button>
                     </div>
                 </div>
             </form>
@@ -52,7 +52,7 @@
                             <?php if($data['categories']): ?> 
                                 <?php foreach ($data['categories'] as $key => $value): ?>  
                                     <!--No es posible pasar un objeto mediante HTML (ej. '$value')-->
-                                    <option value="<?= $value->getId(); ?>"><?= $value->getType(); ?></option> 
+                                    <option value="<?= $value->getId() ?>"><?= $value->getType() ?></option> 
                                 <?php endforeach ?>
                             <?php else: ?>
                                 <option >NO HAY CATEGORIAS</option>
@@ -63,7 +63,7 @@
                         <input type="file"  class="form-control form-control-lg" name="image" required>
                     </div>
                     <div class="col-11 col-md-3 mt-4">
-                        <button type="submit" class="btn btn-block btn-lg btn-primary">Agregar</button>
+                        <button type="submit" class="btn btn-block btn-lg btn-info">Agregar</button>
                     </div>
                 </div>
             </form>
@@ -87,14 +87,17 @@
                                 <td><?= $value->getName(); ?></td>
                                 <td><?= $value->getCategory()->getId(); ?></td>
                                 <td><img src="<?= $value->getImage()->getPath() ?>" height="100" width="100"/></td>
-                                <td>
-                                    <form action="<?=FRONT_ROOT?>/admin/events/delete" method="POST">
-                                        <button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit"class="btn btn-block btn-lg btn-primary btn-sm">Eliminar</button>
-                                    </form>
+                                <td>    
+                                    <a href="<?=FRONT_ROOT?>/admin/events/add-bundle/<?=$value->getId()?>" class="btn btn-block btn-lg <?= $value->getBundle() ? 'btn-primary' : 'btn-outline-primary' ?> btn-sm">Paquete</a>
                                 </td>
                                 <td>
-                                    <a href="<?=FRONT_ROOT?>/admin/events/edit/<?=$value->getId()?>" class="btn btn-block btn-lg btn-primary btn-sm">Editar
+                                    <a href="<?=FRONT_ROOT?>/admin/events/edit/<?=$value->getId()?>" class="btn btn-block btn-lg btn-info btn-sm">Editar
                                     </a>
+                                </td>
+                                <td>
+                                    <form action="<?=FRONT_ROOT?>/admin/events/delete" method="POST">
+                                        <button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit"class="ml-5 btn btn-block btn-lg btn-danger btn-sm">Eliminar</button>
+                                    </form>
                                 </td>
                             </tr>
                         <?php endforeach ?>
