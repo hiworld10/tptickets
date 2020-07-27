@@ -51,6 +51,53 @@ class PurchaseDAO implements IDAO
         return !empty($_SESSION['tptickets_items']) ? true : false;
     }
 
+    public function getBundlesWithDiscounts()
+    {   
+        $bundle_ids = [];
+
+        foreach ($_SESSION['tptickets_items'] as $value) {
+            if ($value['event']->getBundle()) {
+                $bundle_ids[] = $value['event']->getBundle()->getId();        
+            }    
+        }
+
+        $counted_values = array_count_values($bundle_ids);
+        $applicable_bundle_ids = [];
+
+        foreach ($counted_values as $key => $value) {
+            if ($value >= 2) {
+                $applicable_bundle_ids[] = $key;        
+            }
+        }
+
+        $bundles_with_discount = [];
+
+        foreach ($applicable_bundle_ids as $bundle_id) {
+            $subtotal_pre_discount = 0;
+            $bundle = null;
+
+            foreach ($_SESSION['tptickets_items'] as $item) {
+                if ($item['event']->getBundle()) {
+                    if ($item['event']->getBundle()->getId() == $bundle_id) {
+                        $subtotal_pre_discount += $item['subtotal'];
+                        if (!$bundle) {
+                            $bundle = $item['event']->getBundle();
+                        }
+                    }
+                }
+            }
+
+            $discount_value = $subtotal_pre_discount * $bundle->getDiscount() / 100;
+
+            $bundles_with_discount[] = [
+                'bundle' => $bundle,
+                'discount_value' => $discount_value
+            ];
+        }
+
+        return $bundles_with_discount;
+    }
+
     public function removeLineInSession($id_event_seat)
     {
         $deleted = false;
