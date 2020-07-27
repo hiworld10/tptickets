@@ -133,11 +133,28 @@ class PurchaseDAO implements IDAO
         return $deleted;
     }
 
-    public function getAllLinesInSession()
-    {
+    public function prepareCheckoutDetails()
+    {   
+        $subtotal = $_SESSION['tptickets_subtotal'];
+        $bundles = $this->getBundlesWithDiscounts();
+
+        if (empty($bundles)) {
+            $total = $subtotal;
+        } else {
+            $discount_total = 0;
+            foreach ($bundles as $bundle) {
+                $discount_total += $bundle['discount_value']; 
+            }
+            $total = $subtotal - $discount_total;
+        }
+
+        $_SESSION['tptickets_total'] = $total;
+
         return [
             'items'    => $_SESSION['tptickets_items'],
-            'subtotal' => $_SESSION['tptickets_subtotal'],
+            'subtotal' => $subtotal,
+            'total'    => $total,
+            'bundles'  => $this->getBundlesWithDiscounts()
         ];
     }
 
@@ -146,9 +163,11 @@ class PurchaseDAO implements IDAO
     public function create($data)
     {
         try {
-            $query = "INSERT INTO " . $this->tableName . " (id_client) VALUES (:id_client)";
+            $query = "INSERT INTO " . $this->tableName . " (id_client, total) VALUES (:id_client, :total)";
 
-            $parameters["id_client"] = $data['id_client'];  
+            $parameters["id_client"] = $data['id_client'];
+            $parameters["total"] = $data['total'];
+
             $this->connection->executeNonQuery($query, $parameters);
         } catch (Exception $ex) {
             throw $ex;
@@ -168,7 +187,7 @@ class PurchaseDAO implements IDAO
 
             foreach ($resultSet as $row) {
                 $purchase_line_arr = $purchase_line_dao->retrieveByPurchaseId($row['id_purchase']);
-                $purchase = new Purchase($row['id_purchase'], $row['id_client'], $row['date'], $purchase_line_arr);
+                $purchase = new Purchase($row['id_purchase'], $row['id_client'], $row['total'], $row['date'], $purchase_line_arr);
                 array_push($purchases, $purchase);
             }
 
@@ -193,7 +212,7 @@ class PurchaseDAO implements IDAO
 
             foreach ($resultSet as $row) {
                 $purchase_line_arr = $purchase_line_dao->retrieveByPurchaseId($row['id_purchase']);
-                $purchase = new Purchase($row['id_purchase'], $row['id_client'], $row['date'], $purchase_line_arr);
+                $purchase = new Purchase($row['id_purchase'], $row['id_client'], $row['total'], $row['date'], $purchase_line_arr);
             }
 
             return $purchase;
@@ -237,10 +256,11 @@ class PurchaseDAO implements IDAO
     public function update($data)
     {
         try {
-            $query = "UPDATE " . $this->tableName . " SET id_client = :id_client WHERE id_purchase = :id_purchase";
+            $query = "UPDATE " . $this->tableName . " SET id_client = :id_client, total = :total WHERE id_purchase = :id_purchase";
 
-            $parameters['id_client'] = $data['id_client'];
+            $parameters['id_client']   = $data['id_client'];
             $parameters['id_purchase'] = $data['id_purchase'];
+            $parameters['total']       = $data['total'];
 
             $this->connection->executeNonQuery($query, $parameters);
         } catch (Exception $ex) {
