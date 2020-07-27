@@ -50,7 +50,7 @@ CREATE TABLE `bundles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `bundles` (`id_bundle`, `description`, `discount`) VALUES
-(1, 'Woodstock 2021', 30);
+(1, 'Woodstock 2021', 20);
 
 DROP TABLE IF EXISTS `calendars`;
 CREATE TABLE `calendars` (
