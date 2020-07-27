@@ -7,7 +7,7 @@
     <p>Item <?= $key + 1 ?></p>
     <p>-----------------------------</p>
 
-    <pre><big>Evento: <?= $item['event_name'] ?></big></pre>
+    <pre><big>Evento: <?= $item['event']->getName() ?></big></pre>
 
     <pre><big>Fecha: <?= $item['date'] ?></big></pre>
 

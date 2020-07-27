@@ -47,7 +47,7 @@ class Purchases extends \app\controllers\Authentication
 
     public function confirm()
     {
-        $data = $this->purchase_dao->getAllLinesInSession();
+        $data = $this->purchase_dao->prepareCheckoutDetails();
         View::render('purchases/confirm', $data);
     }
 
@@ -69,6 +69,7 @@ class Purchases extends \app\controllers\Authentication
         }
 
         $items = $_SESSION['tptickets_items'];
+        $purchase_total = $_SESSION['tptickets_total'];
 
         // Comprobar si alguno de los eventos seleccionados ya no tiene asientos disponibles
         $available_seats = true;
@@ -91,7 +92,10 @@ class Purchases extends \app\controllers\Authentication
         }
 
         // Caso contrario, continuar
-        $purchase_data = ['id_client' => $user->getId()];
+        $purchase_data = [
+            'id_client' => $user->getId(),
+            'total'     => $purchase_total
+        ];
 
         // Si se pasan las validaciones, se crea un nuevo registro de compra en la BD
         $this->purchase_dao->create($purchase_data);
@@ -128,7 +132,7 @@ class Purchases extends \app\controllers\Authentication
             // Preparación de datos para el registro de ticket
             
             $qr_content = "TPTickets\nEvento: " . 
-                            $item['event_name'] . 
+                            $item['event']->getName() . 
                             "\nFecha: " . 
                             $item['date'] .
                             "\nTipo asiento: " .
@@ -210,7 +214,7 @@ class Purchases extends \app\controllers\Authentication
     public function showCart()
     {
         //obtiene $data['items'] y $data['subtotal']
-        $data = $this->purchase_dao->getAllLinesInSession();
+        $data = $this->purchase_dao->prepareCheckoutDetails();
         View::render('purchases/show_cart', $data);
     }
 }

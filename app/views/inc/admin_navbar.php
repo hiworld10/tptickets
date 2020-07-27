@@ -10,6 +10,7 @@
         <li><a href="<?=FRONT_ROOT?>/admin/purchases">Compras</a></li>
         <li><a href="<?=FRONT_ROOT?>/admin/purchase-lines">Lineas Compra</a></li>
         <li><a href="<?=FRONT_ROOT?>/admin/tickets">Tickets</a></li>
+        <li><a href="<?=FRONT_ROOT?>/admin/bundles">Paquetes</a></li>
         <li><a href="<?=FRONT_ROOT?>/users">Usuarios</a></li>
     </ul>
 </div>

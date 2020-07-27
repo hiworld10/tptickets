@@ -111,7 +111,7 @@ class Mail
                             $value['id_ticket'] .
                             '_' .
                             StringUtils::lowercaseAndUnderscores(
-                                $value['event_name'] . '_' . $value['seat_type']
+                                $value['event']->getName() . '_' . $value['seat_type']
                             ) .
                             '_' .
                             $value['date'] .

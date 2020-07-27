@@ -69,4 +69,15 @@ class Tests extends \core\Controller
         $dao = new ArtistDAO();
         echo $dao->create(['name' => 'lalala']);
     }
+
+    public function bundleItems()
+    {
+        $purchase_dao = new \app\dao\db\PurchaseDAO();
+        echo "Bundle items:" . '<br>';
+        echo '<pre>';
+        print_r($purchase_dao->getBundlesWithDiscounts());
+        echo '</pre>';
+        
+        
+    }
 }

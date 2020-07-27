@@ -37,8 +37,8 @@ class Calendars extends \app\controllers\Authentication
 
         $calendar = $this->calendar_dao->retrieveById($data['event_seat']->getCalendarId());
 
-        $data['event_name'] = $calendar->getEvent()->getName();
-        $data['date']       = $calendar->getDate();
+        $data['event'] = $calendar->getEvent();
+        $data['date']  = $calendar->getDate();
 
         View::render('calendars/show_seat', $data);
     }

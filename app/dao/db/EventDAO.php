@@ -2,12 +2,13 @@
 
 namespace app\dao\db;
 
+use \Exception;
+use app\dao\IDAO;
+use app\dao\db\BundleDAO;
 use app\dao\db\CategoryDAO;
 use app\dao\db\Connection;
-use app\dao\IDAO;
 use app\models\Event;
 use app\models\Image;
-use \Exception;
 
 class EventDAO implements IDAO
 {
@@ -22,6 +23,7 @@ class EventDAO implements IDAO
     public function create($event)
     {
         try {
+            // bundle_id se añade por separado
             $query = "INSERT INTO " . $this->tableName . " (name, id_category, image) VALUES (:name, :id_category, :image)";
 
             $parameters["name"]        = $event['name'];
@@ -38,17 +40,22 @@ class EventDAO implements IDAO
     {
         try {
             $eventList   = [];
-            $categoryDAO = new CategoryDAO();
+            $category_dao = new CategoryDAO();
+            $bundle_dao = new BundleDAO();
 
             $query = "SELECT * FROM " . $this->tableName;
 
             $resultSet = $this->connection->execute($query);
 
             foreach ($resultSet as $row) {
-                $category = $categoryDAO->retrieveById($row["id_category"]);
+                $category = $category_dao->retrieveById($row["id_category"]);
+                $bundle = $bundle_dao->retrieveById($row["id_bundle"]);
                 $image    = new Image();
                 $image->setPath($row['image']);
                 $event = new Event($row["id_event"], $row["name"], $category, $image);
+                if ($bundle) {
+                    $event->setBundle($bundle);
+                }
                 array_push($eventList, $event);
             }
 
@@ -92,7 +99,8 @@ class EventDAO implements IDAO
             $events = $this->retrieveAllActive();
 
             $results     = [];
-            $categoryDAO = new CategoryDAO();
+            $category_dao = new CategoryDAO();
+            $bundle_dao = new BundleDAO();
 
             $query = "SELECT * FROM events WHERE id_event = :id_event AND name LIKE '%" . $string . "%' ";
 
@@ -103,10 +111,14 @@ class EventDAO implements IDAO
 
                 $resultSet = $this->connection->execute($query, $parameters);
                 foreach ($resultSet as $row) {
-                    $category = $categoryDAO->retrieveById($row["id_category"]);
+                    $category = $category_dao->retrieveById($row["id_category"]);
+                    $bundle = $bundle_dao->retrieveById($row["id_bundle"]);
                     $image    = new Image();
                     $image->setPath($row['image']);
-                    $event     = new Event($row["id_event"], $row["name"], $category, $image);
+                    $event = new Event($row["id_event"], $row["name"], $category, $image);
+                    if ($bundle) {
+                        $event->setBundle($bundle);
+                    }
                     $results[] = $event;
                 }
             }
@@ -123,7 +135,8 @@ class EventDAO implements IDAO
     {
         try {
             $event       = null;
-            $categoryDAO = new CategoryDAO();
+            $category_dao = new CategoryDAO();
+            $bundle_dao = new BundleDAO();
 
             $query = "SELECT * FROM " . $this->tableName . " WHERE id_event = :id_event";
 
@@ -131,10 +144,14 @@ class EventDAO implements IDAO
 
             $resultSet = $this->connection->execute($query, $parameters);
             foreach ($resultSet as $row) {
-                $category = $categoryDAO->retrieveById($row["id_category"]);
+                $category = $category_dao->retrieveById($row["id_category"]);
+                $bundle = $bundle_dao->retrieveById($row["id_bundle"]);
                 $image    = new Image();
                 $image->setPath($row['image']);
                 $event = new Event($row["id_event"], $row["name"], $category, $image);
+                if ($bundle) {
+                    $event->setBundle($bundle);
+                }
             }
 
             return $event;
@@ -173,17 +190,45 @@ class EventDAO implements IDAO
 
     }
 
+    public function setBundle($id_event, $id_bundle)
+    {
+        try {
+            // Debido a que es opcional, la propiedad de paquete se añade aparte
+            $query = "UPDATE " . $this->tableName . " SET id_bundle = :id_bundle WHERE id_event = :id_event";
+
+            $parameters["id_event"]  = $id_event;
+            $parameters["id_bundle"] = $id_bundle;
+
+            $this->connection->executeNonQuery($query, $parameters);
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    public function unsetBundle($id_event)
+    {
+        try {
+            $query = "UPDATE " . $this->tableName . " SET id_bundle = NULL WHERE id_event = :id_event";
+
+            $parameters["id_event"]  = $id_event;
+
+            $this->connection->executeNonQuery($query, $parameters);
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
     public function retrieveByString($string)
     {
         try {
             $eventList   = [];
-            $categoryDAO = new CategoryDAO();
+            $category_dao = new CategoryDAO();
 
             $query = "SELECT * FROM " . $this->tableName . " WHERE name LIKE '%" . $string . "%'";
 
             $resultSet = $this->connection->execute($query);
             foreach ($resultSet as $row) {
-                $category = $categoryDAO->retrieveById($row["id_category"]);
+                $category = $category_dao->retrieveById($row["id_category"]);
                 $image    = new Image();
                 $image->setPath($row['image']);
                 $event = new Event($row["id_event"], $row["name"], $category, $image);
