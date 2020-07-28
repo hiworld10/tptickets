@@ -24,7 +24,9 @@
     		</div>
     	<?php endforeach ?>
     	<div class="jumbotron">
-    		<big><big>Total compra: $<?php echo htmlspecialchars(number_format($data['subtotal'], 2, ',', '')) ?></big></big>
+    		<big><big>Subtotal de compra: $<?php echo htmlspecialchars(number_format($data['subtotal'], 2, ',', '')) ?></big></big>
+            <br>    
+            <small>El subtotal NO refleja descuentos por paquetes promocionales.</small>
             <hr>
             <div class="d-flex mt-4">
                 <form name="form" action="<?= FRONT_ROOT ?>/purchases/confirm" method="POST">
