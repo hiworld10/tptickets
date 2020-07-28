@@ -165,6 +165,16 @@ class Purchases extends \app\controllers\Authentication
 
         $total = $_SESSION['tptickets_total'];
         
+        // Preparación de datos para envio de email
+        $purchase_data_for_email = [
+            'items' => $items,
+            'total' => $total,
+            'id_purchase' => $id_purchase,
+            'purchase_date' => $purchase_date,
+            'name' => $user->getName(),
+            'bundle_info' => $this->purchase_dao->getBundlesWithDiscounts()
+        ];
+
         // Resetear el carro de compra
         unset($_SESSION['tptickets_items']);
         unset($_SESSION['tptickets_subtotal']);
@@ -173,19 +183,11 @@ class Purchases extends \app\controllers\Authentication
         $_SESSION['tptickets_items'] = [];
         $_SESSION['tptickets_subtotal'] = 0;
 
+        (new Mail())->purchaseDetails($user->getEmail(), $purchase_data_for_email);
+        
+        // $_SESSION['purchase_data'] = $purchase_data_for_email;         
         // Variable en sesión utilizada por success()
         $_SESSION['purchase_success'] = 'true';
-
-        // Preparación de datos para envio de email
-        $purchase_data_for_email = [
-            'items' => $items,
-            'total' => $total,
-            'id_purchase' => $id_purchase,
-            'purchase_date' => $purchase_date,
-            'name' => $user->getName()
-        ]
-        // $_SESSION['purchase_data'] = $purchase_data_for_email;         
-        (new Mail())->purchaseDetails($user->getEmail(), $purchase_data_for_email);
 
         $this->redirect('/purchases/success');
     }
