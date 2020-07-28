@@ -163,11 +163,12 @@ class Purchases extends \app\controllers\Authentication
             $items[$key]['id_ticket'] = $id;
         }
 
-        $total = $_SESSION['tptickets_subtotal'];
+        $total = $_SESSION['tptickets_total'];
         
         // Resetear el carro de compra
         unset($_SESSION['tptickets_items']);
         unset($_SESSION['tptickets_subtotal']);
+        unset($_SESSION['tptickets_total']);
 
         $_SESSION['tptickets_items'] = [];
         $_SESSION['tptickets_subtotal'] = 0;
