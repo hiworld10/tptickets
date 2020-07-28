@@ -10,7 +10,7 @@ use \Exception;
 class SeatTypeDAO implements IDAO
 {
     private $connection;
-    private $tableName = "seat_type";
+    private $tableName = "seat_types";
 
     public function __construct()
     {

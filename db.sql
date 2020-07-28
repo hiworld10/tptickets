@@ -135,8 +135,8 @@ INSERT INTO `places_events` (`id_place_event`, `id_calendar`, `capacity`, `descr
 DROP TABLE IF EXISTS `purchases`;
 CREATE TABLE `purchases` (
   `id_purchase` int(11) NOT NULL,
-  `id_client` int(11) NOT NULL,
-  `total` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `total` double NOT NULL,
   `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -145,17 +145,17 @@ CREATE TABLE `purchases_lines` (
   `id_purchase_line` int(11) NOT NULL,
   `id_event_seat` int(11) NOT NULL,
   `id_purchase` int(11) NOT NULL,
-  `quantity` double NOT NULL,
-  `price` int(11) NOT NULL
+  `quantity` int NOT NULL,
+  `price` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `seat_type`;
-CREATE TABLE `seat_type` (
+DROP TABLE IF EXISTS `seat_types`;
+CREATE TABLE `seat_types` (
   `id_seat_type` int(11) NOT NULL,
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `seat_type` (`id_seat_type`, `description`) VALUES
+INSERT INTO `seat_types` (`id_seat_type`, `description`) VALUES
 (1, 'Campo'),
 (2, 'Campo VIP'),
 (3, 'Platea'),
@@ -218,14 +218,14 @@ ALTER TABLE `places_events`
 
 ALTER TABLE `purchases`
   ADD PRIMARY KEY (`id_purchase`),
-  ADD KEY `id_client` (`id_client`);
+  ADD KEY `id_user` (`id_user`);
 
 ALTER TABLE `purchases_lines`
   ADD PRIMARY KEY (`id_purchase_line`),
   ADD KEY `id_event_seat` (`id_event_seat`),
   ADD KEY `id_purchase` (`id_purchase`);
 
-ALTER TABLE `seat_type`
+ALTER TABLE `seat_types`
   ADD PRIMARY KEY (`id_seat_type`);
 
 ALTER TABLE `tickets`
@@ -264,7 +264,7 @@ ALTER TABLE `purchases`
 ALTER TABLE `purchases_lines`
   MODIFY `id_purchase_line` int(11) NOT NULL AUTO_INCREMENT;
 
-ALTER TABLE `seat_type`
+ALTER TABLE `seat_types`
   MODIFY `id_seat_type` int(11) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `tickets`
@@ -283,13 +283,13 @@ ALTER TABLE `calendars`
 
 ALTER TABLE `event_seats`
   ADD CONSTRAINT `event_seat_ibfk_1` FOREIGN KEY (`id_calendar`) REFERENCES `calendars` (`id_calendar`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `event_seat_ibfk_2` FOREIGN KEY (`id_seat_type`) REFERENCES `seat_type` (`id_seat_type`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `event_seat_ibfk_2` FOREIGN KEY (`id_seat_type`) REFERENCES `seat_types` (`id_seat_type`) ON UPDATE CASCADE;
 
 ALTER TABLE `places_events`
   ADD CONSTRAINT `places_events_ibfk_1` FOREIGN KEY (`id_calendar`) REFERENCES `calendars` (`id_calendar`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `purchases`
-  ADD CONSTRAINT `purchases_ibfk_2` FOREIGN KEY (`id_client`) REFERENCES `users` (`id_user`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `purchases_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`) ON UPDATE CASCADE;
 
 ALTER TABLE `purchases_lines`
   ADD CONSTRAINT `purchases_lines_ibfk_1` FOREIGN KEY (`id_event_seat`) REFERENCES `event_seats` (`id_event_seat`) ON UPDATE CASCADE,

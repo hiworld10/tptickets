@@ -93,7 +93,7 @@ class Purchases extends \app\controllers\Authentication
 
         // Caso contrario, continuar
         $purchase_data = [
-            'id_client' => $user->getId(),
+            'id_user' => $user->getId(),
             'total'     => $purchase_total
         ];
 

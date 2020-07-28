@@ -163,9 +163,9 @@ class PurchaseDAO implements IDAO
     public function create($data)
     {
         try {
-            $query = "INSERT INTO " . $this->tableName . " (id_client, total) VALUES (:id_client, :total)";
+            $query = "INSERT INTO " . $this->tableName . " (id_user, total) VALUES (:id_user, :total)";
 
-            $parameters["id_client"] = $data['id_client'];
+            $parameters["id_user"] = $data['id_user'];
             $parameters["total"] = $data['total'];
 
             $this->connection->executeNonQuery($query, $parameters);
@@ -187,7 +187,7 @@ class PurchaseDAO implements IDAO
 
             foreach ($resultSet as $row) {
                 $purchase_line_arr = $purchase_line_dao->retrieveByPurchaseId($row['id_purchase']);
-                $purchase = new Purchase($row['id_purchase'], $row['id_client'], $row['total'], $row['date'], $purchase_line_arr);
+                $purchase = new Purchase($row['id_purchase'], $row['id_user'], $row['total'], $row['date'], $purchase_line_arr);
                 array_push($purchases, $purchase);
             }
 
@@ -212,7 +212,7 @@ class PurchaseDAO implements IDAO
 
             foreach ($resultSet as $row) {
                 $purchase_line_arr = $purchase_line_dao->retrieveByPurchaseId($row['id_purchase']);
-                $purchase = new Purchase($row['id_purchase'], $row['id_client'], $row['total'], $row['date'], $purchase_line_arr);
+                $purchase = new Purchase($row['id_purchase'], $row['id_user'], $row['total'], $row['date'], $purchase_line_arr);
             }
 
             return $purchase;
@@ -256,9 +256,9 @@ class PurchaseDAO implements IDAO
     public function update($data)
     {
         try {
-            $query = "UPDATE " . $this->tableName . " SET id_client = :id_client, total = :total WHERE id_purchase = :id_purchase";
+            $query = "UPDATE " . $this->tableName . " SET id_user = :id_user, total = :total WHERE id_purchase = :id_purchase";
 
-            $parameters['id_client']   = $data['id_client'];
+            $parameters['id_user']   = $data['id_user'];
             $parameters['id_purchase'] = $data['id_purchase'];
             $parameters['total']       = $data['total'];
 
