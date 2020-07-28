@@ -29,6 +29,13 @@ Código de ticket: <?= $item['id_ticket'] ?>
 
 ---------------------
 <?php endforeach ?>
+<?php if (isset($data['bundle_info'])): ?>
+<?php foreach ($data['bundle_info'] as $value): ?>
+Dto. <?= $value['bundle']->getDescription() . ' (' . $value['bundle']->getDiscount() . '%): -$' . $value['discount_value'] ?>
+
+-----------------------------
+<?php endforeach ?>
+<?php endif ?>
 Total compra: <?= '$' . number_format((float)$data['total'], 2, ',', '.') ?>
 
 ---------------------

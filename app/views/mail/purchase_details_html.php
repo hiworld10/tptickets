@@ -26,6 +26,13 @@
     <p>-----------------------------</p>
 <?php endforeach ?>
 
+<?php if (isset($data['bundle_info'])): ?>
+    <?php foreach ($data['bundle_info'] as $value): ?>
+        <pre><big>Dto. <?= $value['bundle']->getDescription() . ' (' . $value['bundle']->getDiscount() . '%): -$' . $value['discount_value'] ?></big></pre>
+        <p>-----------------------------</p>
+    <?php endforeach ?>
+<?php endif ?>
+
 
 <pre><big>Total compra: <?= '$' . number_format((float)$data['total'], 2, ',', '.') ?></big></pre>
 <p>-----------------------------</p>
