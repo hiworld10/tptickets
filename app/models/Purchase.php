@@ -5,15 +5,15 @@ namespace app\models;
 class Purchase
 {
     private $id;
-    private $client_id;
+    private $user_id;
     private $total;
     private $date;
     private $purchase_line_arr;
 
-    public function __construct($id, $client_id, $total, $date, $purchase_line_arr)
+    public function __construct($id, $user_id, $total, $date, $purchase_line_arr)
     {
         $this->id                = $id;
-        $this->client_id         = $client_id;
+        $this->user_id         = $user_id;
         $this->total             = $total;
         $this->date              = $date;
         $this->purchase_line_arr = $purchase_line_arr;
@@ -39,9 +39,8 @@ class Purchase
         return $this->purchase_line_arr;
     }
 
-    public function getClientId()
+    public function getUserId()
     {
-        return $this->client_id;
+        return $this->user_id;
     }
-
 }

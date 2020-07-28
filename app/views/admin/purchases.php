@@ -19,7 +19,7 @@
                         <?php foreach ($data['purchases'] as $value): ?>
                             <tr>
                                 <td><?= $value->getId() ?></td>
-                                <td><?= $value->getClientId() ?></td>
+                                <td><?= $value->getUserId() ?></td>
                                 <td>
                                     <?php foreach ($value->getPurchaseLineArr() as $purchase_line): ?>
                                         <?php print_r($purchase_line->getId()." - "); ?>  
