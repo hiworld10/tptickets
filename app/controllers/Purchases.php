@@ -177,15 +177,15 @@ class Purchases extends \app\controllers\Authentication
         $_SESSION['purchase_success'] = 'true';
 
         // Preparación de datos para envio de email
-        $purchase_data_for_email['items'] = $items;
-        $purchase_data_for_email['total'] = $total;
-        $purchase_data_for_email['id_purchase'] = $id_purchase;
-        $purchase_data_for_email['purchase_date'] = $purchase_date;
-        $purchase_data_for_email['name'] = $user->getName();
-    
+        $purchase_data_for_email = [
+            'items' => $items,
+            'total' => $total,
+            'id_purchase' => $id_purchase,
+            'purchase_date' => $purchase_date,
+            'name' => $user->getName()
+        ]
         // $_SESSION['purchase_data'] = $purchase_data_for_email;         
-        $mail = new Mail();
-        $mail->purchaseDetails($user->getEmail(), $purchase_data_for_email);
+        (new Mail())->purchaseDetails($user->getEmail(), $purchase_data_for_email);
 
         $this->redirect('/purchases/success');
     }
