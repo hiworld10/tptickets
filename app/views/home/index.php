@@ -11,7 +11,7 @@
                         ¡La forma mas fácil de comprar tus tickets a un solo click!
                     </h1>
 
-                        <form action="<?=  FRONT_ROOT ."/home/search"?>"  method="GET">
+                        <form action="<?=  FRONT_ROOT ."/search"?>"  method="GET">
                             <div class="form-row">
                                 <div class="col-12 col-md-9 mb-2 mb-md-0">
                                     <input type="text" name="q" class="form-control form-control-lg" placeholder="Buscar por evento o artista..." autofocus>
