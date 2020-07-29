@@ -14,7 +14,7 @@
                         <form action="<?=  FRONT_ROOT ."/search"?>"  method="GET">
                             <div class="form-row">
                                 <div class="col-12 col-md-9 mb-2 mb-md-0">
-                                    <input type="text" name="q" class="form-control form-control-lg" placeholder="Buscar por evento o artista..." autofocus>
+                                    <input type="text" name="q" class="form-control form-control-lg" placeholder="Buscar por nombre de evento..." autofocus required>
                                 </div>
                                 <div class="col-12 col-md-3">
                                     <button type="submit" class="btn btn-block btn-lg btn-info">Buscar</button>
