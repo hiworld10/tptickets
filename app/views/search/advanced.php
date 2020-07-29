@@ -9,7 +9,7 @@
                 <form action="<?=  FRONT_ROOT ."/search"?>"  method="GET">
                     <div class="form-row">
                         <div class="col-12 col-md-9 mb-2 mb-md-0 mt-5">
-                            <input type="text" name="q" class="form-control form-control-lg" placeholder="Buscar por evento o artista... " autofocus>
+                            <input type="text" name="q" class="form-control form-control-lg" placeholder="Buscar por evento" autofocus required>
                         </div>
                         <div class="col-12 col-md-3 mt-5">
                             <button type="submit" class="btn btn-block btn-lg btn-info">Buscar</button>
@@ -26,7 +26,7 @@
         <div class="col-4">
             <div>Buscar por Artista</div>
             <br>
-            <form action="">
+            <form action="<?=FRONT_ROOT?>/search/by-artist" method="POST">
                 <select class="form-control" name="id_artist" required>
                     <?php if($data['artists']): ?> 
                         <?php foreach ($data['artists'] as $value): ?> 
@@ -42,7 +42,7 @@
         <div class="col-4">
             <div>Buscar por Categoría</div>
             <br>
-            <form action="">
+            <form action="<?=FRONT_ROOT?>/search/by-category" method="POST">
                 <select class="form-control" name="id_category" required>
                     <?php if($data['categories']): ?> 
                         <?php foreach ($data['categories'] as $value): ?> 
@@ -56,9 +56,9 @@
             </form>
         </div>
         <div class="col-4">
-            <form action="">
+            <form action="<?=FRONT_ROOT?>/search/by-date" method="POST">
                 <label class="mb-3" for="">Buscar por Fecha</label>
-                <input type="date"   class="form-control form-control-lg" name="date" placeholder="Ingrese fecha..." required>
+                <input type="date" class="form-control form-control-lg" name="date" required>
                 <button class="btn btn-info mt-4" type="submit">Buscar</button>
             </form>
         </div>

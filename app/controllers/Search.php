@@ -22,7 +22,31 @@ class Search extends \core\Controller
     public function advanced()
     {
         $data['artists'] = $this->artist_dao->retrieveAll();
+
+        //Ordena los resultados por nombre
+        usort($data['artists'], function ($a, $b) {
+            return strcmp($a->getName(), $b->getName());
+        });
+
         $data['categories'] = $this->category_dao->retrieveAll();
         View::render('search/advanced', $data);
+    }
+
+    public function byArtist()
+    {
+        $data['events'] = $this->event_dao->retrieveEventsByArtistId($_POST['id_artist']);
+        View::render('search/index', $data);
+    }
+
+    public function byCategory()
+    {
+        $data['events'] = $this->event_dao->retrieveActiveEventsByCategoryId($_POST['id_category']);
+        View::render('search/index', $data);
+    }
+
+    public function byDate()
+    {
+        $data['events'] = $this->event_dao->retrieveEventsByDate($_POST['date']);
+        View::render('search/index', $data);
     }
 }
