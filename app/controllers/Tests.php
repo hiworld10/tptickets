@@ -3,7 +3,9 @@
 namespace app\controllers;
 
 use app\dao\db\ArtistDAO;
+use app\dao\db\EventDAO;
 use app\dao\db\EventSeatDAO;
+use app\models\Artist;
 use app\models\Calendar;
 use app\models\EventSeat;
 use app\utils\StringUtils;
@@ -84,5 +86,15 @@ class Tests extends \core\Controller
         echo '<pre>';
         print_r((new \app\dao\db\EventDAO())->retrieveActiveEventsByCategoryId($id));
         echo '</pre>';
+    }
+
+    public function unique()
+    {
+        $dao = new EventDAO();
+        echo '<pre>';
+        print_r($dao->retrieveEventsByDate('2020-12-01'));
+        
+        echo '</pre>';
+        
     }
 }
