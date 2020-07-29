@@ -145,8 +145,6 @@ class EventDAO implements IDAO
                 $parameters["id_event"] = $event->getId();
                 $parameters["id_category"] = $id_category;
 
-                $row = $this->connection->execute($query, $parameters);
-
                 $resultSet = $this->connection->execute($query, $parameters);
 
                 foreach ($resultSet as $row) {
@@ -166,6 +164,27 @@ class EventDAO implements IDAO
         } catch (Exception $ex) {
             throw $ex;
         }
+    }
+
+    public function retrieveEventsByDate($date)
+    {
+        $query = "SELECT id_event FROM calendars WHERE date = :date";
+
+        $parameters['date'] = $date;
+
+        $resultSet = $this->connection->execute($query, $parameters);
+        
+        foreach ($resultSet as $row) {
+            $event_ids[] = $row['id_event'];
+        }
+
+        $event_ids = array_unique($event_ids);
+
+        foreach ($event_ids as $id) {
+            $events[] = $this->retrieveById($id);
+        }
+
+        return $events;
     }
 
     public function retrieveById($id)
