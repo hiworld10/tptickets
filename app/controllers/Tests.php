@@ -77,7 +77,12 @@ class Tests extends \core\Controller
         echo '<pre>';
         print_r($purchase_dao->getBundlesWithDiscounts());
         echo '</pre>';
-        
-        
+    }
+
+    public function eventsByCategories($id)
+    {
+        echo '<pre>';
+        print_r((new \app\dao\db\EventDAO())->retrieveActiveEventsByCategoryId($id));
+        echo '</pre>';
     }
 }
