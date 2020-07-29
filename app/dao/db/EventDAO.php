@@ -168,6 +168,9 @@ class EventDAO implements IDAO
 
     public function retrieveEventsByDate($date)
     {
+        $event_ids = [];
+        $events = [];
+
         $query = "SELECT id_event FROM calendars WHERE date = :date";
 
         $parameters['date'] = $date;
