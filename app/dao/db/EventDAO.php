@@ -187,6 +187,41 @@ class EventDAO implements IDAO
         return $events;
     }
 
+    public function retrieveEventsByArtistId($id_artist)
+    {
+        $query = "SELECT id_calendar FROM artists_calendars WHERE id_artist = :id_artist";
+
+        $parameters['id_artist'] = $id_artist;
+
+        $resultSet = $this->connection->execute($query, $parameters);
+
+        foreach ($resultSet as $row) {
+            $calendar_ids[] = $row['id_calendar'];
+        }
+
+        unset($parameters['id_artist']);
+
+        $query = "SELECT id_event FROM calendars WHERE id_calendar = :id_calendar";
+
+        foreach ($calendar_ids as $id) {
+            $parameters['id_calendar'] = $id;
+
+            $resultSet = $this->connection->execute($query, $parameters);
+
+            foreach ($resultSet as $row) {
+                $event_ids[] = $row['id_event'];
+            }
+        }
+
+        $event_ids = array_unique($event_ids);
+
+        foreach ($event_ids as $id) {
+            $events[] = $this->retrieveById($id);
+        }
+
+        return $events;
+    }
+
     public function retrieveById($id)
     {
         try {
