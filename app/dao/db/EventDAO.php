@@ -95,14 +95,14 @@ class EventDAO implements IDAO
     public function retrieveActiveEventsByString($string)
     {
         try {
-
             $events = $this->retrieveAllActive();
 
-            $results     = [];
+            $results = [];
             $category_dao = new CategoryDAO();
             $bundle_dao = new BundleDAO();
 
             $query = "SELECT * FROM events WHERE id_event = :id_event AND name LIKE '%" . $string . "%' ";
+
 
             foreach ($events as $event) {
                 $parameters["id_event"] = $event->getId();
@@ -110,6 +110,7 @@ class EventDAO implements IDAO
                 $row = $this->connection->execute($query, $parameters);
 
                 $resultSet = $this->connection->execute($query, $parameters);
+
                 foreach ($resultSet as $row) {
                     $category = $category_dao->retrieveById($row["id_category"]);
                     $bundle = $bundle_dao->retrieveById($row["id_bundle"]);
@@ -124,7 +125,6 @@ class EventDAO implements IDAO
             }
 
             return $results;
-
         } catch (Exception $ex) {
 
             throw $ex;
