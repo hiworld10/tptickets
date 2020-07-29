@@ -26,15 +26,41 @@
         <div class="col-4">
             <div>Buscar por Artista</div>
             <br>
-            
+            <form action="">
+                <select class="form-control" name="id_artist" required>
+                    <?php if($data['artists']): ?> 
+                        <?php foreach ($data['artists'] as $value): ?> 
+                            <option value="<?= $value->getId() ?>"><?= $value->getName() ?></option> 
+                        <?php endforeach ?>
+                    <?php else: ?>
+                        <option>NO HAY CATEGORIAS</option>
+                    <?php endif ?>
+                </select>
+                <button class="btn btn-info mt-4" type="submit">Buscar</button>
+            </form>
         </div>
         <div class="col-4">
             <div>Buscar por Categoría</div>
             <br>
+            <form action="">
+                <select class="form-control" name="id_category" required>
+                    <?php if($data['categories']): ?> 
+                        <?php foreach ($data['categories'] as $value): ?> 
+                            <option value="<?= $value->getId() ?>"><?= $value->getType() ?></option> 
+                        <?php endforeach ?>
+                    <?php else: ?>
+                        <option>NO HAY CATEGORIAS</option>
+                    <?php endif ?>
+                </select>
+                <button class="btn btn-info mt-4" type="submit">Buscar</button>
+            </form>
         </div>
         <div class="col-4">
-            <div>Buscar por Fecha</div>
-            <br>
+            <form action="">
+                <label class="mb-3" for="">Buscar por Fecha</label>
+                <input type="date"   class="form-control form-control-lg" name="date" placeholder="Ingrese fecha..." required>
+                <button class="btn btn-info mt-4" type="submit">Buscar</button>
+            </form>
         </div>
     </div>
 </div>
