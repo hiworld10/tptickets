@@ -14,6 +14,6 @@ class Search extends \core\Controller
     public function index($string)
     {
         $data['events'] = $this->event_dao->retrieveActiveEventsByString($string);
-        View::render('home/search', $data);
+        View::render('search/index', $data);
     }
 }
