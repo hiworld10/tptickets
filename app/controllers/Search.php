@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\utils\Flash;
 use core\View;
 
 class Search extends \core\Controller
@@ -46,7 +47,12 @@ class Search extends \core\Controller
 
     public function byDate()
     {
-        $data['events'] = $this->event_dao->retrieveEventsByDate($_POST['date']);
-        View::render('search/index', $data);
+        if (strtotime($_POST['date']) < strtotime('now')) {
+            Flash::addMessage('Error: la fecha introducida ya es pasada.', Flash::WARNING);
+            $this->advanced();
+        } else {
+            $data['events'] = $this->event_dao->retrieveEventsByDate($_POST['date']);
+            View::render('search/index', $data);
+        }
     }
 }
