@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace app\controllers;
 
@@ -9,9 +9,9 @@ class Search extends \core\Controller
 {
     public function __construct()
     {
-        $this->event_dao = $this->dao('Event');
-        $this->artist_dao = $this->dao('Artist');  
-        $this->category_dao = $this->dao('Category');  
+        $this->event_dao    = $this->dao('Event');
+        $this->artist_dao   = $this->dao('Artist');
+        $this->category_dao = $this->dao('Category');
     }
 
     public function index($string)
