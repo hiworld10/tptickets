@@ -238,7 +238,32 @@ class PurchaseDAO implements IDAO
         } catch (Exception $ex) {
             throw $ex;
         }
-    }    
+    }
+
+    public function retrieveByUserId($id_user)
+    {
+        try {
+            $purchase_arr = [];
+            $purchase_line_arr = [];
+            $purchase_line_dao = new PurchaseLineDAO();            
+
+            $query = "SELECT * FROM " . $this->tableName . " WHERE id_user = :id_user";
+
+            $parameters["id_user"] = $id_user;
+
+            $resultSet = $this->connection->execute($query, $parameters);
+
+            foreach ($resultSet as $row) {
+                $purchase_line_arr = $purchase_line_dao->retrieveByPurchaseId($row['id_purchase']);
+                $purchase_arr[] = new Purchase($row['id_purchase'], $row['id_user'], $row['total'], $row['date'], $purchase_line_arr);
+
+            }
+
+            return $purchase_arr;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
 
     public function delete($id)
     {
