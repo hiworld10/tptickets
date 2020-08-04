@@ -221,6 +221,25 @@ class PurchaseDAO implements IDAO
         }
     }
 
+    public function retrieveTotal()
+    {
+        try {
+            $total = 0;
+
+            $query = "SELECT total FROM " . $this->tableName;
+
+            $resultSet = $this->connection->execute($query);
+            
+            foreach ($resultSet as $row) {
+                $total += (double)$row['total']; 
+            }
+
+            return $total;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
     public function retrieveLastId()
     {
         try {
@@ -250,6 +269,31 @@ class PurchaseDAO implements IDAO
             $query = "SELECT * FROM " . $this->tableName . " WHERE id_user = :id_user";
 
             $parameters["id_user"] = $id_user;
+
+            $resultSet = $this->connection->execute($query, $parameters);
+
+            foreach ($resultSet as $row) {
+                $purchase_line_arr = $purchase_line_dao->retrieveByPurchaseId($row['id_purchase']);
+                $purchase_arr[] = new Purchase($row['id_purchase'], $row['id_user'], $row['total'], $row['date'], $purchase_line_arr);
+
+            }
+
+            return $purchase_arr;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    public function retrieveByDate($date)
+    {
+        try {
+            $purchase_arr = [];
+            $purchase_line_arr = [];
+            $purchase_line_dao = new PurchaseLineDAO();            
+
+            $query = "SELECT * FROM " . $this->tableName . " WHERE DATE(date) = :date";
+
+            $parameters["date"] = $date;
 
             $resultSet = $this->connection->execute($query, $parameters);
 
