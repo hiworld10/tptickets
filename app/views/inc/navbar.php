@@ -17,7 +17,7 @@
                 <?php if (isset($_SESSION['tptickets_items'])): ?>
                     <a title="Ver carro" class="btn btn-<?= ($_SESSION['tptickets_subtotal'] > 0) ? 'success' : 'secondary'  ?>" style="color: #fafafa" href="<?= FRONT_ROOT ?>/purchases/show-cart">
                     <img src="<?= FRONT_ROOT ?>/img/cart-icon.png" style="height: 23px;" alt="">
-                    <?php echo htmlspecialchars('$' . number_format((float)$_SESSION['tptickets_subtotal'], 2, ',', '')) ?></a>
+                    <?php echo moneyFormat($_SESSION['tptickets_subtotal']) ?></a>
                 <?php endif ?>
                 <?php if (!\app\Auth::isAdmin()): ?>
                     <a class="btn btn-info" href="<?= FRONT_ROOT ?>/users/show-profile">Mi cuenta</a>

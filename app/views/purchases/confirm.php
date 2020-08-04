@@ -15,7 +15,7 @@
                         <big>Fecha: <?php echo htmlspecialchars($item['date']) ?></big><br>
                         <big>Tipo asiento: <?php echo htmlspecialchars($item['seat_type']) ?></big><br>
                         <big>Cantidad: <?php echo htmlspecialchars($item['amount']) ?></big><br>
-                        <big>Precio (c/u): <?php echo htmlspecialchars(number_format($item['subtotal'], 2, ',', '')) ?></big><br>
+                        <big>Precio (c/u): <?php echo moneyFormat($item['subtotal']) ?></big><br>
                     </div>
                 </div>
             </div>
@@ -24,13 +24,13 @@
         <?php if (!empty($data['bundles'])): ?>
             <div class="jumbotron">
                 <div class="alert alert-secondary">
-                    <big><big>Subtotal: $<?php echo htmlspecialchars(number_format($data['subtotal'], 2, ',', '')) ?></big></big>
+                    <big><big>Subtotal: <?php echo moneyFormat($data['subtotal']) ?></big></big>
                 </div>
             </div>
             <div class="jumbotron">
                 <?php foreach ($data['bundles'] as $bundle): ?>
                     <div class="alert alert-success">
-                        <big><big>Dto. Paquete <?php echo $bundle['bundle']->getDescription() . ' (' . $bundle['bundle']->getDiscount() . '%): - $' . number_format($bundle['discount_value'], 2, ',', '') ?></big></big>
+                        <big><big>Dto. Paquete <?php echo $bundle['bundle']->getDescription() . ' (' . $bundle['bundle']->getDiscount() . '%): - ' . moneyFormat($bundle['discount_value']) ?></big></big>
                     </div>
                     <br>
                 <?php endforeach ?>
@@ -39,7 +39,7 @@
 
         <div class="jumbotron">
             <div class="alert alert-primary">
-                <big><big>Total compra: $<?php echo htmlspecialchars(number_format($data['total'], 2, ',', '')) ?></big></big>
+                <big><big>Total compra: <?php echo moneyFormat($data['total']) ?></big></big>
             </div>
         </div>
 

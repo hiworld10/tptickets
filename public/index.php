@@ -18,6 +18,11 @@ require "../vendor/autoload.php";
 require "../../credentials.php";
 
 /**
+ * Incluir funciones utilitarias de manera global
+ */
+require "../app/utils/helper_functions.php";
+
+/**
  * Mostrar errores de PHP
  */
 ini_set('display_errors', 1);

@@ -13,7 +13,7 @@
     					<big>Fecha: <?php echo htmlspecialchars($item['date']) ?></big><br>
                         <big>Tipo asiento: <?php echo htmlspecialchars($item['seat_type']) ?></big><br>
     					<big>Cantidad: <?php echo htmlspecialchars($item['amount']) ?></big><br>
-    					<big>Precio (c/u): <?php echo htmlspecialchars(number_format($item['subtotal'], 2, ',', '')) ?></big><br>
+    					<big>Precio (c/u): <?php echo moneyFormat($item['subtotal']) ?></big><br>
                         <hr>
     					<form name="form" action="<?= FRONT_ROOT ?>/purchases/remove-line" method="POST">
     						<input type="hidden" name="id_event_seat" value="<?= $item['id_event_seat'] ?>">
@@ -24,7 +24,7 @@
     		</div>
     	<?php endforeach ?>
     	<div class="jumbotron">
-    		<big><big>Subtotal de compra: $<?php echo htmlspecialchars(number_format($data['subtotal'], 2, ',', '')) ?></big></big>
+    		<big><big>Subtotal de compra: <?php echo moneyFormat($data['subtotal']) ?></big></big>
             <br>    
             <small>El subtotal NO refleja descuentos por paquetes promocionales.</small>
             <hr>
