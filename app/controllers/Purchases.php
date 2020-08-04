@@ -13,6 +13,7 @@ class Purchases extends \app\controllers\Authentication
     {
         $this->requireUserLogin();
 
+        $this->calendar_dao      = $this->dao('Calendar');
         $this->event_seat_dao    = $this->dao('EventSeat');
         $this->purchase_dao      = $this->dao('Purchase');
         $this->purchase_line_dao = $this->dao('PurchaseLine');
@@ -222,5 +223,38 @@ class Purchases extends \app\controllers\Authentication
         //obtiene $data['items'] y $data['subtotal']
         $data = $this->purchase_dao->prepareCheckoutDetails();
         View::render('purchases/show_cart', $data);
+    }
+
+    public function showHistory()
+    {
+        $data['purchases'] = $this->purchase_dao->retrieveByUserId(Auth::getUser()->getId());
+        View::render('purchases/show_history', $data);
+    }
+
+    public function showPurchaseDetails($purchase_id)
+    {
+        $data['purchase'] = $this->purchase_dao->retrieveById($purchase_id);
+
+        // Prevenir que el usuario pueda ver detalles de compra que no le pertenecen.
+        if ($data['purchase']->getUserId() != Auth::getUser()->getId()) {
+            $this->redirect('/');
+        }
+
+        $data['seat_types'] = [];
+        $data['event_seat_prices'] = [];
+        $data['event_names'] = [];
+        $data['dates'] = [];
+
+        foreach ($data['purchase']->getPurchaseLineArr() as $value) {
+            $event_seat = $this->event_seat_dao->retrieveById($value->getEventSeatId());
+            $calendar = $this->calendar_dao->retrieveById($event_seat->getCalendarId());
+
+            $data['seat_types'][] = $event_seat->getSeatType()->getType();
+            $data['event_seat_prices'][] = $event_seat->getPrice();
+            $data['event_names'][] = $calendar->getEvent()->getName();
+            $data['dates'][] = $calendar->getDate();
+        }
+
+        View::render('purchases/show_purchase_details', $data);
     }
 }

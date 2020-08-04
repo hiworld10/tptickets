@@ -14,6 +14,6 @@
     <a href="<?= FRONT_ROOT ?>/users/edit-profile">Editar perfil</a>
     <br><br>
     <h3>Historial de compras</h3>
-    <a href="#">Ver historial</a>
+    <a href="<?= FRONT_ROOT ?>/purchases/show-history">Ver historial</a>
 </div>
 <?php require FOOTER ?>

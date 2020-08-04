@@ -2,8 +2,9 @@
 
 namespace app\dao\db;
 
-use app\dao\db\Connection;
 use app\dao\IDAO;
+use app\dao\db\Connection;
+use app\dao\db\TicketDAO;
 use app\models\PurchaseLine;
 
 class PurchaseLineDAO implements IDAO
@@ -77,6 +78,7 @@ class PurchaseLineDAO implements IDAO
     {
         try {
             $purchase_lines = [];
+            $ticket_dao = new TicketDAO();
 
             $query = "SELECT * FROM " . $this->tableName . " WHERE id_purchase = :id_purchase";
 
@@ -85,7 +87,8 @@ class PurchaseLineDAO implements IDAO
             $resultSet = $this->connection->execute($query, $parameters);
 
             foreach ($resultSet as $row) {
-                $purchase_lines[] = new PurchaseLine($row['id_purchase_line'], $row['id_event_seat'], $row['id_purchase'], $row['quantity'], $row['price'], null);
+                $ticket = $ticket_dao->retrieveByPurchaseLineId($row['id_purchase_line']);
+                $purchase_lines[] = new PurchaseLine($row['id_purchase_line'], $row['id_event_seat'], $row['id_purchase'], $row['quantity'], $row['price'], $ticket);
             }
 
             return $purchase_lines;
