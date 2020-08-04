@@ -63,9 +63,34 @@ class TicketDAO implements IDAO
         try {
             $ticket = null;
 
-            $query = "SELECT * FROM " . $this->tableName . " ORDER BY id_ticket DESC LIMIT 1";
+            $query = "SELECT * FROM " . $this->tableName . " WHERE id_ticket = :id_ticket";
 
-            $resultSet = $this->connection->execute($query);
+            $parameters['id_ticket'] = $id;
+
+            $resultSet = $this->connection->execute($query, $parameters);
+
+            foreach ($resultSet as $row) {
+                $qr = new QrCode($row['qr']);
+                $qr->setSize(150);
+                $ticket = new Ticket($row["id_ticket"], $row["id_purchase_line"], $row["number"], $qr);
+            }
+
+            return $ticket;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    public function retrieveByPurchaseLineId($id)
+    {
+        try {
+            $ticket = null;
+
+            $query = "SELECT * FROM " . $this->tableName . " WHERE id_purchase_line = :id_purchase_line";
+
+            $parameters['id_purchase_line'] = $id;
+
+            $resultSet = $this->connection->execute($query, $parameters);
 
             foreach ($resultSet as $row) {
                 $qr = new QrCode($row['qr']);
