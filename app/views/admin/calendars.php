@@ -242,7 +242,6 @@
 						<th>Fecha</th>     
 						<th>Evento</th>
 						<th>Artistas</th>   
-						<th>LugarId</th>     
 					</thead>
 					<tbody>
 						<?php foreach ($data['calendars'] as $value): ?>
@@ -255,15 +254,18 @@
 										<?php print_r($v->getName()." - "); ?>	
 									<?php endforeach ?>
 								</td>
-								<td><?= $value->getPlaceEvent()->getId(); ?></td>
+                                <td>
+                                    <a href="<?=FRONT_ROOT?>/admin/calendars/event-seat-details/<?=$value->getId()?>" class="btn btn-block btn-lg btn-info btn-sm">Ver Detalles
+                                    </a>
+                                </td>
+								<td>
+                                    <a href="<?=FRONT_ROOT?>/admin/calendars/edit/<?=$value->getId()?>" class="btn btn-block btn-lg btn-info btn-sm">Editar
+                                    </a>
+								</td>
 								<td>
 									<form action="<?=FRONT_ROOT?>/admin/calendars/delete" method="POST">
 										<button name="iddelete" value="<?= $value->getId();  ?>"id="boton1" type="submit"class="btn btn-block btn-lg btn-danger btn-sm">Eliminar</button>
 									</form>
-								</td>
-								<td>
-                                    <a href="<?=FRONT_ROOT?>/admin/calendars/edit/<?=$value->getId()?>" class="btn btn-block btn-lg btn-info btn-sm">Editar
-                                    </a>
 								</td>
 							</tr>
 						<?php endforeach ?>

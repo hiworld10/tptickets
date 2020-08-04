@@ -204,6 +204,23 @@ class Calendars extends \app\controllers\Authentication
         $this->redirect('/admin/calendars');
     }
 
+    public function eventSeatDetails($calendar_id)
+    {
+        $data['calendar'] = $this->calendar_dao->retrieveById($calendar_id);
+        $data['place_event'] = $this->place_event_dao->retrieveByCalendarId($calendar_id);
+        $event_seats = $this->event_seat_dao->retrieveByCalendarId($calendar_id);
+        $data['event_seats'] = [];
+
+        // Se pretende sólo mostrar aquellos asientos que tengan cantidades mayores a 0 (NO el remanente).
+        foreach ($event_seats as $event_seat) {
+            if ($event_seat->getQuantity() > 0) {
+                $data['event_seats'][] = $event_seat;
+            }
+        }
+
+        View::render('admin/event_seat_details', $data);
+    }
+
     /*Comprueba que la fecha introducida no sea pasada a la actual*/
     private function isBeforeNow($date)
     {
