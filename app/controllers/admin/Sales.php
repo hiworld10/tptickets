@@ -4,10 +4,12 @@ namespace app\controllers\admin;
 
 use core\View;
 
-class Sales extends \core\Controller
+class Sales extends \app\controllers\Authentication
 {
     public function __construct()
     {
+        $this->requireAdminLogin();
+
         $this->purchase_dao      = $this->dao('Purchase');
         $this->category_dao      = $this->dao('Category');
         $this->calendar_dao      = $this->dao('Calendar');
