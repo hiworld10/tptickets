@@ -13,7 +13,7 @@
                         <th>ID Cliente</th>
                         <th>ID Linea(s) Compra</th>
                         <th>Fecha</th>
-                        <!-- <th>Linea compra</th> -->
+                        <th>Total</th>
                     </thead>
                     <tbody>
                         <?php foreach ($data['purchases'] as $value): ?>
@@ -26,6 +26,7 @@
                                     <?php endforeach ?>
                                 </td>
                                 <td><?= $value->getDate() ?></td>
+                                <td><?= $value->getTotal() ?></td>
                             </tr>
                         <?php endforeach ?>
                     </tbody>
