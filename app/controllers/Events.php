@@ -11,6 +11,11 @@ class Events extends \core\Controller
         $this->calendar_dao = $this->dao('Calendar');
     }
 
+    /**
+     * Muestra detalles del evento.
+     * @param  $id_event El ID del evento
+     * @return void
+     */
     public function show($id_event)
     {
         $data['calendars'] = $this->calendar_dao->retrieveByEventId($id_event);

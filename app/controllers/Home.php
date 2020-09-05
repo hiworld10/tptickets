@@ -14,6 +14,11 @@ class Home extends Controller
         $this->event_dao = $this->dao('Event');
     }
 
+    /**
+     * Muestra la página de inicio, que variará dependiendo de si el usuario es 
+     * regular o admin.
+     * @return void
+     */
     public function index()
     {
         if (Auth::isAdmin()) {

@@ -8,6 +8,10 @@ use app\utils\Flash;
 use app\utils\Password;
 use core\View;
 
+/**
+ * Esta clase provee de métodos que son exclusivos en modo admin, así como también 
+ * para usuarios regulares.
+ */
 class Users extends \app\controllers\Authentication
 {
     public function __construct()
@@ -15,6 +19,10 @@ class Users extends \app\controllers\Authentication
         $this->user_dao = $this->dao('User');
     }
 
+    /**
+     * Lista los usuarios registrados en sistema (modo admin).
+     * @return void
+     */
     public function index()
     {
         $this->requireAdminLogin();
@@ -22,6 +30,11 @@ class Users extends \app\controllers\Authentication
         View::render('admin/users', $data);
     }
 
+    /**
+     * Elimina un usuario en sistema (modo admin)
+     * @param  $id El ID del usuario a eliminar
+     * @return void
+     */
     public function delete($id)
     {
         $this->requireAdminLogin();
@@ -38,6 +51,12 @@ class Users extends \app\controllers\Authentication
         $this->redirect('/users');
     }
 
+    /**
+     * Permite la edición de los datos de perfil.
+     * @param  array  $data El arreglo que contiene los datos a editar. Por defecto, 
+     * es vacío
+     * @return void
+     */
     public function editProfile($data = [])
     {
         // La modificación de datos como admin debe hacerse dentro del menú admin
@@ -54,6 +73,13 @@ class Users extends \app\controllers\Authentication
         }
     }
 
+    /**
+     * Permite la edición de los datos de usuario en modo admin.
+     * @param         $id   El ID del usuario a modificar
+     * @param  array  $data El arreglo que contiene los datos a editar. Por defecto, 
+     * es vacío
+     * @return void
+     */
     public function editAsAdmin($id, $data = [])
     {
         $this->requireAdminLogin();
@@ -65,6 +91,13 @@ class Users extends \app\controllers\Authentication
         }
     }
 
+    /**
+     * Función que permite el inicio de sesión de un usuario. Dependiendo de si su 
+     * request es por medio de get o post, muestra la pantalla para introducir las 
+     * credenciales o las verifica en la base de datos, y genera una nueva sesión en 
+     * caso de que sean válidas.
+     * @return void
+     */
     public function login()
     {
         // Permite prevenir que se muestre la vista de login si ya hay un usuario en sesión
@@ -124,12 +157,22 @@ class Users extends \app\controllers\Authentication
         }
     }
 
+    /**
+     * Destruye la presente sesión y redirecciona a la pantalla de inicio.
+     * @return void
+     */
     public function logout()
     {
         Auth::destroySession();
         $this->redirect('/');
     }
 
+    /**
+     * Permite registrar a un nuevo usuario, tanto de manera regular como en modo admin. 
+     * ependiendo de si su request es por medio de get o post, muestra la pantalla para 
+     * introducir los datos de registro o los almacenará en la base de datos.
+     * @return void
+     */
     public function register()
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -224,6 +267,10 @@ class Users extends \app\controllers\Authentication
         }
     }
 
+    /**
+     * Muestra los datos del perfil del usuario.
+     * @return void
+     */
     public function showProfile()
     {
         $this->requireUserLogin();
@@ -238,6 +285,11 @@ class Users extends \app\controllers\Authentication
         }
     }
 
+    /**
+     * Actualiza los datos del usuario.
+     * @param  $id El ID del usuario a actualizar
+     * @return void
+     */
     public function update($id)
     {
         $this->redirectIfRequestIsNotPost('/users');

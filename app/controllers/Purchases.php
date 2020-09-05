@@ -20,6 +20,9 @@ class Purchases extends \app\controllers\Authentication
         $this->ticket_dao        = $this->dao('Ticket');
     }
 
+    /**
+     * Agrega una nuevo ítem al carro en sesión.
+     */
     public function addNewLine()
     {
         $this->redirectIfRequestIsNotPost('/');
@@ -33,6 +36,11 @@ class Purchases extends \app\controllers\Authentication
         }
     }
 
+    /**
+     * Remueve un ítem del carro en sesión.
+     * @param  $id_event_seat El ID del asiento del evento
+     * @return void
+     */
     public function removeLine($id_event_seat)
     {
         $this->redirectIfRequestIsNotPost('/');
@@ -46,12 +54,21 @@ class Purchases extends \app\controllers\Authentication
         }
     }
 
+    /**
+     * Muestra la información de los ítems y pregunta por confirmación de la compra.
+     * @return void
+     */
     public function confirm()
     {
         $data = $this->purchase_dao->prepareCheckoutDetails();
         View::render('purchases/confirm', $data);
     }
 
+    /**
+     * Ejecuta la compra, modificando apropiadamente la información ya existente en la 
+     * base de datos, y generando nuevos registros de compra, líneas de compra y tickets.
+     * @return void
+     */
     public function checkout()
     {
         $this->redirectIfRequestIsNotPost('/');
@@ -193,6 +210,11 @@ class Purchases extends \app\controllers\Authentication
         $this->redirect('/purchases/success');
     }
 
+    /**
+     * Muestra una pantalla indicando que la compra efectuada ha sido exitosa. Esta sólo 
+     * aparece una vez realizada dicha compra.
+     * @return void
+     */
     public function success()
     {   
         if (isset($_SESSION['purchase_success'])) {
@@ -205,6 +227,10 @@ class Purchases extends \app\controllers\Authentication
         $this->redirect('/');
     }
 
+    /**
+     * Vacía todos los ítems del carro de compra en sesión.
+     * @return void
+     */
     public function emptyCart()
     {
         $this->redirectIfRequestIsNotPost('/');
@@ -218,6 +244,10 @@ class Purchases extends \app\controllers\Authentication
         }
     }
 
+    /**
+     * Muestra el carro de compra con sus respectivos ítems.
+     * @return void
+     */
     public function showCart()
     {
         //obtiene $data['items'] y $data['subtotal']
@@ -225,12 +255,21 @@ class Purchases extends \app\controllers\Authentication
         View::render('purchases/show_cart', $data);
     }
 
+    /**
+     * Muestra el historial de compras realizadas por el usuario en sesión.
+     * @return void
+     */
     public function showHistory()
     {
         $data['purchases'] = $this->purchase_dao->retrieveByUserId(Auth::getUser()->getId());
         View::render('purchases/show_history', $data);
     }
 
+    /**
+     * Muestralos detalles de una compra específica del usuario en sesión.
+     * @param  $purchase_id El ID de la compra a detallar
+     * @return void
+     */
     public function showPurchaseDetails($purchase_id)
     {
         $data['purchase'] = $this->purchase_dao->retrieveById($purchase_id);
