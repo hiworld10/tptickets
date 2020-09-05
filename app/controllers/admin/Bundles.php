@@ -11,13 +11,19 @@ class Bundles extends \app\controllers\Authentication
     {
         $this->bundle_dao = $this->dao('bundle');
     }
-
+    /**
+     * Lista los paquetes de descuento en sistema.
+     * @return void
+     */
     public function index()
     {
         $data['bundles'] = $this->bundle_dao->retrieveAll();
         View::render('admin/bundles', $data);
     }
 
+    /**
+     * Agrega un paquete de descuento al sistema.
+     */
     public function add()
     {
         $this->redirectIfRequestIsNotPost('/admin/bundles');
@@ -31,7 +37,11 @@ class Bundles extends \app\controllers\Authentication
         Flash::addMessage('Paquete agregado.');
         $this->redirect('/admin/bundles');
     }
-
+    /**
+     * Permite la edición de datos de un paquete de descuento.
+     * @param  $id El ID del paquete de descuento
+     * @return void
+     */
     public function edit($id)
     {
         $data['bundle'] = $this->bundle_dao->retrieveById($id);
@@ -39,7 +49,11 @@ class Bundles extends \app\controllers\Authentication
             View::render('admin/bundles', $data);
         }
     }
-
+    /**
+     * Actualiza los datos del paquete de descuento.
+     * @param  $id El ID del paquete de descuento
+     * @return void
+     */
     public function update($id)
     {
         $this->redirectIfRequestIsNotPost('/admin/bundles');
@@ -52,7 +66,11 @@ class Bundles extends \app\controllers\Authentication
         Flash::addMessage('Paquete actualizado.');
         $this->redirect('/admin/bundles');
     }
-
+    /**
+     * Elimina un paquete de descuento.
+     * @param  $id El ID del paquete de descuento a eliminar
+     * @return void
+     */
     public function delete($id)
     {
         //Se tendría que agregar una confirmación adicional para eliminar el item, para evitar el borrado accidental.

@@ -12,7 +12,10 @@ class PurchaseLines extends \app\controllers\Authentication
         
         $this->purchase_line_dao = $this->dao('PurchaseLine');
     }
-
+    /**
+     * Lista las líneas de compra en sistema.
+     * @return void
+     */
     public function index()
     {
         $data['purchase_lines'] = $this->purchase_line_dao->retrieveAll();

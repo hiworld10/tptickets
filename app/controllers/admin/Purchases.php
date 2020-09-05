@@ -13,6 +13,10 @@ class Purchases extends \app\controllers\Authentication
         $this->purchase_dao = $this->dao('Purchase');
     }
 
+    /**
+     * Lista las compras en sistema
+     * @return void
+     */
     public function index()
     {
         $data['purchases'] = $this->purchase_dao->retrieveAll();

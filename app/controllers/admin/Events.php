@@ -16,14 +16,19 @@ class Events extends \app\controllers\Authentication
         $this->category_dao = $this->dao('Category');
         $this->bundle_dao = $this->dao('Bundle');
     }
-
+    /**
+     * Lista los eventos en sistema.
+     * @return void
+     */
     public function index()
     {
         $data['events']     = $this->event_dao->retrieveAll();
         $data['categories'] = $this->category_dao->retrieveAll();
         View::render('admin/events', $data);
     }
-
+    /**
+     * Agrega un evento al sistema.
+     */
     public function add()
     {
         $this->redirectIfRequestIsNotPost('/admin/events');
@@ -49,6 +54,10 @@ class Events extends \app\controllers\Authentication
         $this->redirect('/admin/events');
     }
 
+    /**
+     * Permite agregar un paquete de descuento al evento.
+     * @param $id El ID del evento a agregar un paquete de descuento
+     */
     public function addBundle($id)
     {
         $data['event'] = $this->event_dao->retrieveById($id);
@@ -56,6 +65,10 @@ class Events extends \app\controllers\Authentication
         View::render('admin/add_bundle', $data);
     }
 
+    /**
+     * Asigna el paquete de descuento al evento seleccionado.
+     * @param $id El ID del evento a agregar un paquete de descuento
+     */
     public function setBundle($id)
     {
         $this->redirectIfRequestIsNotPost('/admin/events');
@@ -65,7 +78,11 @@ class Events extends \app\controllers\Authentication
         Flash::addMessage('Paquete agregado a evento.');
         $this->redirect('/admin/events');
     }
-
+    /**
+     * Remueve el paquete de descuento del evento seleccionado.
+     * @param  $id El ID del evento a quitar el paquete de descuento
+     * @return void
+     */
     public function unsetBundle($id)
     {
         $this->redirectIfRequestIsNotPost('/admin/events');
@@ -75,7 +92,11 @@ class Events extends \app\controllers\Authentication
         Flash::addMessage('Paquete removido de evento.');
         $this->redirect('/admin/events');
     }
-
+    /**
+     * Permite la edición de datos de un evento.
+     * @param  $id El ID del evento
+     * @return void
+     */
     public function edit($id)
     {
         $data['event']      = $this->event_dao->retrieveById($id);
@@ -85,7 +106,11 @@ class Events extends \app\controllers\Authentication
             View::render('admin/events', $data);
         }
     }
-
+    /**
+     * Actualiza los datos del evento.
+     * @param  $id El ID del evento
+     * @return void
+     */
     public function update($id)
     {
         $this->redirectIfRequestIsNotPost('/admin/events');
@@ -109,7 +134,11 @@ class Events extends \app\controllers\Authentication
         Flash::addMessage('Evento actualizado.');
         $this->redirect('/admin/events');
     }
-
+    /**
+     * Elimina un evento.
+     * @param  $id El ID del evento a eliminar
+     * @return void
+     */
     public function delete($id)
     {
         $this->redirectIfRequestIsNotPost('/admin/events');

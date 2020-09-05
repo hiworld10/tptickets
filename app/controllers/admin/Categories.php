@@ -13,13 +13,18 @@ class Categories extends \app\controllers\Authentication
         
         $this->dao = $this->dao('Category');
     }
-
+    /**
+     * Lista las categorías en sistema.
+     * @return void
+     */
     public function index()
     {
         $data['categories'] = $this->dao->retrieveAll();
         View::render('admin/categories', $data);
     }
-
+    /**
+     * Agrega una categoría al sistema.
+     */
     public function add()
     {
         $this->redirectIfRequestIsNotPost('/admin/categories');
@@ -30,7 +35,11 @@ class Categories extends \app\controllers\Authentication
         Flash::addMessage('Categoría agregada.');
         $this->redirect('/admin/categories');
     }
-
+    /**
+     * Permite la edición de datos de una categoría.
+     * @param  $id El ID de la categoría
+     * @return void
+     */
     public function edit($id)
     {
         $data['category'] = $this->dao->retrieveById($id);
@@ -40,6 +49,11 @@ class Categories extends \app\controllers\Authentication
         }
     }
 
+    /**
+     * Actualiza los datos de la categoría.
+     * @param  $id El ID de la categoría
+     * @return void
+     */
     public function update($id)
     {
 
@@ -53,7 +67,11 @@ class Categories extends \app\controllers\Authentication
         Flash::addMessage('Categoría actualizada.');
         $this->redirect('/admin/categories');
     }
-
+    /**
+     * Elimina una categoría.
+     * @param  $id El ID de la categoría a eliminar
+     * @return void
+     */
     public function delete($id)
     {
         $this->redirectIfRequestIsNotPost('/admin/categories');

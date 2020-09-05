@@ -14,12 +14,19 @@ class Artists extends \app\controllers\Authentication
         $this->artist_dao = $this->dao('Artist');
     }
 
+    /**
+     * Lista los artistas en sistema.
+     * @return void
+     */
     public function index()
     {
         $data['artist_list'] = $this->artist_dao->retrieveAll();
         View::render('admin/artists', $data);
     }
 
+    /**
+     * Agrega un artista al sistema.
+     */
     public function add()
     {
         $this->redirectIfRequestIsNotPost('/admin/artists');
@@ -31,6 +38,11 @@ class Artists extends \app\controllers\Authentication
         $this->redirect('/admin/artists');
     }
 
+    /**
+     * Permite la edición de datos de un artista.
+     * @param  $id El ID del artista
+     * @return void
+     */
     public function edit($id)
     {
         $data['artist'] = $this->artist_dao->retrieveById($id);
@@ -39,6 +51,11 @@ class Artists extends \app\controllers\Authentication
         }
     }
 
+    /**
+     * Actualiza los datos del artista.
+     * @param  $id El ID del artista
+     * @return void
+     */
     public function update($id)
     {
         $this->redirectIfRequestIsNotPost('/admin/artists');
@@ -51,6 +68,11 @@ class Artists extends \app\controllers\Authentication
         $this->redirect('/admin/artists');
     }
 
+    /**
+     * Elimina un artista.
+     * @param  $id El ID del artista a eliminar
+     * @return void
+     */
     public function delete($id)
     {
         //Se tendría que agregar una confirmación adicional para eliminar el item, para evitar el borrado accidental.

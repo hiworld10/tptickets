@@ -17,6 +17,11 @@ class Sales extends \app\controllers\Authentication
         $this->purchase_line_dao = $this->dao('PurchaseLine');
     }
 
+    /**
+     * Lista el total de ventas hasta el día de la fecha y permite seleccionar 
+     * por fecha o categoría.
+     * @return void
+     */
     public function index()
     {
         $data['total_sales'] = $this->purchase_dao->retrieveTotal();
@@ -25,6 +30,11 @@ class Sales extends \app\controllers\Authentication
         View::render('admin/sales', $data);
     }
 
+    /**
+     * Muestra el total de ventas hechas en una fecha específica
+     * @param  $date La fecha del cual se quiere conocer la cantidad de ventas realizadas
+     * @return void
+     */
     public function byDate($date)
     {
         $data['total'] = 0;
@@ -38,6 +48,11 @@ class Sales extends \app\controllers\Authentication
         View::render('admin/sales_by_date', $data);
     }
 
+    /**
+     * Muestra el total de ventas hechas según la categoría de evento.
+     * @param  $id_category El ID de la categoría
+     * @return void
+     */
     public function byCategory($id_category)
     {
         $data['total'] = 0;

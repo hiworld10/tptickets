@@ -12,7 +12,10 @@ class Tickets extends \app\controllers\Authentication
         
         $this->ticket_dao = $this->dao('Ticket');
     }
-
+    /**
+     * Lista los tickets efectuados en sistema.
+     * @return void
+     */
     public function index()
     {
         $data['tickets'] = $this->ticket_dao->retrieveAll();

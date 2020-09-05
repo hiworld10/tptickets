@@ -19,6 +19,10 @@ class Calendars extends \app\controllers\Authentication
         $this->event_seat_dao  = $this->dao('EventSeat');
     }
 
+    /**
+     * Lista los calendarios en sistema.
+     * @return void
+     */
     public function index($data = [])
     {
 
@@ -30,6 +34,9 @@ class Calendars extends \app\controllers\Authentication
         View::render('admin/calendars', $data);
     }
 
+    /**
+     * Agrega un calendario al sistema.
+     */
     public function add()
     {
         $this->redirectIfRequestIsNotPost('/admin/calendars');
@@ -99,7 +106,11 @@ class Calendars extends \app\controllers\Authentication
             $this->redirect('/admin/calendars');
         }
     }
-
+    /**
+     * Actualiza los datos del calendario.
+     * @param  $id El ID del calendario
+     * @return void
+     */
     public function update($id)
     {
 
@@ -183,7 +194,11 @@ class Calendars extends \app\controllers\Authentication
         }
 
     }
-
+    /**
+     * Permite la edición de datos de un calendario.
+     * @param  $id El ID del calendario
+     * @return void
+     */
     public function edit($id)
     {
         $data['calendar']    = $this->calendar_dao->retrieveById($id);
@@ -196,7 +211,11 @@ class Calendars extends \app\controllers\Authentication
             View::render('admin/calendars', $data);
         }
     }
-
+    /**
+     * Elimina un calendario.
+     * @param  $id El ID del calendario a eliminar
+     * @return void
+     */
     public function delete($id)
     {
         $this->redirectIfRequestIsNotPost('/admin/calendars');
@@ -204,6 +223,11 @@ class Calendars extends \app\controllers\Authentication
         $this->redirect('/admin/calendars');
     }
 
+    /**
+     * Provee detalles de los tipos de asiento correspondientes al calendario.
+     * @param  $calendar_id El ID del calendario
+     * @return void
+     */
     public function eventSeatDetails($calendar_id)
     {
         $data['calendar'] = $this->calendar_dao->retrieveById($calendar_id);
