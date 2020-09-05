@@ -23,11 +23,4 @@ class Home extends Controller
             View::render('home/index', $data);
         }
     }
-
-    //busca por nombre artista, nombre evento, lugar
-    public function search($string)
-    {
-        $data['events'] = $this->event_dao->retrieveActiveEventsByString($string);
-        View::render('home/search', $data);
-    }
 }
