@@ -46,7 +46,7 @@ class Calendars extends \app\controllers\Authentication
             $data['id_artist_arr'] = $_POST['id_artist_arr'];
         }
 
-        if ($this->isBeforeNow($data['date'])) {
+        if (strtotime($data['date']) < strtotime('now')) {
             $data['errors']['date_is_before_now'] = "La fecha ya es pasada";
         }
 
@@ -119,7 +119,7 @@ class Calendars extends \app\controllers\Authentication
             $data['id_artist_arr'] = $_POST['id_artist_arr'];
         }
 
-        if ($this->isBeforeNow($data['date'])) {
+        if (strtotime($data['date']) < strtotime('now')) {
             $data['errors']['date_is_before_now'] = "La fecha ya es pasada";
         }
 
@@ -219,11 +219,5 @@ class Calendars extends \app\controllers\Authentication
         }
 
         View::render('admin/event_seat_details', $data);
-    }
-
-    /*Comprueba que la fecha introducida no sea pasada a la actual*/
-    private function isBeforeNow($date)
-    {
-        return (strtotime($date) < strtotime('now'));
     }
 }
