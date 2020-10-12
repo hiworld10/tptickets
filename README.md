@@ -25,7 +25,7 @@ Importar las instrucciones SQL del archivo **db.sql** ubicado en la raíz del re
 
 Se necesita un proveedor de SMTP para el envío correcto de e-mails. De no disponerlo, es posible simular uno localmente mediante [smtp4dev](https://github.com/rnwood/smtp4dev).
 
-Si no se desea hacer uso de esta funcionalidad, dejar comentadas las líneas de código donde se haga uso de ella. (Actualmente, [aquí](https://github.com/hiworld10/tptickets/blob/dev/app/controllers/Users.php#L254)y [aquí](https://github.com/hiworld10/tptickets/blob/dev/app/controllers/Purchases.php#L204).)
+Si no se desea hacer uso de esta funcionalidad, dejar comentadas las líneas de código donde se haga uso de ella. (Actualmente, [aquí](https://github.com/hiworld10/tptickets/blob/dev/app/controllers/Users.php#L254) y [aquí](https://github.com/hiworld10/tptickets/blob/dev/app/controllers/Purchases.php#L204).)
 
 ### Almacenamiento de credenciales
 
