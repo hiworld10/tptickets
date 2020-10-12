@@ -17,6 +17,11 @@ class BundleDAO implements IDAO
         $this->connection = Connection::getInstance();
     }
 
+    /**
+     * Crea y da de alta un paquete.
+     * @param  array $data El arreglo con las propiedades del paquete a crear
+     * @return void
+     */
     public function create($data)
     {
         try {
@@ -28,6 +33,10 @@ class BundleDAO implements IDAO
         }
     }
 
+    /**
+     * Obtiene la lista de los paquetes.
+     * @return array El arreglo de paquetes
+     */
     public function retrieveAll()
     {
         try {
@@ -48,6 +57,11 @@ class BundleDAO implements IDAO
         }
     }
 
+    /**
+     * Obtiene el paquete por id.
+     * @param  int $id El id del paquete a buscar.
+     * @return Bundle el objeto de tipo Bundle
+     */
     public function retrieveById($id)
     {
         try {
@@ -68,7 +82,12 @@ class BundleDAO implements IDAO
             throw $ex;
         }
     }
-
+    
+    /**
+     * Elimina un paquete por id
+     * @param  int $id El id del paquete a eliminar
+     * @return void
+     */
     public function delete($id)
     {
         try {
@@ -82,6 +101,11 @@ class BundleDAO implements IDAO
         }
     }
 
+    /**
+     * Actualiza los datos del paquete.
+     * @param  array $data El arreglo con las propiedades del paquete a actualizar 
+     * @return void
+     */
     public function update($data)
     {
         try {

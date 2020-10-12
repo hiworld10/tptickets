@@ -17,6 +17,11 @@ class ArtistDAO implements IDAO
         $this->connection = Connection::getInstance();
     }
 
+    /**
+     * Crea y da de alta un artista.
+     * @param  array $data El arreglo con las propiedades del artista a crear
+     * @return void
+     */
     public function create($data)
     {
         try {
@@ -30,6 +35,10 @@ class ArtistDAO implements IDAO
         }
     }
 
+    /**
+     * Obtiene la lista de los artistas.
+     * @return array El arreglo de artistas
+     */
     public function retrieveAll()
     {
         try {
@@ -50,6 +59,11 @@ class ArtistDAO implements IDAO
         }
     }
 
+    /**
+     * Obtiene el artista por id.
+     * @param  int $id El id del artista a buscar.
+     * @return Artist el objeto de tipo Artist
+     */
     public function retrieveById($id)
     {
         try {
@@ -71,6 +85,11 @@ class ArtistDAO implements IDAO
         }
     }
 
+    /**
+     * Elimina un artista por id
+     * @param  int $id El id del artista a eliminar
+     * @return void
+     */
     public function delete($id)
     {
         try {
@@ -84,6 +103,11 @@ class ArtistDAO implements IDAO
         }
     }
 
+    /**
+     * Actualiza los datos del artista.
+     * @param  array $data El arreglo con las propiedades del artista a actualizar 
+     * @return void
+     */
     public function update($data)
     {
         try {

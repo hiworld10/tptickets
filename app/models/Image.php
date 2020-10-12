@@ -8,6 +8,12 @@ class Image
 {
     private $path;
 
+    /**
+     * Permite almacenar una imagen correspondiente a un evento.
+     * @param  string $photo  El string correspondiente al nombre de la imagen
+     * @param  string $folder La ruta donde se almacenará la imagen
+     * @return null
+     */
     public function uploadImage($photo, $folder)
     {
         $folders = ["events"];

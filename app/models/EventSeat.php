@@ -53,11 +53,21 @@ class EventSeat
         return $this->quantity;
     }
 
+    /**
+     * Devuelve true o false dependiendo de si el tipo de asiento de evento dispone de 
+     * suficientes asientos para efectuar una compra.
+     * @param  int  $amount la cantidad de asientos a comprar
+     * @return boolean
+     */
     public function hasAvailable($amount)
     {
         return $this->remainder >= $amount;
     }
 
+    /**
+     * Determina si el de tipo de asiento de evento está vendido en su totalidad.
+     * @return boolean
+     */
     public function isSoldOut()
     {
         return $this->remainder <= 0;

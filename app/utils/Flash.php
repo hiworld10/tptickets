@@ -17,6 +17,11 @@ class Flash
     const INFO    = 'info';
     const WARNING = 'warning';
 
+    /**
+     * Agrega un mensaje flash a sesión
+     * @param string $message El contenido del mensaje
+     * @param const $type La constante correspondiente al tipo de mensaje (ver las propiedades más arriba)
+     */
     public static function addMessage($message, $type = 'success')
     {
         //Inicializa el arreglo de mensajes en sesión
@@ -27,6 +32,10 @@ class Flash
         $_SESSION['flash_messages'][] = ['body' => $message, 'type' => $type];
     }
 
+    /**
+     * Obtiene los mensajes almacenados en sesión, los quita de sesión y los retorna.
+     * @return array El arreglo con los mensajes
+     */
     public static function getMessages()
     {
         //Si está seteado el arreglo de mensajes, se almacenan en una variable, se quitan de sesión y se retorna dicha variable
