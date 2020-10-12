@@ -5,12 +5,12 @@
  * Esto es necesario para poder disponer de una base de datos funcional, asi también como
  * para poder enviar e-mails.
  *
- * Para poder hacer uso de ella, copie los contenidos y descoméntelos en un nuevo archivo 
- * .php e inclúyalo en el index.php mediante require().
+ * Para poder hacer uso de ella, copiar los contenidos y descomentarlos en un nuevo archivo 
+ * .php e inclúyalo en el index.php mediante require(). El nombre de este archivo por defecto es 'credentials.php'.
  *
  * JAMAS INCLUIR UN ARCHIVO CON CREDENCIALES COMO PARTE DE UN REPOSITORIO GIT.
- * Utilice un .gitignore apropiadamente.
- * También puede ser preferible ubicar el archivo fuera de la raíz del proyecto.
+ * Ubicar el archivo fuera de la raíz del proyecto, un nivel más arriba del mismo.
+ * También puede ser opcional utilizar un .gitignore apropiadamente.
  */
 
 // Base de datos
