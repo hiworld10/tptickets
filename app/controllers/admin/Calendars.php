@@ -40,17 +40,20 @@ class Calendars extends \app\controllers\Authentication
     public function add()
     {
         $this->redirectIfRequestIsNotPost('/admin/calendars');
-
+        
         $data = [
             'date'        => $_POST['date'],
             'id_event'    => $_POST['id_event'],
             'place_event' => $_POST['place_event'],
             'event_seats' => $_POST['event_seats'],
         ];
+        
         $data['place_event']['description'] = trim($data['place_event']['description']);
 
         if (isset($_POST['id_artist_arr'])) {
             $data['id_artist_arr'] = $_POST['id_artist_arr'];
+        } else {
+            $data['errors']['no_artist_selected'] = "Debe elegir al menos un artista";
         }
 
         if (strtotime($data['date']) < strtotime('now')) {
