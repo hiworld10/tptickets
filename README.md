@@ -8,6 +8,8 @@ Este programa permite, entre otras, las siguientes funcionalidades:
 * Alta, baja y modificación de eventos con sus respectivas fechas (calendarios)
 * Registro y control de ventas efectuadas
 * Envío de e-mails al crear un usuario regular nuevo y al confirmar compras
+* Búsqueda de eventos disponibles por nombre, fecha o categoría
+* Consulta de historial de compras efectuadas por el usuario
 
 ## Setup y requisitos
 
@@ -19,7 +21,9 @@ Una vez instalado, para hacerse de las dependencias, simplemente escribir en la 
 
 ### Base de datos
 
-Importar las instrucciones SQL del archivo **db.sql** ubicado en la raíz del repositorio. *phpmyadmin* es preferible para esto.
+Este programa utiliza MySQL/MariaDB para la persistencia de datos.
+
+Importar las instrucciones del archivo **db.sql** ubicado en la raíz del repositorio. *phpmyadmin* es preferible para esto.
 
 ### Configuración de envío de e-mails
 
