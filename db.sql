@@ -34,13 +34,12 @@ CREATE TABLE `artists_calendars` (
 
 INSERT INTO `artists_calendars` (`id_calendar`, `id_artist`) VALUES
 (1, 1),
-(2, 1),
-(3, 2),
-(3, 3),
-(3, 4),
-(4, 5),
-(4, 6),
-(4, 7);
+(2, 2),
+(2, 3),
+(2, 4),
+(3, 5),
+(3, 6),
+(3, 7);
 
 DROP TABLE IF EXISTS `bundles`;
 CREATE TABLE `bundles` (
@@ -60,10 +59,9 @@ CREATE TABLE `calendars` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `calendars` (`id_calendar`, `date`, `id_event`) VALUES
-(1, '2020-12-01', 1),
-(2, '2020-12-02', 1),
-(3, '2021-07-31', 2),
-(4, '2021-08-01', 3);
+(1, '2021-02-01', 1),
+(2, '2021-08-01', 2),
+(3, '2021-08-02', 3);
 
 DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories` (
@@ -73,22 +71,23 @@ CREATE TABLE `categories` (
 
 INSERT INTO `categories` (`id_category`, `type`) VALUES
 (1, 'Concierto'),
-(2, 'Obra Teatral');
+(2, 'Festival'),    
+(3, 'Obra Teatral');
 
 DROP TABLE IF EXISTS `events`;
 CREATE TABLE `events` (
   `id_event` int(11) NOT NULL,
-  `name` varchar(60) NOT NULL,
+  `name` varchar(255) NOT NULL,
   `id_category` int(11) NOT NULL,
-  `image` varchar(60) NOT NULL,
+  `image` varchar(255) NOT NULL,
   `id_bundle` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `events` (`id_event`, `name`, `id_category`, `image`, `id_bundle`) VALUES
 (1, 'Luis Miguel en Argentina', 1, 'http://localhost/tptickets/img/default_event_img.png', NULL),
-(2, 'Woodstock 2021 - Día 1', 1, 'http://localhost/tptickets/img/default_event_img.png', 1),
-(3, 'Woodstock 2021 - Día 2', 1, 'http://localhost/tptickets/img/default_event_img.png', 1),
-(4, 'Una Obra Teatral Cualquiera', 2, 'http://localhost/tptickets/img/default_event_img.png', NULL);
+(2, 'Woodstock 2021 - Día 1', 2, 'http://localhost/tptickets/img/default_event_img.png', 1),
+(3, 'Woodstock 2021 - Día 2', 2, 'http://localhost/tptickets/img/default_event_img.png', 1),
+(4, 'Una Obra Teatral Cualquiera', 3, 'http://localhost/tptickets/img/default_event_img.png', NULL);
 
 DROP TABLE IF EXISTS `event_seats`;
 CREATE TABLE `event_seats` (
@@ -105,18 +104,14 @@ INSERT INTO `event_seats` (`id_event_seat`, `id_calendar`, `id_seat_type`, `quan
 (2, 1, 2, 5000, 1500, 5000),
 (3, 1, 3, 4000, 2000, 4000),
 (4, 1, 4, 1000, 3000, 1000),
-(5, 2, 1, 10000, 1000, 10000),
-(6, 2, 2, 5000, 1500, 5000),
-(7, 2, 3, 4000, 2000, 4000),
-(8, 2, 4, 1000, 3000, 1000),
+(5, 2, 1, 50000, 2000, 50000),
+(6, 2, 2, 0, 0, 0),
+(7, 2, 3, 0, 0, 0),
+(8, 2, 4, 0, 0, 0),
 (9, 3, 1, 50000, 2000, 50000),
 (10, 3, 2, 0, 0, 0),
 (11, 3, 3, 0, 0, 0),
-(12, 3, 4, 0, 0, 0),
-(13, 4, 1, 50000, 2000, 50000),
-(14, 4, 2, 0, 0, 0),
-(15, 4, 3, 0, 0, 0),
-(16, 4, 4, 0, 0, 0);
+(12, 3, 4, 0, 0, 0);
 
 DROP TABLE IF EXISTS `places_events`;
 CREATE TABLE `places_events` (
@@ -127,10 +122,9 @@ CREATE TABLE `places_events` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `places_events` (`id_place_event`, `id_calendar`, `capacity`, `description`) VALUES
-(1, 1, 20000, 'Estadio Arena'),
-(2, 2, 20000, 'Estadio Arena'),
-(3, 3, 50000, 'XD Arena'),
-(4, 4, 50000, '');
+(1, 1, 20000, 'Estadio Club'),
+(2, 2, 50000, 'WTF Arena'),
+(3, 3, 50000, 'WTF Arena');
 
 DROP TABLE IF EXISTS `purchases`;
 CREATE TABLE `purchases` (
