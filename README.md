@@ -17,7 +17,7 @@ Este programa permite, entre otras, las siguientes funcionalidades:
 
 Este programa precisa instalar dependencias mediante [composer](https://getcomposer.org).
 
-Una vez instalado, para hacerse de las dependencias, simplemente escribir en la ventana de comandos `composer install`. Consultar la documentación en la página oficial para más detalles.
+Una vez instalado, para hacerse de las dependencias, simplemente abrir una ventana de comandos en la ubicación raíz del proyecto y escribir `composer install`. Consultar la documentación en la página oficial para más detalles.
 
 ### Base de datos
 
@@ -33,7 +33,7 @@ Si no se desea hacer uso de esta funcionalidad, dejar comentadas las líneas de 
 
 ### Almacenamiento de credenciales
 
-**Importante**: este programa está configurado para levantar la información correspondiente a las credenciales de base de datos y de proveedor de SMTP *fuera* del directorio raíz, más especificamente un directorio por encima del mismo, con el fin de evitar realizar commits con dicha información presente. Ver [aquí](https://github.com/hiworld10/tptickets/blob/dev/app/config/credentials_template.php) para instrucciones.
+**Importante**: este programa está configurado para levantar la información correspondiente a las credenciales de base de datos y de proveedor de SMTP *fuera* del directorio raíz del proyecto, más especificamente un directorio por encima del mismo, con el fin de evitar realizar commits con dicha información presente. Ver [aquí](https://github.com/hiworld10/tptickets/blob/dev/app/config/credentials_template.php) para instrucciones.
 
 ### Inicio de sesión
 
