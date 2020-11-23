@@ -362,7 +362,7 @@ class Users extends \app\controllers\Authentication
                 $data['user'] = $this->user_dao->retrieveById($id);
                 View::render('admin/users', $data);
             } else {
-                $this->edit($data);
+                $this->editProfile($data);
             }
         }
     }
