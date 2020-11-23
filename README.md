@@ -19,6 +19,26 @@ Este programa precisa instalar dependencias mediante [composer](https://getcompo
 
 Una vez instalado, para hacerse de las dependencias, simplemente abrir una ventana de comandos en la ubicación raíz del proyecto y escribir `composer install`. Consultar la documentación en la página oficial para más detalles.
 
+### Configuración del servidor Apache
+
+TPTickets utiliza archivos de tipo **.htacccess**. Estos sólo pueden ser utilizados configurando el archivo **httpd.conf** de la siguiente manera:
+
+* Descomentando o incluyendo el módulo *mod_rewrite*, de modo tal que se vea así:
+
+```LoadModule rewrite_module modules/mod_rewrite.so```
+
+* En el DocumentRoot, la opción AllowOverride debe estar en "All". Debería verse así:
+
+```
+DocumentRoot "[La ruta del directorio raíz del servidor]"
+<Directory "[La ruta del directorio raíz del servidor]">
+    [otras configuraciones]
+
+    AllowOverride All
+    
+    [otras configuraciones]
+</Directory>```
+
 ### Base de datos
 
 Este programa utiliza MySQL/MariaDB para la persistencia de datos.
