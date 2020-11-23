@@ -85,7 +85,7 @@
                             <tr>
                                 <td><?= $value->getId(); ?></td>
                                 <td><?= $value->getName(); ?></td>
-                                <td><?= $value->getCategory()->getId(); ?></td>
+                                <td><?= $value->getCategory()->getType(); ?></td>
                                 <td><img src="<?= $value->getImage()->getPath() ?>" height="100" width="100"/></td>
                                 <td>    
                                     <a href="<?=FRONT_ROOT?>/admin/events/add-bundle/<?=$value->getId()?>" class="btn btn-block btn-lg <?= $value->getBundle() ? 'btn-primary' : 'btn-outline-primary' ?> btn-sm">Paquete</a>
