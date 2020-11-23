@@ -21,7 +21,7 @@
                         <select class="form-control" name="category" required>
                             <?php if($data['categories']): ?> 
                                 <?php foreach ($data['categories'] as $key => $value): ?> 
-                                    <option value="<?= $value->getId(); ?>"><?= $value->getType(); ?></option> 
+                                    <option value="<?= $value->getId(); ?>" <?= ($value->getId() == $data['event']->getId()) ? 'selected' : '' ?>><?= $value->getType(); ?></option> 
                                 <?php endforeach ?>
                             <?php else: ?>
                                 <option>NO HAY CATEGORIAS</option>
