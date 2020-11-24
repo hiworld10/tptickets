@@ -37,7 +37,8 @@ DocumentRoot "[La ruta del directorio raíz del servidor]"
     AllowOverride All
     
     [otras configuraciones]
-</Directory>```
+</Directory>
+```
 
 ### Base de datos
 
