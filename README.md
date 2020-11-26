@@ -40,6 +40,14 @@ DocumentRoot "[La ruta del directorio raíz del servidor]"
 </Directory>
 ```
 
+### Ubicación del proyecto en relación al DocumentRoot
+
+Para su correcto funcionamiento, este programa debe estar ubicado en su propio directorio, en relación con el directorio raíz del servidor web.
+
+De este modo, la URL debería verse de este modo:
+
+`http://localhost/tptickets`
+
 ### Base de datos
 
 Este programa utiliza MySQL/MariaDB para la persistencia de datos.
