@@ -134,13 +134,13 @@ class EventSeatDAO implements IDAO
         }
     }
 
-    public function updateRemainder($id_event_seat, $remainder)
+    public function updateRemainder($id_event_seat, $amount)
     {
         try {
-            $query = "UPDATE " . $this->tableName . " SET remainder = remainder - :remainder WHERE id_event_seat = :id_event_seat";
+            $query = "UPDATE " . $this->tableName . " SET remainder = remainder - :amount WHERE id_event_seat = :id_event_seat";
 
             $parameters["id_event_seat"] = $id_event_seat;
-            $parameters["remainder"]     = $remainder;
+            $parameters["amount"]        = $amount;
 
             $this->connection->executeNonQuery($query, $parameters);
         } catch (Exception $ex) {
