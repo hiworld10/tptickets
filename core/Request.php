@@ -2,8 +2,8 @@
 
 namespace core;
 
-class Request {
-
+class Request
+{
     private $controller;
     private $method;
     private $parameters;

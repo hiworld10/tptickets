@@ -5,10 +5,10 @@ namespace core;
 use app\utils\StringUtils;
 
 /**
- * Main front controller for the MVC. Routes the provided URL and calls the appropriate controller and method.
+ * Enruta la URL proveída y llama a la controladora apropiada junto con su método.
  */
-class Router {
-
+class Router
+{
     public function __construct(Request $request) {
 
         $controller = $request->getController();
@@ -49,4 +49,3 @@ class Router {
     }
 }
 
- ?> 

@@ -10,6 +10,12 @@ use app\utils\Flash;
  */
 abstract class Controller
 {
+    /**
+     * Instancia un DAO. Su tipo dependerá del parámetro pasado
+     * @param  string $dao El tipo de DAO a instanciar (ej. para instanciar un 
+     * ArtistDAO, el string debe ser 'Artist')
+     * @return La instancia del DAO
+     */
     protected function dao($dao)
     {
         $dao       = StringUtils::convertToStudlyCaps($dao) . 'DAO';
@@ -21,23 +27,22 @@ abstract class Controller
         }
     }
 
-    public function model($model)
-    {
-        $model     = StringUtils::convertToStudlyCaps($model);
-        $namespace = 'app\models\\';
-        $file      = '../app/models/' . $model . '.php';
-        if (file_exists($file)) {
-            $class = $namespace . $model;
-            return new $class;
-        }
-    }
-
+    /**
+     * Redirecciona a un URL específico
+     * @param  string $url La url a redireccionar. Por defecto, es la pantalla de home
+     * @return void
+     */
     protected function redirect($url = '/')
     {
         header('Location: ' . FRONT_ROOT . $url, true, 303);
         exit;
     }
 
+    /**
+     * Previene entrar a una url si el request no es mediante POST
+     * @param  string $url La url a redireccionar. Por defecto, es la pantalla de home
+     * @return
+     */
     protected function redirectIfRequestIsNotPost($url = '/')
     {
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
@@ -45,13 +50,12 @@ abstract class Controller
         }
     }
 
-    protected function redirectIfNoArgsArePassed($func_num_args, $url = '')
-    {
-        if (func_num_args() === 0) {
-            $this->redirect($url);
-        }
-    }
-
+    /**
+     * Maneja una posible excepción al intentar borrar un registro en la base de datos que está ligado a otros (Ej. un usuario que ya tiene compras registradas)
+     * @param  DAO $dao El DAO que accede a una tabla de la base de datos
+     * @param  int $id  El id del registro a eliminar
+     * @return void
+     */
     protected function handleDeleteCascadeConstraint($dao, $id)
     {
         try {

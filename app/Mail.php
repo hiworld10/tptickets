@@ -10,7 +10,12 @@ class Mail
 {
     private $mail;
 
-    // Preparación inicial del mail
+    /**
+     * Preparación inicial del email
+     * @param  string $to      La dirección de email del destinatario
+     * @param  string $subject El asunto del email
+     * @return void
+     */
     private function prepare($to, $subject)
     {
         $this->mail = new PHPMailer(true);
@@ -50,18 +55,32 @@ class Mail
         $this->mail->Subject = $subject;
 
     }
-
+    /**
+     * Agrega un cuerpo de texto al email
+     * @param string $html El cuerpo de texto en versión HTML
+     * @param string $text El cuerpo de texto en versión plano
+     */
     private function addBody($html, $text)
     {
         $this->mail->Body    = $html;
         $this->mail->AltBody = $text;
     }
 
+    /**
+     * Permite adjuntar un archivo al email
+     * @param string $attachment La ruta correspondiente al archivo a adjuntar
+     */
     private function addAttachment($attachment)
     {
         $this->mail->addAttachment($attachment); //es opcional un nuevo nombre de archivo
     }
 
+    /**
+     * Permite añadir un embed de una imagen en el email. Esta función es utilizada con el fin de subir imágenes de código qr.
+     * @param string $embedded_image El string corrspondiente a la codigo qr a subir a modo imágen
+     * @param string $cid            El código único identificador de la imagen
+     * @param string $alt_name       El nombre alternativo que se le dará la imagen si el $cid llega a fallar
+     */
     private function addStringEmbeddedImage($embedded_image, $cid, $alt_name)
     {
         $this->mail->addStringEmbeddedImage($embedded_image, $cid, $alt_name);
@@ -76,6 +95,12 @@ class Mail
         }
     }
 
+    /**
+     * Envía un mensaje de bienvenida a un usuario registrado.
+     * @param  string $to   La dirección de email del destinatario
+     * @param  array $data Los datos requeridos para la composición del email
+     * @return void
+     */
     public function sendWelcomeMessage($to, $data)
     {
         $this->prepare($to, 'Bienvenido a TPTickets');
@@ -86,6 +111,12 @@ class Mail
         $this->send();
     }
 
+    /**
+     * Envía un email listando los detalles de la compra realizada.
+     * @param  string $to   La dirección de email del destinatario
+     * @param  array $data Los datos requeridos para la composición del email
+     * @return void
+     */
     public function purchaseDetails($to, $data)
     {
         $this->prepare($to, 'Detalles de compra');
