@@ -17,19 +17,28 @@ class SeatTypeDAO implements IDAO
         $this->connection = Connection::getInstance();
     }
 
-    public function create($seat_type)
+    /**
+     * Crea y da de alta un tipo de asiento.
+     * @param  array $data El arreglo con las propiedades del tipo de asiento a crear
+     * @return void
+     */
+    public function create($data)
     {
         try {
             $query = "INSERT INTO " . $this->tableName . " (description) VALUES (:description);";
 
-            $parameters["description"] = $seat_type['description'];
+            $parameters["description"] = $data['description'];
 
             $this->connection->executeNonQuery($query, $parameters);
         } catch (Exception $ex) {
             throw $ex;
         }
     }
-
+    
+    /**
+     * Obtiene la lista de los tipos de asientos.
+     * @return array El arreglo de tipos de asientos
+     */
     public function retrieveAll()
     {
         try {
@@ -49,7 +58,12 @@ class SeatTypeDAO implements IDAO
             throw $ex;
         }
     }
-
+    
+    /**
+     * Obtiene el tipo de asiento por id.
+     * @param  int $id El id del tipo de asiento a buscar.
+     * @return SeatType el objeto de tipo SeatType
+     */
     public function retrieveById($id)
     {
         try {
@@ -70,7 +84,12 @@ class SeatTypeDAO implements IDAO
             throw $ex;
         }
     }
-
+    
+    /**
+     * Elimina un tipo de asiento por id
+     * @param  int $id El id del tipo de asiento a eliminar
+     * @return void
+     */
     public function delete($id)
     {
         try {
@@ -84,13 +103,18 @@ class SeatTypeDAO implements IDAO
         }
     }
 
-    public function update($seat_type)
+    /**
+     * Actualiza los datos del tipo de asiento.
+     * @param  array $data El arreglo con las propiedades del tipo de asiento a actualizar 
+     * @return void
+     */
+    public function update($data)
     {
         try {
             $query = "UPDATE " . $this->tableName . " SET description = :description WHERE id_seat_type = :id_seat_type";
 
-            $parameters["id_seat_type"] = $seat_type['id_seat_type'];
-            $parameters["description"]  = $seat_type['description'];
+            $parameters["id_seat_type"] = $data['id_seat_type'];
+            $parameters["description"]  = $data['description'];
 
             $this->connection->executeNonQuery($query, $parameters);
         } catch (Exception $ex) {

@@ -18,24 +18,33 @@ class TicketDAO implements IDAO
         $this->connection = Connection::getInstance();
     }
 
-    public function create($ticket)
+    /**
+     * Crea y da de alta un ticket.
+     * @param  array $data El arreglo con las propiedades del ticket a crear
+     * @return void
+     */
+    public function create($data)
     {
         try {
             $query = "INSERT INTO " . $this->tableName . " (id_purchase_line, number) VALUES (:id_purchase_line, :number)";
 
-            $parameters["id_purchase_line"] = $ticket['id_purchase_line'];
-            $parameters["number"]           = $ticket['number'];
+            $parameters["id_purchase_line"] = $data['id_purchase_line'];
+            $parameters["number"]           = $data['number'];
 
             $this->connection->executeNonQuery($query, $parameters);
 
             // Actualiza el contenido del qr añadiendo el id del ticket reciéntemente creado
-            $this->updateQr($this->retrieveLastId(), $ticket['qr']);
+            $this->updateQr($this->retrieveLastId(), $data['qr']);
 
         } catch (Exception $ex) {
             throw $ex;
         }
     }
-
+    
+    /**
+     * Obtiene la lista de los tickets.
+     * @return array El arreglo de tickets
+     */
     public function retrieveAll()
     {
         try {
@@ -57,7 +66,12 @@ class TicketDAO implements IDAO
             throw $ex;
         }
     }
-
+    
+    /**
+     * Obtiene el ticket por id.
+     * @param  int $id El id del ticket a buscar.
+     * @return Ticket el objeto de tipo Ticket
+     */
     public function retrieveById($id)
     {
         try {
@@ -123,8 +137,11 @@ class TicketDAO implements IDAO
         }
     }
 
-
-
+    /**
+     * Elimina un ticket por id
+     * @param  int $id El id del ticket a eliminar
+     * @return void
+     */
     public function delete($id)
     {
         try {
@@ -138,15 +155,20 @@ class TicketDAO implements IDAO
         }
     }
 
-    public function update($ticket)
+    /**
+     * Actualiza los datos del ticket.
+     * @param  array $data El arreglo con las propiedades del ticket a actualizar 
+     * @return void
+     */
+    public function update($data)
     {
         try {
             $query = "UPDATE " . $this->tableName . " SET number = :number, qr = :qr, id_purchase_line = :id_purchase_line WHERE id_ticket = :id_ticket";
 
-            $parameters["id_ticket"]        = $ticket['id_ticket'];
-            $parameters["id_purchase_line"] = $ticket['id_purchase_line'];
-            $parameters["number"]           = $ticket['number'];
-            $parameters["qr"]               = $ticket['qr'];
+            $parameters["id_ticket"]        = $data['id_ticket'];
+            $parameters["id_purchase_line"] = $data['id_purchase_line'];
+            $parameters["number"]           = $data['number'];
+            $parameters["qr"]               = $data['qr'];
 
             $this->connection->executeNonQuery($query, $parameters);
         } catch (Exception $ex) {

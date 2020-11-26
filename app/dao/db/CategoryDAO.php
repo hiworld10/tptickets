@@ -17,12 +17,17 @@ class CategoryDAO implements IDAO
         $this->connection = Connection::getInstance();
     }
 
-    public function create($category)
+    /**
+     * Crea y da de alta una categoría.
+     * @param  array $data El arreglo con las propiedades de la categoría a crear
+     * @return void
+     */
+    public function create($data)
     {
         try {
             $query = "INSERT INTO " . $this->tableName . " (type) VALUES (:type)";
 
-            $parameters["type"] = $category['type'];
+            $parameters["type"] = $data['type'];
 
             $this->connection->executeNonQuery($query, $parameters);
         } catch (Exception $ex) {
@@ -30,6 +35,10 @@ class CategoryDAO implements IDAO
         }
     }
 
+    /**
+     * Obtiene la lista de las categorías.
+     * @return array El arreglo de categorías
+     */
     public function retrieveAll()
     {
         try {
@@ -50,6 +59,11 @@ class CategoryDAO implements IDAO
         }
     }
 
+    /**
+     * Obtiene la categoría por id.
+     * @param  int $id El id de la categoría a buscar.
+     * @return Category el objeto de tipo Category
+     */
     public function retrieveById($id)
     {
         try {
@@ -71,6 +85,11 @@ class CategoryDAO implements IDAO
         }
     }
 
+    /**
+     * Elimina una categoría por id
+     * @param  int $id El id de la categoría a eliminar
+     * @return void
+     */
     public function delete($id)
     {
         try {
@@ -83,14 +102,19 @@ class CategoryDAO implements IDAO
             throw $ex;
         }
     }
-
-    public function update($category)
+    
+    /**
+     * Actualiza los datos de la categoría.
+     * @param  array $data El arreglo con las propiedades de la categoría a actualizar 
+     * @return void
+     */
+    public function update($data)
     {
         try {
             $query = "UPDATE " . $this->tableName . " SET type = :type WHERE id_category = :id_category";
 
-            $parameters["id_category"] = $category['id_category'];
-            $parameters["type"]        = $category['type'];
+            $parameters["id_category"] = $data['id_category'];
+            $parameters["type"]        = $data['type'];
 
             $this->connection->executeNonQuery($query, $parameters);
         } catch (Exception $ex) {

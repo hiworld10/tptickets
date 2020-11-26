@@ -19,8 +19,12 @@ class PurchaseDAO implements IDAO
         $this->connection = Connection::getInstance();
     }
 
-    // Shopping cart actions
-     
+    // Acciones de carro de compra
+    
+    /**
+     * Inicializa el carro de compra
+     * @return void
+     */
     public static function initCart()
     {
         // Inicialización de carro de compra
@@ -30,6 +34,11 @@ class PurchaseDAO implements IDAO
         }        
     }
 
+    /**
+     * Agrega un nuevo elemento al carro de compra
+     * @param array $data El arreglo con los datos relevantes del evento para su compra
+     * @return boolean Verdadero o falso dependiendo de si el carro de compra está vacío o no
+     */
     public function addNewLineInSession($data)
     {
         $event_dao = new EventDAO();
@@ -51,6 +60,10 @@ class PurchaseDAO implements IDAO
         return !empty($_SESSION['tptickets_items']) ? true : false;
     }
 
+    /**
+     * Obtiene los paquetes de descuento vigentes con su respectivo porcentaje de descuento
+     * @return array El arreglo con los paquetes y sus descuentos
+     */
     public function getBundlesWithDiscounts()
     {   
         $bundle_ids = [];
@@ -98,6 +111,11 @@ class PurchaseDAO implements IDAO
         return $bundles_with_discount;
     }
 
+    /**
+     * Quita un elemento del carro de compra
+     * @param  int $id_event_seat el id del asiento de evento a quitar del carro
+     * @return boolean verdadero o falso dependiendo de si el elemento fue borrado o no
+     */
     public function removeLineInSession($id_event_seat)
     {
         $deleted = false;
@@ -118,6 +136,10 @@ class PurchaseDAO implements IDAO
         return $deleted;
     }
 
+    /**
+     * Quita todos los elementos del carro de compra
+     * @return boolean verdadero o falso dependiendo de si el elemento fue borrado o no
+     */
     public function removeAllLinesInSession()
     {
         $deleted = false;
@@ -133,6 +155,10 @@ class PurchaseDAO implements IDAO
         return $deleted;
     }
 
+    /**
+     * Prepara los datos a momstrar en la pantalla de confirmación de compra
+     * @return array El arreglo con los detalles a mostrar
+     */
     public function prepareCheckoutDetails()
     {   
         $subtotal = $_SESSION['tptickets_subtotal'];
@@ -158,8 +184,13 @@ class PurchaseDAO implements IDAO
         ];
     }
 
-    // DB access
+    // Acceso a BD
     
+    /**
+     * Crea y da de alta una compra.
+     * @param  array $data El arreglo con las propiedades de la compra a crear
+     * @return void
+     */
     public function create($data)
     {
         try {
@@ -173,7 +204,11 @@ class PurchaseDAO implements IDAO
             throw $ex;
         }
     }
-
+    
+    /**
+     * Obtiene la lista de las compras.
+     * @return array El arreglo de compras
+     */
     public function retrieveAll()
     {
         try {
@@ -196,7 +231,12 @@ class PurchaseDAO implements IDAO
             throw $ex;
         }
     }
-
+    
+    /**
+     * Obtiene la compra por id.
+     * @param  int $id El id de la compra a buscar.
+     * @return Purchase el objeto de tipo Purchase
+     */
     public function retrieveById($id)
     {
         try {
@@ -221,6 +261,10 @@ class PurchaseDAO implements IDAO
         }
     }
 
+    /**
+     * Obtiene el monto total de todas las compras efectuadas.
+     * @return double El monto total
+     */
     public function retrieveTotal()
     {
         try {
@@ -240,6 +284,10 @@ class PurchaseDAO implements IDAO
         }
     }
 
+    /**
+     * Obtiene el id de la ultima compra registrada en el sistema
+     * @return int el id de la ultima compra
+     */
     public function retrieveLastId()
     {
         try {
@@ -259,6 +307,11 @@ class PurchaseDAO implements IDAO
         }
     }
 
+    /**
+     * Obtiene todas las compras hechas por un usuario específico
+     * @param  int $id_user El id del usuario
+     * @return array El arreglo de compras
+     */
     public function retrieveByUserId($id_user)
     {
         try {
@@ -284,6 +337,11 @@ class PurchaseDAO implements IDAO
         }
     }
 
+    /**
+     * Obtiene todas las compras efectuadas en una fecha específica
+     * @param  string $date La fecha
+     * @return array El arreglo de compras
+     */
     public function retrieveByDate($date)
     {
         try {
@@ -308,7 +366,12 @@ class PurchaseDAO implements IDAO
             throw $ex;
         }
     }
-
+    
+    /**
+     * Elimina una compra por id
+     * @param  int $id El id de la compra a eliminar
+     * @return void
+     */
     public function delete($id)
     {
         try {
@@ -322,6 +385,11 @@ class PurchaseDAO implements IDAO
         }
     }
 
+    /**
+     * Actualiza los datos de la compra.
+     * @param  array $data El arreglo con las propiedades de la compra a actualizar 
+     * @return void
+     */
     public function update($data)
     {
         try {

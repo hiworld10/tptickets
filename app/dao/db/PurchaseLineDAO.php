@@ -17,6 +17,11 @@ class PurchaseLineDAO implements IDAO
         $this->connection = Connection::getInstance();
     }
 
+    /**
+     * Crea y da de alta una línea de compra.
+     * @param  array $data El arreglo con las propiedades de la línea de compra a crear
+     * @return void
+     */
     public function create($data)
     {
         try {
@@ -32,7 +37,11 @@ class PurchaseLineDAO implements IDAO
             throw $ex;
         }
     }
-
+    
+    /**
+     * Obtiene la lista de las líneas de compra.
+     * @return array El arreglo de línea de compras
+     */
     public function retrieveAll()
     {
         try {
@@ -52,7 +61,12 @@ class PurchaseLineDAO implements IDAO
             throw $ex;
         }
     }
-
+    
+    /**
+     * Obtiene la línea de compra por id.
+     * @param  int $id El id de la línea de compra a buscar.
+     * @return PurchaseLine el objeto de tipo PurchaseLine
+     */
     public function retrieveById($id)
     {
         try {
@@ -74,6 +88,11 @@ class PurchaseLineDAO implements IDAO
         }
     }
 
+    /**
+     * Obtiene las líneas de compra asociadas a un id de compra
+     * @param  int $id_purchase El id de compra
+     * @return array El arreglo de líneas de compra
+     */
     public function retrieveByPurchaseId($id_purchase)
     {
         try {
@@ -97,6 +116,10 @@ class PurchaseLineDAO implements IDAO
         }
     }    
 
+    /**
+     * Obtiene el id de la última línea de compra en el sistema.
+     * @return int El id de la última línea de commpra
+     */
     public function retrieveLastId()
     {
         try {
@@ -116,6 +139,11 @@ class PurchaseLineDAO implements IDAO
         }        
     }
 
+    /**
+     * Elimina una línea de compra por id
+     * @param  int $id El id de la línea de compra a eliminar
+     * @return void
+     */
     public function delete($id)
     {
         try {
@@ -129,6 +157,11 @@ class PurchaseLineDAO implements IDAO
         }
     }
 
+    /**
+     * Actualiza los datos de la línea de compra.
+     * @param  array $data El arreglo con las propiedades de la línea de compra a actualizar 
+     * @return void
+     */
     public function update($data)
     {
         try {

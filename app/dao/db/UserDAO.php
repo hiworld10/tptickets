@@ -16,18 +16,23 @@ class UserDAO implements IDAO
         $this->connection = Connection::getInstance();
     }    
 
-    public function create($user) {
+    /**
+     * Crea y da de alta un usuario.
+     * @param  array $data El arreglo con las propiedades del usuario a crear
+     * @return void
+     */
+    public function create($data) {
         try {
             $query = "INSERT INTO ".$this->tableName." (email, password, name, surname, is_admin) VALUES (:email, :password, :name, :surname, :is_admin);";
             
-            $parameters["email"] = $user['email'];
-            $parameters["password"] = Password::hash($user['password']);
-            $parameters["name"] = $user['name'];
-            $parameters["surname"] = $user['surname'];
+            $parameters["email"] = $data['email'];
+            $parameters["password"] = Password::hash($data['password']);
+            $parameters["name"] = $data['name'];
+            $parameters["surname"] = $data['surname'];
             
             //conversion de valores para la tabla (admite solo 0 y 1 (tinyint))
-            if (isset($user['is_admin'])) {
-                $parameters["is_admin"] = $this->stringBooleanToTinyInt($user['is_admin']);
+            if (isset($data['is_admin'])) {
+                $parameters["is_admin"] = $this->stringBooleanToTinyInt($data['is_admin']);
             } else {
                 $parameters['is_admin'] = 0;
             }
@@ -38,7 +43,11 @@ class UserDAO implements IDAO
             throw $ex;
         }
     }
-
+    
+    /**
+     * Obtiene la lista de los usuarios.
+     * @return array El arreglo de usuarios
+     */
     public function retrieveAll() {
         try {
             $userList = array();
@@ -60,7 +69,12 @@ class UserDAO implements IDAO
             throw $ex;
         }
     }
-
+    
+    /**
+     * Obtiene el usuario por id.
+     * @param  int $id El id del usuario a buscar.
+     * @return User el objeto de tipo User
+     */
     public function retrieveById($id) {
         try {
             $user = null;
@@ -84,7 +98,12 @@ class UserDAO implements IDAO
         }
     }
 
-     public function retrieveByEmail($email) {
+    /**
+     * Obtiene el usuario por email.
+     * @param  string $email El email del usuario a buscar.
+     * @return User el objeto de tipo User
+     */
+    public function retrieveByEmail($email) {
         try {
             $user = null;
             
@@ -106,9 +125,12 @@ class UserDAO implements IDAO
             throw $ex;
         }
     }
-
-
-
+    
+    /**
+     * Elimina un usuario por id
+     * @param  int $id El id del usuario a eliminar
+     * @return void
+     */
     public function delete($id) {
         try {
             $query = "DELETE FROM ".$this->tableName." WHERE id_user = :id_user";
@@ -122,19 +144,24 @@ class UserDAO implements IDAO
         }            
     }
 
-    public function update($user) {
+    /**
+     * Actualiza los datos del usuario.
+     * @param  array $data El arreglo con las propiedades del usuario a actualizar 
+     * @return void
+     */
+    public function update($data) {
         try {
             $query = "UPDATE ".$this->tableName." SET email = :email, password = :password, name = :name, surname= :surname, is_admin = :is_admin WHERE id_user = :id_user";
             
-            $parameters["id_user"] = $user['id_user'];
-            $parameters["email"] = $user['email'];
-            $parameters["password"] = Password::hash($user['password']);
-            $parameters["name"] = $user['name'];
-            $parameters["surname"] = $user['surname'];
+            $parameters["id_user"] = $data['id_user'];
+            $parameters["email"] = $data['email'];
+            $parameters["password"] = Password::hash($data['password']);
+            $parameters["name"] = $data['name'];
+            $parameters["surname"] = $data['surname'];
             
             //conversion de valores para la tabla (admite solo 0 y 1 (tinyint))
-            if (isset($user['is_admin'])) {
-                $parameters["is_admin"] = $this->stringBooleanToTinyInt($user['is_admin']);
+            if (isset($data['is_admin'])) {
+                $parameters["is_admin"] = $this->stringBooleanToTinyInt($data['is_admin']);
             } else {
                 $parameters['is_admin'] = 0;
             }
@@ -146,18 +173,23 @@ class UserDAO implements IDAO
         }
     }
 
-    public function updateWithoutPassword($user) {
+    /**
+     * Actualiza los datos del usuario sin cambiar la contraseña.
+     * @param  array $data El arreglo con las propiedades del usuario a actualizar 
+     * @return void
+     */
+    public function updateWithoutPassword($data) {
         try {
             $query = "UPDATE ".$this->tableName." SET email = :email, name = :name, surname= :surname, is_admin = :is_admin WHERE id_user = :id_user";
             
-            $parameters["id_user"] = $user['id_user'];
-            $parameters["email"] = $user['email'];
-            $parameters["name"] = $user['name'];
-            $parameters["surname"] = $user['surname'];
+            $parameters["id_user"] = $data['id_user'];
+            $parameters["email"] = $data['email'];
+            $parameters["name"] = $data['name'];
+            $parameters["surname"] = $data['surname'];
             
             //conversion de valores para la tabla (admite solo 0 y 1 (tinyint))
-            if (isset($user['is_admin'])) {
-                $parameters["is_admin"] = $this->stringBooleanToTinyInt($user['is_admin']);
+            if (isset($data['is_admin'])) {
+                $parameters["is_admin"] = $this->stringBooleanToTinyInt($data['is_admin']);
             } else {
                 $parameters['is_admin'] = 0;
             }

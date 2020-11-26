@@ -17,21 +17,30 @@ class PlaceEventDAO implements IDAO
         $this->connection = Connection::getInstance();
     }
 
-    public function create($place_event)
+    /**
+     * Crea y da de alta un lugar de evento.
+     * @param  array $data El arreglo con las propiedades del lugar de evento a crear
+     * @return void
+     */
+    public function create($data)
     {
         try {
             $query = "INSERT INTO " . $this->tableName . " (id_calendar, capacity, description) VALUES ( :id_calendar, :capacity, :description);";
 
-            $parameters["id_calendar"] = $place_event["id_calendar"];
-            $parameters["capacity"]    = $place_event["capacity"];
-            $parameters["description"] = $place_event["description"];
+            $parameters["id_calendar"] = $data["id_calendar"];
+            $parameters["capacity"]    = $data["capacity"];
+            $parameters["description"] = $data["description"];
 
             $this->connection->executeNonQuery($query, $parameters);
         } catch (Exception $ex) {
             throw $ex;
         }
     }
-
+    
+    /**
+     * Obtiene la lista de los lugares de eventos.
+     * @return array El arreglo de lugares de eventos
+     */
     public function retrieveAll()
     {
         try {
@@ -51,7 +60,12 @@ class PlaceEventDAO implements IDAO
             throw $ex;
         }
     }
-
+    
+    /**
+     * Obtiene el lugar de evento por id.
+     * @param  int $id El id del lugar de evento a buscar.
+     * @return PlaceEvent el objeto de tipo PlaceEvent
+     */
     public function retrieveById($id)
     {
         try {
@@ -73,6 +87,11 @@ class PlaceEventDAO implements IDAO
         }
     }
 
+    /**
+     * Obtiene el lugar de evento por id de calendario
+     * @param  int $calendarId El id de calendario
+     * @return PlaceEvent el objeto de tipo PlaceEvent
+     */
     public function retrieveByCalendarId($calendarId)
     {
         try {
@@ -93,7 +112,12 @@ class PlaceEventDAO implements IDAO
             throw $ex;
         }
     }
-
+    
+    /**
+     * Elimina un lugar de evento por id
+     * @param  int $id El id del lugar de evento a eliminar
+     * @return void
+     */
     public function delete($id)
     {
         try {
@@ -107,14 +131,19 @@ class PlaceEventDAO implements IDAO
         }
     }
 
-    public function update($place_event)
+    /**
+     * Actualiza los datos del lugar de evento.
+     * @param  array $data El arreglo con las propiedades del lugar de evento a actualizar 
+     * @return void
+     */
+    public function update($data)
     {
         try {
             $query = "UPDATE " . $this->tableName . " SET capacity = :capacity, description = :description WHERE id_place_event = :id_place_event";
 
-            $parameters["id_place_event"] = $place_event['id_place_event'];
-            $parameters["capacity"]       = $place_event['capacity'];
-            $parameters["description"]    = $place_event['description'];
+            $parameters["id_place_event"] = $data['id_place_event'];
+            $parameters["capacity"]       = $data['capacity'];
+            $parameters["description"]    = $data['description'];
 
             $this->connection->executeNonQuery($query, $parameters);
         } catch (Exception $ex) {

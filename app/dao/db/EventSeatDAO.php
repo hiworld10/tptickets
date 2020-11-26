@@ -18,23 +18,32 @@ class EventSeatDAO implements IDAO
         $this->connection = Connection::getInstance();
     }
 
-    public function create($event_seat)
+    /**
+     * Crea y da de alta un asiento de evento.
+     * @param  array $data El arreglo con las propiedades del asiento de evento a crear
+     * @return void
+     */
+    public function create($data)
     {
         try {
             $query = "INSERT INTO " . $this->tableName . " (quantity, price, id_calendar, id_seat_type, remainder) VALUES (:quantity, :price, :id_calendar, :id_seat_type, :remainder);";
 
-            $parameters["quantity"]     = $event_seat['quantity'];
-            $parameters["price"]        = $event_seat['price'];
-            $parameters["id_calendar"]  = $event_seat['id_calendar'];
-            $parameters["id_seat_type"] = $event_seat['id_seat_type'];
-            $parameters["remainder"]    = $event_seat['remainder'];
+            $parameters["quantity"]     = $data['quantity'];
+            $parameters["price"]        = $data['price'];
+            $parameters["id_calendar"]  = $data['id_calendar'];
+            $parameters["id_seat_type"] = $data['id_seat_type'];
+            $parameters["remainder"]    = $data['remainder'];
 
             $this->connection->executeNonQuery($query, $parameters);
         } catch (Exception $ex) {
             throw $ex;
         }
     }
-
+    
+    /**
+     * Obtiene la lista de los asientos de eventos.
+     * @return array El arreglo de asientos de eventos
+     */
     public function retrieveAll()
     {
         try {
@@ -57,6 +66,11 @@ class EventSeatDAO implements IDAO
         }
     }
 
+    /**
+     * Obtiene el asiento de evento por id.
+     * @param  int $id El id del asiento de evento a buscar.
+     * @return EventSeat el objeto de tipo EventSeat
+     */
     public function retrieveById($id)
     {
         try {
@@ -80,6 +94,11 @@ class EventSeatDAO implements IDAO
         }
     }
 
+    /**
+     * Obtiene los asientos de evento asociados a un id de calendario específico
+     * @param  id $calendarId El id de calendario
+     * @return array             El arreglo de asientos de evento
+     */
     public function retrieveByCalendarId($calendarId)
     {
         try {
@@ -104,6 +123,11 @@ class EventSeatDAO implements IDAO
         }
     }
 
+    /**
+     * Elimina un asiento de evento por id
+     * @param  int $id El id del asiento de evento a eliminar
+     * @return void
+     */
     public function delete($id)
     {
         try {
@@ -117,16 +141,21 @@ class EventSeatDAO implements IDAO
         }
     }
 
-    public function update($event_seat)
+    /**
+     * Actualiza los datos del asiento de evento.
+     * @param  array $data El arreglo con las propiedades del asiento de evento a actualizar 
+     * @return void
+     */
+    public function update($data)
     {
         try {
 
             $query = "UPDATE " . $this->tableName . " SET quantity = :quantity, price = :price, remainder = :remainder WHERE id_event_seat = :id_event_seat";
 
-            $parameters["id_event_seat"] = $event_seat['id_event_seat'];
-            $parameters["quantity"]      = $event_seat['quantity'];
-            $parameters["price"]         = $event_seat['price'];
-            $parameters["remainder"]     = $event_seat['remainder'];
+            $parameters["id_event_seat"] = $data['id_event_seat'];
+            $parameters["quantity"]      = $data['quantity'];
+            $parameters["price"]         = $data['price'];
+            $parameters["remainder"]     = $data['remainder'];
 
             $this->connection->executeNonQuery($query, $parameters);
         } catch (Exception $ex) {
@@ -134,6 +163,12 @@ class EventSeatDAO implements IDAO
         }
     }
 
+    /**
+     * Actualiza el remanente del asiento de evento restándole la cantidad de asientos vendidos en una compra.
+     * @param  int $id_event_seat El id del asiento de evento
+     * @param  int $amount La cantidad a restar en el remanente
+     * @return void
+     */
     public function updateRemainder($id_event_seat, $amount)
     {
         try {
