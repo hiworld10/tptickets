@@ -46,8 +46,7 @@ class Users extends \app\controllers\Authentication
             $this->redirect('/users');
         }
 
-        $this->user_dao->delete($id);
-        Flash::addMessage('Usuario eliminado.');
+        $this->handleDeleteCascadeConstraint($this->user_dao, $id);
         $this->redirect('/users');
     }
 
